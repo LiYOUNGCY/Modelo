@@ -3,13 +3,11 @@
 /public/storage
 Homestead.yaml
 Homestead.json
-.env
+.env*
 
-/public/images
-/tests
-/vendor/
-.env
-.env.production
-
+/public/images/*
+/tests/*
 .idea/*
-.envoydeploy/*
+composer.lock
+package.json
+phpunit.xml
