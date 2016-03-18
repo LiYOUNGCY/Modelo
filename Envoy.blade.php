@@ -9,7 +9,7 @@
 @task('deploy', ['on' => 'web'])
     cd {{ $serverPath }}
     [ -f {{ $localPath }}/.env.production ] && scp {{ $localPath }}/.env.production {{ $ssh }}:{{ $serverPath }}/.env
-    git pull origin
+    git pull
     composer update
     composer dump-autoload --optimize
 @endtask
