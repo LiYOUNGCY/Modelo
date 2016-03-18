@@ -6,9 +6,6 @@ Homestead.json
 .env
 
 /public/images
-/storage/app/*
-/storage/framework/*
-/storage/logs/*
 /tests
 /vendor/
 .env
