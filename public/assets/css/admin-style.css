@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+.image-content {
+
+}
+
+.image-content ul {
+    padding: 0;
+    margin: 0;
+}
+
+.image-content ul li {
+    list-style: none;
+    float: left;
+    padding: .25em .25em;
+    margin: 0 .25em;
+    font-size: 110%;
+    color: dodgerblue;
+    cursor: pointer;
+}
+
+.image-content ul li:hover {
+    background: dodgerblue;
+    color: white;
+}
+
+.remove {
+    float: right;
+    color: #d9534f;
+    cursor: pointer;
+
+    -webkit-transition: color .2s;
+    -moz-transition: color .2s;
+    -ms-transition: color .2s;
+    -o-transition: color .2s;
+    transition: color .2s;
+}
+
+.remove:hover {
+    color: #c9302c;
+}
+
+.alert-message {
+    position: fixed;
+    top: 5em;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    width: 400px;
+    font-size: 150%;
+    color: white;
+    text-align: center;
+    border-radius: .5em;
+    box-shadow: .5em .5em .3em #888888;
+
+    background: #000;
+    opacity: 0;
+    z-index: -99;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    -ms-transition: opacity 0.2s ease-in-out;
+    -o-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.alert-message.success {
+    background: #00CC00;
+    opacity: 1;
+    z-index: 1000;
+}
