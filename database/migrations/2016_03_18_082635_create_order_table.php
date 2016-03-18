@@ -20,7 +20,7 @@ class CreateOrderTable extends Migration
             $table->string('phone', 16);
             $table->string('contact', 16);
             $table->string('address', 128);
-            
+
             $table->float('total');
             $table->string('status');
             $table->timestamp('last_action_at');
