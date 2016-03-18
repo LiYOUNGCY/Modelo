@@ -16,7 +16,7 @@ $ssh = 'root@115.28.229.14';
  *  and that will break the git clone progress,use git protocol and setup a deploy key on your server and SCM service(e.g github repo ->settings->Deploy keys) instead
  * @example 'git@localhost:user/myrepo.git'
  */
-#$repo = 'git@github.com:user/mysite.git';
+$repo = 'git@github.com:Rachez/Modelo.git';
 /**
  * deployment base path
  * @example '/var/www'
