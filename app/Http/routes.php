@@ -57,4 +57,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('production/{alias}', 'ProductionController@show');
     Route::get('buy/{alias}', 'ProductionController@redirect');
     Route::get('buy/{alias}/{colorAlias}', 'ProductionController@buy');
+
+    //cart
+    Route::get('cart/update', 'CartController@add');
+
+    // Order
+    Route::get('order/create', 'OrderController@create');
+
+    // Address
+    Route::get('address/create', 'AddressController@create');
+    Route::get('address/{id}/edit', 'AddressController@edit');
+    
+    Route::post('address/store', 'AddressController@store');
+    Route::post('address/{id}', 'AddressController@update');
 });

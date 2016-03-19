@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Production;
+use App\Model\Production;
 use App\Http\Requests;
-use App\ProductionColor;
-use App\ProductionSize;
+use App\Model\ProductionColor;
+use App\Model\ProductionSize;
+use App\Model\User;
+use App\Model\UserAddress;
 use Illuminate\Http\Request;
 
 class ProductionController extends Controller
@@ -61,6 +63,8 @@ class ProductionController extends Controller
                     $data[$color->alias] = Production::getProduction($color->id);
                 }
 
+                $request->session()->set('prevUrl', $request->url());
+
                 return view('production.buy', [
                     'production' => $production,
                     'colors' => $colors,
@@ -69,6 +73,7 @@ class ProductionController extends Controller
                     'colorPrice' => $productionColor->price,
                     'sizeQuantity' => $size->quantity,
                     'sizeId' => $size_id,
+                    'address' => UserAddress::where('user_id', User::getUser()['id'])->first(),
                 ]);
             }
         } else {

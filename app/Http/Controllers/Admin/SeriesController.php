@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
-use App\Series;
+use App\Model\Series;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
-use App\Image;
-use App\Production;
-use App\ProductionColor;
-use App\ProductionImage;
-use App\ProductionSize;
-use App\Series;
+use App\Model\Image;
+use App\Model\Production;
+use App\Model\ProductionColor;
+use App\Model\ProductionImage;
+use App\Model\ProductionSize;
+use App\Model\Series;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 

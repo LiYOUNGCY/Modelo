@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -126,5 +126,31 @@ class Production extends Model
             ->get();
 
         return $data;
+    }
+
+    public static function get($production_alias, $color_alias, $size_id, $qty)
+    {
+        $query = DB::table('production')
+            ->where('production.alias', '=', $production_alias)
+            ->join('production_color', 'production_color.production_id', '=', 'production.id')
+            ->where('production_color.alias', '=', $color_alias)
+            ->join('production_size', 'production_size.production_color_id', '=', 'production_color.id')
+            ->where('production_size.id', '=', $size_id)
+            ->where('production_size.quantity', '>=', $qty)
+            ->join('image', 'image.id', '=', 'production.cover_id')
+            ->select(
+                'production.id',
+                'production.name',
+                'production.alias',
+                'image.path as cover',
+                'production_color.price',
+                'production_color.id as color_id',
+                'production_color.name as color_name',
+                'production_size.id as size_id',
+                'production_size.name as size_name'
+            )
+            ->first();
+
+        return $query;
     }
 }

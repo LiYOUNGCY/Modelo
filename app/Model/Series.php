@@ -1,27 +1,22 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Image extends Model
+class Series extends Model
 {
-    protected $table = 'image';
+    protected $table = 'series';
 
     protected static $limit = 20;
 
-    /**
-     * @param int $page
-     * @return mixed
-     * @throws \Exception
-     */
     public static function getAll($page = 1)
     {
         if ($page < 1) {
             throw new \Exception();
         }
-        $data = DB::table('image')
+        $data = DB::table('series')
             ->select('*')
             ->skip(($page - 1) * self::$limit)
             ->take(self::$limit)
@@ -32,17 +27,7 @@ class Image extends Model
 
     public static function getAllPage()
     {
-        $count = DB::table('image')->count();
+        $count = DB::table('series')->count();
         return ceil($count / self::$limit);
-    }
-
-    public static function get($id)
-    {
-        $data = DB::table('image')
-            ->where('image.id', '=', $id)
-            ->select('*')
-            ->first();
-
-        return $data;
     }
 }

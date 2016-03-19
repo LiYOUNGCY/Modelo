@@ -69,19 +69,27 @@
                 <div class="total">总计：￥<span id="total">{{ $colorPrice }}</span></div>
                 <div class="cf"></div>
             </div>
-            <div class="info-address">
-                无收货信息
-                <a href="editaddress.html">
-                    <div class="button editaddress">添加收获信息</div>
-                </a>
-            </div>
+
+            @if(empty($address))
+                <div class="info-address">
+                    无收货信息
+                    <a href="{{ url('address/create') }}" class="button editaddress" style="text-decoration:none;">
+                        添加收获信息
+                    </a>
+                </div>
+            @else
+                <div class="info-address">
+                    {{ $address->address }}
+                    <a href="{{ url("address/{$address->id}/edit") }}" class="button editaddress" style="text-decoration:none;">
+                        编辑收获信息
+                    </a>
+                </div>
+            @endif
         </div>
 
-        <div class="button full buy-goods">
-            <a href="javascript:void(0)">
-                确认购买
-            </a>
-        </div>
+        <a id="addCart" class="button full buy-goods" href="javascript:void(0);" style="text-decoration:none;">
+            确认购买
+        </a>
     </div>
 @endsection
 
@@ -89,17 +97,16 @@
     <script>
         $(document).ready(function () {
             var sizes = $('#sizeContainer').find('li');
-            sizes.each(function(i, ele){
-                console.log(ele);
-                $(ele).click(function(){
+            sizes.each(function (i, ele) {
+                $(ele).click(function () {
                     var sizeId = $(this).attr('data-id');
                     var self = $(this);
                     $.ajax({
                         url: '{{ url("ajax/get/quantity") }}/' + sizeId,
-                        success: function(data) {
+                        success: function (data) {
                             console.log(data);
-                            if(data.success == 0) {
-                                sizes.each(function(i, ele){
+                            if (data.success == 0) {
+                                sizes.each(function (i, ele) {
                                     $(ele).removeClass('active');
                                 });
                                 self.addClass('active');
@@ -135,9 +142,35 @@
                 $(this).remove();
             });
 
-            $(".buy-goods").click(function () {
-                showmodal("请添加收货信息");
+            $('#addCart').click(function () {
+                var color_alias = '{{ $colorAlias }}';
+                var production_alias = '{{ $production->alias }}';
+                console.log(color_alias);
+                console.log(production_alias);
+                var quantity = $('#quantity').html();
+                $('#sizeContainer').find('li').each(function (i, ele) {
+                    if ($(ele).hasClass('active')) {
+                        var sizeId = $(ele).attr('data-id');
+                        $.ajax({
+                            url: '{{ url("ajax/get/quantity") }}/' + sizeId,
+                            success: function (data) {
+                                if (data.success == 0) {
+                                    if (data.quantity > 0) {
+                                        window.location.href = '{{ url('cart/update') }}?p='
+                                                + production_alias + '&&c=' + color_alias + '&&s='
+                                                + sizeId + '&&q=' + quantity;
+                                    }
+                                }
+                            }
+                        });
+                        return 0;
+                    }
+                });
             });
+
+//            $(".buy-goods").click(function () {
+//                showmodal("请添加收货信息");
+//            });
 
             function calTotal() {
                 var count = parseInt($("#count").html());
