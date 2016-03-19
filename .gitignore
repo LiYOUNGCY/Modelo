@@ -9,5 +9,3 @@ Homestead.json
 /tests/*
 .idea/*
 composer.lock
-package.json
-phpunit.xml
