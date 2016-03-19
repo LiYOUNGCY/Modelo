@@ -6,6 +6,5 @@ Homestead.json
 .env*
 
 /public/images/*
-/tests/*
 .idea/*
 composer.lock
