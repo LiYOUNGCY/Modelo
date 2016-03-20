@@ -3,8 +3,8 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('test/{id}/{cid}', 'TestController@index');
-    Route::post('test', 'TestController@store');
+    Route::get('test', 'TestController@index');
+//    Route::post('test', 'TestController@store');
 
     Route::group(['prefix' => \Illuminate\Support\Facades\Config::get('constants.route.admin')], function () {
         Route::get('/', function () {
@@ -46,10 +46,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('color/{alias}', 'Admin\ProductionController@destroyColor');
         Route::delete('production/size/{id}', 'Admin\ProductionController@destroySize');
         Route::delete('production/image/{id}', 'Admin\ProductionController@destroyImage');
+
+        //Order
+        Route::get('order', 'Admin\OrderController@index');
     });
 
     //ajax
-    Route::group(['prefix' => 'ajax'], function(){
+    Route::group(['prefix' => 'ajax'], function () {
         Route::post('get/quantity/{id}', 'ProductionController@getQuantityBySize');
     });
 
@@ -63,11 +66,12 @@ Route::group(['middleware' => ['web']], function () {
 
     // Order
     Route::get('order/create', 'OrderController@create');
+    Route::post('order/store', 'OrderController@store');
 
     // Address
     Route::get('address/create', 'AddressController@create');
     Route::get('address/{id}/edit', 'AddressController@edit');
-    
+
     Route::post('address/store', 'AddressController@store');
     Route::post('address/{id}', 'AddressController@update');
 });

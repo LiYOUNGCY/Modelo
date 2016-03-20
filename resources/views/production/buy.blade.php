@@ -58,7 +58,7 @@
                 <div class="cf"></div>
             </div>
             <div class="quantity-price">
-                <span class="quantity-text">库存：<span class="quantity">{{ $sizeQuantity }}</span></span>
+                <span class="quantity-text">库存：<span class="quantity" id="#quantity">{{ $sizeQuantity }}</span></span>
                 售价：<span class="price">￥<span id="price">{{ $colorPrice }}</span></span>
             </div>
         </div>

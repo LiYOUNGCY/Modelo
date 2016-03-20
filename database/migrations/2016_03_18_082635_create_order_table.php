@@ -16,7 +16,7 @@ class CreateOrderTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
 
-            $table->string('order_no', 64);
+            $table->string('order_no', 32);
             $table->string('phone', 16);
             $table->string('contact', 16);
             $table->string('address', 128);

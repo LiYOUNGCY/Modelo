@@ -13,6 +13,7 @@ class CartController extends Controller
     public function add(Request $request)
     {
         Cart::destroy();
+        
 
         $p = $request->get('p');
         $c = $request->get('c');
@@ -31,13 +32,14 @@ class CartController extends Controller
             'qty' => $qty,
             'price' => $production->price,
             'options' => [
+                'production_alias' => $production->alias,
+
                 'color_id' => $production->color_id,
                 'color_name' => $production->color_name,
+
                 'size_id' => $production->size_id,
                 'size_name' => $production->size_name,
-                'production_alias' => $production->alias,
-                'color_alias' => $production->alias,
-                'size_alias' => $production->alias,
+
                 'cover' => $production->cover,
             ],
         ]);

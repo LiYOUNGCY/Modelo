@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Order;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
-    public function index(Request $request, $id, $cid)
+    public function index(Request $request)
     {
-        echo $id, $cid;
+        Order::cancelOrder();
     }
 
     public function store(Request $request)

@@ -8,3 +8,4 @@ Homestead.json
 /public/images/*
 .idea/*
 composer.lock
+cron

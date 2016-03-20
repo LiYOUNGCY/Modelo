@@ -136,9 +136,10 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
-                                    class="fa fa-fw fa-arrows-v"></i> 图片管理 <i
-                                    class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                            <i class="fa fa-fw fa-arrows-v"></i> 图片管理
+                            <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
                         <ul id="demo" class="collapse">
                             <li>
                                 <a href="{{ url("{$ADMIN}/image") }}">所有图片</a>
@@ -150,9 +151,10 @@
                     </li>
 
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#production"><i
-                                    class="fa fa-fw fa-arrows-v"></i> 商品管理 <i
-                                    class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#production">
+                            <i class="fa fa-fw fa-arrows-v"></i> 商品管理
+                            <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
                         <ul id="production" class="collapse">
                             <li>
                                 <a href="{{ url("{$ADMIN}/series") }}">所有系列</a>
@@ -165,6 +167,18 @@
                             </li>
                             <li>
                                 <a href="{{ url("{$ADMIN}/production/create") }}">添加商品</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#order">
+                            <i class="fa fa-fw fa-arrows-v"></i> 订单管理
+                            <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
+                        <ul id="order" class="collapse">
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}">所有系列</a>
                             </li>
                         </ul>
                     </li>

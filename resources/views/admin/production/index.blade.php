@@ -32,6 +32,7 @@
                             <a href="javascript:;" name="edit" data-id="{{ $production->alias }}" title="修改">
                                 <i class="fa fa-edit fa-lg"></i>
                             </a>
+                            <a href="{{ url("production/{$production->alias}") }}">打开</a>
                         </td>
                     </tr>
                 @endforeach

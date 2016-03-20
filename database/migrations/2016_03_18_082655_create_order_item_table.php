@@ -18,7 +18,17 @@ class CreateOrderItemTable extends Migration
             $table->bigInteger('production_id')->unsigned();
 
             $table->string('production_name');
-            $table->bigInteger('cover_id');
+            $table->string('cover');
+
+            //款式
+            $table->bigInteger('color_id');
+            $table->string('color_name', 32);
+
+            //尺码
+            $table->bigInteger('size_id');
+            $table->string('size_name', 8);
+
+            //数量
             $table->integer('quantity')->unsigned();
             $table->float('price');//单价
             $table->float('total');//总价 total = price * quantity

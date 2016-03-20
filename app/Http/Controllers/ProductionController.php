@@ -50,32 +50,27 @@ class ProductionController extends Controller
         $productionColor = ProductionColor::where('alias', $colorAlias)->first();
 
         if (!empty($production) && !empty($productionColor)) {
-            $size_id = $request->get('size');
-            $size = ProductionSize::find($size_id);
-            if (empty($size)) {
-                $sizes = Production::getProductionSize($productionColor->id);
-                return redirect("buy/{$alias}/{$productionColor->alias}?size={$sizes[0]->id}");
-            } else {
-                $colors = Production::getProductionColorByAlias($alias);
-                $data = [];
+            $size = Production::getProductionSize($productionColor->id);
+            $size = $size[0];
+            $colors = Production::getProductionColorByAlias($alias);
+            $data = [];
 
-                foreach ($colors as $color) {
-                    $data[$color->alias] = Production::getProduction($color->id);
-                }
-
-                $request->session()->set('prevUrl', $request->url());
-
-                return view('production.buy', [
-                    'production' => $production,
-                    'colors' => $colors,
-                    'data' => $data,
-                    'colorAlias' => $colorAlias,
-                    'colorPrice' => $productionColor->price,
-                    'sizeQuantity' => $size->quantity,
-                    'sizeId' => $size_id,
-                    'address' => UserAddress::where('user_id', User::getUser()['id'])->first(),
-                ]);
+            foreach ($colors as $color) {
+                $data[$color->alias] = Production::getProduction($color->id);
             }
+
+            $request->session()->set('prevUrl', $request->url());
+
+            return view('production.buy', [
+                'production' => $production,
+                'colors' => $colors,
+                'data' => $data,
+                'colorAlias' => $colorAlias,
+                'colorPrice' => $productionColor->price,
+                'sizeQuantity' => $size->quantity,
+                'sizeId' => $size->id,
+                'address' => UserAddress::where('user_id', User::getUser()['id'])->first(),
+            ]);
         } else {
             abort(404);
         }
@@ -83,6 +78,12 @@ class ProductionController extends Controller
 
     public function getQuantityBySize(Request $request, $sizeId)
     {
+        if (!is_numeric($sizeId)) {
+            return response()->json([
+                'error' => 0,
+            ]);
+        }
+        
         $productionSize = ProductionSize::find($sizeId);
 
         if (!empty($productionSize)) {
