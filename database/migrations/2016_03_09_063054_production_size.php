@@ -17,7 +17,9 @@ class ProductionSize extends Migration
             $table->bigInteger('production_color_id')->unsigned();
 
             $table->string('name', 8);
+            //现有库存
             $table->integer('quantity')->unsigned();
+            //总库存
             $table->integer('amount')->unsigned();
             $table->timestamps();
 

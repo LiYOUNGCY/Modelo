@@ -4,12 +4,17 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('test', 'TestController@index');
-//    Route::post('test', 'TestController@store');
+////    Route::post('test', 'TestController@store');
 
     Route::group(['prefix' => \Illuminate\Support\Facades\Config::get('constants.route.admin')], function () {
         Route::get('/', function () {
-            return view('welcome');
+            return view('admin.index');
         });
+
+        /**
+         * User System
+         */
+        Route::any('user/{id}/super', 'Admin\UserController@changeSuper');
 
         /**
          * Image System
@@ -49,6 +54,7 @@ Route::group(['middleware' => ['web']], function () {
 
         //Order
         Route::get('order', 'Admin\OrderController@index');
+        Route::get('order/{id}', 'Admin\OrderController@show');
     });
 
     //ajax
@@ -57,6 +63,15 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     //Common Controller
+
+    //Index
+    Route::get('/', 'IndexController@index');
+
+    //User
+    Route::get('/qrcode', 'UserController@getQrCode');
+    Route::get('/qrcode/create', 'UserController@generateQrCode');
+
+    //Production
     Route::get('production/{alias}', 'ProductionController@show');
     Route::get('buy/{alias}', 'ProductionController@redirect');
     Route::get('buy/{alias}/{colorAlias}', 'ProductionController@buy');
@@ -67,6 +82,7 @@ Route::group(['middleware' => ['web']], function () {
     // Order
     Route::get('order/create', 'OrderController@create');
     Route::post('order/store', 'OrderController@store');
+    Route::any('order/notify', 'OrderController@notify');
 
     // Address
     Route::get('address/create', 'AddressController@create');
@@ -74,4 +90,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('address/store', 'AddressController@store');
     Route::post('address/{id}', 'AddressController@update');
+
+    // QrCode
+    Route::get('qrcode/{token}', 'QrCodeController@show');
+    Route::get('qrcode', 'UserController@getQrCode');
 });

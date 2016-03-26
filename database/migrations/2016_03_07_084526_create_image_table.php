@@ -18,6 +18,9 @@ class CreateImageTable extends Migration
             $table->string('path');
             $table->integer('width')->unsigned();
             $table->integer('height')->unsigned();
+
+            //可见的，默认可见
+            $table->boolean('visible')->default(true);
             $table->timestamps();
         });
     }

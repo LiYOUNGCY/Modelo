@@ -83,7 +83,7 @@ class ProductionController extends Controller
                 'error' => 0,
             ]);
         }
-        
+
         $productionSize = ProductionSize::find($sizeId);
 
         if (!empty($productionSize)) {

@@ -158,6 +158,7 @@ return [
 
         Overtrue\LaravelWechat\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
     ],
 
     /*
@@ -206,6 +207,7 @@ return [
 
         'Wechat' => 'Overtrue\LaravelWechat\Facade',
         'Cart' => 'Gloudemans\Shoppingcart\Facades\Cart',
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],
 
 ];

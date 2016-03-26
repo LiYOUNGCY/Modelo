@@ -58,7 +58,7 @@
                 <div class="cf"></div>
             </div>
             <div class="quantity-price">
-                <span class="quantity-text">库存：<span class="quantity" id="#quantity">{{ $sizeQuantity }}</span></span>
+                <span class="quantity-text">库存：<span class="quantity" id="quantity">{{ $sizeQuantity }}</span></span>
                 售价：<span class="price">￥<span id="price">{{ $colorPrice }}</span></span>
             </div>
         </div>
@@ -80,7 +80,8 @@
             @else
                 <div class="info-address">
                     {{ $address->address }}
-                    <a href="{{ url("address/{$address->id}/edit") }}" class="button editaddress" style="text-decoration:none;">
+                    <a href="{{ url("address/{$address->id}/edit") }}" class="button editaddress"
+                       style="text-decoration:none;">
                         编辑收获信息
                     </a>
                 </div>
@@ -111,6 +112,13 @@
                                 });
                                 self.addClass('active');
                                 $('.quantity').html(data.quantity);
+
+                                //刷新数量
+                                var count = $('#count');
+                                if (parseInt(count.html()) > data.quantity) {
+                                    count.html(data.quantity);
+                                    calTotal();
+                                }
                             }
                         }
                     })
@@ -120,22 +128,20 @@
             calTotal();
             $(".minus").bind('click', function () {
                 var count = parseInt($("#count").html());
-                if (count == 1) {
-                    return;
-                } else {
+                if (count > 1) {
                     count--;
                     $("#count").html(count);
+                    calTotal();
                 }
-                $("#num").html(count);
-                calTotal();
             });
 
             $(".plus").bind('click', function () {
                 var count = parseInt($("#count").html());
-                count++;
-                $("#count").html(count);
-                calTotal();
-                $("#num").html(count);
+                if (count < parseInt($('#quantity').html())) {
+                    count++;
+                    $("#count").html(count);
+                    calTotal();
+                }
             });
 
             $("body").on('click', ".m-modal", function () {
@@ -147,7 +153,7 @@
                 var production_alias = '{{ $production->alias }}';
                 console.log(color_alias);
                 console.log(production_alias);
-                var quantity = $('#quantity').html();
+                var count = $('#count').html();
                 $('#sizeContainer').find('li').each(function (i, ele) {
                     if ($(ele).hasClass('active')) {
                         var sizeId = $(ele).attr('data-id');
@@ -155,10 +161,12 @@
                             url: '{{ url("ajax/get/quantity") }}/' + sizeId,
                             success: function (data) {
                                 if (data.success == 0) {
-                                    if (data.quantity > 0) {
+                                    console.log(count);
+                                    if (data.quantity >= count) {
+                                        console.log(count);
                                         window.location.href = '{{ url('cart/update') }}?p='
                                                 + production_alias + '&&c=' + color_alias + '&&s='
-                                                + sizeId + '&&q=' + quantity;
+                                                + sizeId + '&&q=' + count;
                                     }
                                 }
                             }
@@ -175,6 +183,7 @@
             function calTotal() {
                 var count = parseInt($("#count").html());
                 var price = parseInt($("#price").html());
+                $("#num").html(count);
                 var total = count * price;
                 $("#total").html(total);
             }

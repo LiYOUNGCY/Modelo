@@ -128,7 +128,7 @@ class Production extends Model
         return $data;
     }
 
-    public static function get($production_alias, $color_alias, $size_id, $qty)
+    public static function get($production_alias, $color_alias, $size_id)
     {
         $query = DB::table('production')
             ->where('production.alias', '=', $production_alias)
@@ -136,7 +136,6 @@ class Production extends Model
             ->where('production_color.alias', '=', $color_alias)
             ->join('production_size', 'production_size.production_color_id', '=', 'production_color.id')
             ->where('production_size.id', '=', $size_id)
-            ->where('production_size.quantity', '>=', $qty)
             ->join('image', 'image.id', '=', 'production.cover_id')
             ->select(
                 'production.id',
@@ -152,5 +151,28 @@ class Production extends Model
             ->first();
 
         return $query;
+    }
+
+    public static function checkQuantity($size_id, $quantity)
+    {
+        $flag = DB::table('production_size')
+            ->where('production_size.id', '=', $size_id)
+            ->where('production_size.quantity', '>=', $quantity)
+            ->count();
+        return $flag === 1;
+    }
+
+    public static function decreaseQuantity($size_id, $quantity)
+    {
+        DB::table('production_size')
+            ->where('production_size.id', '=', $size_id)
+            ->decrement('production_size.quantity', $quantity);
+    }
+
+    public static function increaseQuantity($size_id, $quantity)
+    {
+        DB::table('production_size')
+            ->where('production_size.id', '=', $size_id)
+            ->increment('production_size.quantity', $quantity);
     }
 }

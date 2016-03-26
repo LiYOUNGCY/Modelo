@@ -7,45 +7,62 @@
 @section('content')
     <div class="row">
         <div class="col col-md-10 col-md-offset-1">
-            <table class="table table-bordered table-hover table-striped">
+            <table id="order" class="display" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <td>#</td>
-                    <td>订单号</td>
-                    <td>昵称</td>
-                    <td>联系人</td>
-                    <td>订单状态</td>
-                    <td>总价</td>
-                    <td>下单时间</td>
+                    <th>#</th>
+                    <th>订单号</th>
+                    <th>客户昵称</th>
+                    <th>联系人</th>
+                    <th>联系方式</th>
+                    <th>总和</th>
+                    <th>订单状态</th>
+                    <th>最后更新时间</th>
+                    <th>下单时间</th>
                 </tr>
                 </thead>
+                <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>订单号</th>
+                    <th>客户昵称</th>
+                    <th>联系人</th>
+                    <th>联系方式</th>
+                    <th>总和</th>
+                    <th>订单状态</th>
+                    <th>最后更新时间</th>
+                    <th>下单时间</th>
+                </tr>
+                </tfoot>
                 <tbody>
                 @foreach($orders as $order)
-                    <tr data-id="{{ $order->id }}">
+                    <tr>
                         <td><a href="{{ url("{$ADMIN}/order/{$order->id}") }}">{{ $order->id }}</a></td>
                         <td>{{ $order->order_no }}</td>
                         <td>{{ $order->nickname }}</td>
                         <td>{{ $order->contact }}</td>
-                        <td>{{ $order->status }}</td>
+                        <td>{{ $order->phone }}</td>
                         <td>{{ $order->total }}</td>
+                        <td>{{ $order->status_name }}</td>
+                        <td>{{ $order->last_action_at }}</td>
                         <td>{{ $order->created_at }}</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-            <div style="text-align: center; font-size: 125%;">
-                @if($nowPage > 1)
-                    <a href="{{ url("$ADMIN/order?page=".($nowPage-1)) }}">
-                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                    </a>
-                @endif
-                {{ $nowPage }}/{{ $page }}页
-                @if($nowPage < $page)
-                    <a href="{{ url("$ADMIN/order?page=".($nowPage+1)) }}">
-                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                    </a>
-                @endif
-            </div>
         </div>
     </div>
+@endsection
+
+@section('moreScript')
+    <script src="{{ asset('assets') }}/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable();
+        });
+    </script>
+@endsection
+
+@section('moreCss')
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/jquery.dataTables.min.css">
 @endsection

@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CancelOrder::class,
+        Commands\ConfirmOrder::class,
+        Commands\Install::class,
     ];
 
     /**
@@ -25,6 +27,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('order:cancel')
+            ->everyMinute();
+
+        $schedule->command('order:confirm')
             ->everyMinute();
     }
 }

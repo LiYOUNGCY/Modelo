@@ -10,8 +10,8 @@ class Authenticate
 {
     public function handle($request, Closure $next)
     {
-        $user = User::findorNew(1);
-        $user->nickname = 'Rache';
+        $user = User::findorNew(2);
+        $user->nickname = 'test2';
         $user->save();
 
         User::setUser($user);

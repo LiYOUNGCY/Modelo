@@ -1,3 +1,5 @@
-@extends('admin.template.template')
+@extends('template.basic')
 
-@section('title', '首页')
+@section('body')
+    {!! QrCode::generate('Make me into a QrCode!') !!}
+@endsection
