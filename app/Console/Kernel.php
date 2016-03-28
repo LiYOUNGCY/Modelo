@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
         Commands\CancelOrder::class,
         Commands\ConfirmOrder::class,
         Commands\Install::class,
+        Commands\ReceivedOrder::class,
+        Commands\FinishOrder::class,
     ];
 
     /**
@@ -30,6 +32,12 @@ class Kernel extends ConsoleKernel
             ->everyMinute();
 
         $schedule->command('order:confirm')
+            ->everyMinute();
+        
+        $schedule->command('order:received')
+            ->everyMinute();
+        
+        $schedule->command('order:finish')
             ->everyMinute();
     }
 }

@@ -55,6 +55,7 @@ Route::group(['middleware' => ['web']], function () {
         //Order
         Route::get('order', 'Admin\OrderController@index');
         Route::get('order/{id}', 'Admin\OrderController@show');
+        Route::post('order/{id}/deliver', 'Admin\OrderController@deliverOrder');
     });
 
     //ajax

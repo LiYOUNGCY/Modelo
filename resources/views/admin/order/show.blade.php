@@ -120,25 +120,27 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="row">
-                        <div class="col col-md-offset-2 col-md-8">
-                            <form action="{{ url("{$ADMIN}/order/{$order->id}/deliver") }}">
-                                {!! csrf_field() !!}
-                                <div class="form-group">
-                                    <label>快递公司</label>
-                                    <input class="form-control" name="deliver_name">
-                                </div>
-                                <div class="form-group">
-                                    <label>快递单号</label>
-                                    <input class="form-control" name="deliver_no">
-                                </div>
-                                <button type="button" class="btn btn-success"
-                                        style="width: 80%; margin: 0 auto; display: block;">
-                                    立即发货
-                                </button>
-                            </form>
+                    @if($order->status == Config::get('constants.orderStatus.confirm'))
+                        <div class="row">
+                            <div class="col col-md-offset-2 col-md-8">
+                                <form action="{{ url("{$ADMIN}/order/{$order->id}/deliver") }}" method="post">
+                                    {!! csrf_field() !!}
+                                    <div class="form-group">
+                                        <label>快递公司</label>
+                                        <input class="form-control" name="deliver_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>快递单号</label>
+                                        <input class="form-control" name="deliver_no">
+                                    </div>
+                                    <button type="submit" class="btn btn-success"
+                                            style="width: 80%; margin: 0 auto; display: block;">
+                                        立即发货
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

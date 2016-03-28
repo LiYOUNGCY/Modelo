@@ -22,6 +22,27 @@ class Profit extends Model
             ]);
 
         DB::table('user')
+            ->where('user.id', '=', $user_id)
             ->increment('freeze_total', $profit);
+    }
+
+    public static function removeFreeze($order_id)
+    {
+        $profit = Profit::where('order_id', '=', $order_id)->first();
+        $profit->status = Config::get('constants.profitStatus.available');
+        $profit->save();
+        
+        if(isset($profit)) {
+            $user_id = $profit->user_id;
+            $profit = $profit->profit;
+
+            DB::table('user')
+                ->where('user.id', '=', $user_id)
+                ->increment('available_total', $profit);
+
+            DB::table('user')
+                ->where('user.id', '=', $user_id)
+                ->decrement('freeze_total', $profit);
+        }
     }
 }

@@ -38,6 +38,9 @@ class Order extends Model
     {
         $data = DB::table('order')
             ->where('order.status', '=', Config::get('constants.orderStatus.paid'))
+            ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
+                Config::get('constants.order.confirmTime')
+            ])
             ->select('*')
             ->get();
         return $data;
@@ -203,8 +206,50 @@ class Order extends Model
     {
         DB::table('order')
             ->where('order.status', '=', Config::get('constants.orderStatus.paid'))
+            ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
+                Config::get('constants.order.confirmTime')
+            ])
             ->update([
                 'order.status' => Config::get('constants.orderStatus.confirm'),
+                'last_action_at' => date('Y-m-d H:i:s'),
+            ]);
+    }
+
+    public static function receivedOrder()
+    {
+        DB::table('order')
+            ->where('order.status', '=', Config::get('constants.orderStatus.deliver'))
+            ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
+                Config::get('constants.order.receivedTime')
+            ])
+            ->update([
+                'order.status' => Config::get('constants.orderStatus.received'),
+                'last_action_at' => date('Y-m-d H:i:s'),
+            ]);
+    }
+
+    public static function getFinishOrder()
+    {
+        $query = DB::table('order')
+            ->where('order.status', '=', Config::get('constants.orderStatus.finish'))
+            ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
+                Config::get('constants.order.finishTime')
+            ])
+            ->select('id')
+            ->get();
+
+        return $query;
+    }
+
+    public static function finishOrder()
+    {
+        DB::table('order')
+            ->where('order.status', '=', Config::get('constants.orderStatus.received'))
+            ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
+                Config::get('constants.order.receivedTime')
+            ])
+            ->update([
+                'order.status' => Config::get('constants.orderStatus.finish'),
                 'last_action_at' => date('Y-m-d H:i:s'),
             ]);
     }

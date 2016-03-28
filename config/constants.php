@@ -18,7 +18,10 @@ return [
 
     'order' => [
         //在多少分钟内没有支付就取消订单
-        'cancelTime' => 5
+        'cancelTime' => 5,
+        'confirmTime' => 5,
+        'receivedTime' => 3,
+        'finishTime' => 3,
     ],
 
     /**************************************************************
