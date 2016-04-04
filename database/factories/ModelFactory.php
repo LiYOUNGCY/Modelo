@@ -22,7 +22,7 @@
 
 $factory->define(App\Model\Order::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => 1,
+        'user_id' => 6,
         'order_no' => str_random(32),
         'phone' => 12345678901,
         'contact' => '玻璃侠',

@@ -8,6 +8,6 @@ class OrderTest extends TestCase
 {
     public function testCreateOrder()
     {
-//        $order = factory(App\Model\Order::class)->create();
+        $order = factory(App\Model\Order::class)->create();
     }
 }

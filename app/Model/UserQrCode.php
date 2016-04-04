@@ -52,10 +52,12 @@ class UserQrCode extends Model
 
     public static function checkToken($token)
     {
-        $count = DB::table('user_qrcode')
+        $result = DB::table('user_qrcode')
+            ->join('user', 'user.id', '=', 'user_qrcode.user_id')
             ->where('user_qrcode.token', '=', $token)
-            ->count();
+            ->select('user.nickname')
+            ->first();
 
-        return $count === 1;
+        return $result;
     }
 }

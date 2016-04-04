@@ -3,13 +3,14 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class User extends Model
 {
     protected $table = 'user';
 
     private static $fields = [
-        'id', 
+        'id',
         'nickname',
         'can_buy',
         'can_qrcode',
@@ -40,10 +41,11 @@ class User extends Model
         return self::$user;
     }
 
-    public static function canBuy($user_id)
+    public static function canBuy($user_id, $referee)
     {
         $user = User::find($user_id);
         $user->can_buy = true;
+        $user->referee = $referee;
         $user->save();
     }
 

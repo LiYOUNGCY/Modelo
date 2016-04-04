@@ -24,7 +24,7 @@ return [
         'cancelTime' => 0,
         'confirmTime' => 0,
         'receivedTime' => 0,
-        'finishTime' => 0,
+        'finishTime' => 20,
     ],
 
     /**************************************************************
