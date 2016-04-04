@@ -2,16 +2,15 @@
 
 namespace App\Http\Middleware;
 
-use App\Model\User;
+use App\Container\Container;
 use Closure;
-use Illuminate\Support\Facades\Auth;
+
 
 class Authenticate
 {
     public function handle($request, Closure $next)
     {
-        $user = User::find(7);
-        User::setUser($user);
+        Container::setUser(4);
         
         return $next($request);
     }

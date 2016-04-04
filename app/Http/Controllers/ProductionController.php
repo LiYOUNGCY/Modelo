@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Container\Container;
 use App\Model\Production;
 use App\Http\Requests;
 use App\Model\ProductionColor;
 use App\Model\ProductionSize;
-use App\Model\User;
 use App\Model\UserAddress;
 use Illuminate\Http\Request;
 
@@ -69,7 +69,7 @@ class ProductionController extends Controller
                 'colorPrice' => $productionColor->price,
                 'sizeQuantity' => $size->quantity,
                 'sizeId' => $size->id,
-                'address' => UserAddress::where('user_id', User::getUser()['id'])->first(),
+                'address' => UserAddress::where('user_id', Container::getUser()->id)->first(),
             ]);
         } else {
             abort(404);

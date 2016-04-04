@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\NotFoundException;
 use App\Model\Order;
 use App\Model\Production;
-use App\Model\User;
+use App\Container\Container;
 use App\Model\UserAddress;
 use Cart;
 use App\Http\Requests;
@@ -18,7 +18,7 @@ class OrderController extends Controller
     {
         $cart = Cart::content();
         if (Cart::count() > 0) {
-            $userAddress = UserAddress::where('user_id', User::getUser()['id'])->first();
+            $userAddress = Container::getUser()->address;
 
             if (empty($userAddress)) {
                 return redirect('address/create');
@@ -38,9 +38,9 @@ class OrderController extends Controller
     {
         if (Cart::count() > 0) {
             $remark = $request->get('remark');
-            $userAddress = UserAddress::where('user_id', User::getUser()['id'])->first();
+            $userAddress = Container::getUser()->address;
 
-            if (empty($userAddress)) {
+            if (is_null($userAddress)) {
                 return redirect('address/create');
             }
 
@@ -53,7 +53,7 @@ class OrderController extends Controller
                 }
             }
 
-            Order::createOrder(User::getUser()['id'], $userAddress, $remark);
+            Order::createOrder(Container::getUser()->id, $userAddress, $remark);
         } else {
             return redirect('/');
         }

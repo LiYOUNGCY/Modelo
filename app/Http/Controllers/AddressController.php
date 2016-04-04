@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\User;
+use App\Container\Container;
 use App\Model\UserAddress;
 use Illuminate\Http\Request;
 
@@ -28,11 +28,11 @@ class AddressController extends Controller
 
         $address = $area1 . $area2 . $area3 . $address;
 
-        $userAddress = UserAddress::where('user_id', User::getUser()['id'])->first();
-        if(empty($userAddress)) {
+        $userAddress = Container::getUser()->address;
+        if (is_null($userAddress)) {
             $userAddress = new UserAddress();
         }
-        $userAddress->user_id = User::getUser()['id'];
+        $userAddress->user_id = Container::getUser()->id;
         $userAddress->contact = $contact;
         $userAddress->phone = $phone;
         $userAddress->address = $address;
@@ -43,7 +43,7 @@ class AddressController extends Controller
 
     public function edit()
     {
-        $userAddress = UserAddress::where('user_id', User::getUser()['id'])->first();
+        $userAddress = Container::getUser()->address;
 
         return view('address.edit', [
             'userAddress' => $userAddress,
@@ -64,7 +64,7 @@ class AddressController extends Controller
         $address = $area1 . $area2 . $area3 . $address;
 
         $userAddress = UserAddress::find($id);
-        $userAddress->user_id = User::getUser()['id'];
+        $userAddress->user_id = Container::getUser()->id;
         $userAddress->contact = $contact;
         $userAddress->phone = $phone;
         $userAddress->address = $address;

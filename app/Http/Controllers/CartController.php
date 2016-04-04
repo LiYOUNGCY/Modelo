@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Model\Production;
-use App\Model\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use App\Container\Container;
 
 use App\Http\Requests;
 
@@ -13,7 +13,7 @@ class CartController extends Controller
 {
     public function add(Request $request)
     {
-        if (User::getUser()['can_buy'] == true) {
+        if (Container::getUser()->can_buy == true) {
             Cart::destroy();
 
             $p = $request->get('p');

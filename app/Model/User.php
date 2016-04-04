@@ -9,36 +9,9 @@ class User extends Model
 {
     protected $table = 'user';
 
-    private static $fields = [
-        'id',
-        'nickname',
-        'can_buy',
-        'can_qrcode',
-        'get_qrcode',
-    ];
-
-    private static $user = [];
-
-    public static function setUser($user)
+    public function address()
     {
-        if (is_object($user)) {
-            foreach (self::$fields as $field) {
-                if (isset($user->$field)) {
-                    self::$user[$field] = $user->$field;
-                }
-            }
-        } elseif (is_array($user)) {
-            foreach (self::$fields as $field) {
-                if (isset($user[$field])) {
-                    self::$user[$field] = $user[$field];
-                }
-            }
-        }
-    }
-
-    public static function getUser()
-    {
-        return self::$user;
+        return $this->hasOne('App\Model\UserAddress', 'user_id');
     }
 
     public static function canBuy($user_id, $referee)

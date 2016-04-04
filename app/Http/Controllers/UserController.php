@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\User;
+use App\Container\Container;
 use App\Model\UserQrCode;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -11,16 +11,16 @@ class UserController extends Controller
 {
     public function getQrCode()
     {
-        $user_id = User::getUser()['id'];
+        $user = Container::getUser();
 
         //@TODO need judge user is buy a production.
-        if(User::getUser()['can_qrcode']) {
-            if (!UserQrCode::hasQrCode($user_id)) {
-                UserQrCode::generateQrCode($user_id);
+        if($user->can_qrcode) {
+            if (!UserQrCode::hasQrCode($user->id)) {
+                UserQrCode::generateQrCode($user->id);
             }
 
             return view('qrcode.show', [
-                'qrcode' => UserQrCode::getQrCode($user_id),
+                'qrcode' => UserQrCode::getQrCode($user->id),
             ]);
         } else {
             echo 'no qrcode';
