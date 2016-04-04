@@ -10,6 +10,16 @@ class UserQrCode extends Model
 {
     protected $table = 'user_qrcode';
 
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User', 'user_id');
+    }
+
+    public static function getByToken($token)
+    {
+        return UserQrCode::where('token', $token)->first();
+    }
+
     public static function hasQrCode($user_id)
     {
         $count = DB::table('user_qrcode')
@@ -48,16 +58,5 @@ class UserQrCode extends Model
             )
             ->first();
         return $query;
-    }
-
-    public static function checkToken($token)
-    {
-        $result = DB::table('user_qrcode')
-            ->join('user', 'user.id', '=', 'user_qrcode.user_id')
-            ->where('user_qrcode.token', '=', $token)
-            ->select('user.nickname')
-            ->first();
-
-        return $result;
     }
 }

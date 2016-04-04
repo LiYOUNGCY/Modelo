@@ -14,6 +14,11 @@ class User extends Model
         return $this->hasOne('App\Model\UserAddress', 'user_id');
     }
 
+    public function relation()
+    {
+        return $this->hasOne('App\Model\UserRelation', 'children_id');
+    }
+
     public static function canBuy($user_id, $referee)
     {
         $user = User::find($user_id);
@@ -35,5 +40,14 @@ class User extends Model
         $user->can_qrcode = true;
         $user->get_qrcode = false;  //禁止扫描其他人的二维码
         $user->save();
+    }
+
+    /**
+     * 禁止扫描其他的二维码
+     */
+    public function removeScan()
+    {
+        $this->get_qrcode = false;
+        $this->save();
     }
 }

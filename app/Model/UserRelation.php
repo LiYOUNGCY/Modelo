@@ -9,11 +9,6 @@ class UserRelation extends Model
 {
     protected $table = 'user_relation';
 
-    public static function belongTo($user_id, $token)
-    {
-        DB::insert("INSERT INTO user_relation(parent_id, children_id) SELECT user_qrcode.user_id, ? FROM user_qrcode WHERE user_qrcode.token = ?", [$user_id, $token]);
-    }
-
     public static function hasParent($user_id)
     {
         $count = DB::table('user_relation')
@@ -32,5 +27,12 @@ class UserRelation extends Model
             )
             ->first();
         return $data;
+    }
+
+    public function insert($childrenId, $parentId)
+    {
+        $this->children_id = $childrenId;
+        $this->parent_id = $parentId;
+        $this->save();
     }
 }

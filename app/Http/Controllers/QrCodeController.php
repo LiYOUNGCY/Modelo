@@ -2,37 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\UserQrCode;
 use App\Model\UserRelation;
 use App\Container\Container;
 use App\Http\Requests;
 
 class QrCodeController extends Controller
 {
-    //@TODO refactor
-    public function show($token)
+    /**
+     * 扫描二维码
+     * @param $token
+     * @return mixed
+     */
+    public function scan($token)
     {
         $user = Container::getUser();
 
-        //用户是我们官方指定的推广人员，就不能扫描其他人的二维码并且他不能购买我们的商品
-        if ($user->get_qrcode == false || UserRelation::hasParent($user->id)) {
-            return redirect('/');
+        if ($user->get_qrcode) {
+            $parentId = UserQrCode::getByToken($token);
+            if(isset($parentId)) {
+                $parentId = $parentId->user->id;
+                $userRelation = new UserRelation();
+                $userRelation->insert($user->id, $parentId);
+                $user->removeScan();
+
+                return redirect('/');
+            } else {
+                abort(503, '无效的二维码');
+            }
         } else {
-//            $qrcodeMessage = UserQrCode::checkToken($token);
-//            if (!is_null($qrcodeMessage)) {
-//                UserRelation::belongTo($user['id'], $token);
-//                User::canBuy($user['id'], $qrcodeMessage->referee);
-//                return redirect('/');
-//            } else {
-//                abort(503, '无效的二维码');
-//            }
+            return redirect('/');
         }
     }
-
-//    public function scan($token)
-//    {
-//        $self = User::getUser();
-//
-//        if($self['get_qrcode'] == false
-//        || )
-//    }
 }

@@ -14,7 +14,8 @@ class TestController extends Controller
         App\Container\Container::setUser(5);
         $user = App\Container\Container::getUser();
 
-        var_dump($user->address);
+//        var_dump($user->address);
+        $user->removeScan();
     }
 
     public function store(Request $request)

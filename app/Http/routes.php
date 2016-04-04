@@ -98,6 +98,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('address/{id}', 'AddressController@update');
 
     // QrCode
-    Route::get('qrcode/{token}', 'QrCodeController@show');
+    Route::get('qrcode/{token}', 'QrCodeController@scan');
     Route::get('qrcode', 'UserController@getQrCode');
 });

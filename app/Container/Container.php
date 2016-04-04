@@ -12,6 +12,9 @@ use App;
  */
 class Container
 {
+    /**
+     * @param $userId
+     */
     public static function setUser($userId)
     {
         App::singleton('user', function() use($userId) {
@@ -19,6 +22,9 @@ class Container
         });
     }
 
+    /**
+     * @return App\Model\User
+     */
     public static function getUser()
     {
         return App::make('user');

@@ -10,7 +10,7 @@ class Authenticate
 {
     public function handle($request, Closure $next)
     {
-        Container::setUser(4);
+        Container::setUser(8);
         
         return $next($request);
     }
