@@ -14,14 +14,17 @@ return [
         'deliver' => 5,
         'received' => 6,
         'finish' => 7,
+        'reject' => 8,
+        'rejected' => 9,
+        'exchange' => 10,
     ],
 
     'order' => [
         //在多少分钟内没有支付就取消订单
-        'cancelTime' => 5,
-        'confirmTime' => 5,
-        'receivedTime' => 3,
-        'finishTime' => 3,
+        'cancelTime' => 0,
+        'confirmTime' => 0,
+        'receivedTime' => 0,
+        'finishTime' => 0,
     ],
 
     /**************************************************************

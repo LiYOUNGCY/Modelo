@@ -56,6 +56,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('order', 'Admin\OrderController@index');
         Route::get('order/{id}', 'Admin\OrderController@show');
         Route::post('order/{id}/deliver', 'Admin\OrderController@deliverOrder');
+        Route::post('order/{orderNo}/rejected', 'Admin\OrderController@rejected');
+
+        //Profit
+        Route::get('profit', 'Admin\ProfitController@index');
     });
 
     //ajax
@@ -84,6 +88,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('order/create', 'OrderController@create');
     Route::post('order/store', 'OrderController@store');
     Route::any('order/notify', 'OrderController@notify');
+    Route::any('order/{orderNo}/reject', 'OrderController@reject');
 
     // Address
     Route::get('address/create', 'AddressController@create');

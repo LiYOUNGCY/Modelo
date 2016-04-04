@@ -19,6 +19,7 @@ class CreateProfitTable extends Migration
             $table->bigInteger('status_id')->unsined();
             $table->bigInteger('level_id')->unsigned();
             $table->float('profit')->unsigned();
+            $table->timestamps();
         });
     }
 

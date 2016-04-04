@@ -178,7 +178,24 @@
                         </a>
                         <ul id="order" class="collapse">
                             <li>
-                                <a href="{{ url("{$ADMIN}/order") }}">所有系列</a>
+                                <a href="{{ url("{$ADMIN}/order") }}">所有订单</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.reject') }}">
+                                    申请退货
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#profit">
+                            <i class="fa fa-fw fa-arrows-v"></i> 分销管理
+                            <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
+                        <ul id="profit" class="collapse">
+                            <li>
+                                <a href="{{ url("{$ADMIN}/profit") }}">查看</a>
                             </li>
                         </ul>
                     </li>
@@ -213,7 +230,7 @@
             var tar = $('#alert-message');
             tar.html(message);
             tar.addClass('success');
-            setTimeout(function(){
+            setTimeout(function () {
                 tar.removeClass('success');
             }, 3000);
         }

@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Model\Order;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Log;
 
 class ReceivedOrder extends Command
 {

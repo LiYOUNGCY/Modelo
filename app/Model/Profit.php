@@ -10,6 +10,21 @@ class Profit extends Model
 {
     protected $table = 'profit';
 
+    public function status()
+    {
+        return $this->belongsTo('App\Model\ProfitStatus', 'status_id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo('App\Model\ProfitLevel', 'level_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User', 'user_id');
+    }
+
     public static function insert($user_id, $order_id, $level_id, $profit)
     {
         DB::table('profit')
@@ -28,21 +43,45 @@ class Profit extends Model
 
     public static function removeFreeze($order_id)
     {
-        $profit = Profit::where('order_id', '=', $order_id)->first();
-        $profit->status = Config::get('constants.profitStatus.available');
-        $profit->save();
-        
-        if(isset($profit)) {
-            $user_id = $profit->user_id;
-            $profit = $profit->profit;
+        $profits = Profit::where('order_id', '=', $order_id)->get();
+        foreach ($profits as $profit) {
+            $canGet = $profit->status_id == Config::get('constants.profitStatus.freeze');
+            $profit->status_id = Config::get('constants.profitStatus.available');
+            $profit->save();
 
-            DB::table('user')
-                ->where('user.id', '=', $user_id)
-                ->increment('available_total', $profit);
+            if (isset($profit) && $canGet) {
+                $user_id = $profit->user_id;
+                $profit = $profit->profit;
 
-            DB::table('user')
-                ->where('user.id', '=', $user_id)
-                ->decrement('freeze_total', $profit);
+                DB::table('user')
+                    ->where('user.id', '=', $user_id)
+                    ->increment('available_total', $profit);
+
+                DB::table('user')
+                    ->where('user.id', '=', $user_id)
+                    ->decrement('freeze_total', $profit);
+            }
         }
+    }
+
+    /**
+     * @param $orderId
+     * @return array
+     */
+    public static function getByOrderId($orderId)
+    {
+        $result = Profit::where('order_id', $orderId)->get();
+        return $result;
+    }
+
+    public function cancel()
+    {
+        $profit = $this->profit;
+        $this->status_id = Config::get('constants.profitStatus.cancel');
+        $this->save();
+
+        $user = User::find($this->user_id);
+        $user->freeze_total = $user->freeze_total - $profit;
+        $user->save();
     }
 }

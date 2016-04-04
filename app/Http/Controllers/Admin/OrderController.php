@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\NotFoundException;
 use App\Http\Controllers\AdminController;
 use App\Model\Order;
+use App\Model\Profit;
+use App\Model\ProfitStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
+use Log;
 
 class OrderController extends AdminController
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::getAll();
+        $status = $request->get('status');
+        $status = isset($status) && is_numeric($status) ? $status : null;
+
+        $orders = Order::getAll($status);
 
         return view('admin.order.index', [
             'orders' => $orders,
@@ -22,13 +29,15 @@ class OrderController extends AdminController
     public function show(Request $request, $id)
     {
         $order = Order::getOrder($id);
+        $profits = Profit::getByOrderId($id);
 
-        if(! empty($order)) {
+        if (!empty($order)) {
             $orderItems = Order::getOrderItems($order->id);
 
             return view('admin.order.show', [
                 'order' => $order,
                 'orderItems' => $orderItems,
+                'profits' => $profits,
             ]);
         } else {
             abort(404);
@@ -39,7 +48,7 @@ class OrderController extends AdminController
     {
         $order = Order::find($id);
 
-        if(
+        if (
             isset($order)
             && $order->status == Config::get('constants.orderStatus.confirm')
         ) {
@@ -51,5 +60,39 @@ class OrderController extends AdminController
         } else {
             return redirect("{$this->ADMIN}/order");
         }
+    }
+
+    public function rejected(Request $request, $orderNo)
+    {
+        $isRejected = $request->get('isRejected');
+        try {
+            $order = Order::get($orderNo);
+
+            switch ($isRejected) {
+                //拒绝退货
+                case 0:
+                    $order->denyRejected();
+                    break;
+                //允许退货
+                case 1:
+                    $order->rejected();
+
+                    $profits = Profit::getByOrderId($order->id);
+                    foreach ($profits as $profit) {
+                        $profit->cancel();
+                    }
+                    break;
+                //换货
+                case 2:
+                    $order->exchange();
+                    break;
+            }
+
+        } catch (NotFoundException $e) {
+            Log::warning($e->getMessage());
+            return redirect("{$this->ADMIN}/order");
+        }
+
+        return redirect("{$this->ADMIN}/order/{$order->id}");
     }
 }

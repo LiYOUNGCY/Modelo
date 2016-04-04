@@ -69,6 +69,18 @@ class Install extends Command
                     'id' => Config::get('constants.orderStatus.finish'),
                     'name' => '已完成',
                 ],
+                [
+                    'id' => Config::get('constants.orderStatus.reject'),
+                    'name' => '售后处理中',
+                ],
+                [
+                    'id' => Config::get('constants.orderStatus.rejected'),
+                    'name' => '确认退货',
+                ],
+                [
+                    'id' => Config::get('constants.orderStatus.exchange'),
+                    'name' => '准备重新发货',
+                ],
             ]);
 
         DB::table('profit_status')

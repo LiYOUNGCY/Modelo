@@ -120,6 +120,17 @@
                         </tr>
                         </tbody>
                     </table>
+
+                    <table class="table table-bordered table-hover table-striped">
+                        @foreach($profits as $profit)
+                            <tr>
+                                <td>{{ $profit->user->nickname }}</td>
+                                <td>{{ $profit->status->name }}</td>
+                                <td>{{ $profit->level->name }}</td>
+                                <td>{{ $profit->profit }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
                     @if($order->status == Config::get('constants.orderStatus.confirm'))
                         <div class="row">
                             <div class="col col-md-offset-2 col-md-8">
@@ -136,6 +147,20 @@
                                     <button type="submit" class="btn btn-success"
                                             style="width: 80%; margin: 0 auto; display: block;">
                                         立即发货
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @elseif($order->status == \Illuminate\Support\Facades\Config::get('constants.orderStatus.reject'))
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <form action="{{ url("{$ADMIN}/order/{$order->order_no}/rejected") }}" method="post">
+                                    {!! csrf_field() !!}
+                                    <button type="submit" name="isRejected" value="0" class="btn btn-danger">拒绝退货
+                                    </button>
+                                    <button type="submit" name="isRejected" value="1" class="btn btn-primary">允许退货
+                                    </button>
+                                    <button type="submit" name="isRejected" value="2" class="btn btn-success">允许换货
                                     </button>
                                 </form>
                             </div>

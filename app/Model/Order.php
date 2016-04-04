@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Exceptions\NotFoundException;
 use Cart;
 use Illuminate\Database\Eloquent\Model;
 use Config;
@@ -11,7 +12,7 @@ class Order extends Model
 {
     protected $table = 'order';
 
-    public static function getAll()
+    public static function getAll($status = null)
     {
 
         $data = DB::table('order')
@@ -29,10 +30,31 @@ class Order extends Model
                 'order.created_at',
                 'order.status as status',
                 'order_status.name as status_name'
-            )
-            ->get();
-        return $data;
+            );
+
+        if (!is_null($status)) {
+            $data = $data->where('order.status', $status);
+        }
+
+        return $data->get();
     }
+
+    /**
+     * @param $orderNo
+     * @return Order
+     * @throws NotFoundException
+     */
+    public static function get($orderNo)
+    {
+        $order = Order::where('order_no', $orderNo)->first();
+
+        if (is_null($order)) {
+            throw new NotFoundException("Not Found");
+        }
+
+        return $order;
+    }
+
 
     public static function getPaid()
     {
@@ -231,7 +253,7 @@ class Order extends Model
     public static function getFinishOrder()
     {
         $query = DB::table('order')
-            ->where('order.status', '=', Config::get('constants.orderStatus.finish'))
+            ->where('order.status', '=', Config::get('constants.orderStatus.received'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
                 Config::get('constants.order.finishTime')
             ])
@@ -246,11 +268,57 @@ class Order extends Model
         DB::table('order')
             ->where('order.status', '=', Config::get('constants.orderStatus.received'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
-                Config::get('constants.order.receivedTime')
+                Config::get('constants.order.finishTime')
             ])
             ->update([
                 'order.status' => Config::get('constants.orderStatus.finish'),
                 'last_action_at' => date('Y-m-d H:i:s'),
             ]);
+    }
+
+    public function reject()
+    {
+        if ($this->status == Config::get('constants.orderStatus.received')) {
+            $this->status = Config::get('constants.orderStatus.reject');
+            //Don't update the last_action_at
+            //the last_action_at use to calculate the finish time
+            $this->save();
+        }
+    }
+
+    /**
+     * 允许退货
+     */
+    public function rejected()
+    {
+        if ($this->status == Config::get('constants.orderStatus.reject')) {
+            $this->status = Config::get('constants.orderStatus.rejected');
+            $this->save();
+
+            //@TODO money cancel
+            
+        }
+    }
+
+    /**
+     * 拒绝退货
+     */
+    public function denyRejected()
+    {
+        if ($this->status == Config::get('constants.orderStatus.reject')) {
+            $this->status = Config::get('constants.orderStatus.received');
+            $this->save();
+        }
+    }
+
+    /**
+     * 换货处理中
+     */
+    public function exchange()
+    {
+        if ($this->status == Config::get('constants.orderStatus.reject')) {
+            $this->status = Config::get('constants.orderStatus.exchange');
+            $this->save();
+        }
     }
 }

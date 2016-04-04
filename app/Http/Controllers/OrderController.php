@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\PaidOrder;
+use App\Exceptions\NotFoundException;
 use App\Model\Order;
 use App\Model\Production;
 use App\Model\User;
 use App\Model\UserAddress;
-use Gloudemans\Shoppingcart\Facades\Cart;
-
+use Cart;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Log;
 
 class OrderController extends Controller
 {
@@ -72,9 +72,26 @@ class OrderController extends Controller
      */
     public function notify()
     {
-        $order_no = '1459134039VmFuAOhxf71lVP0u4yXSXW';
-        if(Order::checkOrder_no($order_no)) {
+        $order_no = '1459154207GMK6v9StzWItA9xFtSIMLq';
+        if (Order::checkOrder_no($order_no)) {
             Order::payOrder($order_no);
         }
+    }
+
+    public function reject(Request $request, $orderNo)
+    {
+        try {
+            $order = Order::get($orderNo);
+            $order->reject();
+        } catch (NotFoundException $e) {
+            Log::info($e->getMessage(), ['orderNo' => $orderNo]);
+            return response()->json([
+                'error' => 0,
+            ]);
+        }
+
+        return response()->json([
+            'success' => 0,
+        ]);
     }
 }
