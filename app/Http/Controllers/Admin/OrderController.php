@@ -50,9 +50,9 @@ class OrderController extends AdminController
 
         if (
             isset($order)
-            && $order->status == Config::get('constants.orderStatus.confirm')
+            && $order->status_id == Config::get('constants.orderStatus.confirm')
         ) {
-            $order->status = Config::get('constants.orderStatus.deliver');
+            $order->status_id = Config::get('constants.orderStatus.deliver');
             $order->last_action_at = date('Y-m-d H:i:s');
             $order->save();
 

@@ -12,12 +12,12 @@ class Order extends Model
 {
     protected $table = 'order';
 
-    public static function getAll($status = null)
+    public static function getAll($statusId = null)
     {
 
         $data = DB::table('order')
             ->join('user', 'user.id', '=', 'order.user_id')
-            ->join('order_status', 'order.status', '=', 'order_status.id')
+            ->join('order_status', 'order.status_id', '=', 'order_status.id')
             ->select(
                 'user.nickname',
                 'order.id',
@@ -28,12 +28,15 @@ class Order extends Model
                 'order.last_action_at',
                 'order.total',
                 'order.created_at',
-                'order.status as status',
+                'order.status_id as status',
                 'order_status.name as status_name'
-            );
+            )
+            ->skip(0)
+            ->take(1000);
 
-        if (!is_null($status)) {
-            $data = $data->where('order.status', $status);
+
+        if (!is_null($statusId)) {
+            $data = $data->where('order.status_id', $statusId);
         }
 
         return $data->get();
@@ -59,7 +62,7 @@ class Order extends Model
     public static function getPaid()
     {
         $data = DB::table('order')
-            ->where('order.status', '=', Config::get('constants.orderStatus.paid'))
+            ->where('order.status_id', '=', Config::get('constants.orderStatus.paid'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
                 Config::get('constants.order.confirmTime')
             ])
@@ -73,7 +76,7 @@ class Order extends Model
         $data = DB::table('order')
             ->where('order.id', '=', $order_id)
             ->join('user', 'user.id', '=', 'order.user_id')
-            ->join('order_status', 'order.status', '=', 'order_status.id')
+            ->join('order_status', 'order.status_id', '=', 'order_status.id')
             ->select(
                 'user.nickname',
                 'order.id',
@@ -84,7 +87,7 @@ class Order extends Model
                 'order.last_action_at',
                 'order.total',
                 'order.created_at',
-                'order.status as status',
+                'order.status_id as status',
                 'order_status.name as status_name'
             )
             ->first();
@@ -109,7 +112,7 @@ class Order extends Model
         $order->contact = $userAddress->contact;
         $order->phone = $userAddress->phone;
         $order->address = $userAddress->address;
-        $order->status = Config::get('constants.orderStatus.unpaid');
+        $order->status_id = Config::get('constants.orderStatus.unpaid');
         $order->last_action_at = date('Y-m-d H:i:s');
         $order->save();
 
@@ -187,7 +190,7 @@ class Order extends Model
         DB::table('order')
             ->where('order.order_no', '=', $order_no)
             ->update([
-                'order.status' => Config::get('constants.orderStatus.paid'),
+                'order.status_id' => Config::get('constants.orderStatus.paid'),
             ]);
     }
 
@@ -195,7 +198,7 @@ class Order extends Model
     public static function cancelOrder()
     {
         $orders = DB::table('order')
-            ->where('order.status', '=', Config::get('constants.orderStatus.unpaid'))
+            ->where('order.status_id', '=', Config::get('constants.orderStatus.unpaid'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
                 Config::get('constants.order.cancelTime')
             ])
@@ -219,7 +222,7 @@ class Order extends Model
             DB::table('order')
                 ->where('order.id', '=', $order->id)
                 ->update([
-                    'order.status' => Config::get('constants.orderStatus.cancel'),
+                    'order.status_id' => Config::get('constants.orderStatus.cancel'),
                 ]);
         }
     }
@@ -227,12 +230,12 @@ class Order extends Model
     public static function confirmOrder()
     {
         DB::table('order')
-            ->where('order.status', '=', Config::get('constants.orderStatus.paid'))
+            ->where('order.status_id', '=', Config::get('constants.orderStatus.paid'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
                 Config::get('constants.order.confirmTime')
             ])
             ->update([
-                'order.status' => Config::get('constants.orderStatus.confirm'),
+                'order.status_id' => Config::get('constants.orderStatus.confirm'),
                 'last_action_at' => date('Y-m-d H:i:s'),
             ]);
     }
@@ -240,12 +243,12 @@ class Order extends Model
     public static function receivedOrder()
     {
         DB::table('order')
-            ->where('order.status', '=', Config::get('constants.orderStatus.deliver'))
+            ->where('order.status_id', '=', Config::get('constants.orderStatus.deliver'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
                 Config::get('constants.order.receivedTime')
             ])
             ->update([
-                'order.status' => Config::get('constants.orderStatus.received'),
+                'order.status_id' => Config::get('constants.orderStatus.received'),
                 'last_action_at' => date('Y-m-d H:i:s'),
             ]);
     }
@@ -253,7 +256,7 @@ class Order extends Model
     public static function getFinishOrder()
     {
         $query = DB::table('order')
-            ->where('order.status', '=', Config::get('constants.orderStatus.received'))
+            ->where('order.status_id', '=', Config::get('constants.orderStatus.received'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
                 Config::get('constants.order.finishTime')
             ])
@@ -266,20 +269,20 @@ class Order extends Model
     public static function finishOrder()
     {
         DB::table('order')
-            ->where('order.status', '=', Config::get('constants.orderStatus.received'))
+            ->where('order.status_id', '=', Config::get('constants.orderStatus.received'))
             ->whereRaw('TIMESTAMPDIFF(MINUTE, `order`.last_action_at, NOW()) >= ?', [
                 Config::get('constants.order.finishTime')
             ])
             ->update([
-                'order.status' => Config::get('constants.orderStatus.finish'),
+                'order.status_id' => Config::get('constants.orderStatus.finish'),
                 'last_action_at' => date('Y-m-d H:i:s'),
             ]);
     }
 
     public function reject()
     {
-        if ($this->status == Config::get('constants.orderStatus.received')) {
-            $this->status = Config::get('constants.orderStatus.reject');
+        if ($this->status_id == Config::get('constants.orderStatus.received')) {
+            $this->status_id = Config::get('constants.orderStatus.reject');
             //Don't update the last_action_at
             //the last_action_at use to calculate the finish time
             $this->save();
@@ -291,12 +294,12 @@ class Order extends Model
      */
     public function rejected()
     {
-        if ($this->status == Config::get('constants.orderStatus.reject')) {
-            $this->status = Config::get('constants.orderStatus.rejected');
+        if ($this->status_id == Config::get('constants.orderStatus.reject')) {
+            $this->status_id = Config::get('constants.orderStatus.rejected');
             $this->save();
 
             //@TODO money cancel
-            
+
         }
     }
 
@@ -305,8 +308,8 @@ class Order extends Model
      */
     public function denyRejected()
     {
-        if ($this->status == Config::get('constants.orderStatus.reject')) {
-            $this->status = Config::get('constants.orderStatus.received');
+        if ($this->status_id == Config::get('constants.orderStatus.reject')) {
+            $this->status_id = Config::get('constants.orderStatus.received');
             $this->save();
         }
     }
@@ -316,8 +319,8 @@ class Order extends Model
      */
     public function exchange()
     {
-        if ($this->status == Config::get('constants.orderStatus.reject')) {
-            $this->status = Config::get('constants.orderStatus.exchange');
+        if ($this->status_id == Config::get('constants.orderStatus.reject')) {
+            $this->status_id = Config::get('constants.orderStatus.exchange');
             $this->save();
         }
     }

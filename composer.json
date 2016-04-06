@@ -13,7 +13,8 @@
     "overtrue/laravel-wechat": "~3.0",
     "sybio/image-workshop": "^2.0",
     "gloudemans/shoppingcart": "~1.3",
-    "simplesoftwareio/simple-qrcode": "~1"
+    "simplesoftwareio/simple-qrcode": "~1",
+    "toplan/laravel-sms": "~2.2.7"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

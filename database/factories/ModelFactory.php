@@ -22,13 +22,13 @@
 
 $factory->define(App\Model\Order::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => 6,
+        'user_id' => rand(1, 8),
         'order_no' => str_random(32),
         'phone' => 12345678901,
         'contact' => '玻璃侠',
         'address' => '广东省广州市从化区太平镇东风村 13 号',
         'total' => 123,
-        'status' => \Illuminate\Support\Facades\Config::get('constants.orderStatus.paid'),
+        'status' => rand(1, 10),
         'last_action_at' => date('Y-m-d H:i:s'),
     ];
 });

@@ -38,7 +38,7 @@ class ConfirmOrder extends Command
 
         $orders = Order::getPaid();
         foreach ($orders as $order) {
-            User::canQrcode($order->user_id);
+            User::get($order->user_id)->canQrcode();
             Log::info("[ORDER] {$order->order_no} is dealing");
 
             try {

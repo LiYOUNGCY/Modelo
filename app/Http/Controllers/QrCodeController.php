@@ -19,12 +19,15 @@ class QrCodeController extends Controller
         $user = Container::getUser();
 
         if ($user->get_qrcode) {
-            $parentId = UserQrCode::getByToken($token);
-            if(isset($parentId)) {
-                $parentId = $parentId->user->id;
+            $parent = UserQrCode::getByToken($token);
+            if (isset($parent)) {
+                $parentId = $parent->user->id;
+                $referee = $parent->user->nickname;
+
                 $userRelation = new UserRelation();
                 $userRelation->insert($user->id, $parentId);
-                $user->removeScan();
+
+                $user->scanQrcode($referee);
 
                 return redirect('/');
             } else {
