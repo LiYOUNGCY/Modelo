@@ -10,9 +10,10 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $user = User::findOrNew(2);
-//        $user->changeSuper();
-        $user->nickname = '2';
-        $user->save();
+//        echo User::getSecondCount(1);
+//        echo User::getSecondBuyCount(1);
+
+        echo User::getThreeCount(1);
+        echo User::getThreeBuyCount(1);
     }
 }

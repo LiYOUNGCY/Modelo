@@ -95,7 +95,7 @@ class User extends Model
                     ->from('user_relation')
                     ->whereIn('parent_id', $subOrder);
             })
-            ->whereIn('status', [
+            ->whereIn('status_id', [
                 Config::get('constants.orderStatus.unpaid'),
                 Config::get('constants.orderStatus.cancel'),
             ])
@@ -125,7 +125,7 @@ class User extends Model
                     ->from('user_relation')
                     ->whereIn('parent_id', $subOrder);
             })
-            ->whereIn('status', [
+            ->whereIn('status_id', [
                 Config::get('constants.orderStatus.finish'),
             ])
             ->sum('total');
@@ -149,7 +149,7 @@ class User extends Model
                     ->from('user_relation')
                     ->whereIn('parent_id', $subOrder);
             })
-            ->whereIn('status', [
+            ->whereIn('status_id', [
                 Config::get('constants.orderStatus.confirm'),
                 Config::get('constants.orderStatus.deliver'),
                 Config::get('constants.orderStatus.received'),
@@ -157,6 +157,96 @@ class User extends Model
                 Config::get('constants.orderStatus.exchange'),
             ])
             ->sum('total');
+
+        return $result;
+    }
+
+    public static function getChildrenCount($userId)
+    {
+        $result = DB::table('user_relation')
+            ->where('parent_id', $userId)
+            ->count();
+        return $result;
+    }
+
+    public static function getChildrenBuyCount($userId)
+    {
+        $result = DB::table('user_relation')
+            ->join('user', 'user.id', '=', 'user_relation.children_id')
+            ->where('user_relation.parent_id', $userId)
+            ->where('user.can_qrcode', 1)
+            ->count();
+        return $result;
+    }
+
+    public static function getSecondCount($userId)
+    {
+        $subChild = function ($query) use ($userId) {
+            $query->select('user_relation.children_id')
+                ->from('user_relation')
+                ->where('user_relation.parent_id', $userId);
+        };
+
+        $result = DB::table('user_relation')
+            ->whereIn('user_relation.parent_id', $subChild)
+            ->count();
+
+        return $result;
+    }
+
+    public static function getSecondBuyCount($userId)
+    {
+        $subChild = function ($query) use ($userId) {
+            $query->select('user_relation.children_id')
+                ->from('user_relation')
+                ->where('user_relation.parent_id', $userId);
+        };
+
+        $result = DB::table('user_relation')
+            ->join('user', 'user.id', '=', 'user_relation.children_id')
+            ->where('user.can_qrcode', 1)
+            ->whereIn('user_relation.parent_id', $subChild)
+            ->count();
+
+        return $result;
+    }
+
+    public static function getThreeCount($userId)
+    {
+        $subChild = function ($query) use ($userId) {
+            $query->select('user_relation.children_id')
+                ->from('user_relation')
+                ->whereIn('user_relation.parent_id', function($query) use ($userId){
+                    $query->select('user_relation.children_id')
+                        ->from('user_relation')
+                        ->where('user_relation.parent_id', $userId);
+                });
+        };
+
+        $result = DB::table('user_relation')
+            ->whereIn('user_relation.parent_id', $subChild)
+            ->count();
+
+        return $result;
+    }
+
+    public static function getThreeBuyCount($userId)
+    {
+        $subChild = function ($query) use ($userId) {
+            $query->select('user_relation.children_id')
+                ->from('user_relation')
+                ->whereIn('user_relation.parent_id', function($query) use ($userId){
+                    $query->select('user_relation.children_id')
+                        ->from('user_relation')
+                        ->where('user_relation.parent_id', $userId);
+                });
+        };
+
+        $result = DB::table('user_relation')
+            ->join('user', 'user.id', '=', 'user_relation.children_id')
+            ->where('user.can_qrcode', 1)
+            ->whereIn('user_relation.parent_id', $subChild)
+            ->count();
 
         return $result;
     }

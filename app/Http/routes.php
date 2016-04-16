@@ -97,4 +97,6 @@ Route::group(['middleware' => ['web']], function () {
     // QrCode
     Route::get('qrcode/{token}', 'QrCodeController@scan');
     Route::get('qrcode', 'UserController@getQrCode');
+
+    Route::get('user', 'UserController@userCenter');
 });

@@ -24,6 +24,8 @@ class CreateOrderTable extends Migration
             $table->string('tracking_no');          //快递单号
             $table->string('express');              //快递公司
 
+            $table->string('remark');               //备注
+
             $table->float('total');
             $table->timestamp('last_action_at');
             $table->timestamps();

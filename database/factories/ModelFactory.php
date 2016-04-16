@@ -22,7 +22,7 @@
 
 $factory->define(App\Model\Order::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => rand(1, 8),
+        'user_id' => rand(1, 9),
         'order_no' => str_random(32),
         'phone' => 12345678901,
         'contact' => '玻璃侠',
@@ -30,5 +30,11 @@ $factory->define(App\Model\Order::class, function (Faker\Generator $faker) {
         'total' => 123,
         'status' => rand(1, 10),
         'last_action_at' => date('Y-m-d H:i:s'),
+    ];
+});
+
+$factory->define(App\Model\User::class, function(Faker\Generator $faker) {
+    return [
+        'nickname' => 'test'
     ];
 });

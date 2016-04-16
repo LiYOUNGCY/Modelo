@@ -5,7 +5,9 @@
 @section('body')
     <div class="wrapper">
         <div class="block-w withback-title">
-            <a href="javascript:history.go(-1);"><div class="button back">返回</div></a>
+            <a href="javascript:history.go(-1);">
+                <div class="button back">返回</div>
+            </a>
             填写收货信息
         </div>
         <div class="block-w editaddress-form">
@@ -23,15 +25,15 @@
                     <label>联系地址：</label>
                     <div class="address">
                         <div class="adreee-selete">
-                            <select id="Select1" name="area1"></select>
-                            <select id="Select2" name="area2"></select>
-                            <select id="Select3" name="area3"></select>
+                            <select id="Province" name="area1"></select>
+                            <select id="City" name="area2"></select>
+                            <select id="Area" name="area3"></select>
                         </div>
                         <textarea name="address"></textarea>
                     </div>
                 </div>
 
-                <button class="btn button full confirm-address" type="submit">
+                <button id="create" class="btn button full confirm-address" type="button">
                     确认收货信息
                 </button>
             </form>
@@ -42,6 +44,42 @@
 @section('moreScript')
     <script src="{{ url('assets') }}/js/address.js"></script>
     <script type="text/javascript">
-        addressInit('Select1', 'Select2', 'Select3');
+        addressInit('Province', 'City', 'Area');
+
+        $("#create").bind('click', function () {
+            var Contact = $("#contact").val();
+            var Tel = $("#phone").val();
+            var Address = $("#address").val();
+            var reg = /(^13\d{9}$)|(^14)[5,7]\d{8}$|(^15[0,1,2,3,5,6,7,8,9]\d{8}$)|(^17)[6,7,8]\d{8}$|(^18\d{9}$)/g;
+
+            if (isNull(Contact) || isNull(Tel) || isNull(Address)) {
+                showModalDialog("请输入完整的收货信息");
+                return;
+            }
+
+            if (Contact.length > 10) {
+                showModalDialog("联系人字数不得超过10");
+                return;
+            } else if (!reg.test(Tel)) {
+                showModalDialog("无效的手机号码");
+                return;
+            }
+
+            console.log('aaaaaaa');
+            $('form').submit();
+        });
+
+        function showModalDialog(text) {
+            var modal = '' +
+                    '<div class="m-modal"><div class="block"><p>' + text + '</p><p style="color: #5c595c">（点击关闭）</p></div></div>';
+            $("body").prepend($(modal));
+            $("body").on('click', ".m-modal", function () {
+                $(this).remove();
+            });
+        }
+
+        function isNull(val) {
+            return (val == null || val == 'undefined');
+        }
     </script>
 @endsection

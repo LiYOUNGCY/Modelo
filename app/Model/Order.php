@@ -104,7 +104,7 @@ class Order extends Model
         return $data;
     }
 
-    public static function createOrder($user_id, $userAddress)
+    public static function createOrder($user_id, $userAddress, $remark)
     {
         $order = new Order();
         $order->order_no = time() . str_random(22);
@@ -114,6 +114,7 @@ class Order extends Model
         $order->address = $userAddress->address;
         $order->status_id = Config::get('constants.orderStatus.unpaid');
         $order->last_action_at = date('Y-m-d H:i:s');
+        $order->remark = $remark;
         $order->save();
 
         //把购物车里的所有商品，生成订单
