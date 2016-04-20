@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Model\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,8 +23,18 @@ class AuthController extends Controller
     {
         $wechatAuth = EasyWeChat::oauth();
 
-        $user = $wechatAuth->user()->toArray();
+        $userMessage = $wechatAuth->user()->toArray();
 
-        print_r($user);
+        $user = User::where('openid', $userMessage['openid'])->first();
+        if(is_null($user)) {
+            $user = new User();
+        }
+        $user->nickname = $userMessage['nickname'];
+        $user->sex = $userMessage['sex'];
+        $user->province = $userMessage['province'];
+        $user->city = $userMessage['city'];
+        $user->country = $userMessage['country'];
+        $user->headimgurl = $userMessage['headimgurl'];
+        $user->save();
     }
 }

@@ -14,7 +14,16 @@ class CreateUserTable extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            //wechat prototype
+            $table->string('openid');
             $table->string('nickname', 32);
+            $table->string('sex');
+            $table->string('province', 32);
+            $table->string('city', 32);
+            $table->string('country', 32);
+            $table->string('headimgurl');
+
             $table->string('password');
 
             $table->tinyInteger('can_buy')->default(0);      //购买标识
