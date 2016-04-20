@@ -66,8 +66,8 @@ Route::group(['middleware' => ['web']], function () {
 
     //Common Controller
 
-//    //Index
-//    Route::get('/', 'IndexController@index');
+    //Index
+    Route::get('/', 'IndexController@index');
 
     //User
     Route::get('/qrcode', 'UserController@getQrCode');
