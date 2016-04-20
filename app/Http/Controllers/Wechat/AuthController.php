@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Exceptions\NotFoundException;
 use App\Model\User;
 use Illuminate\Http\Request;
 
@@ -21,22 +22,34 @@ class AuthController extends Controller
 
     public function callback(Request $request)
     {
-        $wechatAuth = EasyWeChat::oauth();
+        try {
+            $wechatAuth = EasyWeChat::oauth();
 
-        $userMessage = $wechatAuth->user()->toArray();
+            $userMessage = $wechatAuth->user()->toArray();
 
-        echo "<pre>";print_r($userMessage);echo "<pre>";
+            if(empty($userMessage)) {
+                throw new NotFoundException("没有成功获取用户信息");
+            }
 
-//        $user = User::where('openid', $userMessage['openid'])->first();
-//        if(is_null($user)) {
-//            $user = new User();
-//        }
-//        $user->nickname = $userMessage['nickname'];
-//        $user->sex = $userMessage['sex'];
-//        $user->province = $userMessage['province'];
-//        $user->city = $userMessage['city'];
-//        $user->country = $userMessage['country'];
-//        $user->headimgurl = $userMessage['headimgurl'];
-//        $user->save();
+            $userMessage = $userMessage['original'];
+
+            $user = User::where('openid', $userMessage['openid'])->first();
+            if(is_null($user)) {
+                $user = new User();
+            }
+            $user->nickname = $userMessage['nickname'];
+            $user->sex = $userMessage['sex'];
+            $user->province = $userMessage['province'];
+            $user->city = $userMessage['city'];
+            $user->country = $userMessage['country'];
+            $user->headimgurl = $userMessage['headimgurl'];
+            $user->save();
+
+            echo 'Success';
+
+        }catch (\Exception $e) {
+            Log::warning($e->getMessage());
+            abort(404, '发生未知错误');
+        }
     }
 }
