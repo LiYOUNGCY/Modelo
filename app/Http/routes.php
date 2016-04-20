@@ -101,7 +101,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('user', 'UserController@userCenter');
 });
 
-Route::group(['prefix' => 'wechat',], function(){
+Route::group([
+    'prefix' => 'wechat',
+    'middleware' => 'wechat',
+], function(){
     Route::any('server', 'Wechat\ServerController@index');
 
     Route::any('login', 'Wechat\AuthController@index');
