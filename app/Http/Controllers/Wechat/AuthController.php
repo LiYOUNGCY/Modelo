@@ -47,6 +47,8 @@ class AuthController extends Controller
             $user->headimgurl = $userMessage['headimgurl'];
             $user->save();
 
+            echo "<pre>";print_r($user);echo "<pre>";
+
             //create Cookie and Session
 
             session('user')->put($user->id);
