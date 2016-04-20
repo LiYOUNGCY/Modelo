@@ -50,7 +50,8 @@ class AuthController extends Controller
 
             session(['user' => $user->id]);
 
-            echo 'Success';
+            echo 'Success<br>';
+            echo  session('user');
 
         }catch (\Exception $e) {
             Log::warning($e->getMessage());
