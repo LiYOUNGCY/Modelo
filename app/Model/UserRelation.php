@@ -14,6 +14,7 @@ class UserRelation extends Model
         $count = DB::table('user_relation')
             ->where('user_relation.children_id', '=', $user_id)
             ->count();
+        var_dump($count);
         return $count === 1;
     }
 

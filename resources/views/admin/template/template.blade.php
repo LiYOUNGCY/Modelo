@@ -26,91 +26,6 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                {{--<li class="dropdown">--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b--}}
-                {{--class="caret"></b></a>--}}
-                {{--<ul class="dropdown-menu message-dropdown">--}}
-                {{--<li class="message-preview ">--}}
-                {{--<a href="#">--}}
-                {{--<div class="media">--}}
-                {{--<span class="pull-left">--}}
-                {{--<img class="media-object" src="http://placehold.it/50x50" alt="">--}}
-                {{--</span>--}}
-                {{--<div class="media-body">--}}
-                {{--<h5 class="media-heading"><strong>John Smith</strong>--}}
-                {{--</h5>--}}
-                {{--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM--}}
-                {{--</p>--}}
-                {{--<p>Lorem ipsum dolor sit amet, consectetur...</p>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<li class="message-preview">--}}
-                {{--<a href="#">--}}
-                {{--<div class="media">--}}
-                {{--<span class="pull-left">--}}
-                {{--<img class="media-object" src="http://placehold.it/50x50" alt="">--}}
-                {{--</span>--}}
-                {{--<div class="media-body">--}}
-                {{--<h5 class="media-heading"><strong>John Smith</strong>--}}
-                {{--</h5>--}}
-                {{--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM--}}
-                {{--</p>--}}
-                {{--<p>Lorem ipsum dolor sit amet, consectetur...</p>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<li class="message-preview">--}}
-                {{--<a href="#">--}}
-                {{--<div class="media">--}}
-                {{--<span class="pull-left">--}}
-                {{--<img class="media-object" src="http://placehold.it/50x50" alt="">--}}
-                {{--</span>--}}
-                {{--<div class="media-body">--}}
-                {{--<h5 class="media-heading"><strong>John Smith</strong>--}}
-                {{--</h5>--}}
-                {{--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM--}}
-                {{--</p>--}}
-                {{--<p>Lorem ipsum dolor sit amet, consectetur...</p>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<li class="message-footer">--}}
-                {{--<a href="#">Read All New Messages</a>--}}
-                {{--</li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-                {{--<li class="dropdown">--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b--}}
-                {{--class="caret"></b></a>--}}
-                {{--<ul class="dropdown-menu alert-dropdown">--}}
-                {{--<li>--}}
-                {{--<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>--}}
-                {{--</li>--}}
-                {{--<li class="divider"></li>--}}
-                {{--<li>--}}
-                {{--<a href="#">View All</a>--}}
-                {{--</li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                                 class="fa fa-user"></i>{{ $USER->nickname or 'NO LOGIN!' }}<b
@@ -181,9 +96,31 @@
                                 <a href="{{ url("{$ADMIN}/order") }}">所有订单</a>
                             </li>
                             <li>
-                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.reject') }}">
-                                    申请退货
-                                </a>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.unpaid') }}">未支付</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.paid') }}">已支付</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.confirm') }}">待发货</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver') }}">发货中</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.received') }}">已收货</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.reject') }}">申请退换货</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.finish') }}">已完成</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.rejected') }}">已退货</a>
+                            </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/order") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.orderStatus.exchange') }}">重新发货</a>
                             </li>
                         </ul>
                     </li>

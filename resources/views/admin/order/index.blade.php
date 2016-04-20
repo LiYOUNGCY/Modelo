@@ -58,7 +58,9 @@
     <script src="{{ asset('assets') }}/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('table').DataTable();
+            $('table').DataTable({
+                'order' : [[7, 'desc']]
+            });
         });
     </script>
 @endsection

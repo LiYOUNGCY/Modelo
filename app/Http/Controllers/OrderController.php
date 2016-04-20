@@ -72,7 +72,7 @@ class OrderController extends Controller
      */
     public function notify()
     {
-        $order_no = '1459929937ueyqjBWTPwBZJrd48FDNbq';
+        $order_no = '14610507934yos6qauDmHKFEldlTxYoF';
         if (Order::checkOrder_no($order_no)) {
             Order::payOrder($order_no);
         }

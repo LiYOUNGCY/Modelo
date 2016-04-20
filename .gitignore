@@ -9,3 +9,5 @@ Homestead.json
 .idea/*
 composer.lock
 cron
+config/wechat.php
+phpunit.phar

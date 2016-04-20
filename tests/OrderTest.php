@@ -6,9 +6,14 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class OrderTest extends TestCase
 {
-    public function testCreateOrder()
+//    public function testCreateOrder()
+//    {
+//        $order = factory(App\Model\Order::class, 100)->create();
+//    }
+
+    public function testA()
     {
-        $order = factory(App\Model\Order::class, 100000)->create();
+        return true;
     }
 
 //    public function testGetUnpaidAndCancelOrderTotal()

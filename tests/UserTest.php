@@ -8,7 +8,7 @@ class UserTest extends TestCase
 {
 //    public function testCreate()
 //    {
-//        $users = factory(App\Model\User::class, 1)->create();
+//        $users = factory(App\Model\User::class, 50)->create();
 //    }
 
     public function testCreateRelation()
@@ -32,15 +32,14 @@ class UserTest extends TestCase
 
         // $this->setUserBuy(5);
         // $this->setUserBuy(6);
+        return true;
     }
 
     private function setParent($userId, $parentId)
     {
-        if(
-            $this->existUser($userId)
-            && $this->existUser($parentId)
-            && (! \App\Model\UserRelation::hasParent($userId))
-        ) {
+        $this->existUser($userId);
+        $this->existUser($parentId);
+        if(! \App\Model\UserRelation::hasParent($userId)) {
             $userRelation = new \App\Model\UserRelation();
             $userRelation->parent_id = $parentId;
             $userRelation->children_id = $userId;
@@ -71,15 +70,15 @@ class UserTest extends TestCase
         $user->save();
     }
 
-    public function testCount()
-    {
-        $this->assertEquals(3, \App\Model\User::getChildrenCount(1));
-        $this->assertEquals(2, \App\Model\User::getChildrenBuyCount(1));
-
-        $this->assertEquals(3, \App\Model\User::getSecondCount(1));
-        $this->assertEquals(1, \App\Model\User::getSecondBuyCount(1));
-
-        $this->assertEquals(2, \App\Model\User::getThreeCount(1));
-        $this->assertEquals(1, \App\Model\User::getThreeBuyCount(1));
-    }
+//    public function testCount()
+//    {
+//        $this->assertEquals(3, \App\Model\User::getChildrenCount(1));
+//        $this->assertEquals(2, \App\Model\User::getChildrenBuyCount(1));
+//
+//        $this->assertEquals(3, \App\Model\User::getSecondCount(1));
+//        $this->assertEquals(1, \App\Model\User::getSecondBuyCount(1));
+//
+//        $this->assertEquals(2, \App\Model\User::getThreeCount(1));
+//        $this->assertEquals(1, \App\Model\User::getThreeBuyCount(1));
+//    }
 }

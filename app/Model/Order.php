@@ -14,8 +14,8 @@ class Order extends Model
 
     public static function getAll($statusId = null)
     {
-
         $data = DB::table('order')
+//            ->orderBy('', 'desc')
             ->join('user', 'user.id', '=', 'order.user_id')
             ->join('order_status', 'order.status_id', '=', 'order_status.id')
             ->select(
@@ -30,9 +30,7 @@ class Order extends Model
                 'order.created_at',
                 'order.status_id as status',
                 'order_status.name as status_name'
-            )
-            ->skip(0)
-            ->take(1000);
+            );
 
 
         if (!is_null($statusId)) {
@@ -88,7 +86,9 @@ class Order extends Model
                 'order.total',
                 'order.created_at',
                 'order.status_id as status',
-                'order_status.name as status_name'
+                'order_status.name as status_name',
+                'order.express',
+                'order.tracking_no'
             )
             ->first();
         return $data;

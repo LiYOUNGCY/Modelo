@@ -28,7 +28,7 @@ $factory->define(App\Model\Order::class, function (Faker\Generator $faker) {
         'contact' => '玻璃侠',
         'address' => '广东省广州市从化区太平镇东风村 13 号',
         'total' => 123,
-        'status' => rand(1, 10),
+        'status_id' => rand(1, 10),
         'last_action_at' => date('Y-m-d H:i:s'),
     ];
 });

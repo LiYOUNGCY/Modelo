@@ -10,6 +10,7 @@ use App\Model\ProfitStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
+use Illuminate\Support\Facades\DB;
 use Log;
 
 class OrderController extends AdminController
@@ -50,10 +51,16 @@ class OrderController extends AdminController
 
         if (
             isset($order)
-            && $order->status_id == Config::get('constants.orderStatus.confirm')
+            && ($order->status_id == Config::get('constants.orderStatus.confirm')
+            || $order->status_id == Config::get('constants.orderStatus.exchange'))
         ) {
+            $express = $request->get('express');
+            $tracking_no = $request->get('tracking_no');
+
             $order->status_id = Config::get('constants.orderStatus.deliver');
             $order->last_action_at = date('Y-m-d H:i:s');
+            $order->express = $express;
+            $order->tracking_no = $tracking_no;
             $order->save();
 
             return redirect("{$this->ADMIN}/order");

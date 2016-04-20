@@ -70,6 +70,27 @@
                                 </div>
                             </td>
                         </tr>
+                        @if(
+                        $order->status == \Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver')
+                        || $order->status == \Illuminate\Support\Facades\Config::get('constants.orderStatus.received')
+                        || $order->status == \Illuminate\Support\Facades\Config::get('constants.orderStatus.finish'))
+                            <tr>
+                                <td>
+                                    <span class="col-md-6 col-xs-3 control-label">快递公司</span>
+                                    <div class="col-md-6 col-xs-8" id="order_id">
+                                        {{ $order->express }}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="col-md-6 col-xs-3 control-label">快递单号</span>
+                                    <div class="col-md-6 col-xs-8" id="order_id">
+                                        {{ $order->tracking_no }}
+                                    </div>
+                                </td>
+                            </tr>
+                        @endif
                         {{--<tr>--}}
                         {{--<td>--}}
                         {{--<span class="col-md-6 col-xs-3 control-label">备注</span>--}}
@@ -131,18 +152,19 @@
                             </tr>
                         @endforeach
                     </table>
-                    @if($order->status == Config::get('constants.orderStatus.confirm'))
+                    @if($order->status == Config::get('constants.orderStatus.confirm')
+                    || $order->status == Config::get('constants.orderStatus.exchange'))
                         <div class="row">
                             <div class="col col-md-offset-2 col-md-8">
                                 <form action="{{ url("{$ADMIN}/order/{$order->id}/deliver") }}" method="post">
                                     {!! csrf_field() !!}
                                     <div class="form-group">
                                         <label>快递公司</label>
-                                        <input class="form-control" name="deliver_name">
+                                        <input class="form-control" name="express">
                                     </div>
                                     <div class="form-group">
                                         <label>快递单号</label>
-                                        <input class="form-control" name="deliver_no">
+                                        <input class="form-control" name="tracking_no">
                                     </div>
                                     <button type="submit" class="btn btn-success"
                                             style="width: 80%; margin: 0 auto; display: block;">

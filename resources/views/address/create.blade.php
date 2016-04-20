@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <button id="create" class="btn button full confirm-address" type="button">
+                <button id="create" class="btn button full confirm-address" type="submit">
                     确认收货信息
                 </button>
             </form>
@@ -41,45 +41,3 @@
     </div>
 @endsection
 
-@section('moreScript')
-    <script src="{{ url('assets') }}/js/address.js"></script>
-    <script type="text/javascript">
-        addressInit('Province', 'City', 'Area');
-
-        $("#create").bind('click', function () {
-            var Contact = $("#contact").val();
-            var Tel = $("#phone").val();
-            var Address = $("#address").val();
-            var reg = /(^13\d{9}$)|(^14)[5,7]\d{8}$|(^15[0,1,2,3,5,6,7,8,9]\d{8}$)|(^17)[6,7,8]\d{8}$|(^18\d{9}$)/g;
-
-            if (isNull(Contact) || isNull(Tel) || isNull(Address)) {
-                showModalDialog("请输入完整的收货信息");
-                return;
-            }
-
-            if (Contact.length > 10) {
-                showModalDialog("联系人字数不得超过10");
-                return;
-            } else if (!reg.test(Tel)) {
-                showModalDialog("无效的手机号码");
-                return;
-            }
-
-            console.log('aaaaaaa');
-            $('form').submit();
-        });
-
-        function showModalDialog(text) {
-            var modal = '' +
-                    '<div class="m-modal"><div class="block"><p>' + text + '</p><p style="color: #5c595c">（点击关闭）</p></div></div>';
-            $("body").prepend($(modal));
-            $("body").on('click', ".m-modal", function () {
-                $(this).remove();
-            });
-        }
-
-        function isNull(val) {
-            return (val == null || val == 'undefined');
-        }
-    </script>
-@endsection

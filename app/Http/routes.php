@@ -1,5 +1,9 @@
 <?php
 
+Route::group(['middleware' => 'wechat.oauth'], function(){
+    //Index
+    Route::get('/', 'IndexController@index');
+});
 
 Route::group(['middleware' => ['web']], function () {
 
@@ -66,8 +70,8 @@ Route::group(['middleware' => ['web']], function () {
 
     //Common Controller
 
-    //Index
-    Route::get('/', 'IndexController@index');
+//    //Index
+//    Route::get('/', 'IndexController@index');
 
     //User
     Route::get('/qrcode', 'UserController@getQrCode');
@@ -99,4 +103,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('qrcode', 'UserController@getQrCode');
 
     Route::get('user', 'UserController@userCenter');
+});
+
+Route::group(['prefix' => 'wechat',], function(){
+    Route::any('server', 'Wechat\ServerController@index');
+
+    Route::any('auth', 'Wechat\AuthController@index');
 });

@@ -8,35 +8,15 @@ use Illuminate\Support\Facades\DB;
 
 class Install extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'install';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'setup app';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         DB::table('order_status')
@@ -55,7 +35,7 @@ class Install extends Command
                 ],
                 [
                     'id' => Config::get('constants.orderStatus.confirm'),
-                    'name' => '确认订单',
+                    'name' => '待发货',
                 ],
                 [
                     'id' => Config::get('constants.orderStatus.deliver'),
@@ -75,7 +55,7 @@ class Install extends Command
                 ],
                 [
                     'id' => Config::get('constants.orderStatus.rejected'),
-                    'name' => '确认退货',
+                    'name' => '已退货',
                 ],
                 [
                     'id' => Config::get('constants.orderStatus.exchange'),
@@ -114,6 +94,6 @@ class Install extends Command
                     'name' => '三级利润',
                 ],
             ]);
-        
+
     }
 }

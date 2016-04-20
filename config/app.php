@@ -205,7 +205,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Wechat' => 'Overtrue\LaravelWechat\Facade',
+        'EasyWeChat' => Overtrue\LaravelWechat\Facade::class,
         'Cart' => 'Gloudemans\Shoppingcart\Facades\Cart',
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],

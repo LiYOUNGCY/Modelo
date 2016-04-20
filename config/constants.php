@@ -7,22 +7,22 @@ return [
 
     //订单状态
     'orderStatus' => [
-        'cancel' => 1,
-        'unpaid' => 2,
-        'paid' => 3,
-        'confirm' => 4,
-        'deliver' => 5,
-        'received' => 6,
-        'finish' => 7,
-        'reject' => 8,
-        'rejected' => 9,
-        'exchange' => 10,
+        'cancel' => 1,      //取消订单
+        'unpaid' => 2,      //未支付
+        'paid' => 3,        //已支付
+        'confirm' => 4,     //确认订单
+        'deliver' => 5,     //已发货
+        'received' => 6,    //已收货
+        'finish' => 7,      //已完成
+        'reject' => 8,      //售后处理中
+        'rejected' => 9,    //确认退货
+        'exchange' => 10,   //准备重新发货
     ],
 
     'order' => [
         //在多少分钟内没有支付就取消订单
-        'cancelTime' => 0,
-        'confirmTime' => 0,
+        'cancelTime' => 0, //60
+        'confirmTime' => 0, //15
         'receivedTime' => 0,
         'finishTime' => 20,
     ],
