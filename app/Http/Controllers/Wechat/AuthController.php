@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use EasyWeChat;
+use Log;
 
 class AuthController extends Controller
 {
@@ -45,11 +46,15 @@ class AuthController extends Controller
             $user->headimgurl = $userMessage['headimgurl'];
             $user->save();
 
+            //create Cookie and Session
+
+            session(['user' => $user->id]);
+
             echo 'Success';
 
         }catch (\Exception $e) {
             Log::warning($e->getMessage());
-            abort(404, '发生未知错误');
+            abort(503, '发生未知错误');
         }
     }
 }
