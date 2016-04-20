@@ -51,7 +51,7 @@ class AuthController extends Controller
 
             //create Cookie and Session
 
-            session('user')->put($user->id);
+            session()->put('user', $user->id);
 
             echo 'Success<br>';
             echo  session('user');
