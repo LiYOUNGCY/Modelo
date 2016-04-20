@@ -60,5 +60,7 @@ class AuthController extends Controller
             Log::warning($e->getMessage());
             abort(503, '发生未知错误');
         }
+
+        return redirect('/');
     }
 }
