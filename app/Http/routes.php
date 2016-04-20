@@ -1,9 +1,5 @@
 <?php
 
-Route::group(['middleware' => 'wechat.oauth'], function(){
-    //Index
-    Route::get('/', 'IndexController@index');
-});
 
 Route::group(['middleware' => ['web']], function () {
 
@@ -108,5 +104,5 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['prefix' => 'wechat',], function(){
     Route::any('server', 'Wechat\ServerController@index');
 
-    Route::any('auth', 'Wechat\AuthController@index');
+    Route::any('login', 'Wechat\AuthController@index');
 });
