@@ -25,16 +25,18 @@ class AuthController extends Controller
 
         $userMessage = $wechatAuth->user()->toArray();
 
-        $user = User::where('openid', $userMessage['openid'])->first();
-        if(is_null($user)) {
-            $user = new User();
-        }
-        $user->nickname = $userMessage['nickname'];
-        $user->sex = $userMessage['sex'];
-        $user->province = $userMessage['province'];
-        $user->city = $userMessage['city'];
-        $user->country = $userMessage['country'];
-        $user->headimgurl = $userMessage['headimgurl'];
-        $user->save();
+        echo "<pre>";print_r($userMessage);echo "<pre>";
+
+//        $user = User::where('openid', $userMessage['openid'])->first();
+//        if(is_null($user)) {
+//            $user = new User();
+//        }
+//        $user->nickname = $userMessage['nickname'];
+//        $user->sex = $userMessage['sex'];
+//        $user->province = $userMessage['province'];
+//        $user->city = $userMessage['city'];
+//        $user->country = $userMessage['country'];
+//        $user->headimgurl = $userMessage['headimgurl'];
+//        $user->save();
     }
 }
