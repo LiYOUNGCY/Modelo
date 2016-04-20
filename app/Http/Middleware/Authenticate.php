@@ -11,7 +11,7 @@ class Authenticate
 {
     public function handle($request, Closure $next)
     {
-        echo session('user');
+        echo session()->get('user');
 //        if (!session('user')) {
 //            return redirect('wechat/login');
 //        } else {
