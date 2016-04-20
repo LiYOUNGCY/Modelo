@@ -25,6 +25,7 @@ class CreateUserTable extends Migration
             $table->string('headimgurl');
 
             $table->string('password');
+            $table->bigInteger('role_id');
 
             $table->tinyInteger('can_buy')->default(0);      //购买标识
             $table->tinyInteger('can_qrcode')->default(0);   //查看二维码的标识
