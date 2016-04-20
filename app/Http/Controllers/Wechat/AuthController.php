@@ -13,9 +13,17 @@ class AuthController extends Controller
     public function index(Request $request)
     {
         $wechatAuth = EasyWeChat::oauth();
-//        var_dump($wechatAuth);
-        echo $request->url();
+
         return $wechatAuth->scopes(['snsapi_userinfo'])
             ->redirect();
+    }
+
+    public function callback(Request $request)
+    {
+        $wechatAuth = EasyWeChat::oauth();
+
+        $user = $wechatAuth->user();
+
+        var_dump($user);
     }
 }

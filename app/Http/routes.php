@@ -105,4 +105,6 @@ Route::group(['prefix' => 'wechat',], function(){
     Route::any('server', 'Wechat\ServerController@index');
 
     Route::any('login', 'Wechat\AuthController@index');
+
+    Route::any('auth/callback', 'Wechat\AuthController@callback');
 });
