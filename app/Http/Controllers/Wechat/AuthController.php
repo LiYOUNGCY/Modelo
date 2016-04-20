@@ -38,6 +38,7 @@ class AuthController extends Controller
             if(is_null($user)) {
                 $user = new User();
             }
+            $user->opid = $user['openid'];
             $user->nickname = $userMessage['nickname'];
             $user->sex = $userMessage['sex'];
             $user->province = $userMessage['province'];

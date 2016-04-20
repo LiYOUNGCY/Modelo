@@ -11,12 +11,14 @@ class Authenticate
 {
     public function handle($request, Closure $next)
     {
-        if (!session('user')) {
-            return redirect('wechat/login');
-        } else {
-            $user = session('user');
-            Container::setUser($user);
-        }
+        echo session('user');
+//        if (!session('user')) {
+//            return redirect('wechat/login');
+//        } else {
+//            $user = session('user');
+//            Container::setUser($user);
+//        }
+        exit();
         return $next($request);
     }
 }
