@@ -6,7 +6,6 @@ use App\Exceptions\NotFoundException;
 use App\Model\Order;
 use App\Model\Production;
 use App\Container\Container;
-use App\Model\UserAddress;
 use Cart;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -57,14 +56,6 @@ class OrderController extends Controller
         } else {
             return redirect('/');
         }
-    }
-
-    /**
-     * 支付页面
-     */
-    public function pay()
-    {
-
     }
 
     /**

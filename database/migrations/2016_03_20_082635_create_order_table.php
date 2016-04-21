@@ -17,7 +17,8 @@ class CreateOrderTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('status_id')->unsigned();
 
-            $table->string('order_no', 32);
+            $table->string('order_no', 32)->unique();
+            $table->string('wechat_order_no', 32)->unique();
             $table->string('phone', 16);
             $table->string('contact', 16);
             $table->string('address', 128);
