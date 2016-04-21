@@ -110,4 +110,5 @@ Route::group([
     Route::any('login', 'Wechat\AuthController@index');
 
     Route::any('auth/callback', 'Wechat\AuthController@callback');
+    Route::any('pay/{wechatOrderNo}', 'Wechat\PayController@pay');
 });
