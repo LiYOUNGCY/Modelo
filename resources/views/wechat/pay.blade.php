@@ -1,10 +1,5 @@
 @extends('template.basic')
 
-@section('body')
-    <pre>
-    <?php var_dump($data);?>
-        </pre>
-@endsection
 @section('script')
     <script>
         function onBridgeReady() {
