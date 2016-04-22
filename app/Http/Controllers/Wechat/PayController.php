@@ -21,20 +21,25 @@ class PayController extends Controller
         $attributes = [
             'body'             => 'iPad mini 16G 白色',
             'detail'           => 'iPad mini 16G 白色',
-            'out_trade_no'     => '1217752501201407033233368018',
+            'out_trade_no'     => time(),
             'total_fee'        => 5388,
-            'notify_url'       => 'http://xxx.com/order-notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'notify_url'       => 'http://m.artvc.cc/order-notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             // ...
         ];
 
+        $data = [];
+
         $payment = EasyWeChat::payment();
         $order = new Order($attributes);
+        $data['order'] = $order;
+        $data['payment'] = $payment;
         $result = $payment->prepare($order);
         $prepayId = $result->prepay_id;
         $config = $payment->configForPayment($prepayId);
 
         return view('wechat.pay', [
             'config' => $config,
+            'data' => $data,
         ]);
     }
 }

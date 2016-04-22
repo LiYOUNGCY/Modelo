@@ -1,5 +1,10 @@
 @extends('template.basic')
 
+@section('body')
+    <pre>
+    <?php print_r($data);?>
+        </pre>
+@endsection
 @section('script')
     <script>
         function onBridgeReady() {
