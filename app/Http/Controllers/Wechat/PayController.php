@@ -37,4 +37,10 @@ class PayController extends Controller
             'config' => $config,
         ]);
     }
+
+    public function refund() {
+        $app = app('wechat');
+        $payment = $app->payment;
+        $result = $payment->refund(12345, 100);
+    }
 }

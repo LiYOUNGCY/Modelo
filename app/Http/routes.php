@@ -111,4 +111,5 @@ Route::group([
 
     Route::any('auth/callback', 'Wechat\AuthController@callback');
     Route::any('pay/{wechatOrderNo}', 'Wechat\PayController@pay');
+    Route::any('refund/{wechatOrderNo}', 'Wechat\PayController@refund');
 });
