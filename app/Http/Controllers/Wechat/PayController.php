@@ -31,10 +31,11 @@ class PayController extends Controller
 
         $payment = EasyWeChat::payment();
         $order = new Order($attributes);
-        $data['order'] = $order;
-        $data['payment'] = $payment;
+//        $data['order'] = $order;
+//        $data['payment'] = $payment;
         $result = $payment->prepare($order);
         $prepayId = $result->prepay_id;
+        $data['prepayId'] = $prepayId;
         $config = $payment->configForPayment($prepayId);
 
         return view('wechat.pay', [

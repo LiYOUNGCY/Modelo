@@ -2,7 +2,7 @@
 
 @section('body')
     <pre>
-    <?php print_r($data);?>
+    <?php var_dump($data);?>
         </pre>
 @endsection
 @section('script')
