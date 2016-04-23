@@ -26,7 +26,7 @@ class ServerController extends Controller
                     case 'subscribe':
                         $token = $message->EventKey;
                         if(!empty($token) && substr($token, 0, 8) == 'qrscene_') {
-                            $fromUserOpenId = $message->FromUserNam;
+                            $fromUserOpenId = $message->FromUserName;
                             $user = User::findOrNewByOpenid($fromUserOpenId);
                             $token = substr($token, 8);
                             Log::info('token:'. $token);
