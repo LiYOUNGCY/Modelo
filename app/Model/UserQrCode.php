@@ -31,13 +31,15 @@ class UserQrCode extends Model
 
     public static function generateQrCode($user_id)
     {
-        $token = base64_encode(str_random(32));
-        $url = url("/");
-        QrCode::format('png');
-        QrCode::size(200);
-        QrCode::margin(2);
-        QrCode::errorCorrection('H');
-        $content = QrCode::generate("{$url}");
+        $app = app('wechat');
+        $qrcode = $app->qrcode;
+
+        $token = self::count() + 1;
+
+        $result = $qrcode->temporary($token, 7*24*3600);
+        $ticket = $result->ticket;
+        $url = $qrcode->url($ticket);
+        $content = file_get_contents($url);
 
         $image = new Image();
         $image->storeImage('QrCode', $content, 'png', false);
@@ -58,5 +60,13 @@ class UserQrCode extends Model
             )
             ->first();
         return $query;
+    }
+
+    public static function count()
+    {
+        $count = DB::table('user_qrcode')
+            ->count();
+
+        return $count;
     }
 }

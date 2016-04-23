@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Wechat;
+use App\Container\Container;
 use App\Http\Controllers\Controller;
 use App\Model\Image;
+use App\Model\UserQrCode;
 
 /**
  * Created by PhpStorm.
@@ -17,14 +19,22 @@ class QrcodeController extends Controller
         $app = app('wechat');
         $qrcode = $app->qrcode;
 
-        $result = $qrcode->temporary('test', 7*24*3600);
+        $result = $qrcode->temporary(30, 7*24*3600);
         $ticket = $result->ticket;
-        $url = $result->url;
         $url = $qrcode->url($ticket);
         $content = file_get_contents($url);
 
         $image = new Image();
         $image->storeImage('QrCode', $content, 'jpg', false);
-        echo "<img src={$url}>";
+
+        $user = Container::getUser();
+
+        $userQrcode = new UserQrCode();
+        $userQrcode->user_id = $user->id;
+        $userQrcode->image_id = $image->id;
+//        $userQrcode->token =
+        $userQrcode->save();
+        
+        
     }
 }

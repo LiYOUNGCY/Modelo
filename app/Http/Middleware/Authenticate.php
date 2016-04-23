@@ -19,6 +19,7 @@ class Authenticate
 //            $user = session('user');
 //            Container::setUser($user);
 //        }
+        Container::setUser(6);
         return $next($request);
     }
 }
