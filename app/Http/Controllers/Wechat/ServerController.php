@@ -34,7 +34,7 @@ class ServerController extends Controller
                             Log::info('parent id:'.$parent->id);
 
                             $userRelation = new UserRelation();
-                            $userRelation->insert($user->id, $parent->id);
+                            $userRelation->insert($user->id, $parent->user_id);
                         }
                         return "你好！{$message->EventKey}, {$message->FromUserName}";
                         break;
