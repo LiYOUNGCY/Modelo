@@ -43,12 +43,14 @@ class User extends Model
         return $user;
     }
 
-    public static function getByOpenId($openId)
+    public static function findOrNewByOpenid($openId)
     {
         $user = self::where('openid', $openId)->frist();
 
         if( is_null($user) ) {
-            throw new NotFoundException("User OpenId: {$openId} Not Found. Please Build");
+            $user = new User();
+            $user->openid = $openId;
+            $user->save();
         }
 
         return $user;

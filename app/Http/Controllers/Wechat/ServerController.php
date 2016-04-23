@@ -27,14 +27,7 @@ class ServerController extends Controller
                         $token = $message->EventKey;
                         if(!empty($token) && substr($token, 0, 7) == 'qrscene_') {
                             $fromUserOpenId = $message->FromUserNam;
-                            try {
-                                $user = User::getByOpenId($fromUserOpenId);
-                            } catch (NotFoundException $e) {
-                                Log::info($e->getMessage());
-                                $user = new User();
-                                $user->openid = $fromUserOpenId;
-                                $user->save();
-                            }
+                            $user = User::findOrNewByOpenid($fromUserOpenId);
                             $token = substr($token, 7);
                             $parent = UserQrCode::getByToken($token);
 
