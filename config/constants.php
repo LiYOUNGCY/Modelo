@@ -55,4 +55,11 @@ return [
      * 可以提现 三级 的条件
      */
     'salesVolume' => 100,   // 15000
+
+
+    'CashStatus' => [
+        'pending' => 1,     //等待审核
+        'accept'  => 2,     //成功审核
+        'reject'  => 3,     //拒绝
+    ],
 ];

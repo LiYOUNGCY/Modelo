@@ -136,6 +136,19 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#cash">
+                            <i class="fa fa-fw fa-arrows-v"></i> 提现记录
+                            <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
+                        <ul id="cash" class="collapse">
+                            <li>
+                                <a href="{{ url("{$ADMIN}/cash") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.CashStatus.pending') }}">等待审核</a>
+                                <a href="{{ url("{$ADMIN}/cash") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.CashStatus.accept') }}">提现成功</a>
+                                <a href="{{ url("{$ADMIN}/cash") }}?status={{ \Illuminate\Support\Facades\Config::get('constants.CashStatus.reject') }}">提现失败</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

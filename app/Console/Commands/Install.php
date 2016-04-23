@@ -95,5 +95,20 @@ class Install extends Command
                 ],
             ]);
 
+        DB::table('cash_status')
+            ->insert([
+                [
+                    'id' => Config::get('constants.CashStatus.pending'),
+                    'name' => '等待审核',
+                ],
+                [
+                    'id' => Config::get('constants.CashStatus.accept'),
+                    'name' => '提现成功',
+                ],
+                [
+                    'id' => Config::get('constants.CashStatus.reject'),
+                    'name' => '提现失败',
+                ],
+            ]);
     }
 }

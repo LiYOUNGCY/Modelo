@@ -11,7 +11,7 @@ class Authenticate
 {
     public function handle($request, Closure $next)
     {
-        echo session()->get('user');
+//        echo session()->get('user');
 //        echo "<pre>";print_r($_SESSION);echo "<pre>";
 //        if (!session('user')) {
 //            return redirect('wechat/login');
@@ -19,7 +19,6 @@ class Authenticate
 //            $user = session('user');
 //            Container::setUser($user);
 //        }
-        exit();
         return $next($request);
     }
 }

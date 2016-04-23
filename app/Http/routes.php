@@ -57,6 +57,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('order/{id}', 'Admin\OrderController@show');
         Route::post('order/{id}/deliver', 'Admin\OrderController@deliverOrder');
         Route::post('order/{orderNo}/rejected', 'Admin\OrderController@rejected');
+
+        //Cash
+        Route::get('cash', 'Admin\CashController@index');
     });
 
     //ajax
