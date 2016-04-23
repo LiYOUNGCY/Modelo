@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Wechat;
 use App\Http\Controllers\Controller;
+use App\Model\UserQrCode;
+use App\Model\UserRelation;
 use Log;
 /**
  * Created by PhpStorm.
@@ -20,7 +22,15 @@ class ServerController extends Controller
             if($message->MsgType == 'event') {
                 switch ($message->Event) {
                     case 'subscribe':
-                        return "你好！{$message->EventKey}";
+//                        $token = $message->EventKey;
+//                        if(!empty($token) && substr($token, 0, 7) == 'qrscene_') {
+//                            $token = substr($token, 7);
+//                            $parent = UserQrCode::getByToken($token);
+//
+//                            $userRelation = new UserRelation();
+//                            $userRelation->insert(0, $parent->id);
+//                        }
+                        return "你好！{$message->EventKey}, {$message->FromUserName}";
                         break;
                 }
             }
