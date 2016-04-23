@@ -20,6 +20,7 @@ class ServerController extends Controller
             if($message->MsgType == 'event') {
                 switch ($message->Event) {
                     case 'subscribe':
+                        return "你好！{$message->EventKey}";
                         break;
                 }
             }
