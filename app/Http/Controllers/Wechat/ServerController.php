@@ -25,10 +25,10 @@ class ServerController extends Controller
                 switch ($message->Event) {
                     case 'subscribe':
                         $token = $message->EventKey;
-                        if(!empty($token) && substr($token, 0, 7) == 'qrscene_') {
+                        if(!empty($token) && substr($token, 0, 8) == 'qrscene_') {
                             $fromUserOpenId = $message->FromUserNam;
                             $user = User::findOrNewByOpenid($fromUserOpenId);
-                            $token = substr($token, 7);
+                            $token = substr($token, 8);
                             Log::info('token:'. $token);
                             $parent = UserQrCode::getByToken($token);
                             Log::info('parent id:'.$parent->id);
