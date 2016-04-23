@@ -43,6 +43,17 @@ class User extends Model
         return $user;
     }
 
+    public static function getByOpenId($openId)
+    {
+        $user = self::where('openid', $openId)->frist();
+
+        if( is_null($user) ) {
+            throw new NotFoundException("User OpenId: {$openId} Not Found. Please Build");
+        }
+
+        return $user;
+    }
+
     /**
      * 可以获得二维码
      */

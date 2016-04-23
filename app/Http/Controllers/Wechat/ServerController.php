@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Wechat;
+use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
+use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
 use Log;
@@ -22,14 +24,23 @@ class ServerController extends Controller
             if($message->MsgType == 'event') {
                 switch ($message->Event) {
                     case 'subscribe':
-//                        $token = $message->EventKey;
-//                        if(!empty($token) && substr($token, 0, 7) == 'qrscene_') {
-//                            $token = substr($token, 7);
-//                            $parent = UserQrCode::getByToken($token);
-//
-//                            $userRelation = new UserRelation();
-//                            $userRelation->insert(0, $parent->id);
-//                        }
+                        $token = $message->EventKey;
+                        if(!empty($token) && substr($token, 0, 7) == 'qrscene_') {
+                            $fromUserOpenId = $message->FromUserNam;
+                            try {
+                                $user = User::getByOpenId($fromUserOpenId);
+                            } catch (NotFoundException $e) {
+                                Log::info($e->getMessage());
+                                $user = new User();
+                                $user->openid = $fromUserOpenId;
+                                $user->save();
+                            }
+                            $token = substr($token, 7);
+                            $parent = UserQrCode::getByToken($token);
+
+                            $userRelation = new UserRelation();
+                            $userRelation->insert($user->id, $parent->id);
+                        }
                         return "你好！{$message->EventKey}, {$message->FromUserName}";
                         break;
                 }
