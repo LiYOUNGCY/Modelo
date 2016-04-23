@@ -45,7 +45,7 @@ class User extends Model
 
     public static function findOrNewByOpenid($openId)
     {
-        $user = self::where('openid', $openId)->frist();
+        $user = self::where('openid', $openId)->first();
 
         if( is_null($user) ) {
             $user = new User();
