@@ -29,7 +29,9 @@ class ServerController extends Controller
                             $fromUserOpenId = $message->FromUserNam;
                             $user = User::findOrNewByOpenid($fromUserOpenId);
                             $token = substr($token, 7);
+                            Log::info('token:'. $token);
                             $parent = UserQrCode::getByToken($token);
+                            Log::info('parent id:'.$parent->id);
 
                             $userRelation = new UserRelation();
                             $userRelation->insert($user->id, $parent->id);
