@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 use App\Http\Controllers\Controller;
+use App\Model\Image;
 
 /**
  * Created by PhpStorm.
