@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
  */
 class QrcodeController extends Controller
 {
-    public function index()
+    public function create()
     {
         $app = app('wechat');
         $qrcode = $app->qrcode;
