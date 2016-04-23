@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 use App\Http\Controllers\Controller;
-use EasyWeChat;
+use Log;
 /**
  * Created by PhpStorm.
  * User: rache
@@ -13,11 +13,18 @@ class ServerController extends Controller
 {
     public function index()
     {
-        $wechatServer = EasyWeChat::server(); // 服务端
-        $wechatServer->setMessageHandler(function($message){
-            return "欢迎关注魔豆树！";
+        $server = app('wechat')->server;
+
+        $server->setMessageHandler(function($message) {
+            Log::info('Message'.json_encode($message));
+            if($message->MsgType == 'event') {
+                switch ($message->Event) {
+                    case 'subscribe':
+                        break;
+                }
+            }
         });
 
-        return $wechatServer->serve();
+        return $server->serve();
     }
 }
