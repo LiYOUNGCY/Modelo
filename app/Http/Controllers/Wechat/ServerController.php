@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Wechat;
+
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
 use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
 use Log;
+
 /**
  * Created by PhpStorm.
  * User: rache
@@ -19,23 +21,25 @@ class ServerController extends Controller
     {
         $server = app('wechat')->server;
 
-        $server->setMessageHandler(function($message) {
-            Log::info('Message'.json_encode($message));
-            if($message->MsgType == 'event') {
+        $server->setMessageHandler(function ($message) {
+            if ($message->MsgType == 'event') {
                 switch ($message->Event) {
                     case 'subscribe':
+                        $fromUserOpenId = $message->FromUserName;
+                        $user = User::findOrNewByOpenid($fromUserOpenId);
+                        
                         $token = $message->EventKey;
-                        if(!empty($token) && substr($token, 0, 8) == 'qrscene_') {
-                            $fromUserOpenId = $message->FromUserName;
-                            $user = User::findOrNewByOpenid($fromUserOpenId);
+                        if (!empty($token) && substr($token, 0, 8) == 'qrscene_') {
                             $token = substr($token, 8);
-                            Log::info('token:'. $token);
-                            $parent = UserQrCode::getByToken($token);
-                            Log::info('parent id:'.$parent->id);
-
-                            $userRelation = new UserRelation();
-                            $userRelation->insert($user->id, $parent->user_id);
+                            $parentId = UserQrCode::getByToken($token)->user_id;
+                        } else {
+                            $parentId = 1;
                         }
+
+                        $userRelation = new UserRelation();
+                        $userRelation->insert($user->id, $parentId);
+
+
                         return "你好！{$message->EventKey}, {$message->FromUserName}";
                         break;
                 }
