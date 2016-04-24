@@ -5,6 +5,9 @@ return [
         'admin' => 'admin',
     ],
 
+    'rememberCookie' => 'modelo_rv',
+    'cookieTime' => 60*24*30*3,
+
     //订单状态
     'orderStatus' => [
         'cancel' => 1,      //取消订单

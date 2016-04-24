@@ -1,9 +1,14 @@
 <?php
 
+Route::group(['middleware' => ['withoutLogin']], function () {
+    Route::get('test', 'TestController@index');
+    Route::get('test/login', 'TestController@login');
+    Route::get('test/logout', 'TestController@logout');
+    Route::get('test/check', 'TestController@check');
+});
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('test', 'TestController@index');
 ////    Route::post('test', 'TestController@store');
 
     Route::group(['prefix' => \Illuminate\Support\Facades\Config::get('constants.route.admin')], function () {

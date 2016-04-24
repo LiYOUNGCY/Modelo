@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Container\Container;
 use App\Exceptions\NotFoundException;
+use App\Http\Common;
 use App\Model\User;
 use Illuminate\Http\Request;
 
@@ -51,7 +53,9 @@ class AuthController extends Controller
 
             //create Cookie and Session
 
+            Container::setUser($user->id);
             session()->put('user', $user->id);
+            Common::createLoginCookie();
 
             echo 'Success<br>';
             echo  session('user');
