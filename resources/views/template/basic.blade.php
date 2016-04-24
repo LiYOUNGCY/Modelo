@@ -18,6 +18,8 @@
 <script src="{{ asset('assets') }}/js/jquery.js"></script>
 <script>
     var _token = $('meta[name=_token]').attr('content');
+    var BASEURL = '{{ asset("/") }}/';
+    var IMAGES = '{{ asset("images/") }}/';
     $.ajaxSetup({
         data: {
             _token: _token

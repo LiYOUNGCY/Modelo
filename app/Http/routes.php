@@ -60,6 +60,16 @@ Route::group(['middleware' => ['web']], function () {
 
         //Cash
         Route::get('cash', 'Admin\CashController@index');
+
+        //Latest 最新商品
+        Route::get('latest/edit', 'Admin\LatestController@index');
+        Route::post('latest/store', 'Admin\LatestController@store');
+        Route::any('latest/destroy', 'Admin\LatestController@destroyAll');
+
+
+        //ajax
+        Route::any('ajax/image', 'Admin\Ajax\ImageController@all');
+        Route::any('ajax/production', 'Admin\Ajax\ProductionController@all');
     });
 
     //ajax

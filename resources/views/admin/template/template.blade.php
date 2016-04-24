@@ -66,6 +66,10 @@
                     </li>
 
                     <li>
+                        <a href="{{ url("{$ADMIN}/latest/edit") }}">编辑最新商品</a>
+                    </li>
+
+                    <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#production">
                             <i class="fa fa-fw fa-arrows-v"></i> 商品管理
                             <i class="fa fa-fw fa-caret-down"></i>
@@ -184,6 +188,7 @@
                 tar.removeClass('success');
             }, 3000);
         }
+        var ADMIN = '{{ url("{$ADMIN}") }}/';
     </script>
     @yield('moreScript')
 @endsection

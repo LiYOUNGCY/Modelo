@@ -27,17 +27,20 @@ class ServerController extends Controller
                     case 'subscribe':
                         $fromUserOpenId = $message->FromUserName;
                         $user = User::findOrNewByOpenid($fromUserOpenId);
-                        
-                        $token = $message->EventKey;
-                        if (!empty($token) && substr($token, 0, 8) == 'qrscene_') {
-                            $token = substr($token, 8);
-                            $parentId = UserQrCode::getByToken($token)->user_id;
-                        } else {
-                            $parentId = 1;
-                        }
 
-                        $userRelation = new UserRelation();
-                        $userRelation->insert($user->id, $parentId);
+                        //如果没有推荐人
+                        if(! UserRelation::hasParent($user->id)) {
+                            $token = $message->EventKey;
+                            if (!empty($token) && substr($token, 0, 8) == 'qrscene_') {
+                                $token = substr($token, 8);
+                                $parentId = UserQrCode::getByToken($token)->user_id;
+                            } else {
+                                $parentId = 1;
+                            }
+
+                            $userRelation = new UserRelation();
+                            $userRelation->insert($user->id, $parentId);
+                        }
 
 
                         return "你好！{$message->EventKey}, {$message->FromUserName}";
