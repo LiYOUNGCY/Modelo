@@ -826,6 +826,7 @@ th {
     text-align: center;
     border-radius: 0;
     vertical-align: top;
+    margin-top: 2px;
 }
 .m-user-center .user-option-list .user-option-item.showdown{
     height:auto;
