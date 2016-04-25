@@ -59,7 +59,7 @@
                         </li>
                         <li>
                             <span class="fl">小豆苗</span>
-                            <span class="fr right">$threeBuyCount（{{$threeCount}}）</span>
+                            <span class="fr right">{{$threeBuyCount}}（{{$threeCount}}）</span>
                         </li>
                     </ul>
                 </div>
