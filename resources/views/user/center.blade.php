@@ -10,7 +10,7 @@
             <div class="cf"></div>
         </div>
         <div class="user-info">
-            <div class="user-head"><img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM5VCIoP1AttcdaOd2Jrnliaaiasia0opfWr3NfWT7tnAibzYnPqBHwOlDic58x1hGmn9NICMAACoibkzwNQ/0"></div>
+            <div class="user-head"><img src="{{ $user->headimgurl }}"></div>
             <div class="user-detail">
                 <div class="user-name">{{ $user->nickname }}</div>
                 <div class="user-level"><span class="fa fa-diamond"></span> 大魔豆</div>
