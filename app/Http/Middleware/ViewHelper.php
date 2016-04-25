@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Container\Container;
 use Closure;
 use Illuminate\Support\Facades\Config;
 
@@ -17,6 +18,7 @@ class ViewHelper
     public function handle($request, Closure $next)
     {
         view()->share('ADMIN', Config::get('constants.route.admin'));
+//        view()->share('USER', Container::getUser());
         return $next($request);
     }
 }

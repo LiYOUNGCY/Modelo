@@ -18,7 +18,7 @@
                     <div>最新商品</div>
                 </li>
             </a>
-            <a href="">
+            <a href="{{ url('user') }}">
                 <li class="nav-item w33">
                     <div><span class="fa fa-user"></span></div>
                     <div>会员中心</div>
