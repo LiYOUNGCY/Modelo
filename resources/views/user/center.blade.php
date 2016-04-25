@@ -13,7 +13,7 @@
             <div class="user-head"><img src="{{ $user->headimgurl }}"></div>
             <div class="user-detail">
                 <div class="user-name">{{ $user->nickname }}</div>
-                <div class="user-level"><span class="fa fa-wechat"></span> 大魔豆</div>
+                <div class="user-level"><span class="fa fa-diamond"></span> 大魔豆</div>
                 <!--<div class="user-level">成为魔豆代言人</div>-->
             </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="user-option-item">
                 <div class="item-title">
                     <div class="option-name fl">
-                        <span class="fa fa-github"></span>我的豆芽
+                        <span class="fa fa-child"></span>我的豆芽
                     </div>
                     <div class="fr toggle">
                         <span class="fa fa-toggle-down"></span>
@@ -68,7 +68,7 @@
 
                 <div class="item-title">
                     <div class="option-name fl">
-                        <span class="fa fa-cny"></span>我的财富
+                        <span class="fa fa-cny"></span> 我的财富
                     </div>
                     <div class="fr toggle">
                         <span class="fa fa-toggle-down"></span>
