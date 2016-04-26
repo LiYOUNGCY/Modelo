@@ -104,7 +104,7 @@
 @section('moreCss')
     <style>
         body {
-            margin-bottom: 34px;
+            padding-bottom: 34px;
         }
     </style>
 @endsection
