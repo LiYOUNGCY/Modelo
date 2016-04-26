@@ -112,13 +112,14 @@
                     var images = getImages();
                     for (var i in images) {
                         var image = images[i];
-                        container.append('<option value="' + image.path + '">' + image.name + '</option>');
+                        var value = image.path + ',' + image.name;
+                        container.append('<option value="' + value + '">' + image.name + '</option>');
                     }
                 } else if (type == 2) {
                     var productions = getProduction();
                     for (var i in productions) {
                         var production = productions[i];
-                        var value = BASEURL + 'production/' + production.alias;
+                        var value = BASEURL + 'production/' + production.alias + ',' + production.name;
                         container.append('<option value="' + value + '">' + production.name + '</option>');
                     }
                 }

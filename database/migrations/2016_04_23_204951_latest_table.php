@@ -19,6 +19,7 @@ class LatestTable extends Migration
             $table->integer('size')->unsigned();
             $table->integer('offset')->unsigned();
             $table->integer('type')->unsigned();
+            $table->string('name');
             $table->string('content');
             $table->timestamps();
         });

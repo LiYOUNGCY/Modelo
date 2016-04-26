@@ -27,9 +27,9 @@
                         <div class="col col-xs-{{ $col->size }}" style="text-align: center;">
                             {{--image--}}
                             @if($col->type == 1)
-                                <img src="{{ $col->content }}" alt="" style="width: 100%;">
+                                <img src="{{ $col->content }}" alt="{{ $col->name }}" style="width: 100%;">
                             @else
-                                <a href="{{ $col->content }}" style="color: #101010;">TEST</a>
+                                <a href="{{ $col->content }}" style="color: #101010;">{{ $col->name }}</a>
                             @endif
                         </div>
                     @endforeach

@@ -22,6 +22,7 @@ class LatestController extends AdminController
         $offset = $request->get('offset');
         $type = $request->get('type');
         $content = $request->get('content');
+        $name = $request->get('name');
         
         $latest = new Latest();
         $latest->row = $row;
@@ -30,6 +31,7 @@ class LatestController extends AdminController
         $latest->offset = $offset;
         $latest->type = $type;
         $latest->content = $content;
+        $latest->name = $name;
         $latest->save();
 
         return response()->json([

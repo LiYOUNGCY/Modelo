@@ -69,7 +69,7 @@ Column.prototype.getByType = function () {
 
     switch (type) {
         case 1:
-            return '<img src="'+ BASEURL + content + '">';
+            return '<img src="' + BASEURL + content + '">';
             break;
         case 2:
             return '<a href="' + content + '">链接</a>';
@@ -92,7 +92,8 @@ Column.prototype.getData = function () {
         'size': this.container.get('size'),
         'type': this.container.get('type'),
         'offset': this.container.get('offset'),
-        'content': this.container.get('content')
+        'content': this.container.get('content'),
+        'name': this.container.get('name')
     }
 };
 
@@ -126,13 +127,15 @@ Row.prototype.createIn = function ($container) {
 
 };
 
-Row.prototype.getContainer = function() {
+Row.prototype.getContainer = function () {
     return this.$container;
 };
 
 Row.prototype.insertColumn = function (data) {
     data['id'] = this.getMaxColumn();
     data['row'] = this.container.get('id');
+    data['name'] = data['content'].split(',')[1];
+    data['content'] = data['content'].split(',')[0];
     var col = new Column(data);
     var tar = this.$container.find('.create-col')[0];
 
@@ -142,7 +145,7 @@ Row.prototype.insertColumn = function (data) {
     this.setMaxColumn(this.getMaxColumn() + 1);
 };
 
-Row.prototype.getMaxColumn = function() {
+Row.prototype.getMaxColumn = function () {
     return this.maxColumn;
 };
 
@@ -173,18 +176,18 @@ Wrapper.prototype.createRow = function () {
 Wrapper.prototype.submit = function () {
     $.ajax({
         url: ADMIN + 'latest/destroy',
-        async:false
+        async: false
     });
     var rows = this.container.get('row');
     // console.log(rows);
-    for(var i in rows) {
+    for (var i in rows) {
         var row = rows[i];
         var columns = row.container.get('column');
-        for(var j in columns) {
+        for (var j in columns) {
             var data = columns[j].getData();
 
             $.ajax({
-                async:false,
+                async: false,
                 url: ADMIN + 'latest/store',
                 data: data,
                 success: function (data) {
