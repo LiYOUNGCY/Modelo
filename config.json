@@ -1,8 +1,0 @@
-{
-    "server":["45.33.5.183"],
-    "server_port":14811,
-    "local_port":1080,
-    "password":"fkyxwyqt8m",
-    "timeout":300,
-	"method":"aes-256-cfb"
-}
