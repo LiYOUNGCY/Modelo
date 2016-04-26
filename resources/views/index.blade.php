@@ -12,7 +12,7 @@
 
     <div class="nav-bar">
         <ul class="m-nav">
-            <a href="">
+            <a href="{{ url('latest') }}">
                 <li class="nav-item w33 active">
                     <div><span class="fa fa-star-o"></span></div>
                     <div>最新商品</div>

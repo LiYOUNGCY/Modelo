@@ -14,4 +14,29 @@ class Latest extends Model
     {
         DB::table('latest')->delete();
     }
+
+    public static function getRows()
+    {
+        $result = DB::table('latest')
+            ->select('row')
+            ->groupBy('row')
+            ->get();
+
+        return $result;
+    }
+
+    public static function get()
+    {
+        $result = [];
+
+        $rows = self::getRows();
+
+        foreach ($rows as $row) {
+            $result[$row->row] = DB::table('latest')
+                ->where('latest.row', '=', $row->row)
+                ->get();
+        }
+
+        return $result;
+    }
 }
