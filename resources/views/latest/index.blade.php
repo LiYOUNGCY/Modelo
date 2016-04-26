@@ -63,7 +63,7 @@
                 {{--<div class="col">单宁七分阔腿裤 ￥220 <span class="fa fa-tag"></span></div>--}}
             {{--</div>--}}
         {{--</div>--}}
-        <div class="mb45"></div>
+        {{--<div class="mb45"></div>--}}
     </div>
     <div class="m-bottom-bar">
         <div class="col" id="theme">
@@ -99,4 +99,12 @@
         </div>
         <div class="cf"></div>
     </div>
+@endsection
+
+@section('moreCss')
+    <style>
+        body {
+            margin-bottom: 34px;
+        }
+    </style>
 @endsection
