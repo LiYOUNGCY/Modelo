@@ -105,6 +105,7 @@
     <style>
         body {
             padding-bottom: 34px;
+            height:auto!important;
         }
     </style>
 @endsection
