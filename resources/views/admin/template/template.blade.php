@@ -87,6 +87,9 @@
                             <li>
                                 <a href="{{ url("{$ADMIN}/production/create") }}">添加商品</a>
                             </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/group/create") }}">编辑商品的组合</a>
+                            </li>
                         </ul>
                     </li>
 

@@ -12,9 +12,15 @@ use Illuminate\Http\Request;
 
 class ProductionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('production.index');
+        $category = $request->get('c');
+
+        $productions = Production::getAll($category);
+
+        return view('production.index', [
+            'productions' => $productions,
+        ]);
     }
 
     public function show($alias)

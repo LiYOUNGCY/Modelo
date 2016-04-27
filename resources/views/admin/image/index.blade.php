@@ -31,32 +31,6 @@
                 @endforeach
                 </tbody>
             </table>
-            <div style="text-align: center; font-size: 125%;">
-                @if($nowPage > 1)
-                    <a href="{{ url("$ADMIN/image?page=".($nowPage-1)) }}">
-                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                    </a>
-                @endif
-                {{ $nowPage }}/{{ $page }}页
-                @if($nowPage < $page)
-                    <a href="{{ url("$ADMIN/image?page=".($nowPage+1)) }}">
-                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                    </a>
-                @endif
-            </div>
         </div>
     </div>
-@endsection
-
-@section('moreScript')
-    <script>
-        $(function () {
-            $('tbody > tr').each(function () {
-                $(this).click(function () {
-                    var id = $(this).attr('data-id');
-                    window.location.href = '{{ url("{$ADMIN}/image") }}/' + id;
-                });
-            });
-        });
-    </script>
 @endsection

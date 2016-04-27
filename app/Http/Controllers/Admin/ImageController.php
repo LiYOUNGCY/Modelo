@@ -11,14 +11,10 @@ class ImageController extends AdminController
 {
     public function index(Request $request)
     {
-        $page = $request->get('page');
-        $page = is_null($page) ? 1 : $page;
-        $images = Image::getAll($page);
+        $images = Image::getAll();
 
         return view('admin.image.index', [
             'images' => $images,
-            'page' => Image::getAllPage(),
-            'nowPage' => $page,
         ]);
     }
 

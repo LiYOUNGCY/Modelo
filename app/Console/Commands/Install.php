@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Model\ProductionCategory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -110,5 +111,15 @@ class Install extends Command
                     'name' => '提现失败',
                 ],
             ]);
+
+        $this->createCategory('shang yi');
+        $this->createCategory('qunzi');
+    }
+
+    private function createCategory($name)
+    {
+        $category = new ProductionCategory();
+        $category->name = $name;
+        $category->save();
     }
 }

@@ -3,7 +3,7 @@
 @section('title', '首页 - 魔豆树')
 
 @section('body')
-    <div class="wrapper">
+    <div class="wrapper index">
         <div class="m-logo">
             <img src="{{ url('assets/images') }}/logo.png">
         </div>
@@ -14,7 +14,7 @@
         <ul class="m-nav">
             <a href="{{ url('latest') }}">
                 <li class="nav-item w33 active">
-                    <div><span class="fa fa-star-o"></span></div>
+                    <div><span class="fa fa-star"></span></div>
                     <div>最新商品</div>
                 </li>
             </a>

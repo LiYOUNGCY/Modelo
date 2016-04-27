@@ -29,12 +29,17 @@ class Production extends Model
         return $data;
     }
 
-    public static function getAll()
+    public static function getAll($category = null)
     {
         $data = DB::table('production')
             ->join('series', 'series.id', '=', 'production.series_id')
-            ->leftjoin('image', 'image.id', '=', 'production.cover_id')
-            ->select(
+            ->leftjoin('image', 'image.id', '=', 'production.cover_id');
+
+        if(isset($category) && is_numeric($category)) {
+            $data = $data->where('category_id', '=', $category);
+        }
+
+        $data = $data->select(
                 'production.id',
                 'production.name',
                 'production.alias',

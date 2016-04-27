@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductionTable extends Migration
+class SeriesGroupTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,29 +12,18 @@ class CreateProductionTable extends Migration
      */
     public function up()
     {
-        Schema::create('production', function (Blueprint $table) {
+        Schema::create('series_group', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('series_id')->unsigned();
+            $table->bigInteger('image_id')->unsigned();
 
-            //封面图
-            $table->bigInteger('cover_id')->unsigned();
-
-            //zhuang ti tu
-            $table->bigInteger('series_image')->unsigned();
-
-            $table->bigInteger('category_id')->unsigned();
-
-            $table->string('name');
-            $table->string('alias');
             $table->timestamps();
 
-
-            $table->foreign('category_id')
+            $table->foreign('image_id')
                 ->references('id')
-                ->on('production_category')
+                ->on('image')
                 ->onDelete('cascade');
 
-            //foreign key
             $table->foreign('series_id')
                 ->references('id')
                 ->on('series')
@@ -49,6 +38,6 @@ class CreateProductionTable extends Migration
      */
     public function down()
     {
-        Schema::drop('production');
+        Schema::drop('series_group');
     }
 }

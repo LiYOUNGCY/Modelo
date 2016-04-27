@@ -20,25 +20,16 @@ class Image extends Model
      * @return mixed
      * @throws \Exception
      */
-    public static function getAll($page = 1)
+    public static function getAll()
     {
-        if ($page < 1) {
-            throw new \Exception();
-        }
         $data = DB::table('image')
+            ->where('image.visible', '=', true)
             ->select('*')
-            ->skip(($page - 1) * self::$limit)
-            ->take(self::$limit)
             ->get();
 
         return $data;
     }
-
-    public static function getAllPage()
-    {
-        $count = DB::table('image')->count();
-        return ceil($count / self::$limit);
-    }
+    
 
     public static function get($id)
     {

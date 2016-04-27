@@ -33,6 +33,24 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="cover_id">zhutitu：</label>
+                        <select name="series_image" id="series_image" class="form-control">
+                            @foreach($images as $image)
+                                <option value="{{ $image->id }}">{{ $image->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cover_id">Category:</label>
+                        <select name="category" id="category_id" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="series_id">所属系列：</label>
                         <select name="series_id" id="series_id" class="form-control">
                             @foreach($series as $s)
@@ -193,6 +211,9 @@
                 var alias = $('#alias').val();
                 var series_id = $('#series_id').val();
                 var cover_id = $('#cover_id').val();
+                var category_id = $('#category_id').val();
+                var series_image = $('#series_image').val();
+
                 console.log(series_id);
 
                 $.ajax({
@@ -201,7 +222,9 @@
                         name: name,
                         alias: alias,
                         series_id: series_id,
-                        cover_id: cover_id
+                        cover_id: cover_id,
+                        category_id: category_id,
+                        series_image: series_image
                     },
                     success: function (data) {
                         console.log(data);

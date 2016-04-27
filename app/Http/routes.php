@@ -71,6 +71,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('latest/store', 'Admin\LatestController@store');
         Route::any('latest/destroy', 'Admin\LatestController@destroyAll');
 
+        //Group
+        Route::get('group/create', 'Admin\GroupController@create');
+        Route::post('group/store', 'Admin\GroupController@store');
+        Route::post('group/production/store', 'Admin\GroupController@storeGroupProduction');
+
 
         //ajax
         Route::any('ajax/image', 'Admin\Ajax\ImageController@all');
@@ -90,11 +95,14 @@ Route::group(['middleware' => ['web']], function () {
     //Latest
     Route::get('latest', 'LatestController@index');
 
+    Route::get('theme', 'GroupController@index');
+
     //User
     Route::get('/qrcode', 'UserController@getQrCode');
     Route::get('/qrcode/create', 'UserController@generateQrCode');
 
     //Production
+    Route::get('production', 'ProductionController@index');
     Route::get('production/{alias}', 'ProductionController@show');
     Route::get('buy/{alias}', 'ProductionController@redirect');
     Route::get('buy/{alias}/{colorAlias}', 'ProductionController@buy');

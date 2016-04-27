@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\AdminController;
 use App\Model\Image;
 use App\Model\Production;
+use App\Model\ProductionCategory;
 use App\Model\ProductionColor;
 use App\Model\ProductionImage;
 use App\Model\ProductionSize;
@@ -37,7 +38,10 @@ class ProductionController extends AdminController
     {
         $images = Image::all();
         $series = Series::all();
+        $categories = ProductionCategory::all();
+
         return view('admin.production.create', [
+            'categories' => $categories,
             'images' => $images,
             'series' => $series,
         ]);
@@ -55,12 +59,16 @@ class ProductionController extends AdminController
         $alias = $request->get('alias');
         $series_id = $request->get('series_id');
         $cover_id = $request->get('cover_id');
+        $category_id = $request->get('category_id');
+        $series_image = $request->get('series_image');
 
         $production = new Production();
         $production->name = $name;
         $production->alias = $alias;
         $production->series_id = $series_id;
         $production->cover_id = $cover_id;
+        $production->category_id = $category_id;
+        $production->series_image = $series_image;
         $production->save();
 
         return response()->json([

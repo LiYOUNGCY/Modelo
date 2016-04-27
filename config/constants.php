@@ -5,6 +5,12 @@ return [
         'admin' => 'admin',
     ],
 
+    'category' => [
+        'up' => 1,
+        'down' => 2,
+        'upAndDown' => 3,
+    ],
+
     'rememberCookie' => 'modelo_rv',
     'cookieTime' => 60*24*30*3,
 

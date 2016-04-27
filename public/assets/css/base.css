@@ -154,7 +154,9 @@ th {
     margin: 0;
 }
 
-
+.index{
+    display: inline;
+}
 .m-logo{
     width:100%;
     position: relative;
@@ -259,7 +261,7 @@ th {
     width:100%;
 }
 .theme-goods-group .theme-goods-list .theme-goods-item{
-    width: 31.2%;
+    width: 30%;
     margin-right: 10px;
     float: left;
     position: relative;
