@@ -112,13 +112,15 @@ class Install extends Command
                 ],
             ]);
 
-        $this->createCategory('shang yi');
-        $this->createCategory('qunzi');
+        $this->createCategory(1, '上身');
+        $this->createCategory(2, '下身');
+        $this->createCategory(3, '连体');
     }
 
-    private function createCategory($name)
+    private function createCategory($id, $name)
     {
         $category = new ProductionCategory();
+        $category->id = $id;
         $category->name = $name;
         $category->save();
     }
