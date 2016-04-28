@@ -85,12 +85,14 @@ class ProductionController extends AdminController
             $name = $request->get('name');
             $price = $request->get('price');
             $alias = $request->get('alias');
+            $image_id = $request->get('image_id');
 
             $productionColor = new ProductionColor();
             $productionColor->production_id = $id;
             $productionColor->name = $name;
             $productionColor->price = $price;
             $productionColor->alias = $alias;
+            $productionColor->image_id = $image_id;
             $productionColor->save();
 
             return response()->json([

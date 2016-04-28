@@ -103,9 +103,8 @@ Route::group(['middleware' => ['web']], function () {
 
     //Production
     Route::get('production', 'ProductionController@index');
-    Route::get('production/{alias}', 'ProductionController@show');
-    Route::get('buy/{alias}', 'ProductionController@redirect');
-    Route::get('buy/{alias}/{colorAlias}', 'ProductionController@buy');
+    Route::get('production/{alias}', 'ProductionController@redirect');
+    Route::get('production/{alias}/{colorAlias}', 'ProductionController@show');
 
     //cart
     Route::get('cart/update', 'CartController@add');

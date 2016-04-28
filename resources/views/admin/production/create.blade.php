@@ -85,6 +85,16 @@
                         <label for="color">款式名称：</label>
                         <input class="form-control" id="color" name="color" placeholder="迷彩绿">
                     </div>
+
+                    <div class="form-group">
+                        <label for="color">款式图片：</label>
+                        <select class="form-control" id="color_image" name="color_image">
+                            @foreach($images as $image)
+                                <option value="{{ $image->id }}">{{ $image->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="color">款式别名：</label>
                         <input class="form-control" id="color_alias" name="color_alias" placeholder="Camouflage green">
@@ -242,13 +252,15 @@
                 var colorName = $('#color').val();
                 var price = $('#price').val();
                 var alias = $('#color_alias').val();
+                var image_id = $('#color_image').val();
 
                 $.ajax({
                     url: ADMINURL + '/production/' + pid + '/color/store',
                     data: {
                         name: colorName,
                         price: price,
-                        alias: alias
+                        alias: alias,
+                        image_id: image_id
                     },
                     success:function(data) {
                         if(data.success == 0) {

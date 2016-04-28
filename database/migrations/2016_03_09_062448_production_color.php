@@ -15,6 +15,7 @@ class ProductionColor extends Migration
         Schema::create('production_color', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('production_id')->unsigned();
+            $table->bigInteger('image_id')->unsigned();
 
             $table->string('name', 32);
             $table->string('alias', 32);
@@ -25,6 +26,11 @@ class ProductionColor extends Migration
             $table->foreign('production_id')
                 ->references('id')
                 ->on('production')
+                ->onDelete('cascade');
+
+            $table->foreign('image_id')
+                ->references('id')
+                ->on('image')
                 ->onDelete('cascade');
         });
     }

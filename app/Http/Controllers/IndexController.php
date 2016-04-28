@@ -11,9 +11,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $productions = Production::getAll();
-        return view('index', [
-            'productions' => $productions,
-        ]);
+        return view('index');
     }
 }

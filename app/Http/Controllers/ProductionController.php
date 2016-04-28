@@ -6,7 +6,9 @@ use App\Container\Container;
 use App\Model\Production;
 use App\Http\Requests;
 use App\Model\ProductionColor;
+use App\Model\ProductionImage;
 use App\Model\ProductionSize;
+use App\Model\Series;
 use App\Model\UserAddress;
 use Illuminate\Http\Request;
 
@@ -16,71 +18,63 @@ class ProductionController extends Controller
     {
         $category = $request->get('c');
 
-        $productions = Production::getAll($category);
+        if(isset($category) && is_numeric($category)) {
+            $productions = Production::where('category_id', $category)->get();
+        } else {
+            $productions = Production::all();
+        }
+
+        $series = Series::getAll();
 
         return view('production.index', [
             'productions' => $productions,
+            'series' => $series,
         ]);
-    }
-
-    public function show($alias)
-    {
-        $production = Production::getProductionByAlias($alias);
-        if (!empty($production)) {
-            $productionColor = Production::getProductionColorByAlias($alias);
-            $data = Production::getProduction($productionColor[0]->id);
-
-            return view('production.show', [
-                'production' => $production,
-                'data' => $data,
-            ]);
-        } else {
-            abort(404);
-        }
     }
 
     public function redirect(Request $request, $alias)
     {
-        $production = Production::getProductionByAlias($alias);
-        if (!empty($production)) {
-            $productionColor = Production::getProductionColorByAlias($alias);
-            return redirect("buy/{$alias}/{$productionColor[0]->alias}");
+        $production = Production::where('alias', $alias)->first();
+        if(isset($production)) {
+            $productionColor = $production->color()->first();
+            if(isset($productionColor)) {
+                return redirect("production/{$alias}/{$productionColor->alias}");
+            } else {
+                abort(404);
+            }
         } else {
             abort(404);
         }
     }
 
-    public function buy(Request $request, $alias, $colorAlias)
+    public function show(Request $request, $alias, $colorAlias)
     {
-        $production = Production::getProductionByAlias($alias);
-        $productionColor = ProductionColor::where('alias', $colorAlias)->first();
+        $production = Production::where('alias', $alias)->first();
+        $productionColor = $production->color()->where('alias', $colorAlias)->first();
+        $sizes = ProductionSize::get($production->id, $colorAlias);
+        $images = ProductionImage::get($production->id, $colorAlias);
+        $colors = ProductionColor::get($production->id);
 
-        if (!empty($production) && !empty($productionColor)) {
-            $size = Production::getProductionSize($productionColor->id);
-            $size = $size[0];
-            $colors = Production::getProductionColorByAlias($alias);
-            $data = [];
+//        echo \GuzzleHttp\json_encode($sizes);
 
-            foreach ($colors as $color) {
-                $data[$color->alias] = Production::getProduction($color->id);
-            }
-
-            $request->session()->set('prevUrl', $request->url());
-
-            return view('production.buy', [
+        if (isset($production)
+            && isset($productionColor)
+            && isset($sizes)
+            && isset($images)
+            && isset($colors)
+        ) {
+            return view('production.show', [
                 'production' => $production,
+                'thisColor' => $productionColor,
+                'sizes' => $sizes,
+                'images' => $images,
                 'colors' => $colors,
-                'data' => $data,
-                'colorAlias' => $colorAlias,
-                'colorPrice' => $productionColor->price,
-                'sizeQuantity' => $size->quantity,
-                'sizeId' => $size->id,
-                'address' => UserAddress::where('user_id', Container::getUser()->id)->first(),
             ]);
         } else {
             abort(404);
         }
     }
+
 
     public function getQuantityBySize(Request $request, $sizeId)
     {

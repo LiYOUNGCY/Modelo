@@ -21,7 +21,7 @@
         @foreach($productions as $production)
             <div class="all-goods-item">
                 <div class="goods-pic">
-                    <img src="{{ $production->cover }}">
+                    <img src="{{ asset($production->cover->path) }}">
                 </div>
                 <div class="goods-name">
                     <a href="{{ url("production/{$production->alias}") }}">{{$production->name}}</a>
@@ -29,38 +29,6 @@
             </div>
         @endforeach
 
-        {{--<div class="all-goods-item">--}}
-        {{--<div class="goods-pic">--}}
-        {{--<img src="img/all-goods1.jpeg">--}}
-        {{--</div>--}}
-        {{--<div class="goods-name">--}}
-        {{--<div class="col">单宁七分阔腿裤  ￥220</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="all-goods-item">--}}
-        {{--<div class="goods-pic">--}}
-        {{--<img src="img/all-goods1.jpeg">--}}
-        {{--</div>--}}
-        {{--<div class="goods-name">--}}
-        {{--<div class="col">单宁七分阔腿裤  ￥220</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="all-goods-item">--}}
-        {{--<div class="goods-pic">--}}
-        {{--<img src="img/all-goods1.jpeg">--}}
-        {{--</div>--}}
-        {{--<div class="goods-name">--}}
-        {{--<div class="col">单宁七分阔腿裤  ￥220</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="all-goods-item">--}}
-        {{--<div class="goods-pic">--}}
-        {{--<img src="img/all-goods1.jpeg">--}}
-        {{--</div>--}}
-        {{--<div class="goods-name">--}}
-        {{--<div class="col">单宁七分阔腿裤  ￥220</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
         <div class="mb45"></div>
     </div>
     @extends('common.bottom_bar')
