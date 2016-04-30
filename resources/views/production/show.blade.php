@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="fr right">
-                        ￥<span id="price">299</span>
+                        ￥<span id="price">{{ $thisColor->price }}</span>
                     </div>
 
                     <div class="cf"></div>

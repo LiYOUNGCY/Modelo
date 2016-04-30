@@ -52,9 +52,12 @@ class OrderController extends Controller
     {
         $app = app('wechat');
         $response = $app->payment->handleNotify(function($notify, $successful){
-            Log::info(\GuzzleHttp\json_encode($notify));
-            Log::info(\GuzzleHttp\json_encode($successful));
-            return true; // 或者错误消息
+            if($successful === true) {
+                $out_trade_no = $notify->out_trad_no;
+                Order::payOrder($out_trade_no);
+                return true; // 或者错误消息
+            }
+            return false;
         });
 
         return $response;// 或者 $response->send()

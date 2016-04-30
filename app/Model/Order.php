@@ -189,10 +189,10 @@ class Order extends Model
         return $flag === 1;
     }
 
-    public static function payOrder($order_no)
+    public static function payOrder($wechat_order_no)
     {
         DB::table('order')
-            ->where('order.order_no', '=', $order_no)
+            ->where('order.wechat_order_no', '=', $wechat_order_no)
             ->update([
                 'order.status_id' => Config::get('constants.orderStatus.paid'),
             ]);
