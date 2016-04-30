@@ -28,7 +28,7 @@ class PayController extends Controller
             'body' => 'MODS 品牌服装',
             'out_trade_no' => $wechatOrderNo,
             'total_fee' => $total,
-            'notify_url' => 'http://m.artvc.cc/wechat/pay/notify',
+            'notify_url' => 'http://modelo.taiyishou.cn/wechat/pay/notify',
             'trade_type' => 'JSAPI',
             'openid' => $user->openid,
         ];
