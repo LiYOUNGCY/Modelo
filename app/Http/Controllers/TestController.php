@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
 use Cookie;
+use Log;
 use Session;
 use Illuminate\Http\Response;
 
@@ -35,6 +36,8 @@ class TestController extends Controller
         Container::setUser($user->id);
 
         Common::createLoginCookie();
+
+        Log::info("user: {$user->id}");
 
         echo 'Success';
     }
