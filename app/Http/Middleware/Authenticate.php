@@ -13,7 +13,7 @@ class Authenticate
     public function handle($request, Closure $next)
     {
         if (!session('user')) {
-            if(Common::checkLoginCookie()) {
+            if (Common::checkLoginCookie()) {
                 session()->put('user', Container::getUser()->id);
                 return $next($request);
             } else {

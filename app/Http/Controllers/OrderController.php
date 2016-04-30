@@ -15,46 +15,33 @@ class OrderController extends Controller
 {
     public function create()
     {
-        $cart = Cart::content();
-        if (Cart::count() > 0) {
-            $userAddress = Container::getUser()->address;
+        $cartName = session()->get('cartName');
+        $productions = Cart::instance($cartName)->content();
+        $total = Cart::instance($cartName)->total();
+        $messages = Container::getUser()->address;
 
-            if (empty($userAddress)) {
-                return redirect('address/create');
-            }
-
-            return view('order.create', [
-                'cart' => $cart,
-                'total' => Cart::total(),
-                'userAddress' => $userAddress,
-            ]);
-        } else {
-            return redirect('/');
-        }
+        return view('order.create', [
+            'productions' => $productions,
+            'messages' => $messages,
+            'total' => $total,
+        ]);
     }
 
     public function store(Request $request)
     {
-        if (Cart::count() > 0) {
+        $cartName = session()->get('cartName');
+
+        if(isset($cartName)) {
+            $trade_no = time().str_random(22);
             $remark = $request->get('remark');
-            $userAddress = Container::getUser()->address;
+            $messge = Container::getUser()->address;
 
-            if (is_null($userAddress)) {
-                return redirect('address/create');
-            }
+            Order::createOrder(Container::getUser()->id, $messge, $remark, $cartName, $trade_no);
 
-            //判断商品的数量是否满足下单条件
-            $cart = Cart::content();
-            foreach ($cart as $item) {
-                if (!Production::checkQuantity($item->options['size_id'], $item->qty)) {
-                    $url = $request->session()->get('prevUrl');
-                    return redirect($url);
-                }
-            }
-
-            Order::createOrder(Container::getUser()->id, $userAddress, $remark);
+            $trade_no = base64_encode($trade_no);
+            return redirect("wechat/pay/{$trade_no}");
         } else {
-            return redirect('/');
+            abort(404);
         }
     }
 

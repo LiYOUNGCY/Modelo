@@ -45,7 +45,8 @@
         </div>
         <div class="m-goods-color">
             @foreach($colors as $color)
-                <div class="color-item">
+                <a class="color-item" href="{{ url("production/{$production->alias}/{$color->alias}") }}"
+                   style="display: block; color: inherit; text-decoration: none;">
                     <img class="color-pic" src="{{ asset($color->image->path) }}">
                     @if($color->id == $thisColor->id)
                         <div class="arrow active">
@@ -59,7 +60,7 @@
                     <div class="color-name">
                         {{ $color->name }}
                     </div>
-                </div>
+                </a>
             @endforeach
             <div class="cf"></div>
         </div>
@@ -87,7 +88,7 @@
                 </div>
                 <div class="goods-quantity">
                     <div class="fl left">
-                        蓝色背带裤
+                        {{ $production->name }}
                         <div class="quantity">
                             <span class="fa fa-minus minus"></span>
                             <div class="num" id="count">1</div>
@@ -108,7 +109,14 @@
         </div>
         <div class="pb40"></div>
 
-        <div class="btn full buy-goods">确认购买</div>
+        <form id="form" action="{{ url('cart/once/create') }}" method="post">
+            {!! csrf_field() !!}
+            <input type="hidden" name="production_id" value="{{ $production->id }}">
+            <input type="hidden" name="size_id">
+            <input type="hidden" name="color_id" value="{{ $thisColor->id }}">
+            <input type="hidden" name="quantity">
+            <div class="btn full buy-goods" id="buy">确认购买</div>
+        </form>
     </div>
     <div class="goods-explain-modal">
         <div class="content-box">
@@ -132,69 +140,83 @@
 @section('moreScript')
     <script src="{{ asset('assets/js/swiper.min.js') }}"></script>
     <script>
-        var swiperPostcard = new Swiper('.goods-detail-pic', {
-            autoplay: 3000,
-            autoplayDisableOnInteraction: false,
-            loop: true
-        });
+        $(document).ready(function () {
+            var swiperPostcard = new Swiper('.goods-detail-pic', {
+                autoplay: 3000,
+                autoplayDisableOnInteraction: false,
+                loop: true
+            });
 
-        calTotal();
+            var maxCount = 1;
 
-        $(".color-item").bind('click', function () {
-            var arrow = $(this).find(".arrow");
-            if (!arrow.hasClass("active")) {
-                $(".color-item .arrow").each(function () {
-                    $(this).removeClass("active");
+            function getQuantity(size) {
+                var tar = $(size);
+                var size_id = tar.attr('data-id');
+
+                $.ajax({
+                    url: BASEURL + 'ajax/get/quantity/' + size_id,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.success == 0) {
+                            $('input[name=size_id]').val(size_id);
+                            maxCount = data.quantity;
+                            $('.size-item').each(function (i, ele) {
+                                $(ele).removeClass('active');
+                            });
+                            tar.addClass('active');
+                            $('#count').html(1);
+                            calTotal();
+                        }
+                    }
                 });
-                arrow.addClass("active");
-            } else {
-                return;
             }
-        });
 
-        $(".size-list > .size-item").bind('click', function () {
-            if (!$(this).hasClass("active")) {
-                $(".size-list .size-item").each(function () {
-                    $(this).removeClass("active");
+            getQuantity($('.size-item')[0]);
+
+            $('.size-item').each(function (i, ele) {
+                $(ele).click(function () {
+                    var tar = $(this);
+                    getQuantity(tar);
                 });
-                $(this).addClass("active");
-            } else {
-                return;
+            });
+
+            //    商品数量
+            $(".minus").bind('click', function () {
+                var count = parseInt($("#count").html());
+                if (count > 1) {
+                    $("#count").html(count - 1);
+                    calTotal();
+                }
+            });
+
+            $(".plus").bind('click', function () {
+                var count = parseInt($("#count").html());
+                if (count < maxCount) {
+                    $("#count").html(count + 1);
+                    calTotal();
+                }
+            });
+
+            $(".close-explain").bind('click', function () {
+                $(".goods-explain-modal").removeClass("active");
+            });
+
+            function calTotal() {
+                var count = parseInt($("#count").html());
+                var price = parseInt($("#price").html());
+                var total = count * price;
+                $("#total").html(total);
             }
-        });
 
-
-        //    商品数量
-        $(".minus").bind('click', function () {
-            var count = parseInt($("#count").html());
-            if (count == 1) {
-                return;
-            } else {
-                count--;
-                $("#count").html(count);
-            }
-            calTotal();
-        });
-        $(".plus").bind('click', function () {
-            var count = parseInt($("#count").html());
-            count++;
-            $("#count").html(count);
-            calTotal();
-        });
-
-        $(".close-explain").bind('click', function () {
-            $(".goods-explain-modal").removeClass("active");
-        })
-
-        function calTotal() {
-            var count = parseInt($("#count").html());
-            var price = parseInt($("#price").html());
-            var total = count * price;
-            $("#total").html(total);
-        }
-        function showExplain(type) {
+            function showExplain(type) {
 //        $(".goods-explain-modal .content-box iframe").attr('src',type + '.html');
-            $(".goods-explain-modal").addClass("active");
-        }
+                $(".goods-explain-modal").addClass("active");
+            }
+
+            $('#buy').click(function(){
+                $('input[name=quantity]').val(parseInt($('#count').html()));
+                $('#form').submit();
+            });
+        });
     </script>
 @endsection

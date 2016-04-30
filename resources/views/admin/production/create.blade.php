@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cover_id">zhutitu：</label>
+                        <label for="cover_id">主题图：</label>
                         <select name="series_image" id="series_image" class="form-control">
                             @foreach($images as $image)
                                 <option value="{{ $image->id }}">{{ $image->name }}</option>
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cover_id">Category:</label>
+                        <label for="cover_id">分类:</label>
                         <select name="category" id="category_id" class="form-control">
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>

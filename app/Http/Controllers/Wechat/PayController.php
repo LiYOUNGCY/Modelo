@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Container\Container;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use EasyWeChat\Payment\Order;
+use App\Model\Order as SelfOrder;
 
 class PayController extends Controller
 {
@@ -17,13 +19,18 @@ class PayController extends Controller
     {
         //get Order Message by $wechatOrderNo
 
+        $wechatOrderNo = base64_decode($wechatOrderNo);
+
+        $total = SelfOrder::getTotal($wechatOrderNo);
+        $user = Container::getUser();
+
         $attributes = [
-            'body' => 'iPad mini 16G 白色',
-            'out_trade_no' => time(),
-            'total_fee' => 1,
+            'body' => 'MODS 品牌服装',
+            'out_trade_no' => $wechatOrderNo,
+            'total_fee' => $total,
             'notify_url' => 'http://m.artvc.cc/wechat/pay/notify',
             'trade_type' => 'JSAPI',
-            'openid' => 'o4-YOwBjMKaYE8MiUT_vHHZP2oHg',
+            'openid' => $user->openid,
         ];
 
         $app = app('wechat');

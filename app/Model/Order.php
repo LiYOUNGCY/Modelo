@@ -104,10 +104,11 @@ class Order extends Model
         return $data;
     }
 
-    public static function createOrder($user_id, $userAddress, $remark)
+    public static function createOrder($user_id, $userAddress, $remark, $cartName, $wechat_order_no)
     {
         $order = new Order();
-        $order->order_no = time() . str_random(22);
+        $order->order_no = time() . 'MODES' .str_random(17);
+        $order->wechat_order_no = $wechat_order_no;
         $order->user_id = $user_id;
         $order->contact = $userAddress->contact;
         $order->phone = $userAddress->phone;
@@ -118,21 +119,23 @@ class Order extends Model
         $order->save();
 
         //把购物车里的所有商品，生成订单
-        $cart = Cart::content();
+        $cart = Cart::instance($cartName)->content();
 
         foreach ($cart as $item) {
-            self::insertOrderItem(
-                $order->id,
-                $item->id,
-                $item->name,
-                $item->options['cover'],
-                $item->qty,
-                $item->price,
-                $item->options['size_id'],
-                $item->options['size_name'],
-                $item->options['color_id'],
-                $item->options['color_name']
-            );
+            for ($i = 0; $i < $item->qty; $i++) {
+                self::insertOrderItem(
+                    $order->id,
+                    $item->id,
+                    $item->name,
+                    $item->options['cover'],
+                    1,
+                    $item->price,
+                    $item->options['size_id'],
+                    $item->options['size_name'],
+                    $item->options['color_id'],
+                    $item->options['color_name']
+                );
+            }
         }
 
         return $order->id;
@@ -324,5 +327,14 @@ class Order extends Model
             $this->status_id = Config::get('constants.orderStatus.exchange');
             $this->save();
         }
+    }
+
+    public static function getTotal($wechat_order_no)
+    {
+        $result = DB::table('order')
+            ->where('wechat_order_no', $wechat_order_no)
+            ->sum('total');
+
+        return $result;
     }
 }

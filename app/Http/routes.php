@@ -126,6 +126,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('qrcode', 'UserController@getQrCode');
 
     Route::get('user', 'UserController@userCenter');
+
+    Route::post('cart/shopping/create', 'CartController@createToShopping');
+    Route::post('cart/once/create', 'CartController@createToOnce');
+    Route::get('cart/{cartName}/show', 'CartController@show');
+
 });
 
 Route::group([

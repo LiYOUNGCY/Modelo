@@ -38,7 +38,7 @@ class AddressController extends Controller
         $userAddress->address = $address;
         $userAddress->save();
 
-        return redirect($request->session()->get('prevUrl'));
+        return redirect('order/create');
     }
 
     public function edit()
@@ -70,6 +70,6 @@ class AddressController extends Controller
         $userAddress->address = $address;
         $userAddress->save();
 
-        return redirect($request->session()->get('prevUrl'));
+        return redirect('order/create');
     }
 }

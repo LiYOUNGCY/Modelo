@@ -48,7 +48,6 @@ class Common
 
         $auth_token = AuthToken::where('selector', $selector)->first();
 
-
         if (isset($auth_token)
             && isset($cookie)
             && Hash::check($auth_token->token, $validator)
@@ -60,6 +59,7 @@ class Common
 
             //cookie is validated && get the user information
             $user = User::where('id', $auth_token->user_id)->first();
+            echo $user->id;
             Container::setUser($user->id);
 
             Cookie::queue($cookieName, $cookie, $expires);

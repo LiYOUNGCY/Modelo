@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Model\Production;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Model\ProductionColor;
+use App\Model\ProductionSize;
+use Cart;
 use Illuminate\Http\Request;
 use App\Container\Container;
 
@@ -11,43 +13,92 @@ use App\Http\Requests;
 
 class CartController extends Controller
 {
-    public function add(Request $request)
+    public function createToShopping(Request $request)
     {
-        if (Container::getUser()->can_buy == true) {
-            Cart::destroy();
+//        if (Container::getUser()->can_buy == true) {
+        $production_id = $request->get('production_id');
+        $size_id = $request->get('size_id');
+        $color_id = $request->get('color_id');
+        $quantity = $request->get('quantity');
 
-            $p = $request->get('p');
-            $c = $request->get('c');
-            $qty = $request->get('q');
-            $s = $request->get('s');
+        $quantity = floor($quantity);
 
-            $qty = is_numeric($qty) ? $qty : 1;
+        if ($this->addToCart('shopping', $production_id, $color_id, $size_id, $quantity)) {
+            return response()->json([
+                'success' => 0,
+            ]);
+        } else {
+            return response()->json([
+                'error' => 0,
+                'message' => '您输入的信息不合法',
+            ]);
+        }
 
-            $production = Production::get($p, $c, $s, $qty);
 
-            //@TODO validate
+//        } else {
+//            abort(503, '不能购买');
+//        }
+    }
 
-            Cart::add([
+    public function createToOnce(Request $request)
+    {
+        Cart::instance('once')->destroy();
+
+        $production_id = $request->get('production_id');
+        $size_id = $request->get('size_id');
+        $color_id = $request->get('color_id');
+        $quantity = $request->get('quantity');
+
+        $quantity = floor($quantity);
+
+        if( $this->addToCart('once', $production_id, $color_id, $size_id, $quantity) ) {
+            session()->put('cartName', 'once');
+            return redirect('order/create');
+        } else {
+            echo 'ERROR';
+        }
+    }
+
+    public function show(Request $request, $cartName)
+    {
+        $content = Cart::instance($cartName)->content();
+
+        foreach ($content as $item) {
+//            var_dump($item);
+            echo $item->name, '<br>';
+        }
+    }
+
+    private function addToCart($cartName, $production_id, $color_id, $size_id, $quantity)
+    {
+        $production = Production::find($production_id);
+        $color = ProductionColor::find($color_id);
+        $size = ProductionSize::find($size_id);
+
+        if (isset($production)
+            && isset($color)
+            && isset($size)
+            && $size->quantity >= $quantity
+        ) {
+
+            Cart::instance($cartName)->add([
                 'id' => $production->id,
                 'name' => $production->name,
-                'qty' => $qty,
-                'price' => $production->price,
+                'qty' => $quantity,
+                'price' => $color->price,
                 'options' => [
                     'production_alias' => $production->alias,
-
-                    'color_id' => $production->color_id,
-                    'color_name' => $production->color_name,
-
-                    'size_id' => $production->size_id,
-                    'size_name' => $production->size_name,
-
-                    'cover' => $production->cover,
+                    'color_id' => $color->id,
+                    'color_name' => $color->name,
+                    'size_id' => $size->id,
+                    'size_name' => $size->name,
+                    'cover' => $production->cover->path,
                 ],
             ]);
 
-            return redirect('order/create');
+            return true;
         } else {
-            abort(503, '此帐号为推广帐号，不能进行购买');
+            return false;
         }
     }
 }

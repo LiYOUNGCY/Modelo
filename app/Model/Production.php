@@ -30,4 +30,10 @@ class Production extends Model
         $result = Production::where('alias', $alias)->first();
         return $result;
     }
+
+    public static function decreaseQuantity($sid, $qty) {
+        DB::table('production_size')
+            ->where('id', $sid)
+            ->decrement('quantity', $qty);
+    }
 }
