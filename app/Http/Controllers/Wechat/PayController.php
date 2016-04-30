@@ -27,7 +27,7 @@ class PayController extends Controller
         $attributes = [
             'body' => 'MODS 品牌服装',
             'out_trade_no' => $wechatOrderNo,
-            'total_fee' => $total,
+            'total_fee' => $total * 100,
             'notify_url' => 'http://modelo.taiyishou.cn/wechat/pay/notify',
             'trade_type' => 'JSAPI',
             'openid' => $user->openid,
