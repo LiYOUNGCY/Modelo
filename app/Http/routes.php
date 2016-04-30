@@ -138,13 +138,16 @@ Route::group([
     'middleware' => 'wechat',
 ], function(){
     Route::any('server', 'Wechat\ServerController@index');
-
     Route::any('login', 'Wechat\AuthController@index');
-
     Route::any('auth/callback', 'Wechat\AuthController@callback');
-    Route::any('pay/{wechatOrderNo}', 'Wechat\PayController@pay');
-    Route::any('refund/{wechatOrderNo}', 'Wechat\PayController@refund');
-    Route::any('cash', 'Wechat\PayController@getCash');
 
-    Route::any('qrcode/create', 'Wechat\QrcodeController@create');
+
+    Route::group([
+        'middleware' => 'auth',
+    ], function(){
+        Route::any('pay/{wechatOrderNo}', 'Wechat\PayController@pay');
+        Route::any('refund/{wechatOrderNo}', 'Wechat\PayController@refund');
+        Route::any('cash', 'Wechat\PayController@getCash');
+        Route::any('qrcode/create', 'Wechat\QrcodeController@create');
+    });
 });
