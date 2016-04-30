@@ -50,6 +50,14 @@ class OrderController extends Controller
      */
     public function notify()
     {
+        $app = app('wechat');
+        $response = $app->payment->handleNotify(function($notify, $successful){
+            Log::info(\GuzzleHttp\json_encode($notify));
+            Log::info(\GuzzleHttp\json_encode($successful));
+            return true; // 或者错误消息
+        });
+
+        return $response;// 或者 $response->send()
         $order_no = '14610507934yos6qauDmHKFEldlTxYoF';
         if (Order::checkOrder_no($order_no)) {
             Order::payOrder($order_no);
