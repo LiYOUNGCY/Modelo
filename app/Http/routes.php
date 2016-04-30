@@ -112,7 +112,7 @@ Route::group(['middleware' => ['web']], function () {
     // Order
     Route::get('order/create', 'OrderController@create');
     Route::post('order/store', 'OrderController@store');
-    Route::any('order/notify', 'OrderController@notify');
+
     Route::any('order/{orderNo}/reject', 'OrderController@reject');
 
     // Address
@@ -140,6 +140,8 @@ Route::group([
     Route::any('server', 'Wechat\ServerController@index');
     Route::any('login', 'Wechat\AuthController@index');
     Route::any('auth/callback', 'Wechat\AuthController@callback');
+
+    Route::any('pay/notify', 'OrderController@notify');
 
 
     Route::group([
