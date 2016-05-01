@@ -49,17 +49,11 @@ class AuthController extends Controller
             $user->headimgurl = $userMessage['headimgurl'];
             $user->save();
 
-            echo "<pre>";print_r($user);echo "<pre>";
-
             //create Cookie and Session
 
             Container::setUser($user->id);
             session()->put('user', $user->id);
             Common::createLoginCookie();
-
-            echo 'Success<br>';
-            echo  session('user');
-
         }catch (\Exception $e) {
             Log::warning($e->getMessage());
             abort(503, '发生未知错误');

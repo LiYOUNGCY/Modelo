@@ -3,9 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Model\ProductionCategory;
+use App\Model\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Hash;
 
 class Install extends Command
 {
@@ -115,6 +117,12 @@ class Install extends Command
         $this->createCategory(1, '上身');
         $this->createCategory(2, '下身');
         $this->createCategory(3, '连体');
+
+        $user = new User();
+        $user->id = 1;
+        $user->nickname = '管理员';
+        $user->password = Hash::make('whoisyourdaddy');
+        $user->save();
     }
 
     private function createCategory($id, $name)

@@ -26,11 +26,19 @@ class ServerController extends Controller
                 switch ($message->Event) {
                     case 'subscribe':
                         $fromUserOpenId = $message->FromUserName;
-                        $user = User::findOrNewByOpenid($fromUserOpenId);
+                        $user = User::where('openid', $fromUserOpenId)->first();
+                        if (is_null($user)) {
+                            $user = new User();
+                            //默认会员能买和获取二维码
+                            $user->can_qrcode = true;
+                            $user->can_buy = true;
+                            $user->save();
+                        }
 
                         //如果没有推荐人
-                        if(! UserRelation::hasParent($user->id)) {
+                        if (!UserRelation::hasParent($user->id)) {
                             $token = $message->EventKey;
+                            //如果没有推荐人就当官方推荐
                             if (!empty($token) && substr($token, 0, 8) == 'qrscene_') {
                                 $token = substr($token, 8);
                                 $parentId = UserQrCode::getByToken($token)->user_id;
