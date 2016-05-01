@@ -20,7 +20,7 @@
         <div class="user-data-list">
             <div class="user-data-item">
                 <p>总消费金额</p>
-                <span class="num">￥?</span>
+                <span class="num">￥{{ $consume }}</span>
             </div>
             <div class="user-data-item">
                 <p>销售额</p>

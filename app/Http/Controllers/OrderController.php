@@ -13,6 +13,35 @@ use Log;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $user = Container::getUser();
+
+        $orders = Order::where('user_id', $user->id)
+            ->orderBy('id', 'desc')
+            ->get();
+        $orderItem = [];
+        foreach ($orders as $order) {
+            $orderItem[$order->id] = Order::getOrderItems($order->id);
+        }
+
+        return view('order.index', [
+            'orders' => $orders,
+            'orderItem' => $orderItem,
+        ]);
+    }
+
+    public function show(Request $request, $orderId)
+    {
+        $order = Order::find($orderId);
+        $orderItem = Order::getOrderItems($orderId);
+
+        return view('order.show', [
+            'order' => $order,
+            'orderItem' => $orderItem,
+        ]);
+    }
+
     public function create()
     {
         $cartName = session()->get('cartName');
@@ -36,7 +65,28 @@ class OrderController extends Controller
             $remark = $request->get('remark');
             $messge = Container::getUser()->address;
 
-            Order::createOrder(Container::getUser()->id, $messge, $remark, $cartName, $trade_no);
+            //把购物车里的所有商品，生成订单
+            $cart = Cart::instance($cartName)->content();
+
+            foreach ($cart as $item) {
+                for ($i = 0; $i < $item->qty; $i++) {
+                    $orderId = Order::createOrder($trade_no, Container::getUser()->id, $messge, $remark);
+                    Order::insertOrderItem(
+                        $orderId,
+                        $item->id,
+                        $item->name,
+                        $item->options['cover'],
+                        1,
+                        $item->price,
+                        $item->options['size_id'],
+                        $item->options['size_name'],
+                        $item->options['color_id'],
+                        $item->options['color_name']
+                    );
+                }
+            }
+
+
 
             $trade_no = base64_encode($trade_no);
             return redirect("wechat/pay/{$trade_no}");
@@ -55,16 +105,12 @@ class OrderController extends Controller
             if($successful === true) {
                 $out_trade_no = $notify->out_trad_no;
                 Order::payOrder($out_trade_no);
-                return true; // 或者错误消息
+                return true;
             }
             return false;
         });
 
-        return $response;// 或者 $response->send()
-        $order_no = '14610507934yos6qauDmHKFEldlTxYoF';
-        if (Order::checkOrder_no($order_no)) {
-            Order::payOrder($order_no);
-        }
+        return $response;
     }
 
     public function reject(Request $request, $orderNo)

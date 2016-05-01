@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Container\Container;
 use App\Http\Common;
+use App\Model\Order;
 use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -57,5 +58,11 @@ class TestController extends Controller
         $cookieName = Config::get('constants.rememberCookie');
         $cookie = Cookie::get($cookieName);
         echo '<pre>'; print_r($cookie); echo '</pre>';
+    }
+
+    public function pay()
+    {
+        $wechat_order_no = '1462067555I4pKwTEBVDK0qzvKHIkgGB';
+        Order::payOrder($wechat_order_no);
     }
 }
