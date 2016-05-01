@@ -59,7 +59,6 @@ class Common
 
             //cookie is validated && get the user information
             $user = User::where('id', $auth_token->user_id)->first();
-            echo $user->id;
             Container::setUser($user->id);
 
             Cookie::queue($cookieName, $cookie, $expires);

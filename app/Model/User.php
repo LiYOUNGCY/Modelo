@@ -263,4 +263,20 @@ class User extends Model
 
         return $result;
     }
+
+    public static function getConsume($user_id)
+    {
+        DB::table('order')
+            ->where('order.user_id', $user_id)
+            ->whereIn('order.status_id', [
+                Config::get('constants.orderStatus.paid'),
+                Config::get('constants.orderStatus.confirm'),
+                Config::get('constants.orderStatus.deliver'),
+                Config::get('constants.orderStatus.received'),
+                Config::get('constants.orderStatus.finish'),
+                Config::get('constants.orderStatus.reject'),
+                Config::get('constants.orderStatus.exchange'),
+            ])
+            ->sum('total');
+    }
 }

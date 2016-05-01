@@ -5,6 +5,7 @@ Route::group(['middleware' => ['withoutLogin']], function () {
     Route::get('test/login', 'TestController@login');
     Route::get('test/logout', 'TestController@logout');
     Route::get('test/check', 'TestController@check');
+    Route::get('test/pay', 'TestController@pay');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -112,6 +113,8 @@ Route::group(['middleware' => ['web']], function () {
     // Order
     Route::get('order/create', 'OrderController@create');
     Route::post('order/store', 'OrderController@store');
+    Route::get('order', 'OrderController@index');
+    Route::get('order/{orderId}', 'OrderController@show');
 
     Route::any('order/{orderNo}/reject', 'OrderController@reject');
 

@@ -38,6 +38,7 @@ class UserController extends Controller
         $secondBuyCount = User::getSecondBuyCount($user->id);
         $threeCount = User::getThreeCount($user->id);
         $threeBuyCount = User::getThreeBuyCount($user->id);
+        $consume = User::getConsume($user->id);
 
         $count = $oneCount + $secondCount + $threeCount;
         $buyCount = $oneBuyCount + $secondBuyCount + $threeBuyCount;
@@ -56,6 +57,7 @@ class UserController extends Controller
             'threeBuyCount' => $threeBuyCount,
             'count' => $count,
             'buyCount' => $buyCount,
+            'consume' => $consume,
         ]);
     }
 }

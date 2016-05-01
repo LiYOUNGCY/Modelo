@@ -12,6 +12,11 @@ class Order extends Model
 {
     protected $table = 'order';
 
+    public function status()
+    {
+        return $this->belongsTo('App\Model\OrderStatus', 'status_id');
+    }
+
     public static function getAll($statusId = null)
     {
         $data = DB::table('order')
@@ -99,15 +104,15 @@ class Order extends Model
         $data = DB::table('order_item')
             ->where('order_id', '=', $order_id)
             ->select('*')
-            ->get();
+            ->first();
 
         return $data;
     }
 
-    public static function createOrder($user_id, $userAddress, $remark, $cartName, $wechat_order_no)
+    public static function createOrder($wechat_order_no, $user_id, $userAddress, $remark)
     {
         $order = new Order();
-        $order->order_no = time() . 'MODES' .str_random(17);
+        $order->order_no = time() . 'MODES' . str_random(17);
         $order->wechat_order_no = $wechat_order_no;
         $order->user_id = $user_id;
         $order->contact = $userAddress->contact;
@@ -117,26 +122,6 @@ class Order extends Model
         $order->last_action_at = date('Y-m-d H:i:s');
         $order->remark = $remark;
         $order->save();
-
-        //把购物车里的所有商品，生成订单
-        $cart = Cart::instance($cartName)->content();
-
-        foreach ($cart as $item) {
-            for ($i = 0; $i < $item->qty; $i++) {
-                self::insertOrderItem(
-                    $order->id,
-                    $item->id,
-                    $item->name,
-                    $item->options['cover'],
-                    1,
-                    $item->price,
-                    $item->options['size_id'],
-                    $item->options['size_name'],
-                    $item->options['color_id'],
-                    $item->options['color_name']
-                );
-            }
-        }
 
         return $order->id;
     }
