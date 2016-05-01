@@ -266,7 +266,7 @@ class User extends Model
 
     public static function getConsume($user_id)
     {
-        DB::table('order')
+        $result = DB::table('order')
             ->where('order.user_id', $user_id)
             ->whereIn('order.status_id', [
                 Config::get('constants.orderStatus.paid'),
@@ -278,5 +278,7 @@ class User extends Model
                 Config::get('constants.orderStatus.exchange'),
             ])
             ->sum('total');
+
+        return $result;
     }
 }
