@@ -53,7 +53,8 @@ class OrderController extends Controller
         $app = app('wechat');
         $response = $app->payment->handleNotify(function($notify, $successful){
             if($successful === true) {
-                $out_trade_no = $notify->out_trad_no;
+                $out_trade_no = $notify->out_trade_no;
+		Log::info("pay order: {$out_trade_no}");
                 Order::payOrder($out_trade_no);
                 return true; // 或者错误消息
             }
