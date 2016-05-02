@@ -6,6 +6,7 @@ use App\Container\Container;
 use App\Exceptions\NotFoundException;
 use App\Http\Common;
 use App\Model\User;
+use App\Model\UserRelation;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -30,14 +31,14 @@ class AuthController extends Controller
 
             $userMessage = $wechatAuth->user()->toArray();
 
-            if(empty($userMessage)) {
+            if (empty($userMessage)) {
                 throw new NotFoundException("没有成功获取用户信息");
             }
 
             $userMessage = $userMessage['original'];
 
             $user = User::where('openid', $userMessage['openid'])->first();
-            if(is_null($user)) {
+            if (is_null($user)) {
                 $user = User::create();
             }
             $user->openid = $userMessage['openid'];
@@ -49,12 +50,17 @@ class AuthController extends Controller
             $user->headimgurl = $userMessage['headimgurl'];
             $user->save();
 
-            //create Cookie and Session
+            //如果没有推荐人就当是官方推荐
+            if (!UserRelation::hasParent($user->id)) {
+                $userRelation = new UserRelation();
+                $userRelation->insert($user->id, 1);
+            }
 
+            //create Cookie and Session
             Container::setUser($user->id);
             session()->put('user', $user->id);
             Common::createLoginCookie();
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::warning($e->getMessage());
             abort(503, '发生未知错误');
         }
