@@ -59,6 +59,7 @@ class UserQrCode extends Model
                 'image.path as qrcode'
             )
             ->first();
+        
         return $query;
     }
 

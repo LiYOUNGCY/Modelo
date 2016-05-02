@@ -281,4 +281,9 @@ class User extends Model
 
         return $result;
     }
+
+    public function follow($parentId)
+    {
+
+    }
 }
