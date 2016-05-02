@@ -24,7 +24,7 @@ class UserController extends Controller
                 'qrcode' => UserQrCode::getQrCode($user->id),
             ]);
         } else {
-            echo 'no qrcode';
+            return view('qrcode.deny');
         }
     }
 
