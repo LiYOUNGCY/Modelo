@@ -16,8 +16,8 @@
             </div>
         </div>
 
-        <div class="container">
-            <a href="#">点击查看如何获取“我的二维码”</a>
+        <div style="position: absolute; top: 50%; left: 0; right: 0; text-align: center;">
+            <a href="#" style="color: #0c0c0c; font-size: 125%;">点击查看如何获取“我的二维码”</a>
         </div>
     </div>
 @endsection

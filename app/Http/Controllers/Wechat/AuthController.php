@@ -38,7 +38,7 @@ class AuthController extends Controller
 
             $user = User::where('openid', $userMessage['openid'])->first();
             if(is_null($user)) {
-                $user = new User();
+                $user = User::create();
             }
             $user->openid = $userMessage['openid'];
             $user->nickname = $userMessage['nickname'];

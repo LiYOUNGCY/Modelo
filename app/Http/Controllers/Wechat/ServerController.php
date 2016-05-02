@@ -28,12 +28,9 @@ class ServerController extends Controller
                         $fromUserOpenId = $message->FromUserName;
                         $user = User::where('openid', $fromUserOpenId)->first();
                         if (is_null($user)) {
-                            $user = new User();
-                            $user->openid = $fromUserOpenId;
-                            //默认会员能买和获取二维码
-                            $user->can_qrcode = true;
-                            $user->can_buy = true;
-                            $user->save();
+                            $user = User::create([
+                                'openid' => $fromUserOpenId,
+                            ]);
                         }
 
                         //如果没有推荐人

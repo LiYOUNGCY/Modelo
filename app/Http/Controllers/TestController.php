@@ -23,9 +23,12 @@ class TestController extends Controller
 //
 //        echo User::getThreeCount(1);
 //        echo User::getThreeBuyCount(1);
-
-        $user = User::findOrNewByOpenid('o4-YOwBjMKaYE8MiUT_vHHZP2oHg');
-        var_dump($user);
+//
+//        $user = User::findOrNewByOpenid('o4-YOwBjMKaYE8MiUT_vHHZP2oHg');
+//        var_dump($user);
+        
+        $user = User::create();
+        $user->canQrcode();
     }
 
     public function login(Request $request)
