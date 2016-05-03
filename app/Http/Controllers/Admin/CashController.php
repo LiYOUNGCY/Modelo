@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Config;
+use App\Model\User;
 
 class CashController extends AdminController
 {
