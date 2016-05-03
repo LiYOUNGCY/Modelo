@@ -46,9 +46,9 @@ class CashController extends AdminController
                 'send_name' => '恭喜发财',
                 're_openid' => $user->openid,
                 'total_amount' => $cash->cash * 100,
-//                'wishing'          => '',
-//                'act_name'         => '测试活动',
-//                'remark'           => '测试备注',
+                'wishing'          => '恭喜发财',
+                'act_name'         => '恭喜发财',
+                'remark'           => '恭喜发财',
                 // ...
             ];
 
