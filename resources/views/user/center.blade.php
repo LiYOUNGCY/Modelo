@@ -5,7 +5,7 @@
 @section('body')
     <div class="wrapper m-user-center">
         <div class="m-user-center-head">
-            <a href="javascript:history.go(-1);"><span class="fa fa-reply fl"></span></a>
+            <a href="{{ url('/') }}"><span class="fa fa-reply fl"></span></a>
             <span class="fa fa-navicon fr show-nav"></span>
             <div class="cf"></div>
         </div>

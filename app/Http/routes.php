@@ -66,6 +66,7 @@ Route::group(['middleware' => ['web']], function () {
 
         //Cash
         Route::get('cash', 'Admin\CashController@index');
+        Route::post('cash/accept', 'Admin\CashController@accept');
 
         //Latest 最新商品
         Route::get('latest/edit', 'Admin\LatestController@index');

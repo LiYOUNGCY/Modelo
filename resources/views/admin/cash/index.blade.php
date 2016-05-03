@@ -28,7 +28,7 @@
                         <td>{{ $value->updated_at }}</td>
                         <td>
                             @if($value->status_id == \Illuminate\Support\Facades\Config::get('constants.CashStatus.pending'))
-                                <button class="btn btn-success">允许</button>
+                                <button data-name="accept" class="btn btn-success" data-id="{{ $value->id }}">允许</button>
                                 <button class="btn btn-danger">拒绝</button>
                             @endif
                         </td>
@@ -38,4 +38,26 @@
             </table>
         </div>
     </div>
+@endsection
+
+@section('moreScript')
+    <script>
+        $(function(){
+            $('button[data-name=accept]').each(function(i, ele){
+                $(ele).click(function(){
+                    var id = $(this).attr('data-id');
+                    $.ajax({
+                        url: ADMIN + 'cash/accept',
+                        data: { id: id},
+                        success: function(data) {
+                            console.log(data);
+                            if(data.success == 0) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection
