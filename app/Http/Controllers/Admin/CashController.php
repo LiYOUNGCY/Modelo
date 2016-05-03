@@ -37,6 +37,11 @@ class CashController extends AdminController
 
         if (isset($cash) && $cash->status_id == Config::get('constants.CashStatus.pending')) {
             $cash->status_id = Config::get('constants.CashStatus.accept');
+            $cash->save();
+
+            $user->used_total += $cash->cash;
+            $user->save();
+
             //Send money
             $app = app('wechat');
             $luckyMoney = $app->lucky_money;
@@ -46,9 +51,9 @@ class CashController extends AdminController
                 'send_name' => '恭喜发财',
                 're_openid' => $user->openid,
                 'total_amount' => $cash->cash * 100,
-                'wishing'          => '恭喜发财',
-                'act_name'         => '恭喜发财',
-                'remark'           => '恭喜发财',
+                'wishing'          => '分享提现',
+                'act_name'         => '魔豆树',
+                'remark'           => '',
                 // ...
             ];
 
