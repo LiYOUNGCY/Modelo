@@ -32,7 +32,7 @@ class CashController extends AdminController
         $id = $request->get('id');
 
         $cash = Cash::find($id);
-        $user = Container::getUser();
+        $user = User::find($cash->user_id);
 
         if (isset($cash) && $cash->status_id == Config::get('constants.CashStatus.pending')) {
             $cash->status_id = Config::get('constants.CashStatus.accept');
