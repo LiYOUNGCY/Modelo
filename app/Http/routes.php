@@ -134,6 +134,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('cart/once/create', 'CartController@createToOnce');
     Route::get('cart/{cartName}/show', 'CartController@show');
 
+    //Draw 提现
+    Route::get('draw', 'DrawController@index');
+    Route::post('draw/store', 'DrawController@store');
+
 });
 
 Route::group([

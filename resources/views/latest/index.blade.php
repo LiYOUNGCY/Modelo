@@ -1,6 +1,6 @@
 @extends('template.template')
 
-@section('title', '首页 - 魔豆树')
+@section('title', '最新商品 - 魔豆树')
 
 @section('body')
     <div class="wrapper">

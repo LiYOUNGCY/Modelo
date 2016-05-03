@@ -9,7 +9,7 @@ $(function () {
         } else {
             allPopup.addClass('hide');
         }
-    })
+    });
     //显示购物车
     $(".show-shopping-car").bind('click', function () {
         var page = $('.wrapper');
@@ -60,13 +60,13 @@ $(function () {
         } else {
             var navContent = '<div class="m-slide-nav">' +
                 '<div class="slide-nav-item">' +
-                '<a href="javascript:void(0)">全部商品</a>' +
+                '<a href="'+BASEURL+'production">全部商品</a>' +
                 '</div>' +
                 '<div class="slide-nav-item">' +
                 '<a href="' + BASEURL + 'user">用户中心</a>' +
                 '</div>' +
-                '<div class="slide-nav-item nb active">' +
-                '我的订单' +
+                '<div class="slide-nav-item">' +
+                '<a href="' + BASEURL + 'order">我的订单</a>' +
                 '</div>' +
                 '</div>';
 
@@ -75,7 +75,8 @@ $(function () {
         }
     })
 
-})
+});
+
 //显示模态框
 function showModalDialog(text) {
     var modal = '' +

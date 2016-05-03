@@ -24,7 +24,7 @@
                     <div>会员中心</div>
                 </li>
             </a>
-            <a href="">
+            <a href="{{ url('order') }}">
                 <li class="nav-item w33">
                     <div><span class="fa fa-reorder"></span></div>
                     <div>我的订单</div>
