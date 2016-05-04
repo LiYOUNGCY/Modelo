@@ -41,7 +41,7 @@ class TestController extends Controller
 
         Common::createLoginCookie();
 
-        Log::info("user: {$user->id}");
+        #Log::info("user: {$user->id}");
 
         echo 'Success';
     }

@@ -22,7 +22,7 @@ class ProductionController extends AdminController
      */
     public function index()
     {
-        $productions = Production::getAll();
+        $productions = Production::all();
 
         return view('admin.production.index', [
             'productions' => $productions,
