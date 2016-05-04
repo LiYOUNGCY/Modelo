@@ -32,11 +32,11 @@ class OrderController extends AdminController
         $profits = Profit::getByOrderId($id);
 
         if (!empty($order)) {
-            $orderItems = Order::getOrderItems($order->id);
+            $orderItem = Order::getOrderItems($order->id);
 
             return view('admin.order.show', [
                 'order' => $order,
-                'orderItems' => $orderItems,
+                'item' => $orderItem,
                 'profits' => $profits,
             ]);
         } else {
@@ -51,7 +51,7 @@ class OrderController extends AdminController
         if (
             isset($order)
             && ($order->status_id == Config::get('constants.orderStatus.confirm')
-            || $order->status_id == Config::get('constants.orderStatus.exchange'))
+                || $order->status_id == Config::get('constants.orderStatus.exchange'))
         ) {
             $express = $request->get('express');
             $tracking_no = $request->get('tracking_no');

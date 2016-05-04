@@ -115,7 +115,7 @@
                                 <span class="col-md-6 col-xs-3 control-label">订单详情</span>
                             </td>
                         </tr>
-                        @foreach($orderItems as $item)
+
                             <tr>
                                 <td>
                                     <span class="col-md-6 col-xs-3 control-label"></span>
@@ -132,7 +132,6 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
                         <tr>
                             <td>
                                 <span class="col-md-6 control-label">合计</span>

@@ -46,7 +46,7 @@ class CashController extends AdminController
 
             $luckyMoneyData = [
                 'mch_billno' => 'Mods' . time(),
-                'send_name' => '恭喜发财',
+                'send_name' => '魔豆树',
                 're_openid' => $user->openid,
                 'total_amount' => $cash->cash * 100,
                 'wishing' => '分享提现',
