@@ -43,7 +43,7 @@ class OrderController extends Controller
 
     public function create()
     {
-        $cartName = session()->get('cartName');
+        $cartName = session('cartName');
         if (is_null($cartName)) {
             $cartName = 'shopping';
         }
