@@ -6,7 +6,6 @@ use App\Exceptions\NotFoundException;
 use App\Http\Controllers\AdminController;
 use App\Model\Order;
 use App\Model\Profit;
-use App\Model\ProfitStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;

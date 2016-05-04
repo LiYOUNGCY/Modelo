@@ -51,7 +51,7 @@ class CashController extends AdminController
                 'total_amount' => $cash->cash * 100,
                 'wishing' => '分享提现',
                 'act_name' => '魔豆树',
-                'remark' => '',
+                'remark' => '愿您的魔豆种子茁壮成长。',
             ];
 
             $luckyMoney->sendNormal($luckyMoneyData);
