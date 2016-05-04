@@ -38,7 +38,7 @@
                 </div>
                 <div class="addtocar">
                     <span class="fa fa-cart-arrow-down" style="font-size: 16px;"></span>
-                    <a href="javascript:void(0)">添加到购物车</a>
+                    <a href="#" id="addToCart">添加到购物车</a>
                 </div>
             </div>
             <div class="cf"></div>
@@ -213,9 +213,34 @@
                 $(".goods-explain-modal").addClass("active");
             }
 
-            $('#buy').click(function(){
+            $('#buy').click(function () {
                 $('input[name=quantity]').val(parseInt($('#count').html()));
                 $('#form').submit();
+            });
+
+            $('#addToCart').click(function (event) {
+                event.preventDefault();
+
+                var pid = $('input[name=production_id]').val();
+                var sid = $('input[name=size_id]').val();
+                var cid = $('input[name=color_id]').val();
+                var qty = parseInt($('#count').html());
+
+                $.ajax({
+                    url: BASEURL + 'cart/shopping/create',
+                    data: {
+                        pid: pid,
+                        sid: sid,
+                        cid: cid,
+                        qty: qty
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.success == 0) {
+                            alert('添加成功，请继续购物');
+                        }
+                    }
+                });
             });
         });
     </script>

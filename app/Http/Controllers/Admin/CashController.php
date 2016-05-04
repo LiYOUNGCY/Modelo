@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Container\Container;
 use App\Http\Controllers\AdminController;
 use App\Model\Cash;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use Config;
 use App\Model\User;
@@ -51,10 +49,9 @@ class CashController extends AdminController
                 'send_name' => '恭喜发财',
                 're_openid' => $user->openid,
                 'total_amount' => $cash->cash * 100,
-                'wishing'          => '分享提现',
-                'act_name'         => '魔豆树',
-                'remark'           => '',
-                // ...
+                'wishing' => '分享提现',
+                'act_name' => '魔豆树',
+                'remark' => '',
             ];
 
             $luckyMoney->sendNormal($luckyMoneyData);

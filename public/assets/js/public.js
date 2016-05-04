@@ -10,6 +10,78 @@ $(function () {
             allPopup.addClass('hide');
         }
     });
+
+    var cart = [];
+
+    function getCart() {
+        $.ajax({
+            url: BASEURL + 'cart/shopping/show',
+            type: 'get',
+            success: function (data) {
+                console.log(data);
+                if (data.success == 0) {
+                    var page = $('.wrapper');
+                    cart = data.data;
+                    console.log(cart.length);
+                    if (cart.length != 0) {
+                        var content = '';
+
+                        for (var key in cart) {
+                            content += '<div class="car-goods">' +
+                                '<div class="pic"><img src="' + cart[key].options['cover'] + '"></div>' +
+                                '<div class="remove-goods" data-id="' + key + '">' +
+                                '<span class="fa fa-close"></span>' +
+                                '</div>';
+                        }
+
+                        //绘制购物车，绑定事件
+                        var carContent = '<div class="m-car">' +
+                            content +
+                            '<div class="car-clean">' +
+                            '<a href="' + BASEURL + 'order/create">去结算</a>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        page.prepend(carContent);
+                        page.addClass('hascar');
+
+                        //绑定删除事件
+                        $('.remove-goods').each(function (i, ele) {
+                            $(ele).click(function () {
+                                var self = $(this);
+                                var rowId = $(this).attr('data-id');
+
+                                $.ajax({
+                                    url: BASEURL + 'cart/shopping/' + rowId,
+                                    data: {
+                                        _method: 'DELETE'
+                                    },
+                                    success: function (data) {
+                                        console.log(data);
+                                        if (data.success == 0) {
+                                            self.parent().remove();
+                                        }
+                                    }
+                                });
+                            });
+                        });
+                    } else {
+                        var carContent = '<div class="m-car">' +
+                            '<div class="car-empty">' +
+                            '空' +
+                            '</div>' +
+                            '</div>'
+
+                        page.prepend(carContent);
+                        page.addClass('hascar');
+                    }
+                }
+            }
+        });
+    }
+
+
     //显示购物车
     $(".show-shopping-car").bind('click', function () {
         var page = $('.wrapper');
@@ -18,38 +90,40 @@ $(function () {
             page.removeClass('hascar');
             return;
         } else {
-            var carContent = '<div class="m-car">' +
-                '<div class="car-goods">' +
-                '<div class="pic"><img src="img/head.jpg"></div>' +
-                '<div class="remove-goods">' +
-                '<span class="fa fa-close"></span>' +
-                '</div>' +
-                '</div>' +
-                '<div class="car-goods">' +
-                '<div class="pic"><img src="img/head.jpg"></div>' +
-                '<div class="remove-goods">' +
-                '<span class="fa fa-close"></span>' +
-                '</div>' +
-                '</div>' +
-                '<div class="car-clean">' +
-                '<a href="javascript:void(0)">清空购物车</a>' +
-                '</div>' +
-                '</div>';
-
-//                购物车为空
-//                var carContent = '<div class="m-car">' +
-//                        '<div class="car-empty">' +
-//                        '空' +
-//                        '</div>' +
-//                        '</div>' ;
-
-            page.prepend(carContent);
-            page.addClass('hascar');
-            $("body").on('click', ".remove-goods", function () {
-                $(this).parent().remove();
-            });
+            getCart();
+//             var carContent = '<div class="m-car">' +
+//                 '<div class="car-goods">' +
+//                 '<div class="pic"><img src="http://localhost:8000/assets/images/logo.png"></div>' +
+//                 '<div class="remove-goods">' +
+//                 '<span class="fa fa-close"></span>' +
+//                 '</div>' +
+//                 '</div>' +
+//                 '<div class="car-goods">' +
+//                 '<div class="pic"><img src="http://localhost:8000/assets/images/logo.png"></div>' +
+//                 '<div class="remove-goods">' +
+//                 '<span class="fa fa-close"></span>' +
+//                 '</div>' +
+//                 '</div>' +
+//                 '<div class="car-clean">' +
+//                 '<a href="javascript:void(0)">去结算</a>' +
+//                 '</div>' +
+//                 '</div>';
+//
+// //                购物车为空
+// //                var carContent = '<div class="m-car">' +
+// //                        '<div class="car-empty">' +
+// //                        '空' +
+// //                        '</div>' +
+// //                        '</div>' ;
+//
+//             page.prepend(carContent);
+//             page.addClass('hascar');
+//             $("body").on('click', ".remove-goods", function () {
+//                 $(this).parent().remove();
+//             });
         }
-    })
+    });
+
     //显示下拉导航
     $(".show-nav").bind('click', function () {
         var page = $('.wrapper');
@@ -60,12 +134,12 @@ $(function () {
         } else {
             var navContent = '<div class="m-slide-nav">' +
                 '<div class="slide-nav-item">' +
-                '<a href="'+BASEURL+'production">全部商品</a>' +
+                '<a href="' + BASEURL + 'production">全部商品</a>' +
                 '</div>' +
                 '<div class="slide-nav-item">' +
                 '<a href="' + BASEURL + 'user">用户中心</a>' +
                 '</div>' +
-                '<div class="slide-nav-item">' +
+                '<div class="slide-nav-item nb">' +
                 '<a href="' + BASEURL + 'order">我的订单</a>' +
                 '</div>' +
                 '</div>';

@@ -108,9 +108,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('production/{alias}', 'ProductionController@redirect');
     Route::get('production/{alias}/{colorAlias}', 'ProductionController@show');
 
-    //cart
-    Route::get('cart/update', 'CartController@add');
-
     // Order
     Route::get('order/create', 'OrderController@create');
     Route::post('order/store', 'OrderController@store');
@@ -131,9 +128,11 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('user', 'UserController@userCenter');
 
-    Route::post('cart/shopping/create', 'CartController@createToShopping');
-    Route::post('cart/once/create', 'CartController@createToOnce');
+    //cart
+    Route::post('cart/shopping/create', 'CartController@createToShoppingCart');
+    Route::post('cart/once/create', 'CartController@createToOnceCart');
     Route::get('cart/{cartName}/show', 'CartController@show');
+    Route::delete('cart/shopping/{rowId}', 'CartController@remove');
 
     //Draw 提现
     Route::get('draw', 'DrawController@index');
@@ -144,7 +143,7 @@ Route::group(['middleware' => ['web']], function () {
 Route::group([
     'prefix' => 'wechat',
     'middleware' => 'wechat',
-], function(){
+], function () {
     Route::any('server', 'Wechat\ServerController@index');
     Route::any('login', 'Wechat\AuthController@index');
     Route::any('auth/callback', 'Wechat\AuthController@callback');
@@ -154,7 +153,7 @@ Route::group([
 
     Route::group([
         'middleware' => 'auth',
-    ], function(){
+    ], function () {
         Route::any('pay/{wechatOrderNo}', 'Wechat\PayController@pay');
         Route::any('refund/{wechatOrderNo}', 'Wechat\PayController@refund');
         Route::any('cash', 'Wechat\PayController@getCash');

@@ -227,6 +227,9 @@ th {
     padding: 0 10px;
     line-height: 1.3;
 }
+.all-goods-item .goods-name a{
+    color: #212121;
+}
 
 .swiper-container{
     width: 100%;
@@ -962,12 +965,14 @@ th {
     line-height: 75px;
     display: inline-block;
     background-color: #eeeeee;
+    vertical-align: top;
 }
 .m-car .car-goods .pic img{
     width: 100%;
     height: 100%;
 }
 .m-car .car-goods .remove-goods{
+    position: relative;
     width:20px;
     height:75px;
     background-color: rgba(255,255,255,0.2);
@@ -975,6 +980,12 @@ th {
     display: inline-block;
     line-height:75px;
     text-align: center;
+}
+.m-car .car-goods .remove-goods span{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
 .m-car .car-clean{
     border-top: 1px solid #ffffff;

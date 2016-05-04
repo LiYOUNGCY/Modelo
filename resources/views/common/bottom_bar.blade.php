@@ -24,7 +24,7 @@
             <div class="item" >
                 <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.down') }}">下身</a>
             </div>
-            <div class="item">
+            <div class="item nb">
                 <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.upAndDown') }}">连体</a>
             </div>
         </div>

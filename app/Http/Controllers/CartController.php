@@ -40,7 +40,7 @@ class CartController extends Controller
 //        }
     }
 
-    public function createToOnce(Request $request)
+    public function createToOnceCart(Request $request)
     {
         Cart::instance('once')->destroy();
 
@@ -51,7 +51,7 @@ class CartController extends Controller
 
         $quantity = floor($quantity);
 
-        if( $this->addToCart('once', $production_id, $color_id, $size_id, $quantity) ) {
+        if ($this->addToCart('once', $production_id, $color_id, $size_id, $quantity)) {
             session()->put('cartName', 'once');
             return redirect('order/create');
         } else {
@@ -59,14 +59,44 @@ class CartController extends Controller
         }
     }
 
+    public function createToShoppingCart(Request $request)
+    {
+        $production_id = $request->get('pid');
+        $size_id = $request->get('sid');
+        $color_id = $request->get('cid');
+        $quantity = intval($request->get('qty'));
+
+        $quantity = floor($quantity);
+
+
+        if ($this->addToCart('shopping', $production_id, $color_id, $size_id, $quantity)) {
+            return response()->json([
+                'success' => 0,
+            ]);
+        } else {
+            return response()->json([
+                'error' => 0,
+            ]);
+        }
+    }
+
     public function show(Request $request, $cartName)
     {
-        $content = Cart::instance($cartName)->content();
+        try {
+            $content = Cart::instance($cartName)->content();
 
-        foreach ($content as $item) {
-//            var_dump($item);
-            echo $item->name, '<br>';
+            return response()->json([
+                'success' => 0,
+                'data' => $content,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
         }
+
+        return response()->json([
+            'error' => 0,
+        ]);
     }
 
     private function addToCart($cartName, $production_id, $color_id, $size_id, $quantity)
@@ -100,5 +130,13 @@ class CartController extends Controller
         } else {
             return false;
         }
+    }
+
+    public function remove(Request $request, $rowId)
+    {
+        Cart::instance('shopping')->remove($rowId);
+        return response()->json([
+            'success' => 0,
+        ]);
     }
 }

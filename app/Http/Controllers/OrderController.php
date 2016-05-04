@@ -45,6 +45,9 @@ class OrderController extends Controller
     public function create()
     {
         $cartName = session()->get('cartName');
+        if(is_null($cartName)) {
+            $cartName = 'shopping';
+        }
         $productions = Cart::instance($cartName)->content();
         $total = Cart::instance($cartName)->total();
         $messages = Container::getUser()->address;
