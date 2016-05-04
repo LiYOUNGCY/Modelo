@@ -52,8 +52,8 @@ class CartController extends Controller
         $quantity = floor($quantity);
 
         if ($this->addToCart('once', $production_id, $color_id, $size_id, $quantity)) {
-            session()->put('cartName', 'once');
-            return redirect('order/create');
+//            session()->put('cartName', 'once');
+            return redirect('order/create')->with('cartName', 'one');
         } else {
             echo 'ERROR';
         }
