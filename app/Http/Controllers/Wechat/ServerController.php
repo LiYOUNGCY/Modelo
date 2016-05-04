@@ -40,6 +40,7 @@ class ServerController extends Controller
                             if (!empty($token) && substr($token, 0, 8) == 'qrscene_') {
                                 $token = substr($token, 8);
                                 $parentId = UserQrCode::getByToken($token)->user_id;
+                                Log::info("User ID:{$parentId}, TOKEN: {$token}");
                             } else {
                                 $parentId = 1;
                             }

@@ -13,17 +13,21 @@ class Image extends Model
 {
     protected $table = 'image';
 
+    protected $fillable = [
+        'name',
+        'path',
+        'height',
+        'width',
+        'visible',
+    ];
+
     protected static $limit = 20;
 
-    /**
-     * @param int $page
-     * @return mixed
-     * @throws \Exception
-     */
     public static function getAll()
     {
         $data = DB::table('image')
             ->where('image.visible', '=', true)
+            ->where('image.visible', 1)
             ->select('*')
             ->get();
 
@@ -72,12 +76,20 @@ class Image extends Model
         $layer = ImageWorkshop::initFromPath($absolutePath);
 
         //write the data to database
-        $this->name = $name;
-        $this->path = "images/{$fileName}";
-        $this->width = $layer->getWidth();
-        $this->height = $layer->getHeight();
-        $this->visible = $visible;
-        $this->save();
+//        $this->name = $name;
+//        $this->path = "images/{$fileName}";
+//        $this->width = $layer->getWidth();
+//        $this->height = $layer->getHeight();
+//        $this->visible = $visible;
+//        $this->save();
+
+        Image::create([
+            'name' => $name,
+            'path' => "images/{$fileName}",
+            'width' => $layer->getWidth(),
+            'height' => $layer->getHeight(),
+            'visible' => $visible,
+        ]);
     }
 
 
