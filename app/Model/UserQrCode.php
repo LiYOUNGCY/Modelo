@@ -55,6 +55,7 @@ class UserQrCode extends Model
     {
         $query = DB::table('user_qrcode')
             ->join('image', 'image.id', '=', 'user_qrcode.image_id')
+            ->where('user_qrcode.user_id', '=', $user_id)
             ->select(
                 'image.path as qrcode'
             )

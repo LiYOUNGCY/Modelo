@@ -157,6 +157,5 @@ Route::group([
         Route::any('pay/{wechatOrderNo}', 'Wechat\PayController@pay');
         Route::any('refund/{wechatOrderNo}', 'Wechat\PayController@refund');
         Route::any('cash', 'Wechat\PayController@getCash');
-        Route::any('qrcode/create', 'Wechat\QrcodeController@create');
     });
 });
