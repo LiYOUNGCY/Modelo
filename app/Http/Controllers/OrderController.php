@@ -47,7 +47,7 @@ class OrderController extends Controller
         if (is_null($cartName)) {
             $cartName = 'shopping';
         } else {
-            session('cartName', 'once');
+            session()->flash('cartName', 'once');
         }
         $productions = Cart::instance($cartName)->content();
         $total = Cart::instance($cartName)->total();
