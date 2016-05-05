@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Created by PhpStorm.
