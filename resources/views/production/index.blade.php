@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="m-title">全部商品</div>
+        <div class="m-title">{{ \Illuminate\Support\Facades\Config::get("constants.categoryName.{$category}") }}</div>
 
         @foreach($productions as $production)
             <div class="all-goods-item">

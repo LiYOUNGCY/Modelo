@@ -11,6 +11,13 @@ return [
         'upAndDown' => 3,
     ],
 
+    'categoryName' => [
+        0 => '全部商品',
+        1 => '上身',
+        2 => '下身',
+        3 => '连体',
+    ],
+
     'rememberCookie' => 'modelo_rv',
     'cookieTime' => 60*24*30*3,
 

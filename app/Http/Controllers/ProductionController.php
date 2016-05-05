@@ -18,10 +18,11 @@ class ProductionController extends Controller
     {
         $category = $request->get('c');
 
-        if(isset($category) && is_numeric($category)) {
+        if(isset($category) && is_numeric($category) && $category != 0) {
             $productions = Production::where('category_id', $category)->get();
         } else {
             $productions = Production::all();
+            $category = 0;
         }
 
         $series = Series::getAll();
@@ -29,6 +30,7 @@ class ProductionController extends Controller
         return view('production.index', [
             'productions' => $productions,
             'series' => $series,
+            'category' => $category,
         ]);
     }
 
