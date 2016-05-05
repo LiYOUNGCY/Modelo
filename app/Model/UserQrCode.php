@@ -10,6 +10,12 @@ class UserQrCode extends Model
 {
     protected $table = 'user_qrcode';
 
+    protected $fillable = [
+        'user_id',
+        'image_id',
+        'token',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Model\User', 'user_id');
@@ -44,11 +50,17 @@ class UserQrCode extends Model
         $image = new Image();
         $image->storeImage('QrCode', $content, 'png', false);
 
-        $user_qrcode = new UserQrCode();
-        $user_qrcode->user_id = $user_id;
-        $user_qrcode->image_id = $image->id;
-        $user_qrcode->token = $token;
-        $user_qrcode->save();
+//        $user_qrcode = new UserQrCode();
+//        $user_qrcode->user_id = $user_id;
+//        $user_qrcode->image_id = $image->id;
+//        $user_qrcode->token = $token;
+//        $user_qrcode->save();
+
+        UserQrCode::create([
+            'user_id' => $user_id,
+            'image_id' => $image->id,
+            'token' => $token,
+        ]);
     }
 
     public static function getQrCode($user_id)
