@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Wechat;
 
-use App\Exceptions\NotFoundException;
+
 use App\Http\Controllers\Controller;
 use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Created by PhpStorm.
@@ -46,7 +45,6 @@ class ServerController extends Controller
             if (!empty($token) && substr($token, 0, 8) == 'qrscene_') {
                 $token = substr($token, 8);
                 $parentId = UserQrCode::getByToken($token)->user_id;
-                Log::info("User ID:{$parentId}, TOKEN: {$token}");
             } else {
                 //如果没有推荐人就当官方推荐
                 $parentId = 1;
@@ -56,7 +54,7 @@ class ServerController extends Controller
             $userRelation->insert($user->id, $parentId);
 
             //推荐后对 User 的操作
-            $user->follow($parentId);
+//            $user->follow($parentId);
         }
 
         return "您好，欢迎关注魔豆树，您的推荐人是{$user->referee}。{$message->EventKey}";

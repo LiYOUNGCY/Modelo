@@ -6,6 +6,7 @@ use App\Container\Container;
 use App\Http\Common;
 use App\Model\Order;
 use App\Model\User;
+use App\Model\UserQrCode;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
@@ -22,6 +23,8 @@ class TestController extends Controller
 //        var_dump($user);
 
 //        User::findOrNewByOpenid(['openid' => '123'], ['sex' => 1]);
+        $parentId = UserQrCode::getByToken(1)->user_id;
+        var_dump($parentId);
     }
 
     public function login(Request $request)
