@@ -147,7 +147,7 @@ Route::group([
     Route::any('server', 'Wechat\ServerController@index');
     Route::any('login', 'Wechat\AuthController@index');
     Route::any('auth/callback', 'Wechat\AuthController@callback');
-
+    Route::any('menu/update', 'Wechat\MenuController@index');
     Route::any('pay/notify', 'OrderController@notify');
 
 
