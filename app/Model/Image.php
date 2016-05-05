@@ -76,20 +76,24 @@ class Image extends Model
         $layer = ImageWorkshop::initFromPath($absolutePath);
 
         //write the data to database
-//        $this->name = $name;
-//        $this->path = "images/{$fileName}";
-//        $this->width = $layer->getWidth();
-//        $this->height = $layer->getHeight();
+        $this->name = $name;
+        $this->path = "images/{$fileName}";
+        $this->width = $layer->getWidth();
+        $this->height = $layer->getHeight();
 //        $this->visible = $visible;
-//        $this->save();
+        $this->save();
 
-        Image::create([
-            'name' => $name,
-            'path' => "images/{$fileName}",
-            'width' => $layer->getWidth(),
-            'height' => $layer->getHeight(),
+        Image::where('id', $this->id)->update([
             'visible' => $visible,
         ]);
+
+//        Image::create([
+//            'name' => $name,
+//            'path' => "images/{$fileName}",
+//            'width' => $layer->getWidth(),
+//            'height' => $layer->getHeight(),
+//            'visible' => $visible,
+//        ]);
     }
 
 
