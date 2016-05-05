@@ -78,9 +78,11 @@
             </div>
         </div>
         {{--提示与取消订单按钮一起显示--}}
-        <div class="order-tips">
-            注：付款后15分钟内可取消订单，将全额退款。
-        </div>
+        @if($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.paid'))
+            <div class="order-tips">
+                注：付款后15分钟内可取消订单，将全额退款。
+            </div>
+        @endif
 
         @if($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.paid'))
             <div class="btn order-option" id="cancel">
@@ -102,8 +104,7 @@
     <script>
         $(function () {
             $('#cancel').click(function () {
-                $.ajax({
-                });
+                $.ajax({});
             });
         });
     </script>
