@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfitStatusTable extends Migration
+class CreateProfitLevelTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class CreateProfitStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('profit_status', function (Blueprint $table) {
-            $table->bigInteger('id')->primary();
+        Schema::create('profit_level', function (Blueprint $table) {
+            $table->bigInteger('id')->unsigned()->primary();
             $table->string('name', 16);
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateProfitStatusTable extends Migration
      */
     public function down()
     {
-        Schema::drop('profit_status');
+        Schema::drop('profit_level');
     }
 }

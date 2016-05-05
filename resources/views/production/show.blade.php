@@ -69,9 +69,14 @@
                 选择尺码
             </div>
             <div class="size-list">
+                <?php $i = 0; ?>
                 @foreach($sizes as $size)
-                    <div class="size-item" data-id="{{$size->id}}">{{ $size->name }}</div>
+                    <div class="size-item <?php if ($i == 0) echo 'nb';?>"
+                         data-id="{{$size->id}}">{{ $size->name }}</div>
+                    <?php $i++;?>
                 @endforeach
+
+                <div class="cf"></div>
             </div>
             <div class="goods-explain">
                 <div class="item"><a href="size.html">尺码说明</a></div>

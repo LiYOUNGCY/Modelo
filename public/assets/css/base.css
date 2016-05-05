@@ -377,7 +377,7 @@ th {
     float: left;
     padding: 3px 0;
     text-align: center;
-    border-right: 1px #444444 dashed;
+    border-left: 1px #444444 dashed;
     font-size: 12px;
 }
 .m-goods-size .size-list .size-item.active{

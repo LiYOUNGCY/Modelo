@@ -5,7 +5,7 @@
 @section('body')
     <div class="wrapper ">
         <div class="m-head">
-            <div class="m-name">MODELO</div>
+            <div class="m-name">In Mods' Code</div>
             <div class="icon-group">
                 <div class="l-icon fl">
                     <a href="{{ url('latest') }}"><span class="fa fa-reply fl"></span></a>
@@ -21,7 +21,9 @@
         @foreach($productions as $production)
             <div class="all-goods-item">
                 <div class="goods-pic">
-                    <img src="{{ asset($production->cover->path) }}">
+                    <a href="{{ url("production/{$production->alias}") }}">
+                        <img src="{{ asset($production->cover->path) }}">
+                    </a>
                 </div>
                 <div class="goods-name">
                     <a href="{{ url("production/{$production->alias}") }}">{{$production->name}}</a>

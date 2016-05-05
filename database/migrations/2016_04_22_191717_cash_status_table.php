@@ -13,7 +13,7 @@ class CashStatusTable extends Migration
     public function up()
     {
         Schema::create('cash_status', function (Blueprint $table) {
-            $table->bigInteger('id')->primary();
+            $table->bigInteger('id')->unsigned()->primary();
 
             $table->string('name');
             $table->timestamps();

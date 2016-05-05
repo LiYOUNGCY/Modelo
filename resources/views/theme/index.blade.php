@@ -19,28 +19,25 @@
         <div class="swiper-container theme-postcard">
             <div class="swiper-wrapper">
                 @foreach($seriesGroups as $seriesGroup)
-                <div class="swiper-slide">
-                    <div class="postcard" style="background-image: url({{ asset($seriesGroup->image->path) }})"></div>
-                </div>
+                    <div class="swiper-slide">
+                        <div class="postcard"
+                             style="background-image: url({{ asset($seriesGroup->image->path) }})"></div>
+                    </div>
                 @endforeach
-                {{--<div class="swiper-slide">--}}
-                    {{--<div class="postcard" style="background-image: url(img/p2.jpeg)"></div>--}}
-                {{--</div>--}}
-                {{--<div class="swiper-slide">--}}
-                    {{--<div class="postcard" style="background-image: url(img/p3.jpeg)"></div>--}}
-                {{--</div>--}}
             </div>
         </div>
 
 
         <div class="theme-goods-group">
-            <?php $i=0?>
+            <?php $i = 0?>
             @foreach($groupProductions as $key => $groupProduction)
                 <div class="theme-goods-list hide" id="{{ $i++ }}">
                     @if(!empty($groupProduction))
                         @foreach($groupProduction as $value)
                             <div class="theme-goods-item">
-                                <img src="{{ $value->image }}">
+                                <a href="{{ url("production/{$value->alias}") }}">
+                                    <img src="{{ $value->image }}">
+                                </a>
                             </div>
                         @endforeach
                     @endif
@@ -61,17 +58,17 @@
         var a = $('.theme-goods-group').find('.theme-goods-list');//[0].removeClass('hide');
         $(a[0]).removeClass('hide');
         var swiperPostcard = new Swiper('.theme-postcard', {
-            onSlideChangeEnd: function(swiper){
+            onSlideChangeEnd: function (swiper) {
                 var index = swiper.activeIndex;
                 changeThemeGoods(index);
             }
         });
 
-        function changeThemeGoods(index){
+        function changeThemeGoods(index) {
             $(".theme-goods-group").find(".theme-goods-list").each(function () {
                 $(this).addClass('hide');
-            })
-            $(".theme-goods-group").find("#"+index).removeClass('hide');
+            });
+            $(".theme-goods-group").find("#" + index).removeClass('hide');
         }
 
     </script>
