@@ -59,7 +59,7 @@ class ServerController extends Controller
             $user->follow($parentId);
         }
 
-        return "您好，欢迎关注魔豆树，您的推荐人是{$user->referee}";
+        return "您好，欢迎关注魔豆树，您的推荐人是{$user->referee}。{$message->EventKey}";
     }
 //
 //    public function test()
