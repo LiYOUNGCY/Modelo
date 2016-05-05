@@ -54,7 +54,7 @@ class ServerController extends Controller
             $userRelation->insert($user->id, $parentId);
 
             //推荐后对 User 的操作
-//            $user->follow($parentId);
+            $user->follow($parentId);
         }
 
         return "您好，欢迎关注魔豆树，您的推荐人是{$user->referee}。{$message->EventKey}";
