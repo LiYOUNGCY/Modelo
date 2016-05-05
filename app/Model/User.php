@@ -62,7 +62,7 @@ class User extends Model
             $attributes['openid'] = $openId;
             User::create($attributes);
         } else {
-            $user->fill($attributes);
+            $user->update($attributes);
         }
 
         return $user;
