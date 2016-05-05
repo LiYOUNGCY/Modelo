@@ -21,7 +21,7 @@ class TestController extends Controller
 //        $user = User::firstOrNew(['openid' => '123']);
 //        var_dump($user);
 
-        User::firstOrCreate(['openid' => '123']);
+//        User::findOrNewByOpenid(['openid' => '123'], ['sex' => 1]);
     }
 
     public function login(Request $request)
