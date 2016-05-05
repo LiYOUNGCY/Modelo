@@ -49,14 +49,18 @@ class User extends Model
         return $user;
     }
 
-    public static function findOrNewByOpenid($openId)
+    /**
+     * @param $openId
+     * @param array $attributes
+     * @return User
+     */
+    public static function findOrNewByOpenid($openId, $attributes = [])
     {
         $user = User::where('openid', $openId)->first();
 
         if( is_null($user) ) {
-            $user = new User();
-            $user->openid = $openId;
-            $user->save();
+            $attributes['openid'] = $openId;
+            User::create($attributes);
         }
 
         return $user;
@@ -290,7 +294,11 @@ class User extends Model
 
     public function follow($parentId)
     {
-
+        $parent = User::get($parentId);
+        //更新推荐人
+        $this->referee = $parent->nickname;
+        $this->can_buy = true;
+        $this->save();
     }
 
     public static function create(array $attributes = [])

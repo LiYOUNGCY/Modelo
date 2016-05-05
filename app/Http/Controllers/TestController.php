@@ -18,17 +18,20 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-//        echo User::getSecondCount(1);
-//        echo User::getSecondBuyCount(1);
-//
-//        echo User::getThreeCount(1);
-//        echo User::getThreeBuyCount(1);
-//
-//        $user = User::findOrNewByOpenid('o4-YOwBjMKaYE8MiUT_vHHZP2oHg');
+//        $user = User::firstOrNew(['openid' => '123']);
 //        var_dump($user);
-        
-        $user = User::create();
-        $user->canQrcode();
+        $a = [
+            'openid' => '123',
+            'aa' => 'test'
+        ];
+
+        $b = [
+            'openid' => '456',
+        ];
+
+        print_r($a + $b);
+
+        print_r(array_merge($a, $b));
     }
 
     public function login(Request $request)
