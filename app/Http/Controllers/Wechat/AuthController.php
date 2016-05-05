@@ -37,23 +37,20 @@ class AuthController extends Controller
 
             $userMessage = $userMessage['original'];
 
-            $user = User::where('openid', $userMessage['openid'])->first();
-            if (is_null($user)) {
-                $user = User::create();
-            }
-            $user->openid = $userMessage['openid'];
-            $user->nickname = $userMessage['nickname'];
-            $user->sex = $userMessage['sex'];
-            $user->province = $userMessage['province'];
-            $user->city = $userMessage['city'];
-            $user->country = $userMessage['country'];
-            $user->headimgurl = $userMessage['headimgurl'];
-            $user->save();
+            $user = User::findOrNewByOpenid($userMessage['openid'], [
+                'nickname' => $userMessage['nickname'],
+                'sex' => $userMessage['sex'],
+                'province' => $userMessage['province'],
+                'city' => $userMessage['city'],
+                'country' => $userMessage['country'],
+                'headimgurl' => $userMessage['headimgurl'],
+            ]);
 
             //如果没有推荐人就当是官方推荐
             if (!UserRelation::hasParent($user->id)) {
                 $userRelation = new UserRelation();
                 $userRelation->insert($user->id, 1);
+                $user->follow(1);
             }
 
             //create Cookie and Session
