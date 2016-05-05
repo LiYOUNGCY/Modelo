@@ -46,6 +46,8 @@ class OrderController extends Controller
         $cartName = session('cartName');
         if (is_null($cartName)) {
             $cartName = 'shopping';
+        } else {
+            session('cartName', 'once');
         }
         $productions = Cart::instance($cartName)->content();
         $total = Cart::instance($cartName)->total();
@@ -60,40 +62,39 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $cartName = session()->get('cartName');
+        $cartName = session('cartName');
 
-        if (isset($cartName)) {
-            $trade_no = time() . str_random(22);
-            $remark = $request->get('remark');
-            $messge = Container::getUser()->address;
+        $cartName = is_null($cartName) ? 'shopping' : $cartName;
 
-            //把购物车里的所有商品，生成订单
-            $cart = Cart::instance($cartName)->content();
+        $trade_no = time() . str_random(22);
+        $remark = $request->get('remark');
+        $message = Container::getUser()->address;
 
-            foreach ($cart as $item) {
-                for ($i = 0; $i < $item->qty; $i++) {
-                    $orderId = Order::createOrder($trade_no, Container::getUser()->id, $messge, $remark);
-                    Order::insertOrderItem(
-                        $orderId,
-                        $item->id,
-                        $item->name,
-                        $item->options['cover'],
-                        1,
-                        $item->price,
-                        $item->options['size_id'],
-                        $item->options['size_name'],
-                        $item->options['color_id'],
-                        $item->options['color_name']
-                    );
-                }
+        //把购物车里的所有商品，生成订单
+        $cart = Cart::instance($cartName)->content();
+
+        foreach ($cart as $item) {
+            for ($i = 0; $i < $item->qty; $i++) {
+                $orderId = Order::createOrder($trade_no, Container::getUser()->id, $message, $remark);
+                Order::insertOrderItem(
+                    $orderId,
+                    $item->id,
+                    $item->name,
+                    $item->options['cover'],
+                    1,
+                    $item->price,
+                    $item->options['size_id'],
+                    $item->options['size_name'],
+                    $item->options['color_id'],
+                    $item->options['color_name']
+                );
             }
-
-
-            $trade_no = base64_encode($trade_no);
-            return redirect("wechat/pay/{$trade_no}");
-        } else {
-            abort(404);
         }
+
+
+        $trade_no = base64_encode($trade_no);
+        return redirect("wechat/pay/{$trade_no}");
+
     }
 
     /**
