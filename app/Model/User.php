@@ -61,6 +61,8 @@ class User extends Model
         if( is_null($user) ) {
             $attributes['openid'] = $openId;
             User::create($attributes);
+        } else {
+            $user->fill($attributes);
         }
 
         return $user;
