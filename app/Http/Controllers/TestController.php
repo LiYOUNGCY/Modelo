@@ -20,18 +20,8 @@ class TestController extends Controller
     {
 //        $user = User::firstOrNew(['openid' => '123']);
 //        var_dump($user);
-        $a = [
-            'openid' => '123',
-            'aa' => 'test'
-        ];
 
-        $b = [
-            'openid' => '456',
-        ];
-
-        print_r($a + $b);
-
-        print_r(array_merge($a, $b));
+        User::firstOrCreate(['openid' => '123']);
     }
 
     public function login(Request $request)
