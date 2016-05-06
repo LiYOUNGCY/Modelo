@@ -859,16 +859,21 @@ th {
     vertical-align: top;
     display: inline-block;
     width:25%;
+    margin:0;
+    font-weight: normal;
 }
 .order-detail .line .field{
     display: inline-block;
     max-width: 72%;
+    -ms-word-wrap:break-word;
+    word-wrap:break-word;
 }
 .order-detail .line .field.state{
     color: #ff9800;
 }
 .order-detail .line p{
     line-height: 1.2;
+    margin: 0;
 }
 .order-detail .line .pic{
     width:130px;
@@ -885,10 +890,10 @@ th {
 }
 .order-option{
     width:96%;
-    font-size: 16px;
-    margin: 0 auto 20px;
+    font-size: 16px !important;
+    margin: 0 auto 20px !important;
     text-align: center;
-    padding: 10px;
+    padding: 10px ;
 }
 .qrcode-page img{
     width:100%;
