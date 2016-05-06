@@ -8,7 +8,7 @@
             <div class="m-name">In Mods' Code</div>
             <div class="icon-group">
                 <div class="l-icon fl">
-                    <a href="{{ url("order/{$order->id}") }}"><span class="fa fa-reply fl"></span></a>
+                    <a href="{{ url("order") }}"><span class="fa fa-reply fl"></span></a>
                 </div>
                 <div class="r-icon fr show-nav">
                     <span class="fa fa-navicon"></span>
@@ -45,6 +45,10 @@
                 <div class="field">1 件</div>
             </div>
             <div class="line">
+                <label>备注</label>
+                <div class="field">{{ $order->remark }}</div>
+            </div>
+            <div class="line">
                 <label>联系人</label>
                 <div class="field">{{ $order->contact }}</div>
             </div>
@@ -58,6 +62,16 @@
                     <p>{{ $order->address }}</p>
                 </div>
             </div>
+            @if(\Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
+            <div class="line">
+                <label><strong>快递公司</strong></label>
+                <div class="field">{{ $order->express }}</div>
+            </div>
+            <div class="line">
+                <label><strong>快递单号</strong></label>
+                <div class="field">{{ $order->tracking_no }}</div>
+            </div>
+            @endif
         </div>
         <div class="block-w order-detail">
             <div class="line mb0">
