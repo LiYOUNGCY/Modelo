@@ -74,7 +74,7 @@
                 <label>订单状态</label>
                 <div class="field state">
                     {{ $order->status->name }}
-                    @if(\Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
+                    @if(\Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver') == $order->status_id)
                         <span class="fb">（{{ $order->express }}：{{ $order->tracking_no }}）</span>
                     @endif
                 </div>
