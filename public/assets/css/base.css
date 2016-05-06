@@ -96,11 +96,12 @@ th {
 .block-w{
     background-color: #FFFFFF;
     width: 100%;
-    padding: 8px 5px;
+    padding: 12px 10px;
     margin-bottom: 12px;
 }
 
 .btn{
+    display: block;
     color: #ffffff;
     background-color: #ffa726;
     padding: 8px;
@@ -853,7 +854,7 @@ th {
 
 }
 .order-detail .line{
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 .order-detail .line label{
     vertical-align: top;
