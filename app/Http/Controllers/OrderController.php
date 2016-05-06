@@ -134,7 +134,7 @@ class OrderController extends Controller
                 $order->total * 100
             );
             if($result->return_code == 'SUCCESS') {
-                $order->status_id = Config::get('constants.order.cancel');
+                $order->status_id = Config::get('constants.orderStatus.cancel');
                 $order->save();
 
                 return redirect("order/{$order->id}")->with('message', '您已成功退款，详情请在查看微信。');

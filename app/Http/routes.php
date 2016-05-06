@@ -115,6 +115,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('order/{orderId}', 'OrderController@show');
     Route::post('order/{orderNo}/cancel', 'OrderController@cancel');
     Route::post('order/{orderNo}/reject', 'OrderController@reject');
+    Route::post('order/{orderNo}/received', 'OrderController@received');
 
     // Address
     Route::get('address/create', 'AddressController@create');
