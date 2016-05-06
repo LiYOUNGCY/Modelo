@@ -120,7 +120,7 @@ class Install extends Command
 
         $user = new User();
         $user->id = 1;
-        $user->nickname = '管理员';
+        $user->nickname = '魔豆树';
         $user->password = Hash::make('whoisyourdaddy');
         $user->save();
     }

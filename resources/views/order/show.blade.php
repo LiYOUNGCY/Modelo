@@ -45,10 +45,6 @@
                 <div class="field">1 件</div>
             </div>
             <div class="line">
-                <label>备注</label>
-                <div class="field">{{ $order->remark }}</div>
-            </div>
-            <div class="line">
                 <label>联系人</label>
                 <div class="field">{{ $order->contact }}</div>
             </div>
@@ -62,16 +58,6 @@
                     <p>{{ $order->address }}</p>
                 </div>
             </div>
-            @if(\Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
-            <div class="line">
-                <label><strong>快递公司</strong></label>
-                <div class="field">{{ $order->express }}</div>
-            </div>
-            <div class="line">
-                <label><strong>快递单号</strong></label>
-                <div class="field">{{ $order->tracking_no }}</div>
-            </div>
-            @endif
         </div>
         <div class="block-w order-detail">
             <div class="line mb0">
@@ -88,6 +74,9 @@
                 <label>订单状态</label>
                 <div class="field state">
                     {{ $order->status->name }}
+                    @if(\Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
+                        <span class="fb">（{{ $order->express }}：{{ $order->tracking_no }}）</span>
+                    @endif
                 </div>
             </div>
         </div>
