@@ -46,7 +46,7 @@ class UserController extends Controller
         return view('user.center', [
             'user' => $user,
             'sales' => User::getFinishOrderTotal($user->id),
-            'unpaid' => User::getUnFinishOrderTotal($user->id),
+            'unpaid' => User::getUnpaidOrderTotal($user->id),
             'unFinish' => User::getUnFinishOrderTotal($user->id),
 
             'oneCount' => $oneCount,

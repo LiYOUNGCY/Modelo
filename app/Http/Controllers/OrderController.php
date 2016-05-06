@@ -120,7 +120,6 @@ class OrderController extends Controller
     public function cancel(Request $request, $orderNo)
     {
         $orderNo = base64_decode($orderNo);
-        var_dump($orderNo);
 
         $order = Order::get($orderNo);
         if(isset($order) && $order->status_id == Config::get('constants.orderStatus.paid')) {

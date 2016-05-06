@@ -100,7 +100,7 @@ class User extends Model
      * @param $userId
      * @return float
      */
-    public static function getUnpaidAndCancelOrderTotal($userId)
+    public static function getUnpaidOrderTotal($userId)
     {
         $subOrder = function ($query) use ($userId) {
             $query->select('user.id')
@@ -118,7 +118,6 @@ class User extends Model
             })
             ->whereIn('status_id', [
                 Config::get('constants.orderStatus.unpaid'),
-                Config::get('constants.orderStatus.cancel'),
             ])
             ->sum('total');
 
