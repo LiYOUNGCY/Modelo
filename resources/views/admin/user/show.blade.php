@@ -37,8 +37,8 @@
                     <td>{{ $user->freeze_three }}</td>
                 </tr>
                 <tr>
-                    <td>可用金额</td>
-                    <td>{{ $user->available }}</td>
+                    <td><strong>可提现金额</strong></td>
+                    <td><strong>{{ $user->available_total }}</strong></td>
                 </tr>
                 <tr>
                     <td>已提现</td>
