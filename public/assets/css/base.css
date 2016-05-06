@@ -769,10 +769,14 @@ th {
     display: inline-block;
 
 }
+.m-user-center .user-option-list .user-option-item a{
+    color: #bababa;
+}
 .m-user-center .user-option-list .user-option-item .fa{
     color: #ff9800;
     margin:0 8px;
     font-size:18px;
+    width: 14px;
 }
 .m-user-center .check-QRcode{
     background-color: #ffa726;

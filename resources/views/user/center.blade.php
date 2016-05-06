@@ -68,7 +68,7 @@
 
                 <div class="item-title">
                     <div class="option-name fl">
-                        <span class="fa fa-cny"></span> 我的财富
+                        <span class="fa fa-cny"></span>我的财富
                     </div>
                     <div class="fr toggle">
                         <span class="fa fa-toggle-down"></span>
