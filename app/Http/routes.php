@@ -10,8 +10,6 @@ Route::group(['middleware' => ['withoutLogin']], function () {
 
 Route::group(['middleware' => ['web']], function () {
 
-////    Route::post('test', 'TestController@store');
-
     Route::group(['prefix' => \Illuminate\Support\Facades\Config::get('constants.route.admin')], function () {
         Route::get('/', function () {
             return view('admin.index');
@@ -22,6 +20,7 @@ Route::group(['middleware' => ['web']], function () {
          */
 //        Route::any('user/{id}/super', 'Admin\UserController@changeSuper');
         Route::get('user', 'Admin\UserController@index');
+        Route::get('user/{id}', 'Admin\UserController@show');
 
         /**
          * Image System

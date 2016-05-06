@@ -51,15 +51,15 @@
                     <ul>
                         <li>
                             <span class="fl">大豆芽</span>
-                            <span class="fr right">{{$oneBuyCount}}（{{ $oneCount }}）</span>
+                            <span class="fr right">{{ $oneCount }}（{{$oneBuyCount}}）</span>
                         </li>
                         <li>
                             <span class="fl">小豆芽</span>
-                            <span class="fr right">{{$secondBuyCount}}（{{ $secondCount }}）</span>
+                            <span class="fr right">{{ $secondCount }}（{{$secondBuyCount}}）</span>
                         </li>
                         <li>
                             <span class="fl">小豆苗</span>
-                            <span class="fr right">{{$threeBuyCount}}（{{$threeCount}}）</span>
+                            <span class="fr right">{{$threeCount}}（{{$threeBuyCount}}）</span>
                         </li>
                     </ul>
                 </div>
