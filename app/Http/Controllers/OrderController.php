@@ -127,7 +127,12 @@ class OrderController extends Controller
             //退款
             $app = app('wechat');
             $payment = $app->payment;
-            $result = $payment->refund($order->wechat_order_no, time(), Order::getTotal($order->wechat_order_no), $order->total);
+            $result = $payment->refund(
+                $order->wechat_order_no,
+                time(), 
+                Order::getTotal($order->wechat_order_no) * 100,
+                $order->total * 100
+            );
             if($result->return_code == 'SUCCESS') {
                 $order->status_id = Config::get('constants.order.cancel');
                 $order->save();
