@@ -11,6 +11,17 @@ use App\Http\Requests;
 
 class UserController extends AdminController
 {
+
+    public function index()
+    {
+        $users = User::all();
+
+        return view('admin.user.index', [
+            'users' => $users,
+        ]);
+    }
+
+
     /**
      * 将某个用户改为推广人员
      * @param $id

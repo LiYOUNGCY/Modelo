@@ -134,12 +134,12 @@
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#profit">
-                            <i class="fa fa-fw fa-arrows-v"></i> 分销管理
+                            <i class="fa fa-fw fa-arrows-v"></i> 用户管理
                             <i class="fa fa-fw fa-caret-down"></i>
                         </a>
                         <ul id="profit" class="collapse">
                             <li>
-                                <a href="{{ url("{$ADMIN}/profit") }}">查看</a>
+                                <a href="{{ url("{$ADMIN}/user") }}">查看</a>
                             </li>
                         </ul>
                     </li>
