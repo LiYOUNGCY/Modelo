@@ -85,9 +85,12 @@
         @endif
 
         @if($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.paid'))
-            <div class="btn order-option" id="cancel">
-                取消订单
-            </div>
+            <form id="cancelForm" action="{{ url("order/{$encodeOrderNo}/cancel") }}" method="post">
+                {!! csrf_field() !!}
+                <button id="cancel" class="btn order-option" type="button">
+                    取消订单
+                </button>
+            </form>
         @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.order.deliver'))
             <div class="btn order-option">
                 确认收货
@@ -103,8 +106,11 @@
 @section('moreScript')
     <script>
         $(function () {
-            $('#cancel').click(function () {
-                $.ajax({});
+            $('#cancel').click(function (event) {
+                event.preventDefault();
+                if(confirm('您确定取消订单？')) {
+                    $('#cancelForm').submit();
+                }
             });
         });
     </script>

@@ -268,16 +268,6 @@ class Order extends Model
             ]);
     }
 
-    public function reject()
-    {
-        if ($this->status_id == Config::get('constants.orderStatus.received')) {
-            $this->status_id = Config::get('constants.orderStatus.reject');
-            //Don't update the last_action_at
-            //the last_action_at use to calculate the finish time
-            $this->save();
-        }
-    }
-
     /**
      * 允许退货
      */

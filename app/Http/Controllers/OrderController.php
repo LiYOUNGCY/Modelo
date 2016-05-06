@@ -9,6 +9,7 @@ use Cart;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Log;
+use Config;
 
 class OrderController extends Controller
 {
@@ -38,6 +39,7 @@ class OrderController extends Controller
         return view('order.show', [
             'order' => $order,
             'orderItem' => $orderItem,
+            'encodeOrderNo' => base64_encode($order->order_no),
         ]);
     }
 
@@ -91,7 +93,6 @@ class OrderController extends Controller
             }
         }
 
-
         $trade_no = base64_encode($trade_no);
         return redirect("wechat/pay/{$trade_no}");
 
@@ -116,20 +117,27 @@ class OrderController extends Controller
         return $response;
     }
 
-    public function reject(Request $request, $orderNo)
+    public function cancel(Request $request, $orderNo)
     {
-        try {
-            $order = Order::get($orderNo);
-            $order->reject();
-        } catch (NotFoundException $e) {
-            Log::info($e->getMessage(), ['orderNo' => $orderNo]);
-            return response()->json([
-                'error' => 0,
-            ]);
-        }
+        $orderNo = base64_decode($orderNo);
+        var_dump($orderNo);
 
-        return response()->json([
-            'success' => 0,
-        ]);
+        $order = Order::get($orderNo);
+        if(isset($order) && $order->status_id == Config::get('constants.orderStatus.paid')) {
+            //退款
+            $app = app('wechat');
+            $payment = $app->payment;
+            $result = $payment->refund($order->wechat_order_no, time(), Order::getTotal($order->wechat_order_no), $order->total);
+            if($result->return_code == 'SUCCESS') {
+                $order->status_id = Config::get('constants.order.cancel');
+                $order->save();
+
+                return redirect("order/{$order->id}")->with('message', '您已成功退款，详情请在查看微信。');
+            } else {
+                return redirect("order/{$order->id}")->with('warning', '退款失败，请稍后重试。');
+            }
+        } else {
+            abort('404', '发生未知错误。错误代码: 2001');
+        }
     }
 }
