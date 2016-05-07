@@ -28,7 +28,7 @@ $(function () {
 
                         for (var key in cart) {
                             content += '<div class="car-goods">' +
-                                '<div class="pic"><img src="' + cart[key].options['cover'] + '"></div>' +
+                                '<div class="pic"><img src="' + BASEURL + cart[key].options['cover'] + '"></div>' +
                                 '<div class="remove-goods" data-id="' + key + '">' +
                                 '<span class="fa fa-close"></span>' +
                                 '</div>';
