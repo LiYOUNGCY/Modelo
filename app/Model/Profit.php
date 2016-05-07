@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Config;
+use App\Model\User;
 
 class Profit extends Model
 {
@@ -126,13 +127,15 @@ class Profit extends Model
         foreach ($profits as $profit) {
             //三级的奖励就从三级的冻结金额去除
             if($profit->level_id == Config::get('constants.levelName.three')) {
-                User::where('id', $profit->user_id)
+                DB::table('user')
+                    ->where('id', $profit->user_id)
                     ->where('freeze_three', '>=', $profit->profit)
                     ->decrement('freeze_three', $profit->profit);
             } else {
-                User::where('id', $profit->user_id)
+                DB::table('user')
+                    ->where('id', $profit->user_id)
                     ->where('freeze_total', '>=', $profit->profit)
-                    ->decrement('freeze_total', '>=', $profit->profit);
+                    ->decrement('freeze_total', $profit->profit);
             }
 
             //状态变为：cancel

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Container\Container;
 use App\Http\Common;
 use App\Model\Order;
+use App\Model\Profit;
 use App\Model\User;
 use App\Model\UserQrCode;
 use Illuminate\Http\Request;
@@ -19,12 +20,8 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-//        $user = User::firstOrNew(['openid' => '123']);
-//        var_dump($user);
-
-//        User::findOrNewByOpenid(['openid' => '123'], ['sex' => 1]);
-        $parentId = UserQrCode::getByToken(1)->user_id;
-        var_dump($parentId);
+//        echo 2;
+        Profit::removeProfit(29);
     }
 
     public function login(Request $request)
