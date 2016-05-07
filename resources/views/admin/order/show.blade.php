@@ -91,14 +91,14 @@
                                 </td>
                             </tr>
                         @endif
-                        {{--<tr>--}}
-                        {{--<td>--}}
-                        {{--<span class="col-md-6 col-xs-3 control-label">备注</span>--}}
-                        {{--<div class="col-md-6 col-xs-8" id="order_id">--}}
-                        {{--{{ $order->comment }}--}}
-                        {{--</div>--}}
-                        {{--</td>--}}
-                        {{--</tr>--}}
+                        <tr>
+                            <td>
+                                <span class="col-md-6 col-xs-3 control-label">备注</span>
+                                <div class="col-md-6 col-xs-8" id="order_id">
+                                    <strong>{{ $order->remark }}</strong>
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <span class="col-md-6 col-xs-3 control-label">创建时间</span>
@@ -116,22 +116,22 @@
                             </td>
                         </tr>
 
-                            <tr>
-                                <td>
-                                    <span class="col-md-6 col-xs-3 control-label"></span>
-                                    <div class="col-md-6 col-xs-8" id="order_id">
-                                        <div class="row">
+                        <tr>
+                            <td>
+                                <span class="col-md-6 col-xs-3 control-label"></span>
+                                <div class="col-md-6 col-xs-8" id="order_id">
+                                    <div class="row">
                                             <span class="col col-md-6">
                                                 {{ $item->production_name }}
                                                 ({{ $item->color_name }})
                                                 ({{ $item->size_name }})
                                             </span>
-                                            <span class="col col-md-3">X{{ $item->quantity }}</span>
-                                            <span class="col col-md-3">{{ $item->price }}￥</span>
-                                        </div>
+                                        <span class="col col-md-3">X{{ $item->quantity }}</span>
+                                        <span class="col col-md-3">{{ $item->price }}￥</span>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <span class="col-md-6 control-label">合计</span>

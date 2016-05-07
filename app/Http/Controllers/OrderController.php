@@ -120,17 +120,17 @@ class OrderController extends Controller
         $orderNo = base64_decode($orderNo);
 
         $order = Order::get($orderNo);
-        if(isset($order) && $order->status_id == Config::get('constants.orderStatus.paid')) {
+        if (isset($order) && $order->status_id == Config::get('constants.orderStatus.paid')) {
             //退款
             $app = app('wechat');
             $payment = $app->payment;
             $result = $payment->refund(
                 $order->wechat_order_no,
-                time(), 
+                time(),
                 Order::getTotal($order->wechat_order_no) * 100,
                 $order->total * 100
             );
-            if($result->return_code == 'SUCCESS') {
+            if ($result->return_code == 'SUCCESS') {
                 $order->status_id = Config::get('constants.orderStatus.cancel');
                 $order->save();
 
