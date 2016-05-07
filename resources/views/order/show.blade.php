@@ -104,7 +104,7 @@
         @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.received'))
             <form action="{{ url("order/{$encodeOrderNo}/reject") }}" method="post">
                 {!! csrf_field() !!}
-                <button id="reject" class="btn order-option" type="button">
+                <button id="reject" class="btn order-option" type="submit">
                     申请售后(退货或换货)
                 </button>
             </form>
