@@ -14,17 +14,17 @@ use Cookie;
 use Log;
 use Session;
 use Illuminate\Http\Response;
+use App\Model\Profit;
 
 class TestController extends Controller
 {
     public function index(Request $request)
     {
-//        $user = User::firstOrNew(['openid' => '123']);
-//        var_dump($user);
-
-//        User::findOrNewByOpenid(['openid' => '123'], ['sex' => 1]);
-        $parentId = UserQrCode::getByToken(1)->user_id;
-        var_dump($parentId);
+try{
+	Profit::removeProfit(26);
+} catch($e) {
+$e->getMessage();
+}
     }
 
     public function login(Request $request)
