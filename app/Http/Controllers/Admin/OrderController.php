@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\AdminController;
 use App\Model\Order;
+use App\Model\Production;
 use App\Model\Profit;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -82,14 +83,28 @@ class OrderController extends AdminController
                 Order::getTotal($order->wechat_order_no) * 100,
                 $order->total * 100
             );
+            
             if ($result->return_code == 'SUCCESS') {
                 $order->status_id = Config::get('constants.orderStatus.rejected');
                 $order->save();
 
+                //商品数量
+                $sizes = DB::table('order_item')
+                    ->where('order_item.order_id', '=', $order->id)
+                    ->select(
+                        'order_item.size_id',
+                        'order_item.quantity'
+                    )
+                    ->get();
+
+                foreach ($sizes as $size) {
+                    Production::increaseQuantity($size->size_id, $size->quantity);
+                }
+
                 //将奖励金额取消
                 Profit::removeProfit($order->id);
                 return redirect("{$this->ADMIN}/order/{$order->id}")->with('success', '操作成功');
-            }
+            } //end if
         }
 
         return redirect("{$this->ADMIN}/order/{$order->id}")->with('warning', '操作失败');
