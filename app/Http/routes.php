@@ -63,8 +63,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('order/{id}', 'Admin\OrderController@show');
         Route::post('order/{id}/deliver', 'Admin\OrderController@deliverOrder');
         Route::post('order/{id}/rejected', 'Admin\OrderController@rejected');
-        Route::post('order/{orderId}/exchange', 'Admin\OrderController@exchange');
-        Route::post('order/{orderId}/deny', 'Admin\OrderController@deny');
+        Route::post('order/{id}/exchange', 'Admin\OrderController@exchange');
+        Route::post('order/{id}/deny', 'Admin\OrderController@deny');
 
         //Cash
         Route::get('cash', 'Admin\CashController@index');
