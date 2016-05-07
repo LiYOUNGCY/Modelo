@@ -55,6 +55,10 @@ class Profit extends Model
             ->increment('total', $profit);
     }
 
+    /**
+     * 将冻结金额转为可用金额
+     * @param $order_id
+     */
     public static function removeFreeze($order_id)
     {
         $profits = Profit::where('order_id', '=', $order_id)->get();
@@ -111,14 +115,29 @@ class Profit extends Model
         return $result;
     }
 
-    public function cancel()
+    /**
+     * 将奖励金额取消
+     * @param $orderId
+     */
+    public static function removeProfit($orderId)
     {
-        $profit = $this->profit;
-        $this->status_id = Config::get('constants.profitStatus.cancel');
-        $this->save();
+        $profits = Profit::where('order_id', $orderId)->get();
 
-        $user = User::find($this->user_id);
-        $user->freeze_total = $user->freeze_total - $profit;
-        $user->save();
+        foreach ($profits as $profit) {
+            //三级的奖励就从三级的冻结金额去除
+            if($profit->level_id == Config::get('constants.levelName.three')) {
+                User::where('id', $profit->user_id)
+                    ->where('freeze_three', '>=', $profit->profit)
+                    ->decrement('freeze_three', $profit->profit);
+            } else {
+                User::where('id', $profit->user_id)
+                    ->where('freeze_total', '>=', $profit->profit)
+                    ->decrement('freeze_total', '>=', $profit->profit);
+            }
+
+            //状态变为：cancel
+            $profit->status_id = Config::get('constants.profitStatus.cancel');
+            $profit->save();
+        }
     }
 }

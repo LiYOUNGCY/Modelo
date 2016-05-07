@@ -85,6 +85,9 @@ class OrderController extends AdminController
             if ($result->return_code == 'SUCCESS') {
                 $order->status_id = Config::get('constants.orderStatus.rejected');
                 $order->save();
+
+                //将奖励金额取消
+                Profit::removeProfit($order->id);
                 return redirect("{$this->ADMIN}/order/{$order->id}")->with('success', '操作成功');
             }
         }
