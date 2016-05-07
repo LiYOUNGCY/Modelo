@@ -93,7 +93,8 @@ class Order extends Model
                 'order.status_id as status',
                 'order_status.name as status_name',
                 'order.express',
-                'order.tracking_no'
+                'order.tracking_no',
+                'order.remark'
             )
             ->first();
         return $data;
