@@ -143,27 +143,15 @@
             </div>
         </div>
 
-        @if($user->can_qrcode)
-            <a class="check-QRcode" href="{{ url('qrcode') }}" style="display: block;">
-                <div class="inner-box">
-                    <img src="{{asset('assets/images')}}/qr.png">
-                    <div class="text">
-                        <p class="up">点击查看二维码</p>
-                        <p class="down">分享二维码，坐等分成</p>
-                    </div>
-                </div>
-            </a>
-        @else
-            <div class="check-QRcode">
-                <div class="inner-box">
-                    <img src="{{asset('assets/images')}}/qr.png">
-                    <div class="text">
-                        <p class="up">点击查看二维码</p>
-                        <p class="down">分享二维码，坐等分成</p>
-                    </div>
+        <a class="check-QRcode" href="{{ url('qrcode') }}" style="display: block;">
+            <div class="inner-box">
+                <img src="{{asset('assets/images')}}/qr.png">
+                <div class="text">
+                    <p class="up">点击查看二维码</p>
+                    <p class="down">分享二维码，坐等分成</p>
                 </div>
             </div>
-        @endif
+        </a>
     </div>
 @endsection
 

@@ -47,9 +47,7 @@ class OrderController extends Controller
     {
         $cartName = session('cartName');
         if (is_null($cartName)) {
-            $cartName = 'shopping';
-        } else {
-            session()->flash('cartName', 'once');
+            abort(404);
         }
         $productions = Cart::instance($cartName)->content();
         $total = Cart::instance($cartName)->total();
@@ -141,7 +139,7 @@ class OrderController extends Controller
                 return redirect("order/{$order->id}")->with('warning', '退款失败，请稍后重试。');
             }
         } else {
-            abort('404', '发生未知错误。错误代码: 2001');
+            abort(503, '发生未知错误。错误代码: 2001');
         }
     }
 }

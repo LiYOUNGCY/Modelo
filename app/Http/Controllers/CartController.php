@@ -13,31 +13,17 @@ use App\Http\Requests;
 
 class CartController extends Controller
 {
-    public function createToShopping(Request $request)
+    public function useCart(Request $request, $cartName)
     {
-//        if (Container::getUser()->can_buy == true) {
-        $production_id = $request->get('production_id');
-        $size_id = $request->get('size_id');
-        $color_id = $request->get('color_id');
-        $quantity = $request->get('quantity');
-
-        $quantity = floor($quantity);
-
-        if ($this->addToCart('shopping', $production_id, $color_id, $size_id, $quantity)) {
-            return response()->json([
-                'success' => 0,
-            ]);
+        if($cartName == 'shopping') {
+            session()->put('cartName', 'shopping');
+            return redirect('order/create');
+        } else if($cartName == '') {
+            session()->put('cartName', 'once');
+            return redirect('order/create');
         } else {
-            return response()->json([
-                'error' => 0,
-                'message' => '您输入的信息不合法',
-            ]);
+            abort(404);
         }
-
-
-//        } else {
-//            abort(503, '不能购买');
-//        }
     }
 
     public function createToOnceCart(Request $request)
@@ -52,12 +38,13 @@ class CartController extends Controller
         $quantity = floor($quantity);
 
         if ($this->addToCart('once', $production_id, $color_id, $size_id, $quantity)) {
-//            session()->put('cartName', 'once');
-            return redirect('order/create')->with('cartName', 'once');
+            session()->put('cartName', 'once');
+            return redirect('order/create');
         } else {
             echo 'ERROR';
         }
     }
+
 
     public function createToShoppingCart(Request $request)
     {
@@ -78,25 +65,6 @@ class CartController extends Controller
                 'error' => 0,
             ]);
         }
-    }
-
-    public function show(Request $request, $cartName)
-    {
-        try {
-            $content = Cart::instance($cartName)->content();
-
-            return response()->json([
-                'success' => 0,
-                'data' => $content,
-            ]);
-
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-        }
-
-        return response()->json([
-            'error' => 0,
-        ]);
     }
 
     private function addToCart($cartName, $production_id, $color_id, $size_id, $quantity)
@@ -130,6 +98,25 @@ class CartController extends Controller
         } else {
             return false;
         }
+    }
+
+    public function show(Request $request, $cartName)
+    {
+        try {
+            $content = Cart::instance($cartName)->content();
+
+            return response()->json([
+                'success' => 0,
+                'data' => $content,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
+
+        return response()->json([
+            'error' => 0,
+        ]);
     }
 
     public function remove(Request $request, $rowId)

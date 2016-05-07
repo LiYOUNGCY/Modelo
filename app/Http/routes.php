@@ -132,6 +132,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('cart/shopping/create', 'CartController@createToShoppingCart');
     Route::post('cart/once/create', 'CartController@createToOnceCart');
     Route::get('cart/{cartName}/show', 'CartController@show');
+    Route::get('cart/{cartName}/use', 'CartController@useCart');
     Route::delete('cart/shopping/{rowId}', 'CartController@remove');
 
     //Draw 提现
