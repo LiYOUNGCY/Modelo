@@ -94,7 +94,7 @@
                     取消订单
                 </button>
             </form>
-        @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.order.deliver'))
+        @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
             <form id="cancelForm" action="{{ url("order/{$encodeOrderNo}/receive") }}" method="post">
                 {!! csrf_field() !!}
                 <button id="receive" class="btn order-option" type="button">
