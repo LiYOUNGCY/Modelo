@@ -36,4 +36,9 @@ class Production extends Model
             ->where('id', $sid)
             ->decrement('quantity', $qty);
     }
+
+    public static function increaseQuantity($sid, $qty) {
+        ProductionSize::where('id', $sid)
+            ->increment('quantity', $qty);
+    }
 }
