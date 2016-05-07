@@ -74,7 +74,7 @@
                 <label>订单状态</label>
                 <div class="field state">
                     {{ $order->status->name }}
-                    @if(\Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver') == $order->status_id)
+                    @if($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
                         <span class="fb">（{{ $order->express }}：{{ $order->tracking_no }}）</span>
                     @endif
                 </div>
@@ -95,13 +95,19 @@
                 </button>
             </form>
         @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.order.deliver'))
-            <div class="btn order-option">
-                确认收货
-            </div>
+            <form id="cancelForm" action="{{ url("order/{$encodeOrderNo}/receive") }}" method="post">
+                {!! csrf_field() !!}
+                <button id="receive" class="btn order-option" type="button">
+                    确认收货
+                </button>
+            </form>
         @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.received'))
-            <div class="btn order-option">
-                申请售后
-            </div>
+            <form id="cancelForm" action="{{ url("order/{$encodeOrderNo}/reject") }}" method="post">
+                {!! csrf_field() !!}
+                <button id="reject" class="btn order-option" type="button">
+                    申请售后(退货或换货)
+                </button>
+            </form>
         @endif
     </div>
 @endsection

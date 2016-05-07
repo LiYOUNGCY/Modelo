@@ -142,4 +142,44 @@ class OrderController extends Controller
             abort(503, '发生未知错误。错误代码: 2001');
         }
     }
+
+    /**
+     * 确认收货
+     * @param Request $request
+     * @param $orderNo
+     */
+    public function receive(Request $request, $orderNo)
+    {
+        $orderNo = base64_decode($orderNo);
+
+        $order = Order::get($orderNo);
+        if(isset($order) && $order->status_id == Config::get('constants.orderStatus.deliver')) {
+            $order->status_id = Config::get('constants.orderStatus.received');
+            $order->save();
+
+            return redirect("order/{$order->id}");
+        } else {
+            abort(503, '发生未知错误。错误代码: 2002');
+        }
+    }
+
+    /**
+     * 申请售后
+     * @param Request $request
+     * @param $orderNo
+     */
+    public function reject(Request $request, $orderNo)
+    {
+        $orderNo = base64_decode($orderNo);
+
+        $order = Order::get($orderNo);
+        if(isset($order) && $order->status_id == Config::get('constants.orderStatus.received')) {
+            $order->status_id = Config::get('constants.orderStatus.reject');
+            $order->save();
+
+            return redirect("order/{$order->id}");
+        } else {
+            abort(503, '发生未知错误。错误代码: 2003');
+        }
+    }
 }

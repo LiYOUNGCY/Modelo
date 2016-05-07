@@ -31,7 +31,7 @@ class OrderController extends AdminController
         $order = Order::getOrder($id);
         $profits = Profit::getByOrderId($id);
 
-        if (!empty($order)) {
+        if (isset($order)) {
             $orderItem = Order::getOrderItems($order->id);
 
             return view('admin.order.show', [
@@ -68,37 +68,5 @@ class OrderController extends AdminController
         }
     }
 
-    public function rejected(Request $request, $orderNo)
-    {
-        $isRejected = $request->get('isRejected');
-        try {
-            $order = Order::get($orderNo);
-
-            switch ($isRejected) {
-                //拒绝退货
-                case 0:
-                    $order->denyRejected();
-                    break;
-                //允许退货
-                case 1:
-                    $order->rejected();
-
-                    $profits = Profit::getByOrderId($order->id);
-                    foreach ($profits as $profit) {
-                        $profit->cancel();
-                    }
-                    break;
-                //换货
-                case 2:
-                    $order->exchange();
-                    break;
-            }
-
-        } catch (NotFoundException $e) {
-            Log::warning($e->getMessage());
-            return redirect("{$this->ADMIN}/order");
-        }
-
-        return redirect("{$this->ADMIN}/order/{$order->id}");
-    }
+    
 }
