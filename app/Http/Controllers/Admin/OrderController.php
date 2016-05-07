@@ -68,9 +68,9 @@ class OrderController extends AdminController
         }
     }
 
-    public function rejected(Request $request, $orderId)
+    public function rejected(Request $request, $id)
     {
-        $order = Order::find($orderId);
+        $order = Order::find($id);
 
         if (isset($order) && $order->status_id == Config::get('constants.orderStatus.reject')) {
             //退款
