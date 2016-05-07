@@ -68,5 +68,27 @@ class OrderController extends AdminController
         }
     }
 
-    
+    public function rejected(Request $request, $orderId)
+    {
+        $order = Order::find($orderId);
+
+        if (isset($order) && $order->status_id == Config::get('constants.orderStatus.reject')) {
+            //退款
+            $app = app('wechat');
+            $payment = $app->payment;
+            $result = $payment->refund(
+                $order->wechat_order_no,
+                time() . 'reject',
+                Order::getTotal($order->wechat_order_no) * 100,
+                $order->total * 100
+            );
+            if ($result->return_code == 'SUCCESS') {
+                $order->status_id = Config::get('constants.orderStatus.rejected');
+                $order->save();
+                return redirect("{$this->ADMIN}/order/{$order->id}")->with('success', '操作成功');
+            }
+        }
+
+        return redirect("{$this->ADMIN}/order/{$order->id}")->with('warning', '操作失败');
+    }
 }

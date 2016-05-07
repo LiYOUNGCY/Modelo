@@ -12,6 +12,16 @@
                     <h3 class="panel-title">订单</h3>
                 </div>
                 <div class="panel-body">
+                    @if(session('warning'))
+                        <div class="alert-message alert-danger">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
+                    @if(session('success'))
+                        <div class="alert-message alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <table class="table table-bordered table-hover table-striped">
                         <tbody>
                         <tr>
@@ -175,14 +185,17 @@
                     @elseif($order->status == \Illuminate\Support\Facades\Config::get('constants.orderStatus.reject'))
                         <div class="row">
                             <div class="col col-md-12">
-                                <form action="{{ url("{$ADMIN}/order/{$order->order_no}/rejected") }}" method="post">
+                                <form action="{{ url("{$ADMIN}/order/{$order->id}/deny") }}" method="post">
                                     {!! csrf_field() !!}
-                                    <button type="submit" name="isRejected" value="0" class="btn btn-danger">拒绝退货
-                                    </button>
-                                    <button type="submit" name="isRejected" value="1" class="btn btn-primary">允许退货
-                                    </button>
-                                    <button type="submit" name="isRejected" value="2" class="btn btn-success">允许换货
-                                    </button>
+                                    <button class="btn btn-danger" type="submit">拒绝</button>
+                                </form>
+                                <form action="{{ url("{$ADMIN}/order/{$order->id}/rejected") }}" method="post">
+                                    {!! csrf_field() !!}
+                                    <button class="btn btn-primary" type="submit">允许退货</button>
+                                </form>
+                                <form action="{{ url("{$ADMIN}/order/{$order->id}/exchange") }}" method="post">
+                                    {!! csrf_field() !!}
+                                    <button class="btn btn-primary" type="submit">允许换货</button>
                                 </form>
                             </div>
                         </div>
