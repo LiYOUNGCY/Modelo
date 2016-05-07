@@ -95,14 +95,14 @@
                 </button>
             </form>
         @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
-            <form id="cancelForm" action="{{ url("order/{$encodeOrderNo}/receive") }}" method="post">
+            <form action="{{ url("order/{$encodeOrderNo}/receive") }}" method="post">
                 {!! csrf_field() !!}
-                <button id="receive" class="btn order-option" type="button">
+                <button id="receive" class="btn order-option" type="submit">
                     确认收货
                 </button>
             </form>
         @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.received'))
-            <form id="cancelForm" action="{{ url("order/{$encodeOrderNo}/reject") }}" method="post">
+            <form action="{{ url("order/{$encodeOrderNo}/reject") }}" method="post">
                 {!! csrf_field() !!}
                 <button id="reject" class="btn order-option" type="button">
                     申请售后(退货或换货)
