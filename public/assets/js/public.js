@@ -38,7 +38,7 @@ $(function () {
                         var carContent = '<div class="m-car">' +
                             content +
                             '<div class="car-clean">' +
-                            '<a href="' + BASEURL + 'order/create">去结算</a>' +
+                            '<a href="' + BASEURL + 'cart/shopping/use">去结算</a>' +
                             '</div>' +
                             '</div>';
 

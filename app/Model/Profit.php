@@ -125,7 +125,8 @@ class Profit extends Model
 
         foreach ($profits as $profit) {
             //三级的奖励就从三级的冻结金额去除
-            if($profit->level_id == Config::get('constants.levelName.three')) {
+            if($profit->level_id == Config::get('constants.levelName.three')
+            && $profit->status_id == Config::get('constants.profitStatus.freeze')) {
                 DB::table('user')
                     ->where('id', $profit->user_id)
                     ->where('freeze_three', '>=', $profit->profit)

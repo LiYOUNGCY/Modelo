@@ -18,7 +18,7 @@ class CartController extends Controller
         if($cartName == 'shopping') {
             session()->put('cartName', 'shopping');
             return redirect('order/create');
-        } else if($cartName == '') {
+        } else if($cartName == 'once') {
             session()->put('cartName', 'once');
             return redirect('order/create');
         } else {
@@ -38,8 +38,8 @@ class CartController extends Controller
         $quantity = floor($quantity);
 
         if ($this->addToCart('once', $production_id, $color_id, $size_id, $quantity)) {
-            session()->put('cartName', 'once');
-            return redirect('order/create');
+//            session()->put('cartName', 'once');
+            return redirect('cart/once/use');
         } else {
             echo 'ERROR';
         }
