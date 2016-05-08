@@ -27,7 +27,6 @@ class Profit extends Model
 
     public static function insert($user_id, $order_id, $level_id, $profit)
     {
-
         DB::table('profit')
             ->insert([
                 'user_id' => $user_id,
@@ -37,7 +36,7 @@ class Profit extends Model
                 'profit' => $profit,
             ]);
 
-        if ($level_id != Config::get('constants.profitLevel.three')) {
+        if ($level_id != Config::get('constants.levelName.three')) {
             DB::table('user')
                 ->where('user.id', '=', $user_id)
                 ->increment('freeze_total', $profit);
@@ -65,7 +64,7 @@ class Profit extends Model
         foreach ($profits as $profit) {
             $user_id = $profit->user_id;
 
-            if ($profit->level_id != Config::get('constants.profitStatus.three')) {
+            if ($profit->level_id != Config::get('constants.levelName.three')) {
                 $canGet = $profit->status_id == Config::get('constants.profitStatus.freeze');
                 $profit->status_id = Config::get('constants.profitStatus.available');
                 $profit->save();
