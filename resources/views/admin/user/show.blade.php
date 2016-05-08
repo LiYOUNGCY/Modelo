@@ -37,8 +37,16 @@
                     <td>{{ $user->freeze_three }}</td>
                 </tr>
                 <tr>
-                    <td><strong>可提现金额</strong></td>
+                    <td>三级可用金额</td>
+                    <td>{{ $user->available_three }}</td>
+                </tr>
+                <tr>
+                    <td><strong>一二级可用金额</strong></td>
                     <td><strong>{{ $user->available_total }}</strong></td>
+                </tr>
+                <tr>
+                    <td>总可用金额</td>
+                    <td>{{ $user->available_three + $user->available_total }}</td>
                 </tr>
                 <tr>
                     <td>已提现</td>
@@ -73,7 +81,7 @@
                 </tr>
                 <tr>
                     <td>已完成订单金额</td>
-                    <td>￥{{$user->total}}</td>
+                    <td>￥{{ $sales }}</td>
                 </tr>
                 <tr>
                     <td>冻结中奖励金额</td>

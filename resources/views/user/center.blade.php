@@ -77,21 +77,21 @@
                 </div>
                 <div class="user-option-content">
                     <ul>
-                        <li>
-                            <span class="fl">未付款订单金额</span>
-                            <span class="fr right">￥{{$unpaid}}</span>
-                        </li>
-                        <li>
-                            <span class="fl">未完成订单金额</span>
-                            <span class="fr right">￥{{$unFinish}}</span>
-                        </li>
+                        {{--<li>--}}
+                            {{--<span class="fl">未付款订单金额</span>--}}
+                            {{--<span class="fr right">￥{{$unpaid}}</span>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<span class="fl">未完成订单金额</span>--}}
+                            {{--<span class="fr right">￥{{$unFinish}}</span>--}}
+                        {{--</li>--}}
                         <li>
                             <span class="fl">已完成订单金额</span>
-                            <span class="fr right">￥{{$user->total}}</span>
+                            <span class="fr right">￥{{ $sales }}</span>
                         </li>
                         <li>
                             <span class="fl">冻结中奖励金额</span>
-                            <span class="fr right">￥{{$user->freeze_total}}</span>
+                            <span class="fr right">￥{{ $user->freeze_total }}</span>
                         </li>
                         <li>
                             <span class="fl">第三级小豆苗奖励金额</span>
@@ -100,7 +100,7 @@
                         <li>
                             <span class="fl">可提现金额</span>
                             <span class="fr right" id="available"
-                                  data-id="{{ $user->available_total }}">￥{{ $user->available_total }}</span>
+                                  data-id="{{ $user->available_total + $user->available_three }}">￥{{ $user->available_total + $user->available_three }}</span>
                         </li>
                         <li>
                             <span class="fl">已提现金额</span>

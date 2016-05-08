@@ -34,7 +34,8 @@ class CreateUserTable extends Migration
 
             $table->float('freeze_total');      // 1 + 2 级的冻结
             $table->float('freeze_three');      // 3 级冻结
-            $table->float('available_total');   // 1 + 2 + 3 级的可用
+            $table->float('available_total');   // 1 + 2  级的可用
+            $table->float('available_three');   // 3 级可用
 
             $table->float('total');
             $table->float('used_total');        //已提现

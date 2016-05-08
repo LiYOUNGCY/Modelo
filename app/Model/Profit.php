@@ -82,23 +82,21 @@ class Profit extends Model
                         ->decrement('freeze_total', $profit);
                 }
             } else {
-                if (User::getFinishOrderTotal($user_id) >= Config::get('constants.salesVolume')) {
-                    $canGet = $profit->status_id == Config::get('constants.profitStatus.freeze');
-                    $profit->status_id = Config::get('constants.profitStatus.available');
-                    $profit->save();
+                $canGet = $profit->status_id == Config::get('constants.profitStatus.freeze');
+                $profit->status_id = Config::get('constants.profitStatus.available');
+                $profit->save();
 
-                    if (isset($profit) && $canGet) {
-                        $profit = $profit->profit;
+                if (isset($profit) && $canGet) {
+                    $profit = $profit->profit;
 
-                        DB::table('user')
-                            ->where('user.id', '=', $user_id)
-                            ->where('freeze_three', '>=', $profit)
-                            ->increment('available_total', $profit);
+                    DB::table('user')
+                        ->where('user.id', '=', $user_id)
+                        ->where('freeze_three', '>=', $profit)
+                        ->increment('available_three', $profit);
 
-                        DB::table('user')
-                            ->where('user.id', '=', $user_id)
-                            ->decrement('freeze_three', $profit);
-                    }
+                    DB::table('user')
+                        ->where('user.id', '=', $user_id)
+                        ->decrement('freeze_three', $profit);
                 }
             }
         }
@@ -124,8 +122,9 @@ class Profit extends Model
 
         foreach ($profits as $profit) {
             //三级的奖励就从三级的冻结金额去除
-            if($profit->level_id == Config::get('constants.levelName.three')
-            && $profit->status_id == Config::get('constants.profitStatus.freeze')) {
+            if ($profit->level_id == Config::get('constants.levelName.three')
+                && $profit->status_id == Config::get('constants.profitStatus.freeze')
+            ) {
                 DB::table('user')
                     ->where('id', $profit->user_id)
                     ->where('freeze_three', '>=', $profit->profit)
