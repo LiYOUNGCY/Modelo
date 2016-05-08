@@ -70,7 +70,7 @@ return [
     /**
      * 可以提现 三级 的条件
      */
-    'salesVolume' => 100,   // 15000
+    'salesVolume' => 1,   // 15000
 
 
     'CashStatus' => [
