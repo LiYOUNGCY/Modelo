@@ -138,6 +138,13 @@ class Profit extends Model
                     ->decrement('freeze_total', $profit->profit);
             }
 
+            //从总金额里去除
+            DB::table('user')
+                ->where('id', $profit->user_id)
+                ->where('total', '>=', $profit->profit)
+                ->decrement('total', $profit->profit);
+
+
             //状态变为：cancel
             $profit->status_id = Config::get('constants.profitStatus.cancel');
             $profit->save();

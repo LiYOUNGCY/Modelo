@@ -93,7 +93,6 @@ class OrderController extends Controller
 
         $trade_no = base64_encode($trade_no);
         return redirect("wechat/pay/{$trade_no}");
-
     }
 
     /**
