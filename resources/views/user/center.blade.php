@@ -32,7 +32,7 @@
             </div>
             <div class="user-data-item nb">
                 <p>可提现</p>
-                <span class="num">￥{{ $user->available_total }}</span>
+                <span class="num">￥{{ $total }}</span>
             </div>
             <div class="cf"></div>
         </div>
@@ -95,7 +95,7 @@
                         </li>
                         <li>
                             <span class="fl">第三级小豆苗奖励金额</span>
-                            <span class="fr right">￥{{ $user->freeze_three }}</span>
+                            <span class="fr right">￥{{ $user->available_three }}</span>
                         </li>
                         <li>
                             <span class="fl">可提现金额</span>
