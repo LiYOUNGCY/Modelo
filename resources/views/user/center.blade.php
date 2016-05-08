@@ -100,7 +100,7 @@
                         <li>
                             <span class="fl">可提现金额</span>
                             <span class="fr right" id="available"
-                                  data-id="{{ $user->available_total + $user->available_three }}">￥{{ $user->available_total + $user->available_three }}</span>
+                                  data-id="{{ $total }}">￥{{ $total }}</span>
                         </li>
                         <li>
                             <span class="fl">已提现金额</span>

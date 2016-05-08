@@ -43,9 +43,16 @@ class UserController extends Controller
         $count = $oneCount + $secondCount + $threeCount;
         $buyCount = $oneBuyCount + $secondBuyCount + $threeBuyCount;
 
+        $total = $user->available_total;
+
+        if(User::getFinishOrderTotal($user->id) >= Config::get('constants.salesVolume')) {
+            $total += $user->available_three;
+        }
+
         return view('user.center', [
             'user' => $user,
             'sales' => User::getFinishOrderTotal($user->id),
+            'total' => $total,
 //            'unpaid' => User::getUnpaidOrderTotal($user->id),
 //            'unFinish' => User::getUnFinishOrderTotal($user->id),
 
