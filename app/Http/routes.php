@@ -152,6 +152,7 @@ Route::group([
     Route::any('auth/callback', 'Wechat\AuthController@callback');
     Route::any('menu/update', 'Wechat\MenuController@index');
     Route::any('pay/notify', 'OrderController@notify');
+    Route::any('notice/pay/{$openid}/{$orderId}', 'Wechat\NoticeController@paySuccess');
 
 
     Route::group([
