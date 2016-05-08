@@ -7,6 +7,7 @@ use App\Model\User;
 use App\Model\UserQrCode;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Config;
 
 class UserController extends Controller
 {
