@@ -114,7 +114,7 @@ class OrderController extends AdminController
     {
         $order = Order::find($id);
 
-        if (isset($order) && $order->status_id == Config::get('constants.orderStatus.rejected')) {
+        if (isset($order) && $order->status_id == Config::get('constants.orderStatus.reject')) {
             $order->status_id = Config::get('constants.orderStatus.exchange');
             $order->save();
 
