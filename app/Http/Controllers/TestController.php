@@ -15,7 +15,6 @@ use Cookie;
 use Log;
 use Session;
 use Illuminate\Http\Response;
-use App\Model\Profit;
 
 class TestController extends Controller
 {

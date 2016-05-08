@@ -5,7 +5,6 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Config;
-use App\Model\User;
 
 class Profit extends Model
 {

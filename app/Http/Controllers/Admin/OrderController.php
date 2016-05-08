@@ -83,7 +83,7 @@ class OrderController extends AdminController
                 Order::getTotal($order->wechat_order_no) * 100,
                 $order->total * 100
             );
-            
+
             if ($result->return_code == 'SUCCESS') {
                 $order->status_id = Config::get('constants.orderStatus.rejected');
                 $order->save();
@@ -108,5 +108,19 @@ class OrderController extends AdminController
         }
 
         return redirect("{$this->ADMIN}/order/{$order->id}")->with('warning', '操作失败');
+    }
+
+    public function exchange(Request $request, $id)
+    {
+        $order = Order::find($id);
+
+        if (isset($order) && $order->status_id == Config::get('constants.orderStatus.rejected')) {
+            $order->status_id = Config::get('constants.orderStatus.exchange');
+            $order->save();
+
+            return redirect("{$this->ADMIN}/order/{$order->id}");
+        }
+
+        return redirect("{$this->ADMIN}/order/{$order->id}");
     }
 }
