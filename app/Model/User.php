@@ -131,25 +131,15 @@ class User extends Model
      */
     public static function getFinishOrderTotal($userId)
     {
-        $subOrder = function ($query) use ($userId) {
-            $query->select('user.id')
-                ->from('user')
-                ->leftJoin('user_relation', 'user_relation.children_id', '=', 'user.id')
-                ->where('user_relation.parent_id', $userId)
-                ->orWhere('user.id', $userId);
-        };
-
         $result = DB::table('order')
-            ->whereIn('user_id', function ($query) use ($subOrder) {
+            ->whereIn('user_id', function ($query) use ($userId){
                 $query->select('children_id')
                     ->from('user_relation')
-                    ->whereIn('parent_id', $subOrder);
+                    ->where('parent_id', $userId);
             })
-            ->whereIn('status_id', [
-                Config::get('constants.orderStatus.finish'),
-            ])
+            ->where('order.status_id', '=', Config::get('constants.orderStatus.finish'))
             ->sum('total');
-
+        
         return $result;
     }
 

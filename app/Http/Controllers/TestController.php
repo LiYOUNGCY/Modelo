@@ -20,8 +20,7 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-//        echo 2;
-        Profit::removeProfit(29);
+        echo User::getFinishOrderTotal(1);
     }
 
     public function login(Request $request)

@@ -94,7 +94,7 @@
                             <span class="fr right">￥{{$user->freeze_total}}</span>
                         </li>
                         <li>
-                            <span class="fl">第三级小豆芽奖励金额</span>
+                            <span class="fl">第三级小豆苗奖励金额</span>
                             <span class="fr right">￥{{ $user->freeze_three }}</span>
                         </li>
                         <li>
@@ -107,7 +107,7 @@
                             <span class="fr right">￥{{ $user->used_total }}</span>
                         </li>
                         <li>
-                            <span class="fr right"><a href="javascript:void(0)">查看如何获得第三级小豆芽金额</a></span>
+                            <span class="fr right"><a href="javascript:void(0)">查看如何获得第三级小豆苗金额</a></span>
                         </li>
                     </ul>
                 </div>
