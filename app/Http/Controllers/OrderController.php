@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\NotFoundException;
+use App\Http\Controllers\Wechat\Notice;
 use App\Model\Order;
 use App\Container\Container;
 use Cart;
@@ -13,6 +14,8 @@ use Config;
 
 class OrderController extends Controller
 {
+    use Notice;
+
     public function index()
     {
         $user = Container::getUser();
@@ -66,7 +69,7 @@ class OrderController extends Controller
 
         $cartName = is_null($cartName) ? 'shopping' : $cartName;
 
-        $trade_no = time() . str_random(22);
+        $trade_no = time() . str_random(10);
         $remark = $request->get('remark');
         $message = Container::getUser()->address;
 
@@ -104,7 +107,7 @@ class OrderController extends Controller
         $response = $app->payment->handleNotify(function ($notify, $successful) {
             if ($successful === true) {
                 $out_trade_no = $notify->out_trade_no;
-//                Log::info("pay order: {$out_trade_no}");
+                $this->paySuccessNotice($out_trade_no);
                 Order::payOrder($out_trade_no);
                 return true;
             }

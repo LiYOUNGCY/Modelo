@@ -909,6 +909,7 @@ th {
     position: relative;
     background-color: #F8F8F8;
     margin-bottom: 10px;
+    z-index:300;
 }
 .m-head .m-name{
     text-align: center;
@@ -955,61 +956,111 @@ th {
     margin-bottom:4px;
 }
 /*购物车*/
+
 .m-car{
     position: absolute;
-    top: 73px;
-    right: 20px;
-    padding:0 10px;
-    background-color: rgba(76,76,76,.75);
-    max-height: 275px;
-    z-index: 222;
+    top: 67px;
+    left: 0;
+    background-color: #f8f8f8;
+    width:100%;
+    max-height: 320px;
+    z-index: 250;
     overflow: scroll;
 }
+
+.m-car .car-goods .car-goods-list{
+    position: relative;
+}
 .m-car .car-goods{
-    margin-top: 10px;
+    padding:10px 0;
+    margin:0 auto;
+    width:90%;
     position: relative;
 }
-.m-car .car-goods .pic{
-    height: 75px;
-    width:75px;
-    line-height: 75px;
+.m-car .car-goods .car-goods-name{
     display: inline-block;
-    background-color: #eeeeee;
+    width:100%;
+    margin-bottom: 10px;
+}
+.m-car .car-goods .car-goods-name input[type="checkbox"]{
+    margin:0;
+    margin-right: 5px;
+}
+.m-car .car-goods .car-goods-name .remove-goods{
+    color: #d12e2e;
+    margin-top: 1px;
+}
+.m-car .car-goods .car-goods-detail{
+    position: relative;
+}
+.m-car .car-goods .car-goods-detail .goods-pic{
+    width:100px;
+    height:77px;
+    display: inline-block;
+    background-position: center center;
+    background-size: cover;
     vertical-align: top;
+    margin-right: 10px;
 }
-.m-car .car-goods .pic img{
-    width: 100%;
-    height: 100%;
-}
-.m-car .car-goods .remove-goods{
+.m-car .car-goods .car-goods-detail .goods-info{
     position: relative;
-    width:20px;
-    height:75px;
-    background-color: rgba(255,255,255,0.2);
-    color: #444444;
     display: inline-block;
-    line-height:75px;
+}
+.m-car .car-goods .car-goods-detail .goods-info .price {
+    font-size:18px;
+}
+.m-car .car-goods .car-goods-detail .goods-info .quantity{
+
+}
+.m-car .car-goods .car-goods-detail .goods-info .quantity span{
+    font-size:12px;
+}
+.m-car .car-goods .car-goods-detail .goods-info .quantity .num{
+    background-color: #ffffff;
+    padding:3px 7px;
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.m-car .car-final{
+    display: inline-block;
+    width:100%;
+    position: relative;
+    height:40px;
+    line-height: 40px;
+    background: #FFFFFF;
+    padding-left: 10px;
+}
+.m-car .car-final a{
+    color: #000;
+    text-decoration: underline;
+}
+.m-car .car-final .car-total{
+    font-size:18px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.m-car .car-final .settlement{
+    display: inline-block;
+    height:100%;
+    padding:0 20px;
+    background-color: #212121;
+    color:#FFFFFF;
+}
+.m-car .nogoods{
+    height:40px;
+    line-height: 40px;
     text-align: center;
 }
-.m-car .car-goods .remove-goods span{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-}
-.m-car .car-clean{
-    border-top: 1px solid #ffffff;
-    padding: 10px 0;
-    margin-top: 10px;
-    text-align: center;
-    width: 100%;
-    color: #ffffff;
-}
-.m-car .car-empty{
-    color: #ffffff;
-    padding: 10px 0;
-    text-align: center;
-    width: 100px;
+.car-shade{
+    position: fixed;
+    top:0;
+    left:0;
+    background: #000;
+    opacity: 0.4;
+    z-index: 200;
+    width:100%;
+    height:100%;
 }
 
 /*nav*/

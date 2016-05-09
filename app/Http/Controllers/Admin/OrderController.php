@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Wechat\Notice;
 use App\Model\Order;
 use App\Model\Production;
 use App\Model\Profit;
+use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
@@ -15,6 +17,8 @@ use Log;
 
 class OrderController extends AdminController
 {
+    use Notice;
+
     public function index(Request $request)
     {
         $status = $request->get('status');
@@ -62,6 +66,9 @@ class OrderController extends AdminController
             $order->express = $express;
             $order->tracking_no = $tracking_no;
             $order->save();
+
+
+            $this->deliverNotice($order->user_id, $order->id);
 
             return redirect("{$this->ADMIN}/order");
         } else {
@@ -117,6 +124,8 @@ class OrderController extends AdminController
         if (isset($order) && $order->status_id == Config::get('constants.orderStatus.reject')) {
             $order->status_id = Config::get('constants.orderStatus.exchange');
             $order->save();
+            
+            $this->exchangeNotice($order->user_id, $order->id);
 
             return redirect("{$this->ADMIN}/order/{$order->id}");
         }

@@ -113,7 +113,7 @@ class Order extends Model
     public static function createOrder($wechat_order_no, $user_id, $userAddress, $remark)
     {
         $order = new Order();
-        $order->order_no = time() . 'MODES' . str_random(17);
+        $order->order_no = time() . 'MODES' . str_random(5);
         $order->wechat_order_no = $wechat_order_no;
         $order->user_id = $user_id;
         $order->contact = $userAddress->contact;

@@ -15,22 +15,27 @@ class MenuController extends Controller
 
         $buttons = [
             [
-                "type" => "view",
-                "name" => "选购",
-                "url" => "http://modelo.taiyishou.cn/"
+                'type' => 'view',
+                'name' => '选购',
+                'url' => url('/'),
             ],
             [
-                "type" => 'view',
+                'type' => 'view',
                 'name' => '我是魔豆',
-                'url' => 'http://modelo.taiyishou.cn/user'
+                'url' => url('user')
             ],
             [
-                "name" => "我的助手",
-                "sub_button" => [
+                'name' => '我的助手',
+                'sub_button' => [
                     [
-                        "type" => 'view',
-                        "name" => "我的二维码",
-                        'url' => 'http://modelo.taiyishou.cn/qrcode'
+                        'type' => 'view',
+                        'name' => '我的二维码',
+                        'url' => url('qrcode'),
+                    ],
+                    [
+                        'type' => 'view',
+                        'name' => '我的订单',
+                        'url' => url('order'),
                     ],
                 ],
             ],
