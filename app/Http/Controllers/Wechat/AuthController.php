@@ -26,8 +26,20 @@ class AuthController extends Controller
     public function callback(Request $request)
     {
         $oauth = app('wechat')->oauth;
+        $userService = app('wechat')->user;
 
         $user = $oauth->user()->toArray();
+
+        if(empty($user)) {
+            Log::warning('Can not get the user openid');
+        }
+
+        $openid = $user['orriginal']['openid'];
+        $user = $userService->get($openid);
+
+        echo '<pre>';
+        var_dump($user);
+        echo '</pre>';
     }
 
 //    public function callback(Request $request)
