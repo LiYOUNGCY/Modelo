@@ -18,50 +18,60 @@ class AuthController extends Controller
 {
     public function index(Request $request)
     {
-        $wechatAuth = EasyWeChat::oauth();
+        $oauth = app('wechat')->oauth();
 
-        return $wechatAuth->scopes(['snsapi_userinfo'])
-            ->redirect();
+        return $oauth->redirect();
     }
 
     public function callback(Request $request)
     {
-        try {
-            $wechatAuth = EasyWeChat::oauth();
+        $oauth = app('wechat')->oauth();
 
-            $userMessage = $wechatAuth->user()->toArray();
+        $user = $oauth->user();
 
-            if (empty($userMessage)) {
-                throw new NotFoundException("没有成功获取用户信息");
-            }
-
-            $userMessage = $userMessage['original'];
-
-            $user = User::findOrNewByOpenid($userMessage['openid'], [
-                'nickname' => $userMessage['nickname'],
-                'sex' => $userMessage['sex'],
-                'province' => $userMessage['province'],
-                'city' => $userMessage['city'],
-                'country' => $userMessage['country'],
-                'headimgurl' => $userMessage['headimgurl'],
-            ]);
-
-            //如果没有推荐人就当是官方推荐
-            if (!UserRelation::hasParent($user->id)) {
-                $userRelation = new UserRelation();
-                $userRelation->insert($user->id, 1);
-                $user->follow(1);
-            }
-
-            //create Cookie and Session
-            Container::setUser($user->id);
-            session()->put('user', $user->id);
-            Common::createLoginCookie();
-        } catch (\Exception $e) {
-            Log::warning($e->getMessage());
-            abort(503, '发生未知错误');
-        }
-
-        return redirect('/');
+        echo '<pre>';
+        print_r($user);
+        echo '</pre>';
     }
+
+//    public function callback(Request $request)
+//    {
+//        try {
+//            $wechatAuth = EasyWeChat::oauth();
+//
+//            $userMessage = $wechatAuth->user()->toArray();
+//
+//            if (empty($userMessage)) {
+//                throw new NotFoundException("没有成功获取用户信息");
+//            }
+//
+//            $userMessage = $userMessage['original'];
+//
+//            $user = User::findOrNewByOpenid($userMessage['openid'], [
+//                'nickname' => $userMessage['nickname'],
+//                'sex' => $userMessage['sex'],
+//                'province' => $userMessage['province'],
+//                'city' => $userMessage['city'],
+//                'country' => $userMessage['country'],
+//                'headimgurl' => $userMessage['headimgurl'],
+//            ]);
+//
+//            //如果没有推荐人就当是官方推荐
+//            if (!UserRelation::hasParent($user->id)) {
+//                $userRelation = new UserRelation();
+//                $userRelation->insert($user->id, 1);
+//                $user->follow(1);
+//            }
+//
+//            //create Cookie and Session
+//            Container::setUser($user->id);
+//            session()->put('user', $user->id);
+//            Common::createLoginCookie();
+//        } catch (\Exception $e) {
+//            Log::warning($e->getMessage());
+//            abort(503, '发生未知错误');
+//        }
+//
+//        return redirect('/');
+//    }
 }

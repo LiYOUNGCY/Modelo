@@ -20,6 +20,7 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
+        $oauth = app('wechat')->oauth();
         
     }
 
