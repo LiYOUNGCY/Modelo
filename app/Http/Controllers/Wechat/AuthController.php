@@ -18,20 +18,16 @@ class AuthController extends Controller
 {
     public function index(Request $request)
     {
-        $oauth = app('wechat')->oauth();
+        $oauth = app('wechat')->oauth;
 
-        return $oauth->redirect();
+        return $oauth->scopes(['snsapi_base'])->redirect();
     }
 
     public function callback(Request $request)
     {
-        $oauth = app('wechat')->oauth();
+        $oauth = app('wechat')->oauth;
 
-        $user = $oauth->user();
-
-        echo '<pre>';
-        print_r($user);
-        echo '</pre>';
+        $user = $oauth->user()->toArray();
     }
 
 //    public function callback(Request $request)
