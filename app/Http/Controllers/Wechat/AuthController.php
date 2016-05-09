@@ -30,12 +30,32 @@ class AuthController extends Controller
 
         $user = $oauth->user()->toArray();
 
-        if(empty($user)) {
+        if (empty($user)) {
             Log::warning('Can not get the user openid');
         }
 
-        $openid = $user['orriginal']['openid'];
-        $user = $userService->get($openid);
+        $openid = $user['original']['openid'];
+        $userMessage = $userService->get($openid);
+
+        $user = User::findOrNewByOpenid($userMessage['openid'], [
+            'nickname' => $userMessage['nickname'],
+            'sex' => $userMessage['sex'],
+            'province' => $userMessage['province'],
+            'city' => $userMessage['city'],
+            'country' => $userMessage['country'],
+            'headimgurl' => $userMessage['headimgurl'],
+        ]);
+
+        if (!UserRelation::hasParent($user->id)) {
+            $userRelation = new UserRelation();
+            $userRelation->insert($user->id, 1);
+            $user->follow(1);
+        }
+
+        //create Cookie and Session
+        Container::setUser($user->id);
+        session()->put('user', $user->id);
+        Common::createLoginCookie();
 
         echo '<pre>';
         var_dump($user);
