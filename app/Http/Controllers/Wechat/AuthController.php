@@ -30,32 +30,35 @@ class AuthController extends Controller
 
         $user = $oauth->user()->toArray();
 
-        if (empty($user)) {
-            Log::warning('Can not get the user openid');
-        }
-
         $openid = $user['original']['openid'];
         $userMessage = $userService->get($openid);
 
-        $user = User::findOrNewByOpenid($userMessage['openid'], [
-            'nickname' => $userMessage['nickname'],
-            'sex' => $userMessage['sex'],
-            'province' => $userMessage['province'],
-            'city' => $userMessage['city'],
-            'country' => $userMessage['country'],
-            'headimgurl' => $userMessage['headimgurl'],
-        ]);
+        //关注了才能获取信息
+        if($userMessage['subscribe'] === 1) {
+            $user = User::findOrNewByOpenid($userMessage['openid'], [
+                'nickname' => $userMessage['nickname'],
+                'sex' => $userMessage['sex'],
+                'province' => $userMessage['province'],
+                'city' => $userMessage['city'],
+                'country' => $userMessage['country'],
+                'headimgurl' => $userMessage['headimgurl'],
+            ]);
 
-        if (!UserRelation::hasParent($user->id)) {
-            $userRelation = new UserRelation();
-            $userRelation->insert($user->id, 1);
-            $user->follow(1);
+            if (!UserRelation::hasParent($user->id)) {
+                $userRelation = new UserRelation();
+                $userRelation->insert($user->id, 1);
+                $user->follow(1);
+            }
+
+            //create Cookie and Session
+            Container::setUser($user->id);
+            session()->put('user', $user->id);
+            Common::createLoginCookie();
+
+            return redirect('/');
+        } else {
+            echo '请关注公众号';
         }
-
-        //create Cookie and Session
-        Container::setUser($user->id);
-        session()->put('user', $user->id);
-        Common::createLoginCookie();
 
         echo '<pre>';
         var_dump($user);

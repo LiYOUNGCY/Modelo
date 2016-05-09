@@ -56,7 +56,11 @@ class User extends Model
      */
     public static function findOrNewByOpenid($openId, $attributes = [])
     {
-        $user = User::firstOrCreate(['openid' => $openId]);
+        $user = User::where('openid', $openId)->first();
+
+        if(empty($user)) {
+            $user = User::create(['openid' => $openId]);
+        }
 
         unset($attributes['openid']);
         User::where('openid', $openId)->update($attributes);
