@@ -242,7 +242,7 @@
                     success: function (data) {
                         console.log(data);
                         if (data.success == 0) {
-                            alert('添加成功，请继续购物');
+                            showModalDialog('添加成功');
                         }
                     }
                 });
