@@ -15,10 +15,10 @@ class CartController extends Controller
 {
     public function useCart(Request $request, $cartName)
     {
-        if($cartName == 'shopping') {
+        if ($cartName == 'shopping') {
             session()->put('cartName', 'shopping');
             return redirect('order/create');
-        } else if($cartName == 'once') {
+        } else if ($cartName == 'once') {
             session()->put('cartName', 'once');
             return redirect('order/create');
         } else {
@@ -124,5 +124,36 @@ class CartController extends Controller
         return response()->json([
             'success' => 0,
         ]);
+    }
+
+    public function cartBuy(Request $request)
+    {
+        $rowIds = $request->get('flag');
+
+        Cart::instance('once')->destroy();
+        foreach ($rowIds as $rowId) {
+            $data = Cart::instance('shopping')->get($rowId);
+            $qty = $request->get($rowId);
+
+            if (isset($data)) {
+                Cart::instance('once')->add(
+                    $data->id,
+                    $data->name,
+                    $qty,
+                    $data->price,
+                    [
+                        'production_alias' => $data->options->production_alias,
+                        'color_id' => $data->options->color_id,
+                        'color_name' => $data->options->color_name,
+                        'size_id' => $data->options->size_id,
+                        'size_name' => $data->options->size_name,
+                        'cover' => $data->options->cover,
+                    ]
+                );
+            }
+        }
+
+        var_dump(Cart::instance('once')->content());
+        return redirect('cart/once/use');
     }
 }

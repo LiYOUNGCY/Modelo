@@ -136,6 +136,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('cart/{cartName}/show', 'CartController@show');
     Route::get('cart/{cartName}/use', 'CartController@useCart');
     Route::delete('cart/shopping/{rowId}', 'CartController@remove');
+    Route::post('cart/buy', 'CartController@cartBuy');
 
     //Draw 提现
     Route::get('draw', 'DrawController@index');
