@@ -30,18 +30,18 @@ $(function () {
                         for (var key in cart) {
                             content += '<div class="car-goods" id="car-goods-1">' +
                                 '<div class="car-goods-name">' +
-                                '<span class="fl"><input name="goods" type="checkbox" value="car-goods-1" /><a href="'+BASEURL +'production/'+cart[key].options.production_alias+'">'+cart[key].name+'</a></span>' +
-                                '<span class="fr remove-goods" data-id="'+key+'">移除</span>' +
+                                '<span class="fl"><input id="p' + cart[key].id + '"name="flag" type="checkbox" value="' + cart[key].id + '" /><a href="' + BASEURL + 'production/' + cart[key].options.production_alias + '"><label for="p' + cart[key].id + '">' + cart[key].name + '</label></a></span>' +
+                                '<span class="fr remove-goods" data-id="' + key + '">移除</span>' +
                                 '</div>' +
                                 '<div class="car-goods-detail">' +
-                                '<a href="'+BASEURL +'production/'+cart[key].options.production_alias+'"><div class="goods-pic" style="background-image: url('+BASEURL+cart[key].options.cover+')"></div></a>' +
+                                '<a href="' + BASEURL + 'production/' + cart[key].options.production_alias + '"><div class="goods-pic" style="background-image: url(' + BASEURL + cart[key].options.cover + ')"></div></a>' +
                                 '<div class="goods-info">' +
-                                '<p>￥<span class="price">'+cart[key].price+'</span></p>' +
-                                '<p> '+cart[key].options.color_name +' '+ cart[key].options.size_name + '</p>' +
+                                '<p>￥<span class="price">' + cart[key].price + '</span></p>' +
+                                '<p> ' + cart[key].options.color_name + ' ' + cart[key].options.size_name + '</p>' +
                                 '<div class="quantity">' +
                                 '<span class="fa fa-minus car-minus"></span>' +
                                 '<div class="num" id="count">1</div>' +
-                                '<span class="fa fa-plus car-plus"></span>' +
+                                '<span class="fa fa-plus car-plus" data-id="'+cart[key].options.size_id+'"></span>' +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -55,7 +55,7 @@ $(function () {
                             '</div>' +
                             '<div class="car-final">' +
                             //'<a href="javascript:void(0)" id="checkAll">全选</a>' +
-                            '<input type="checkbox" name="checkAll" id="checkAll"> 全选' +
+                            '<input type="checkbox" name="checkAll" id="checkAll"> <label for="checkAll">全选</label>' +
                             '<div class="fr">' +
                             '<div class="car-total">总计：￥<span class="total">0</span></div>' +
                             '<a href="javascript:void(0)"><div class="settlement">去结算</div></a>' +
@@ -83,18 +83,64 @@ $(function () {
                                     success: function (data) {
                                         console.log(data);
                                         if (data.success == 0) {
-                                            self.parent().remove();
+                                            self.parent().parent().remove();
+
+                                            page.find('.m-car').remove();
+                                            page.find('.car-shade').remove();
+                                            getCart();
                                         }
                                     }
                                 });
                             });
                         });
+
+                        //默认全选
+                        $('.m-car input[type=checkbox]').each(function(i, ele){
+                            $(ele).prop('checked', true);
+                            calCarTotal();
+                        });
+
+                        //绑定 全选事件
+                        $('#checkAll').click(function () {
+                            $("input[type=checkbox]:checkbox").prop("checked", this.checked);
+                            calCarTotal();
+                        });
+
+                        $('input[name=flag]').each(function (i, ele) {
+                            $(ele).click(function () {
+                                calCarTotal();
+
+                                $('#checkAll').prop('checked', $('input[name=flag]:checked').length == $('input[name=flag]').length)
+                            });
+                        });
+
+                        //绑定添加数量
+                        $('.car-plus').each(function (i, ele) {
+                            $(ele).click(function(){
+                                var size_id = $(this).attr('data-id');
+                                var maxCount = getQuantity(size_id);
+                                var count = $(this).prev();
+
+                                if(parseInt(count.html()) < maxCount) {
+                                    count.html(parseInt(count.html()) + 1);
+                                    calCarTotal();
+                                }
+                            });
+                        });
+
+                        //绑定减少事件
+                        $('.car-minus').each(function(i, ele){
+                            $(ele).click(function(){
+                                var count = $(this).next();
+
+                                if(parseInt(count.html()) > 1) {
+                                    count.html(parseInt(count.html()) - 1);
+                                    calCarTotal();
+                                }
+                            });
+                        });
                     } else {
-                        var carContent = '<div class="m-car">' +
-                            '<div class="car-empty">' +
-                            '空' +
-                            '</div>' +
-                            '</div>'
+                        var carContent = '<div class="m-car"><div class="nogoods">购物车空无一物</div></div><div class="car-shade"></div>';
 
                         page.prepend(carContent);
                         page.addClass('hascar');
@@ -102,6 +148,21 @@ $(function () {
                 }
             }
         });
+    }
+
+    function getQuantity(size_id) {
+        var result = 0;
+        $.ajax({
+            url: BASEURL + 'ajax/get/quantity/' + size_id,
+            async:false,
+            success: function (data) {
+                console.log(data);
+                if (data.success == 0) {
+                    result = data.quantity;
+                }
+            }
+        });
+        return result;
     }
 
 
@@ -116,6 +177,21 @@ $(function () {
             getCart();
         }
     });
+
+    function calCarTotal() {
+        var total = 0;
+        $('input[name=flag]:checked').each(function () {
+            var msg = $(this).parent().parent().next();
+            var price = parseFloat($(msg).find('.price').html());
+            var qty = parseInt($(msg).find('.num').html());
+
+            total += (price * qty);
+        });
+
+        // console.log(total);
+
+        $('.m-car').find('.total').html(total.toFixed(2));
+    }
 
     //显示下拉导航
     $(".show-nav").bind('click', function () {
