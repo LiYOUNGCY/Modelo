@@ -119,18 +119,41 @@ $(function () {
                         });
 
                         //绑定添加数量
+                        // $('.car-plus').each(function (i, ele) {
+                        //     $(ele).click(function(){
+                        //         var size_id = $(this).attr('data-id');
+                        //         var maxCount = getQuantity(size_id);
+                        //         var count = $(this).prev();
+                        //
+                        //         if(parseInt(count.html()) < maxCount) {
+                        //             var quantity = parseInt(count.html()) + 1;
+                        //             count.html(quantity);
+                        //             count.parent().next().val(quantity);
+                        //             calCarTotal();
+                        //         }
+                        //     });
+                        // });
+
                         $('.car-plus').each(function (i, ele) {
-                            $(ele).click(function(){
+                            $(ele).click(function () {
                                 var size_id = $(this).attr('data-id');
-                                var maxCount = getQuantity(size_id);
                                 var count = $(this).prev();
 
-                                if(parseInt(count.html()) < maxCount) {
-                                    var quantity = parseInt(count.html()) + 1;
-                                    count.html(quantity);
-                                    count.parent().next().val(quantity);
-                                    calCarTotal();
-                                }
+                                var quantity = parseInt(count.html()) + 1;
+                                count.html(quantity);
+
+                                $.ajax({
+                                    url: BASEURL + 'ajax/get/quantity/' + size_id,
+                                    success: function (data) {
+                                        if (data.success == 0) {
+                                            var result = data.quantity;
+                                            if(quantity >= result) {
+                                                quantity = result;
+                                                count.html(quantity);
+                                            }
+                                        }
+                                    }
+                                });
                             });
                         });
 
@@ -163,15 +186,15 @@ $(function () {
         });
     }
 
-    function getQuantity(size_id) {
+    function getQuantity(size_id, callback) {
         var result = 0;
         $.ajax({
             url: BASEURL + 'ajax/get/quantity/' + size_id,
-            async:false,
             success: function (data) {
                 console.log(data);
                 if (data.success == 0) {
                     result = data.quantity;
+                    callback();
                 }
             }
         });

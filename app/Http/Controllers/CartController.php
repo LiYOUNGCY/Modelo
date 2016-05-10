@@ -152,8 +152,7 @@ class CartController extends Controller
                 );
             }
         }
-
-        var_dump(Cart::instance('once')->content());
+        
         return redirect('cart/once/use');
     }
 }
