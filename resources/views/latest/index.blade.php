@@ -38,35 +38,9 @@
             @endforeach
         </div>
 
-        {{--<div class="goods-item">--}}
-        {{--<div class="goods-pic">--}}
-        {{--<img src="img/goods1.jpeg">--}}
-        {{--</div>--}}
-        {{--<div class="goods-name">--}}
-        {{--单宁七分阔腿裤 ￥220 <span class="fa fa-tag"></span>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="goods-item">--}}
-        {{--<div class="goods-pic">--}}
-        {{--<img src="img/goods1.jpeg">--}}
-        {{--</div>--}}
-        {{--<div class="goods-name">--}}
-        {{--<div class="col">单宁七分阔腿裤 ￥220</div>--}}
-        {{--<div class="col">单宁七分阔腿裤 ￥220 <span class="fa fa-tag"></span></div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="goods-item">--}}
-        {{--<div class="goods-pic">--}}
-        {{--<img src="img/goods1.jpeg">--}}
-        {{--</div>--}}
-        {{--<div class="goods-name">--}}
-        {{--<div class="col">单宁七分阔腿裤 ￥220</div>--}}
-        {{--<div class="col">单宁七分阔腿裤 ￥220 <span class="fa fa-tag"></span></div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
         <div class="mb45"></div>
     </div>
-    @extends('common.bottom_bar')
+    @include('common.bottom_bar')
 @endsection
 
 @section('moreCss')

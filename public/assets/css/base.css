@@ -967,6 +967,9 @@ th {
     z-index: 250;
     overflow: scroll;
 }
+.m-car a{
+    color:inherit;
+}
 
 .m-car .car-goods .car-goods-list{
     position: relative;

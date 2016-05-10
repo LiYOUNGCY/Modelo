@@ -33,6 +33,6 @@
 
         <div class="mb45"></div>
     </div>
-    @extends('common.bottom_bar')
+    @include('common.bottom_bar')
     <div class="pb40"></div>
 @endsection

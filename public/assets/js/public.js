@@ -22,25 +22,48 @@ $(function () {
                 if (data.success == 0) {
                     var page = $('.wrapper');
                     cart = data.data;
-                    console.log(cart.length);
-                    if (cart.length != 0) {
+                    var length = Object.keys(cart).length;
+                    console.log(length);
+                    if (length != 0) {
                         var content = '';
 
                         for (var key in cart) {
-                            content += '<div class="car-goods">' +
-                                '<div class="pic"><img src="' + BASEURL + cart[key].options['cover'] + '"></div>' +
-                                '<div class="remove-goods" data-id="' + key + '">' +
-                                '<span class="fa fa-close"></span>' +
+                            content += '<div class="car-goods" id="car-goods-1">' +
+                                '<div class="car-goods-name">' +
+                                '<span class="fl"><input name="goods" type="checkbox" value="car-goods-1" /><a href="'+BASEURL +'production/'+cart[key].options.production_alias+'">'+cart[key].name+'</a></span>' +
+                                '<span class="fr remove-goods" data-id="'+key+'">移除</span>' +
+                                '</div>' +
+                                '<div class="car-goods-detail">' +
+                                '<a href="'+BASEURL +'production/'+cart[key].options.production_alias+'"><div class="goods-pic" style="background-image: url('+BASEURL+cart[key].options.cover+')"></div></a>' +
+                                '<div class="goods-info">' +
+                                '<p>￥<span class="price">'+cart[key].price+'</span></p>' +
+                                '<p> '+cart[key].options.color_name +' '+ cart[key].options.size_name + '</p>' +
+                                '<div class="quantity">' +
+                                '<span class="fa fa-minus car-minus"></span>' +
+                                '<div class="num" id="count">1</div>' +
+                                '<span class="fa fa-plus car-plus"></span>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
                                 '</div>';
                         }
 
                         //绘制购物车，绑定事件
                         var carContent = '<div class="m-car">' +
+                            '<div class="car-goods-list">' +
                             content +
-                            '<div class="car-clean">' +
-                            '<a href="' + BASEURL + 'cart/shopping/use">去结算</a>' +
                             '</div>' +
-                            '</div>';
+                            '<div class="car-final">' +
+                            //'<a href="javascript:void(0)" id="checkAll">全选</a>' +
+                            '<input type="checkbox" name="checkAll" id="checkAll"> 全选' +
+                            '<div class="fr">' +
+                            '<div class="car-total">总计：￥<span class="total">0</span></div>' +
+                            '<a href="javascript:void(0)"><div class="settlement">去结算</div></a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="car-shade"></div>';
 
 
                         page.prepend(carContent);
@@ -87,40 +110,10 @@ $(function () {
         var page = $('.wrapper');
         if (page.hasClass('hascar')) {
             page.find('.m-car').remove();
+            page.find('.car-shade').remove();
             page.removeClass('hascar');
-            return;
         } else {
             getCart();
-//             var carContent = '<div class="m-car">' +
-//                 '<div class="car-goods">' +
-//                 '<div class="pic"><img src="http://localhost:8000/assets/images/logo.png"></div>' +
-//                 '<div class="remove-goods">' +
-//                 '<span class="fa fa-close"></span>' +
-//                 '</div>' +
-//                 '</div>' +
-//                 '<div class="car-goods">' +
-//                 '<div class="pic"><img src="http://localhost:8000/assets/images/logo.png"></div>' +
-//                 '<div class="remove-goods">' +
-//                 '<span class="fa fa-close"></span>' +
-//                 '</div>' +
-//                 '</div>' +
-//                 '<div class="car-clean">' +
-//                 '<a href="javascript:void(0)">去结算</a>' +
-//                 '</div>' +
-//                 '</div>';
-//
-// //                购物车为空
-// //                var carContent = '<div class="m-car">' +
-// //                        '<div class="car-empty">' +
-// //                        '空' +
-// //                        '</div>' +
-// //                        '</div>' ;
-//
-//             page.prepend(carContent);
-//             page.addClass('hascar');
-//             $("body").on('click', ".remove-goods", function () {
-//                 $(this).parent().remove();
-//             });
         }
     });
 
@@ -130,7 +123,6 @@ $(function () {
         if (page.hasClass('hasnav')) {
             page.find('.m-slide-nav').remove();
             page.removeClass('hasnav');
-            return;
         } else {
             var navContent = '<div class="m-slide-nav">' +
                 '<div class="slide-nav-item">' +
