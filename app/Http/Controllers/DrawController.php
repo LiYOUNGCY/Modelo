@@ -6,6 +6,7 @@ use App\Container\Container;
 use App\Model\Cash;
 use App\Model\User;
 use Illuminate\Http\Request;
+use Config;
 
 use App\Http\Requests;
 
