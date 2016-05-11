@@ -134,7 +134,11 @@ Row.prototype.getContainer = function () {
 Row.prototype.insertColumn = function (data) {
     data['id'] = this.getMaxColumn();
     data['row'] = this.container.get('id');
-    data['name'] = data['content'].split(',')[1];
+    if(data.type == 2) {
+        data['name'] = data['content'].split(',')[1];
+    } else if(data.type == 1) {
+        data['name'] = data.url;
+    }
     data['content'] = data['content'].split(',')[0];
     var col = new Column(data);
     var tar = this.$container.find('.create-col')[0];

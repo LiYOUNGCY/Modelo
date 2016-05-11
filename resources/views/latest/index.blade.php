@@ -28,7 +28,7 @@
                              style="text-align: center;">
                             {{--image--}}
                             @if($col->type == 1)
-                                <img src="{{ $col->content }}" alt="{{ $col->name }}" style="width: 100%;">
+                                <a href="{{ $col->name }}"><img src="{{ $col->content }}" alt="最新商品图片" style="width: 100%;"></a>
                             @else
                                 <a href="{{ $col->content }}" style="color: #101010;">{{ $col->name }}</a>
                             @endif

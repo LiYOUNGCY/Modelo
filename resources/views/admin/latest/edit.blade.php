@@ -64,6 +64,14 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col col-md-offset-1 col-md-10">
+                            <div class="form-group">
+                                <label>图片链接</label>
+                                <select class="form-control" id="imageUrl">
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -91,12 +99,14 @@
                 var offset = $('#offset').val();
                 var type = $('#type').val();
                 var content = $('#content').val();
+                var url = $('#imageUrl').val();
 
                 wrapper.createColumn({
                     'size': size,
                     'offset': offset,
                     'type': type,
-                    'content': content
+                    'content': content,
+                    'url': url
                 });
 
                 $('#myModal').modal('hide');
@@ -107,7 +117,10 @@
             function getByContent() {
                 var type = $('#type').val();
                 var container = $('#content');
+                var imageUrl = $('#imageUrl');
                 container.empty();
+
+                //如果是插入图片
                 if (type == 1) {
                     var images = getImages();
                     for (var i in images) {
@@ -115,13 +128,25 @@
                         var value = image.path + ',' + image.name;
                         container.append('<option value="' + value + '">' + image.name + '</option>');
                     }
+
+                    var productions = getProduction();
+
+                    imageUrl.empty();
+                    for(var i in productions) {
+                        var production = productions[i];
+                        var value = BASEURL+'production/' + production.alias;
+                        imageUrl.append('<option value="'+value+'">' + production.name + '</option>');
+                    }
                 } else if (type == 2) {
+                    //如果是插入链接
                     var productions = getProduction();
                     for (var i in productions) {
                         var production = productions[i];
                         var value = BASEURL + 'production/' + production.alias + ',' + production.name;
                         container.append('<option value="' + value + '">' + production.name + '</option>');
                     }
+
+                    imageUrl.empty();
                 }
             }
 
