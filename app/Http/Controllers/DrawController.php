@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Container\Container;
 use App\Model\Cash;
+use App\Model\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,28 +33,29 @@ class DrawController extends Controller
         }
         $user = Container::getUser();
 
-        if($count > 0 && $count <= ($user->available_total + $user->available_three)) {
-            Cash::create([
-                'user_id' => $user->id,
-                'cash' => $count,
-            ]);
+        $total = $user->available_total;
 
-            if($user->available_total < $count) {
-                $temp = $user->available_total;
+        if(User::getFinishOrderTotal($user->id) >= Config::get('constants.salesVolume')) {
+            $total += $user->available_three;
+        }
+
+        if($count <= $total) {
+            $temp = $count;
+            if($user->available_total >= $count) {
                 $user->available_total -= $count;
-
-                $count -= $temp;
-                $user->available_three -= $count;
             } else {
-                $user->available_total -= $count;
+                $temp -= $user->available;
+                $user->available = 0;
+                $user->available_three -= $temp;
             }
             $user->save();
-
+        } else {
             return response()->json([
-                'success' => 0,
+                'error' => 0,
+                'msg' => '你没有足够的可用金额',
             ]);
         }
 
-        return response()->json(['error' => 0]);
+        return response()->json(['success' => 0]);
     }
 }
