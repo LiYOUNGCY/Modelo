@@ -23,16 +23,30 @@ class DrawController extends Controller
     public function store(Request $request)
     {
         $count = $request->get('withdraw');
+
+        if(is_int($count)) {
+            return response()->json([
+                'error' => 0,
+                'message' => '请输入整数',
+            ]);
+        }
         $user = Container::getUser();
 
-        if($count > 0 && $count <= $user->available_total) {
+        if($count > 0 && $count <= ($user->available_total + $user->available_three)) {
             Cash::create([
                 'user_id' => $user->id,
                 'cash' => $count,
             ]);
 
+            if($user->available_total < $count) {
+                $temp = $user->available_total;
+                $user->available_total -= $count;
 
-            $user->available_total -= $count;
+                $count -= $temp;
+                $user->available_three -= $count;
+            } else {
+                $user->available_total -= $count;
+            }
             $user->save();
 
             return response()->json([

@@ -176,23 +176,25 @@
                     var avaliable = parseFloat($('#available').attr('data-id'));
                     console.log('is num');
                     if (cash > 0 && avaliable != 0.0 && cash <= avaliable) {
-                        if (cash > 200.0) {
-                            alert('一次最多能提现 200 元');
+                        if(cash < 40) {
+                            showModalDialog('至少提现 40 元')
+                        } else if (cash > 200.0) {
+                            showModalDialog('一次最多能提现 200 元');
                         } else {
                             $.post(BASEURL + 'draw/store', $('form').serialize(), function (data) {
                                 console.log(data);
                                 if (data.success == 0) {
-                                    alert('您的请求已提交成功，请耐心等候审核。');
+                                    showModalDialog('您的请求已提交成功，请耐心等候审核。');
                                     window.location.reload();
                                 }
                             });
                         }
                     } else {
-                        alert('余额不足');
+                        showModalDialog('余额不足');
                     }
                 } else {
                     console.log('is not num');
-                    alert('请输入数字');
+                    showModalDialog('请输入数字');
                 }
             })
         });
