@@ -233,6 +233,8 @@ $(function () {
         var total = 0;
         $('input[name^=flag]:checked').each(function () {
             var msg = $(this).parent().parent().parent().next().next();
+
+            console.log(msg);
             var price = parseFloat($(msg).find('.price').html());
             var qty = parseInt($(msg).find('.num').html());
 

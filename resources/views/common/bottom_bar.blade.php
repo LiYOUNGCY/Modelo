@@ -22,7 +22,7 @@
                             <a href="{{ url("production") }}?c={{ $key }}">{{ $value }}</a>
                         </div>
                     @else
-                        <div class="item">
+                        <div class="item @if($key == 3) nb @endif">
                             <a href="{{ url("production") }}?c={{ $key }}">{{ $value }}</a>
                         </div>
                     @endif
