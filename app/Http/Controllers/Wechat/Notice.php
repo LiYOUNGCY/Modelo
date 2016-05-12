@@ -193,7 +193,7 @@ trait Notice
         ) {
             $userId = $user->openid;
             $templateId = 'BEMRZvPBToCBDEo4qlO9WJwlaAXOsC9Ivu0Z6ZsNEAk';
-            $url = url("order/{order->id}");
+            $url = url("order/{$order->id}");
 
             $data = array(
                 "first" => "亲爱的魔豆，您的换货商品已发货",
