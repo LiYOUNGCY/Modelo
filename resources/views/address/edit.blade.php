@@ -18,7 +18,7 @@
         <div class="m-title-usual">
             填写收货信息
         </div>
-        <div class="m-editaddress">
+        <div class="m-edit-address">
             <form action="{{ url("address/{$userAddress->id}") }}" method="post">
                 {!! csrf_field() !!}
                 <div class="input-group">
