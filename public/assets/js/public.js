@@ -30,7 +30,12 @@ $(function () {
                         for (var key in cart) {
                             content += '<div class="car-goods" id="car-goods-1">' +
                                 '<div class="car-goods-name">' +
-                                '<span class="fl"><input id="p' + cart[key].id + '"name="flag[]" type="checkbox" value="'+key+'" /><a href="' + BASEURL + 'production/' + cart[key].options.production_alias + '"><label for="p' + cart[key].id + '">' + cart[key].name + '</label></a></span>' +
+                                '<span class="fl">' +
+                                '<div class="m-checkbox">' +
+                                '<input id="p' + cart[key].id + '"name="flag[]" type="checkbox" value="'+key+'" /><a href="' + BASEURL + 'production/' + cart[key].options.production_alias + '">' +
+                                '<label for="p' + cart[key].id + '">' + cart[key].name + '</label>' +
+                                '</div>' +
+                                '</a></span>' +
                                 '<span class="fr remove-goods" data-id="' + key + '">移除</span>' +
                                 '</div>' +
                                 '<div class="car-goods-detail">' +

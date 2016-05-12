@@ -36,6 +36,9 @@ input[type="password"]{
     color: #8c8c8c;
     outline:none;
 }
+input[type="checkbox"]{
+    visibility: hidden;
+}
 .input-group{
     width:100%;
     margin-bottom: 15px;
@@ -123,6 +126,44 @@ th {
     padding: 0;
 
     width:100%;
+}
+.m-checkbox{
+    display: block;
+    width: 25px;
+    position: relative;
+    float: left;
+}
+.m-checkbox label{
+    position: absolute;
+    width: 15px;
+    width:15px;
+    height: 15px;
+    top:0;
+    left:0;
+    background-color: #EEEEEE;
+    border:1px solid #dddddd;
+}
+.m-checkbox label:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 5px;
+    background: transparent;
+    top: 4px;
+    left: 2px;
+    border: 3px solid #333;
+    border-top: none;
+    border-right: none;
+
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+.m-checkbox input[type=checkbox]:checked + label:after{
+    opacity: 1;
 }
 .m-modal{
     height: 100%;
@@ -1016,8 +1057,7 @@ th {
 }
 .m-car .car-goods{
     padding:10px 0;
-    margin:0 auto;
-    width:90%;
+    margin:0 10px;
     position: relative;
 }
 .m-car .car-goods .car-goods-name{
@@ -1077,6 +1117,9 @@ th {
 .m-car .car-final a{
     color: #000;
     text-decoration: underline;
+}
+.m-car .car-final #m-checkbox{
+    margin-top: 12px;
 }
 .m-car .car-final .car-total{
     font-size:18px;
