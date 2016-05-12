@@ -67,7 +67,7 @@ $(function () {
                             '</div>' +
                             '</form>' +
                             '</div>' +
-                            '<div class="car-shade"></div>';
+                            '<div class="m-shade" id="car-shade"></div>';
 
 
                         page.prepend(carContent);
@@ -170,13 +170,19 @@ $(function () {
                                 }
                             });
                         });
-
+                        //点击遮罩隐藏购物车事件
+                        $('#car-shade').click(function () {
+                            var page = $('.wrapper');
+                            page.find('.m-car').remove();
+                            page.find('.m-shade').remove();
+                            page.removeClass('hascar');
+                        })
                         //提交事件
                         $('.m-car .settlement').click(function(){
                             $('#cartForm').submit();
                         });
                     } else {
-                        var carContent = '<div class="m-car"><div class="nogoods">购物车空无一物</div></div><div class="car-shade"></div>';
+                        var carContent = '<div class="m-car"><div class="nogoods">购物车空无一物</div></div><div class="m-shade" id="car-shade"></div>';
 
                         page.prepend(carContent);
                         page.addClass('hascar');
@@ -207,7 +213,7 @@ $(function () {
         var page = $('.wrapper');
         if (page.hasClass('hascar')) {
             page.find('.m-car').remove();
-            page.find('.car-shade').remove();
+            page.find('.m-shade').remove();
             page.removeClass('hascar');
         } else {
             getCart();
