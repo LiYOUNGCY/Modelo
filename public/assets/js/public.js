@@ -18,12 +18,10 @@ $(function () {
             url: BASEURL + 'cart/shopping/show',
             type: 'get',
             success: function (data) {
-                console.log(data);
                 if (data.success == 0) {
                     var page = $('.wrapper');
                     cart = data.data;
                     var length = Object.keys(cart).length;
-                    console.log(length);
                     if (length != 0) {
                         var content = '';
 
@@ -92,7 +90,6 @@ $(function () {
                                         _method: 'DELETE'
                                     },
                                     success: function (data) {
-                                        console.log(data);
                                         if (data.success == 0) {
                                             self.parent().parent().remove();
 
@@ -148,6 +145,7 @@ $(function () {
 
                                 var quantity = parseInt(count.html()) + 1;
                                 count.html(quantity);
+				calCarTotal();
 
                                 $.ajax({
                                     url: BASEURL + 'ajax/get/quantity/' + size_id,
@@ -157,6 +155,7 @@ $(function () {
                                             if (quantity >= result) {
                                                 quantity = result;
                                                 count.html(quantity);
+						calCarTotal();
                                             }
                                         }
                                     }
@@ -205,7 +204,6 @@ $(function () {
         $.ajax({
             url: BASEURL + 'ajax/get/quantity/' + size_id,
             success: function (data) {
-                console.log(data);
                 if (data.success == 0) {
                     result = data.quantity;
                     callback();
@@ -229,18 +227,15 @@ $(function () {
     });
 
     function calCarTotal() {
-        console.log('calc all');
         var total = 0;
         $('input[name^=flag]:checked').each(function () {
-            var msg = $(this).parent().parent().parent().next().next();
+            var msg = $(this).parent().parent().parent().next();
             var price = parseFloat($(msg).find('.price').html());
             var qty = parseInt($(msg).find('.num').html());
 
             total += (price * qty);
-            console.log(total);
         });
 
-        // console.log(total);
 
         $('.m-car').find('.total').html(total.toFixed(2));
     }
