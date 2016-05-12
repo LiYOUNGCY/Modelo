@@ -1118,7 +1118,7 @@ th {
     color: #000;
     text-decoration: underline;
 }
-.m-car .car-final #m-checkbox{
+.m-car .car-final .m-checkbox{
     margin-top: 12px;
 }
 .m-car .car-final .car-total{
