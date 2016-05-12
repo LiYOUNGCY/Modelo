@@ -26,6 +26,7 @@ class CreateOrderTable extends Migration
             $table->string('express');              //快递公司
 
             $table->string('remark');               //备注
+            $table->string('result');               //原因
 
             $table->float('total');
             $table->timestamp('last_action_at');

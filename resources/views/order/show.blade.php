@@ -102,13 +102,21 @@
                 </button>
             </form>
         @elseif($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.received'))
-            <form action="{{ url("order/{$encodeOrderNo}/reject") }}" method="post">
+            <form action="{{ url("order/{$encodeOrderNo}/reject") }}" method="post" id="rejectForm">
                 {!! csrf_field() !!}
-                <button id="reject" class="btn order-option" type="submit">
+                <input type="hidden" name="result" id="result">
+                <button id="reject" class="btn order-option" type="button">
                     申请售后(退货或换货)
                 </button>
             </form>
         @endif
+
+        <div class="m-shade" id="cs-shade" style="display: none;"></div>
+        <div class="cs-remark" id="model" style="display: none;">
+            <div class="title">申请理由</div>
+            <textarea name="cs-remark" id="cs-remark" placeholder="请注明退货还是换货，及退换理由"></textarea>
+            <button id="sub" class="btn" type="button">提交</button>
+        </div>
     </div>
 @endsection
 
@@ -117,9 +125,24 @@
         $(function () {
             $('#cancel').click(function (event) {
                 event.preventDefault();
-                if(confirm('您确定取消订单？')) {
+                if (confirm('您确定取消订单？')) {
                     $('#cancelForm').submit();
                 }
+            });
+
+            $('#reject').click(function(){
+                $('#cs-shade').show();
+                $('#model').show();
+            });
+
+            $('#cs-shade').bind('click', function(){
+                $('#cs-shade').hide();
+                $('#model').hide();
+            });
+
+            $('#sub').click(function(){
+                $('#result').val($('#cs-remark').val());
+                $('#rejectForm').submit();
             });
         });
     </script>

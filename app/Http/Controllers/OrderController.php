@@ -173,10 +173,12 @@ class OrderController extends Controller
     public function reject(Request $request, $orderNo)
     {
         $orderNo = base64_decode($orderNo);
+        $result = $request->get('result');
 
         $order = Order::get($orderNo);
         if(isset($order) && $order->status_id == Config::get('constants.orderStatus.received')) {
             $order->status_id = Config::get('constants.orderStatus.reject');
+            $order->result = $result;
             $order->save();
 
             return redirect("order/{$order->id}");

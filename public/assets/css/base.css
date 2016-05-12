@@ -28,13 +28,13 @@ img{
     content: " ";
     display: table;
 }
-
 input[type="text"],
 input[type="tel"],
 input[type="password"]{
     border: none;
     padding: 8px 8px;
     color: #8c8c8c;
+    outline:none;
 }
 .input-group{
     width:100%;
@@ -53,6 +53,7 @@ textarea{
     padding: 8px 8px;
     color: #8c8c8c;
     border: none;
+    outline:none;
 }
 ul{
     list-style: none;
@@ -806,6 +807,10 @@ th {
     font-weight:bold;
     margin: 14px 0 10px;
 }
+.m-user-center .user-option-list .user-option-item .user-option-content a{
+    color: inherit;
+    text-decoration: underline;
+}
 .m-user-center .user-option-list .user-option-item .user-option-content ul{
     padding:0 8px;
 }
@@ -902,6 +907,41 @@ th {
 }
 .qrcode-page img{
     width:100%;
+}
+#cs-shade{
+    z-index:500;
+}
+.cs-remark{
+    position: fixed;
+    background-color: #ffffff;
+    width:80%;
+    z-index:550;
+
+    top:50%;
+    left:50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.cs-remark .title{
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+}
+.cs-remark textarea {
+    width: 90%;
+    margin: 0 auto 10px;
+    display: block;
+    height: 100px;
+    border-top: 1px #BBBBBB solid;
+    border-bottom: 1px #BBBBBB solid;
+}
+.cs-remark .btn {
+    padding: 6px;
+    width: 90%;
+    margin: 0 auto 10px;
 }
 
     /*头部*/
@@ -1055,7 +1095,7 @@ th {
     line-height: 40px;
     text-align: center;
 }
-.car-shade{
+.m-shade{
     position: fixed;
     top:0;
     left:0;
@@ -1089,6 +1129,38 @@ th {
     top:50px;
 }
 
+.m-son{
+    width:94%;
+    margin:0 auto;
+    position: relative;
+}
+.m-son .search-son{
+    width:100%;
+    margin-bottom: 10px;
+}
+.m-son .search-son input{
+    width:100%;
+    background: rgba(0, 0, 0, 0);
+    border-bottom:#ffffff 1px solid ;
+}
+.son-list{
+    position: relative;
+    width:100%;
+}
+.son-list .son-item{
+    color: #ffffff;
+    position: relative;
+    width:100%;
+    display: inline-block;
+    padding: 8px 4px;
+}
+.son-list .son-item .son-level{
+    color: #888888;
+    float: right;
+}
+.son-list .son-item .son-level.active{
+    color: #ff9800;
+}
 
 /*底部导航*/
 .nav-bar{
