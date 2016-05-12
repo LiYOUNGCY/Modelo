@@ -32,10 +32,10 @@ $(function () {
                                 '<div class="car-goods-name">' +
                                 '<span class="fl">' +
                                 '<div class="m-checkbox">' +
-                                '<input id="p' + cart[key].id + '"name="flag[]" type="checkbox" value="'+key+'" /><a href="' + BASEURL + 'production/' + cart[key].options.production_alias + '">' +
-                                '<label for="p' + cart[key].id + '">' + cart[key].name + '</label>' +
+                                '<input id="p' + cart[key].id + '"name="flag[]" type="checkbox" value="' + key + '" />' +
+                                '<label for="p' + cart[key].id + '"></label>' +
                                 '</div>' +
-                                '</a></span>' +
+                                '<a href="' + BASEURL + 'production/' + cart[key].options.production_alias + '">' + cart[key].name + '</a></span>' +
                                 '<span class="fr remove-goods" data-id="' + key + '">移除</span>' +
                                 '</div>' +
                                 '<div class="car-goods-detail">' +
@@ -45,10 +45,10 @@ $(function () {
                                 '<p> ' + cart[key].options.color_name + ' ' + cart[key].options.size_name + '</p>' +
                                 '<div class="quantity">' +
                                 '<span class="fa fa-minus car-minus"></span>' +
-                                '<div class="num" id="count">'+cart[key].qty+'</div>' +
-                                '<span class="fa fa-plus car-plus" data-id="'+cart[key].options.size_id+'"></span>' +
+                                '<div class="num" id="count">' + cart[key].qty + '</div>' +
+                                '<span class="fa fa-plus car-plus" data-id="' + cart[key].options.size_id + '"></span>' +
                                 '</div>' +
-                                '<input type="hidden" name="'+key+'" value="'+cart[key].qty+'">'+
+                                '<input type="hidden" name="' + key + '" value="' + cart[key].qty + '">' +
                                 '</div>' +
                                 '</div>' +
                                 '</div>';
@@ -56,14 +56,16 @@ $(function () {
 
                         //绘制购物车，绑定事件
                         var carContent = '<div class="m-car">' +
-                            '<form action="'+BASEURL+'cart/buy" method="post" id="cartForm">' +
+                            '<form action="' + BASEURL + 'cart/buy" method="post" id="cartForm">' +
                             '<div class="car-goods-list">' +
-                            '<input type="hidden" name="_token" value="'+_token+'">' +
+                            '<input type="hidden" name="_token" value="' + _token + '">' +
                             content +
                             '</div>' +
                             '<div class="car-final">' +
-                            //'<a href="javascript:void(0)" id="checkAll">全选</a>' +
-                            '<input type="checkbox" name="checkAll" id="checkAll"> <label for="checkAll">全选</label>' +
+                            '<div class="m-checkbox">' +
+                            '<input type="checkbox" name="checkAll" id="checkAll">' +
+                            '<label for="checkAll"></label>' +
+                            '</div>全选' +
                             '<div class="fr">' +
                             '<div class="car-total">总计：￥<span class="total">0</span></div>' +
                             '<div class="settlement">去结算</div>' +
@@ -104,7 +106,7 @@ $(function () {
                         });
 
                         //默认全选
-                        $('.m-car input[type=checkbox]').each(function(i, ele){
+                        $('.m-car input[type=checkbox]').each(function (i, ele) {
                             $(ele).prop('checked', true);
                             calCarTotal();
                         });
@@ -152,7 +154,7 @@ $(function () {
                                     success: function (data) {
                                         if (data.success == 0) {
                                             var result = data.quantity;
-                                            if(quantity >= result) {
+                                            if (quantity >= result) {
                                                 quantity = result;
                                                 count.html(quantity);
                                             }
@@ -163,11 +165,11 @@ $(function () {
                         });
 
                         //绑定减少事件
-                        $('.car-minus').each(function(i, ele){
-                            $(ele).click(function(){
+                        $('.car-minus').each(function (i, ele) {
+                            $(ele).click(function () {
                                 var count = $(this).next();
 
-                                if(parseInt(count.html()) > 1) {
+                                if (parseInt(count.html()) > 1) {
                                     var quantity = parseInt(count.html()) - 1;
                                     count.html(quantity);
                                     count.parent().next().val(quantity);
@@ -177,7 +179,7 @@ $(function () {
                         });
 
                         //提交事件
-                        $('.m-car .settlement').click(function(){
+                        $('.m-car .settlement').click(function () {
                             $('#cartForm').submit();
                         });
                     } else {
