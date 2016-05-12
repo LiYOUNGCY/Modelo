@@ -232,7 +232,7 @@ $(function () {
         console.log('calc all');
         var total = 0;
         $('input[name^=flag]:checked').each(function () {
-            var msg = $(this).parent().parent().next();
+            var msg = $(this).parent().parent().parent().next().next();
             var price = parseFloat($(msg).find('.price').html());
             var qty = parseInt($(msg).find('.num').html());
 
