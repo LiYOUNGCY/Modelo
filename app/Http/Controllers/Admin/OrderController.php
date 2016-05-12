@@ -66,8 +66,7 @@ class OrderController extends AdminController
             $order->express = $express;
             $order->tracking_no = $tracking_no;
             $order->save();
-
-
+            
             $this->deliverNotice($order->user_id, $order->id);
 
             return redirect("{$this->ADMIN}/order");

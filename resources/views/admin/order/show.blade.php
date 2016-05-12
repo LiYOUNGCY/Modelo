@@ -148,6 +148,15 @@
                                 <span class="col-md-3 col-md-offset-3"><strong>{{ $order->total }}￥</strong></span>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td>
+                                <span class="col-md-6 col-xs-3 control-label">退货原因</span>
+                                <div class="col-md-6 col-xs-8" id="order_id">
+                                    {{ $order->result }}
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
 

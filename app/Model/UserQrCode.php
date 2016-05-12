@@ -42,7 +42,7 @@ class UserQrCode extends Model
 
         $token = self::count() + 1;
 
-        $result = $qrcode->temporary($token, 7*24*3600);
+        $result = $qrcode->forever($token);
         $ticket = $result->ticket;
         $url = $qrcode->url($ticket);
         $content = file_get_contents($url);
