@@ -19,10 +19,13 @@ class CreateProductionTable extends Migration
             //封面图
             $table->bigInteger('cover_id')->unsigned();
 
-            //zhuang ti tu
+            //专题图
             $table->bigInteger('series_image')->unsigned();
 
             $table->bigInteger('category_id')->unsigned();
+
+            $table->bigInteger('size_info_id')->unsigned();
+            $table->bigInteger('fabric_info_id')->unsigned();
 
             $table->string('name');
             $table->string('alias');

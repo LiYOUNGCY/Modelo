@@ -61,6 +61,8 @@ class ProductionController extends AdminController
         $cover_id = $request->get('cover_id');
         $category_id = $request->get('category_id');
         $series_image = $request->get('series_image');
+        $size_info_id = $request->get('size_info_id');
+        $fabric_info_id = $request->get('fabric_info_id');
 
         $production = new Production();
         $production->name = $name;
@@ -69,6 +71,8 @@ class ProductionController extends AdminController
         $production->cover_id = $cover_id;
         $production->category_id = $category_id;
         $production->series_image = $series_image;
+        $production->size_info_id = $size_info_id;
+        $production->fabric_info_id = $fabric_info_id;
         $production->save();
 
         return response()->json([

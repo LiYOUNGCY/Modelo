@@ -42,6 +42,24 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="cover_id">成分说明图：</label>
+                        <select name="fabric_info_id" id="fabric_info_id" class="form-control">
+                            @foreach($images as $image)
+                                <option value="{{ $image->id }}">{{ $image->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cover_id">尺码说明图：</label>
+                        <select name="size_info_id" id="size_info_id" class="form-control">
+                            @foreach($images as $image)
+                                <option value="{{ $image->id }}">{{ $image->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="cover_id">分类:</label>
                         <select name="category" id="category_id" class="form-control">
                             @foreach($categories as $category)
@@ -223,6 +241,8 @@
                 var cover_id = $('#cover_id').val();
                 var category_id = $('#category_id').val();
                 var series_image = $('#series_image').val();
+                var size_info_id = $('#size_info_id').val();
+                var fabric_info_id = $('#fabric_info_id').val();
 
                 console.log(series_id);
 
@@ -234,7 +254,9 @@
                         series_id: series_id,
                         cover_id: cover_id,
                         category_id: category_id,
-                        series_image: series_image
+                        series_image: series_image,
+                        size_info_id: size_info_id,
+                        fabric_info_id: fabric_info_id
                     },
                     success: function (data) {
                         console.log(data);
