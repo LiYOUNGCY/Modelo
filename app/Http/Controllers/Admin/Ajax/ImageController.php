@@ -25,11 +25,20 @@ class ImageController extends AdminController
         if ($request->hasFile('images')) {
             $images = $request->file('images');
 
+
             foreach ($images as $key => $imageFile) {
                 if ($imageFile->isValid()) {
-                    $image = new Image();
+                    $fileName = $imageFile->getClientOriginalName();
+                    $fileName = explode('.', $fileName);
+                    $fileName = $fileName[0];
+
+                    $image = Image::where('name', $fileName)->first();
+                    if(! isset($image)) {
+                        $image = new Image();
+                    }
+
                     $image->storeImage(
-                        $imageFile->getClientOriginalName(),
+                        $fileName,
                         $imageFile,
                         $imageFile->extension()
                     );
