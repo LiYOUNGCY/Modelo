@@ -34,7 +34,8 @@ class Order extends Model
                 'order.total',
                 'order.created_at',
                 'order.status_id as status',
-                'order_status.name as status_name'
+                'order_status.name as status_name',
+                'order.result'
             );
 
 
@@ -94,7 +95,8 @@ class Order extends Model
                 'order_status.name as status_name',
                 'order.express',
                 'order.tracking_no',
-                'order.remark'
+                'order.remark',
+                'order.result'
             )
             ->first();
         return $data;

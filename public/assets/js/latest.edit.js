@@ -138,6 +138,7 @@ Row.prototype.insertColumn = function (data) {
         data['name'] = data['content'].split(',')[1];
     } else if(data.type == 1) {
         data['name'] = data.url;
+        console.log(data['name']);
     }
     data['content'] = data['content'].split(',')[0];
     var col = new Column(data);
