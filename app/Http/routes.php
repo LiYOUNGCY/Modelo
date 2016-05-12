@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web']], function () {
          * Image System
          */
         Route::get('image', 'Admin\ImageController@index');
+        Route::get('image/upload', 'Admin\ImageController@upload');
         Route::get('image/create', 'Admin\ImageController@create');
         Route::get('image/{id}', 'Admin\ImageController@show');
         Route::post('image/store', 'Admin\ImageController@store');
@@ -143,6 +144,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('draw/store', 'DrawController@store');
 
 });
+
+Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');
 
 Route::group([
     'prefix' => 'wechat',

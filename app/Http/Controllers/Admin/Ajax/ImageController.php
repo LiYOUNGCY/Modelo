@@ -19,4 +19,26 @@ class ImageController extends AdminController
             'data' => $images,
         ]);
     }
+
+    public function store(Request $request)
+    {
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+
+            foreach ($images as $key => $imageFile) {
+                if ($imageFile->isValid()) {
+                    $image = new Image();
+                    $image->storeImage(
+                        $imageFile->getClientOriginalName(),
+                        $imageFile,
+                        $imageFile->extension()
+                    );
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => 0,
+        ]);
+    }
 }

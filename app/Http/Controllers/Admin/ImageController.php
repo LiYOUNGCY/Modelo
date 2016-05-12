@@ -9,6 +9,12 @@ use App\Http\Requests;
 
 class ImageController extends AdminController
 {
+
+    public function upload()
+    {
+        return view('admin.image.upload');
+    }
+    
     public function index(Request $request)
     {
         $images = Image::getAll();

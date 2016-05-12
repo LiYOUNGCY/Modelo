@@ -27,7 +27,7 @@ class TestController extends Controller
     public function login(Request $request)
     {
         $user = User::findOrNew(1);
-        $user->nickname = '管理员';
+        $user->nickname = '魔豆树';
         $user->save();
 
         Container::setUser($user->id);
