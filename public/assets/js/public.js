@@ -170,13 +170,7 @@ $(function () {
                                 }
                             });
                         });
-                        //点击遮罩隐藏购物车事件
-                        $('#car-shade').click(function () {
-                            var page = $('.wrapper');
-                            page.find('.m-car').remove();
-                            page.find('.m-shade').remove();
-                            page.removeClass('hascar');
-                        })
+
                         //提交事件
                         $('.m-car .settlement').click(function(){
                             $('#cartForm').submit();
@@ -187,6 +181,13 @@ $(function () {
                         page.prepend(carContent);
                         page.addClass('hascar');
                     }
+                    //点击遮罩隐藏购物车事件
+                    $('#car-shade').click(function () {
+                        var page = $('.wrapper');
+                        page.find('.m-car').remove();
+                        page.find('.m-shade').remove();
+                        page.removeClass('hascar');
+                    });
                 }
             }
         });
