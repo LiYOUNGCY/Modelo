@@ -1053,7 +1053,7 @@ th {
     font-size:18px;
 }
 .m-car .car-goods .car-goods-detail .goods-info .quantity{
-
+    margin-left: 5px;
 }
 .m-car .car-goods .car-goods-detail .goods-info .quantity span{
     font-size:12px;

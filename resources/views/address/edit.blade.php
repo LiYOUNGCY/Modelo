@@ -4,13 +4,21 @@
 
 @section('body')
     <div class="wrapper">
-        <div class="block-w withback-title">
-            <a href="javascript:history.go(-1);">
-                <div class="button back">返回</div>
-            </a>
+        <div class="m-head">
+            <div class="m-name">In Mods' Code</div>
+            <div class="icon-group">
+                <div class="l-icon fl">
+                    <a href="{{ url('/') }}"><span class="fa fa-reply fl"></span></a>
+                </div>
+                <div class="r-icon fr show-nav">
+                    <span class="fa fa-navicon"></span>
+                </div>
+            </div>
+        </div>
+        <div class="m-title-usual">
             填写收货信息
         </div>
-        <div class="block-w editaddress-form">
+        <div class="m-editaddress">
             <form action="{{ url("address/{$userAddress->id}") }}" method="post">
                 {!! csrf_field() !!}
                 <div class="input-group">
@@ -33,9 +41,9 @@
                     </div>
                 </div>
 
-                <button id="update" class="btn button full confirm-address" type="button">
+                <div id="update" class="btn full confirm-address">
                     确认收货信息
-                </button>
+                </div>
             </form>
         </div>
     </div>
