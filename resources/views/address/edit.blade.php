@@ -40,11 +40,10 @@
                         <textarea id="address" name="address"></textarea>
                     </div>
                 </div>
-
-                <div id="update" class="btn full confirm-address">
-                    确认收货信息
-                </div>
             </form>
+        </div>
+        <div id="update" class="btn full confirm-address">
+            确认收货信息
         </div>
     </div>
 @endsection
