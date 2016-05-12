@@ -8,7 +8,7 @@
             <div class="m-name">In Mods' Code</div>
             <div class="icon-group">
                 <div class="l-icon fl">
-                    <a href="javascript:history.go(-1);"><span class="fa fa-reply fl"></span></a>
+                    <a href="{{ url("production") }}"><span class="fa fa-reply fl"></span></a>
                 </div>
                 <div class="r-icon fr show-shopping-car">
                     <span class="fa fa-shopping-cart"></span>

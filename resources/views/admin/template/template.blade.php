@@ -62,6 +62,9 @@
                             <li>
                                 <a href="{{ url("{$ADMIN}/image/create") }}">添加图片</a>
                             </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/image/upload") }}">多图片上传</a>
+                            </li>
                         </ul>
                     </li>
 
