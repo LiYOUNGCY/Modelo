@@ -62,7 +62,7 @@ trait Notice
         ) {
             $userId = $user->openid;
             $templateId = 'BEMRZvPBToCBDEo4qlO9WJwlaAXOsC9Ivu0Z6ZsNEAk';
-            $url = url("order/{order->id}");
+            $url = url("order/{$order->id}");
 
             $data = array(
                 "first" => "亲爱的魔豆，您的商品已发货",
@@ -94,7 +94,7 @@ trait Notice
         ) {
             $userId = $user->openid;
             $templateId = '73aB9Ov6_Sg8Rvr2rKLqK3p6nE-JBez6z1uhme8EqvQ';
-            $url = url("order/{order->id}");
+            $url = url("order/{$order->id}");
 
             $data = array(
                 "first" => "亲爱的魔豆，您的订单已被取消",
@@ -103,7 +103,7 @@ trait Notice
                 "keyword3" => "{$order->total}",
                 "keyword4" => "{$order->last_action_at}",
                 "keyword5" => "{$user->nickname}",
-                "remark" => "点击下方详情，查看更多信息",
+                "remark" => "订单金额已退款",
             );
 
             $this->notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
@@ -129,16 +129,13 @@ trait Notice
             )
         ) {
             $userId = $user->openid;
-            $templateId = 'B5_bBnwSBqWJCm88TbFu12yKjl7BJu5NMcZZcMbVoC4';
-            $url = url("order/{order->id}");
+            $templateId = '1D7sMMY4NkKhtXYsUI-aWZCzjB2TxrZQdoIgq60ST98';
+            $url = url("order/{$order->id}");
 
             $data = array(
-                "first" => "亲爱的魔豆，您的退（换）货申请已受理",
-                "keyword1" => "{$order->order_no}",
-                "keyword2" => "MODS' 服装",
-                "keyword3" => "1",
-                "keyword4" => "{$order->total}元",
-                "keyword5" => "{$order->last_action_at}",
+                "first" => "亲爱的魔豆，您的退货已成功",
+                "reason" => "退货成功",
+                "refund" => "{$order->total}",
                 "remark" => "点击下方详情，查看更多信息。如有疑问，可以联系微信客服，竭诚为您服务。",
             );
 
@@ -146,38 +143,38 @@ trait Notice
         }
     }
 
-//    /**
-//     * 退款通知
-//     * @param $openid
-//     * @param $orderId
-//     */
-//    public function rejected($openid, $orderId)
-//    {
-//        $order = Order::find($orderId);
-//        $user = User::where('openid', $openid)->first();
-//
-//        if(
-//            isset($order)
-//            && isset($user)
-//            && $order->status_id == Config::get('constants.orderStatus.cancel')
-//        ) {
-//            $userId = $user->openid;
-//            $templateId = '73aB9Ov6_Sg8Rvr2rKLqK3p6nE-JBez6z1uhme8EqvQ';
-//            $url = url("order/{order->id}");
-//
-//            $data = array(
-//                "first" => "亲爱的魔豆，您的订单已被取消",
-//                "keyword1" => "{$order->order_no}",
-//                "keyword2" => "取消",
-//                "keyword3" => "{$order->total}",
-//                "keyword4" => "{$order->last_action_at}",
-//                "keyword5" => "{$user->nickname}",
-//                "remark" => "点击下方详情，查看更多信息",
-//            );
-//
-//            $this->notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
-//        }
-//    }
+    /**
+     * 退款通知
+     * @param $openid
+     * @param $orderId
+     */
+    public function rejected($openid, $orderId)
+    {
+        $order = Order::find($orderId);
+        $user = User::where('openid', $openid)->first();
+
+        if(
+            isset($order)
+            && isset($user)
+            && $order->status_id == Config::get('constants.orderStatus.cancel')
+        ) {
+            $userId = $user->openid;
+            $templateId = '73aB9Ov6_Sg8Rvr2rKLqK3p6nE-JBez6z1uhme8EqvQ';
+            $url = url("order/{$order->id}");
+
+            $data = array(
+                "first" => "亲爱的魔豆，您的订单已被取消",
+                "keyword1" => "{$order->order_no}",
+                "keyword2" => "取消",
+                "keyword3" => "{$order->total}",
+                "keyword4" => "{$order->last_action_at}",
+                "keyword5" => "{$user->nickname}",
+                "remark" => "点击下方详情，查看更多信息",
+            );
+
+            $this->notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
+        }
+    }
 
     /**
      * 商品重新发货通知

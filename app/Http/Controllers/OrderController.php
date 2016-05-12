@@ -21,6 +21,10 @@ class OrderController extends Controller
         $user = Container::getUser();
 
         $orders = Order::where('user_id', $user->id)
+            ->whereNotIn('order.status_id', [
+                Config::get('constants.orderStatus.cancel'),
+                Config::get('constants.orderStatus.unpaid'),
+            ])
             ->orderBy('id', 'desc')
             ->get();
         $orderItem = [];
@@ -135,6 +139,8 @@ class OrderController extends Controller
             if ($result->return_code == 'SUCCESS') {
                 $order->status_id = Config::get('constants.orderStatus.cancel');
                 $order->save();
+
+                $this->cancelNotice($order->user_id, $order->id);
 
                 return redirect("order/{$order->id}")->with('message', '您已成功退款，详情请在查看微信。');
             } else {

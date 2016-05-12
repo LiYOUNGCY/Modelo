@@ -95,6 +95,8 @@ class OrderController extends AdminController
                 $order->status_id = Config::get('constants.orderStatus.rejected');
                 $order->save();
 
+                $this->rejectNotice($order->user_id, $order->id);
+
                 //商品数量
                 $sizes = DB::table('order_item')
                     ->where('order_item.order_id', '=', $order->id)
@@ -125,7 +127,7 @@ class OrderController extends AdminController
             $order->status_id = Config::get('constants.orderStatus.exchange');
             $order->save();
             
-            $this->exchangeNotice($order->user_id, $order->id);
+//            $this->exchangeNotice($order->user_id, $order->id);
 
             return redirect("{$this->ADMIN}/order/{$order->id}");
         }
