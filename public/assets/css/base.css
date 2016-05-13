@@ -277,6 +277,7 @@ th {
 .swiper-container{
     width: 100%;
     height:auto;
+    position: relative;
 }
 .swiper-container .swiper-slide{
     background-color: #212121;
@@ -296,6 +297,19 @@ th {
     display: inline-block;
     padding-bottom: 110%;
     width: .1px;
+}
+.swiper-container .tips{
+    position: absolute;
+    right:0;
+    top: 50%;
+    font-size: 18px;
+    z-index: 1;
+
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .theme-goods-group{

@@ -24,6 +24,11 @@
                     </div>
                 @endforeach
             </div>
+            <div class="tips">
+                <span class="fa fa-angle-double-left"></span>
+                <span class="fa fa-angle-double-left" style="color:#FFFFFF;"></span>
+                <span class="fa fa-angle-double-left"></span>
+            </div>
         </div>
         <div class="m-goods-info">
             <div class="left fl">
@@ -135,7 +140,7 @@
     <script>
         $(document).ready(function () {
             var swiperPostcard = new Swiper('.goods-detail-pic', {
-                autoplay: 3000,
+                autoplay: 7000,
                 autoplayDisableOnInteraction: false,
                 loop: true
             });
