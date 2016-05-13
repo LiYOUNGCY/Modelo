@@ -25,6 +25,11 @@
                     </div>
                 @endforeach
             </div>
+            <div class="tips">
+                <span class="fa fa-angle-double-left"></span>
+                <span class="fa fa-angle-double-left" style="color:#FFFFFF;"></span>
+                <span class="fa fa-angle-double-left"></span>
+            </div>
         </div>
 
 
