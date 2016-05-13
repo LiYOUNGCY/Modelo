@@ -42,9 +42,9 @@
                 </div>
             </form>
         </div>
-        <div id="update" class="btn full confirm-address">
+        <button id="update" class="btn full confirm-address" type="button">
             确认收货信息
-        </div>
+        </button>
     </div>
 @endsection
 
@@ -58,17 +58,14 @@
             var Address = $("#address").val();
             var reg = /(^13\d{9}$)|(^14)[5,7]\d{8}$|(^15[0,1,2,3,5,6,7,8,9]\d{8}$)|(^17)[6,7,8]\d{8}$|(^18\d{9}$)/g;
 
-            if (isNull(Contact) || isNull(Tel) || isNull(Address)) {
+            if (isNull(Contact)  || isNull(Address)) {
                 showModalDialog("请输入完整的收货信息");
-                return;
+                return 0;
             }
 
             if (Contact.length > 10) {
                 showModalDialog("联系人字数不得超过10");
-                return;
-            } else if (!reg.test(Tel)) {
-                showModalDialog("无效的手机号码");
-                return;
+                return 0;
             }
 
             $('form').submit();
@@ -83,7 +80,7 @@
         }
 
         function isNull(val) {
-            return (val == null || val == 'undefined');
+            return (val == null || val == 'undefined' || val == '');
         }
     </script>
 @endsection

@@ -19,6 +19,16 @@ class Production extends Model
         return $this->belongsTo('App\Model\Image', 'cover_id');
     }
 
+    public function size_info()
+    {
+        return $this->belongsTo('App\Model\Image', 'size_info_id');
+    }
+
+    public function fabric_info()
+    {
+        return $this->belongsTo('App\Model\Image', 'fabric_info_id');
+    }
+
     public function theme()
     {
         return $this->belongsTo('App\Model\Image', 'series_image');

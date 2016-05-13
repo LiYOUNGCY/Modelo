@@ -79,9 +79,9 @@
                 <div class="cf"></div>
             </div>
             <div class="goods-explain">
-                <div class="item"><a href="size.html">尺码说明</a></div>
-                <div class="item"><a href="javascript:showExplain('component')">成分说明</a></div>
-                <div class="item"><a href="javascript:showExplain('send')">关于寄送</a></div>
+                <div class="item"><a id="size" href="javascript:void(0);">尺码说明</a></div>
+                <div class="item"><a id="component" href="javascript:void(0);">成分说明</a></div>
+                <div class="item"><a id="send" href="javascript:void(0);">关于寄送</a></div>
                 <div class="item nb"><a href="javascript:showExplain('refund')">关于退换</a></div>
                 <div class="cf"></div>
             </div>
@@ -123,19 +123,7 @@
             <div class="btn full buy-goods" id="buy">确认购买</div>
         </form>
     </div>
-    <div class="goods-explain-modal">
-        <div class="content-box">
-            <div class="top">
-                <span class="fa fa-close fr close-explain"></span>
-            </div>
-            <!--<iframe src="" frameborder="0"></iframe>-->
-            <div class="content">
-                <img src="img/p1.jpeg">
-                <img src="img/p1.jpeg">
-                <img src="img/p1.jpeg">
-            </div>
-        </div>
-    </div>
+
 @endsection
 
 @section('moreCss')
@@ -214,8 +202,21 @@
             }
 
             function showExplain(type) {
-//        $(".goods-explain-modal .content-box iframe").attr('src',type + '.html');
-                $(".goods-explain-modal").addClass("active");
+                var content = '' +
+                        '<div class="goods-explain-modal">' +
+                            '<img src="'+type+'">' +
+                        '</div>' +
+                        '<div class="m-shade" id="explain-shade"></div>';
+                $("body").prepend(content);
+
+                $(".goods-explain-modal").click(function () {
+                    $("body").find(".goods-explain-modal").remove();
+                    $("body").find(".m-shade").remove();
+                })
+                $("#explain-shade").click(function () {
+                    $("body").find(".goods-explain-modal").remove();
+                    $("body").find(".m-shade").remove();
+                })
             }
 
             $('#buy').click(function () {
@@ -246,6 +247,14 @@
                         }
                     }
                 });
+            });
+
+            $('#size').click(function(){
+                showExplain('{{ url($production->size_info->path) }}');
+            });
+
+            $('#component').click(function(){
+                showExplain('{{ url($production->fabric_info->path) }}');
             });
         });
     </script>
