@@ -883,8 +883,8 @@ th {
     margin: 0;
 }
 .order-detail .line .pic{
-    width:130px;
-    height:85px;
+    width:85px;
+    height:105px;
     margin-top: 8px;
     background-position: center center;
     background-size: cover;

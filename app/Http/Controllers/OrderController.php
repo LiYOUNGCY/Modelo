@@ -6,6 +6,7 @@ use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Wechat\Notice;
 use App\Model\Order;
 use App\Container\Container;
+use App\Model\Production;
 use Cart;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -28,13 +29,19 @@ class OrderController extends Controller
             ->orderBy('id', 'desc')
             ->get();
         $orderItem = [];
+        $link = [];
+
         foreach ($orders as $order) {
             $orderItem[$order->id] = Order::getOrderItems($order->id);
+            $production_id = $orderItem[$order->id]->production_id;
+
+            $link[$production_id] = Production::find($production_id)->alias;
         }
 
         return view('order.index', [
             'orders' => $orders,
             'orderItem' => $orderItem,
+            'link' => $link,
         ]);
     }
 
