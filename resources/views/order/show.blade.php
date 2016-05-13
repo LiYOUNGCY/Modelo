@@ -33,7 +33,7 @@
                 <label>商品</label>
                 <div class="field">
                     <p><a href="{{ url('production') }}/{{ $link }}" style="color: inherit;;">{{ $orderItem->production_name }}</a></p>
-                    <div class="pic" style="background-image: url({{ asset($orderItem->cover) }})"></div>
+                    <a href="{{ url('production') }}/{{ $link }}" style="color: inherit;;"><div class="pic" style="background-image: url({{ asset($orderItem->cover) }})"></div></a>
                 </div>
             </div>
             <div class="line">
