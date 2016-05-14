@@ -27,18 +27,6 @@
                         @endif
                     </div>
                 @endforeach
-                    <div class="son-item">
-                        <span data-type="name">弱鸡一号</span>
-                        <span class="son-level ">大豆芽</span>
-                    </div>
-                    <div class="son-item">
-                        <span data-type="name">弱鸡一号</span>
-                        <span class="son-level ">大豆芽</span>
-                    </div>
-                    <div class="son-item">
-                        <span data-type="name">弱鸡二号b</span>
-                        <span class="son-level ">大豆芽</span>
-                    </div>
             </div>
         </div>
     </div>
@@ -57,7 +45,7 @@
 //                    console.log(name);
                     console.log(name.indexOf(keyword));
 
-                    if ( name.indexOf(keyword) >= 0) {
+                    if (name.indexOf(keyword) >= 0) {
                         $(ele).attr('data-disable', '0');
                     } else {
                         $(ele).attr('data-disable', '1');
@@ -65,7 +53,7 @@
                 });
 
                 $('#list').find('.son-item').each(function (i, ele) {
-                    if($(ele).attr('data-disable') == 1) {
+                    if ($(ele).attr('data-disable') == 1) {
                         $(ele).hide();
                     } else {
                         $(ele).show();

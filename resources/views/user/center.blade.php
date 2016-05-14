@@ -78,12 +78,12 @@
                 <div class="user-option-content">
                     <ul>
                         {{--<li>--}}
-                            {{--<span class="fl">未付款订单金额</span>--}}
-                            {{--<span class="fr right">￥{{$unpaid}}</span>--}}
+                        {{--<span class="fl">未付款订单金额</span>--}}
+                        {{--<span class="fr right">￥{{$unpaid}}</span>--}}
                         {{--</li>--}}
                         {{--<li>--}}
-                            {{--<span class="fl">未完成订单金额</span>--}}
-                            {{--<span class="fr right">￥{{$unFinish}}</span>--}}
+                        {{--<span class="fl">未完成订单金额</span>--}}
+                        {{--<span class="fr right">￥{{$unFinish}}</span>--}}
                         {{--</li>--}}
                         <li>
                             <span class="fl">已完成订单金额</span>
@@ -126,7 +126,11 @@
                     <form action="{{ url('draw/store') }}" method="post">
                         {!! csrf_field() !!}
                         <input type="tel" name="withdraw" id="withdraw">
-                        <button id="draw" class="btn" type="submit">确认提现</button>
+                        @if($canGet)
+                            <button id="draw" class="btn" type="submit">确认提现</button>
+                        @else
+                            <button id="draw" class="btn" type="submit" disabled>确认提现</button>
+                        @endif
                     </form>
                 </div>
             </div>
@@ -176,18 +180,20 @@
                     var avaliable = parseFloat($('#available').attr('data-id'));
                     console.log('is num');
                     if (cash > 0 && avaliable != 0.0 && cash <= avaliable) {
-//                        if(cash < 40) {
-//                            showModalDialog('至少提现 40 元')
-//                        } else if (cash > 200.0) {
-//                            showModalDialog('一次最多能提现 200 元');
-//                        } else {
-                            $.post(BASEURL + 'draw/store', $('form').serialize(), function (data) {
-                                console.log(data);
-                                if (data.success == 0) {
-                                    showModalDialog('您的请求已提交成功，请耐心等候审核。');
-                                    window.location.reload();
-                                }
-                            });
+                        if (cash < 40) {
+                            showModalDialog('至少提现 40 元')
+                            return 0;
+                        } else if (cash > 200.0) {
+                            showModalDialog('一次最多能提现 200 元');
+                            return 0;
+                        }
+                        $.post(BASEURL + 'draw/store', $('form').serialize(), function (data) {
+                            console.log(data);
+                            if (data.success == 0) {
+                                showModalDialog('您的请求已提交成功，请耐心等候审核。');
+                                window.location.reload();
+                            }
+                        });
 //                        }
                     } else {
                         showModalDialog('余额不足');

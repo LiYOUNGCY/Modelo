@@ -44,9 +44,11 @@ class UserController extends Controller
         $count = $oneCount + $secondCount + $threeCount;
         $buyCount = $oneBuyCount + $secondBuyCount + $threeBuyCount;
 
+        $canGet = User::haveFinishOrder($user->id);
+
         $total = $user->available_total;
 
-        if(User::getFinishOrderTotal($user->id) >= Config::get('constants.salesVolume')) {
+        if (User::getFinishOrderTotal($user->id) >= Config::get('constants.salesVolume')) {
             $total += $user->available_three;
         }
 
@@ -66,6 +68,7 @@ class UserController extends Controller
             'count' => $count,
             'buyCount' => $buyCount,
             'consume' => $consume,
+            'canGet' => $canGet,
         ]);
     }
 
@@ -73,6 +76,7 @@ class UserController extends Controller
     {
         $user = Container::getUser();
         $children = User::getChildren($user->id);
+
         return view('user.one_children', [
             'children' => $children,
         ]);

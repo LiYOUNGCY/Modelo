@@ -313,4 +313,14 @@ class User extends Model
 
         return $result;
     }
+
+    public static function haveFinishOrder($userId)
+    {
+        $result = DB::table('order')
+            ->where('order.user_id', $userId)
+            ->where('order.status_id', Config::get('constants.orderStatus.finish'))
+            ->count();
+
+        return $result > 0;
+    }
 }
