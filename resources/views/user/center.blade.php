@@ -50,7 +50,7 @@
                 <div class="user-option-content">
                     <ul>
                         <li>
-                            <span class="fl">大豆芽</span>
+                            <span class="fl"><a href="{{ url('user/children/one') }}">大豆芽</a></span>
                             <span class="fr right">{{ $oneCount }}（{{$oneBuyCount}}）</span>
                         </li>
                         <li>

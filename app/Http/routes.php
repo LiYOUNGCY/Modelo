@@ -130,6 +130,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('qrcode', 'UserController@getQrCode');
 
     Route::get('user', 'UserController@userCenter');
+    Route::get('user/children/one', 'UserController@oneChildren');
+    Route::get('user/children/second', 'UserController@secondChildren');
+    Route::get('user/children/three', 'UserController@threeChildren');
 
     //cart
     Route::post('cart/shopping/create', 'CartController@createToShoppingCart');

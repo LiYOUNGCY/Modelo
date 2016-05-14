@@ -68,4 +68,13 @@ class UserController extends Controller
             'consume' => $consume,
         ]);
     }
+
+    public function oneChildren()
+    {
+        $user = Container::getUser();
+        $children = User::getChildren($user->id);
+        return view('user.one_children', [
+            'children' => $children,
+        ]);
+    }
 }
