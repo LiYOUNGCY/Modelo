@@ -1,3 +1,10 @@
+//取消微信后退
+document.addEventListener('WeixinJSBridgeReady',function onBridgeReady() {
+    WeixinJSBridge.call("hideToolbar");
+    WeixinJSBridge.call("hideOptionMenu");
+});
+
+
 $(function () {
     //显示分类
     $(".m-bottom-bar .col").bind('click', function () {
@@ -264,10 +271,6 @@ $(function () {
         }
     })
 
-    $("body").on('click', ".m-modal", function () {
-        alert("body");
-        $(this).remove();
-    });
 });
 
 //显示模态框
@@ -277,11 +280,9 @@ function showModalDialog(text) {
     $("body").prepend($(modal));
 
     $(".m-modal").click(function () {
-        $(this).remove();
+        alert(1);
+        //$(this).remove();
+        $("body").find(".m-modal").remove();
     })
 
-    //
-    // $("body").on('click', ".m-modal", function () {
-    //     $(this).remove();
-    // });
 }
