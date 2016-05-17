@@ -3,11 +3,7 @@
 @section('title', '参与投票抽奖 - 魔豆树')
 
 @section('body')
-    {{--<div class="vote-img">--}}
-        {{--<div class="img-box">--}}
-            {{--<img src="{{ asset('assets/images') }}/all-goods1.jpeg">--}}
-        {{--</div>--}}
-    {{--</div>--}}
+
     <div class="v-logo">
         <img src="img/logo.png">
     </div>
@@ -139,17 +135,26 @@
     <script src="{{ asset('assets/js') }}/voteImg.js"></script>
     <script>
         $(function () {
-            $(".vote-list img").bind('touchend',function () {
+            $(".vote-list img").bind('click',function () {
                 var src = $(this).attr("src");
-                alert(src);
+                var content = '<div class="vote-img">' +
+                        '<div class="img-box">' +
+                        '<img src="' + src +'">' +
+                        '</div>' +
+                        '</div>';
+                $("body").prepend(content);
+                $(".vote-img").bind('touchend',function (event) {
+                    event.preventDefault();
+                    $(this).remove();
+                })
             });
 
             $("input[name='vote']").click(function () {
                 $(".vote-item").removeClass("active");
                 $(this).parents(".vote-item").addClass("active");
             });
-
-            $('#btn').click(function () {
+            $('#btn')..bind('touchend',function (event) {
+                event.preventDefault();
                 var val = $('input:radio:checked');
                 if(val.length == 0) {
                     showModalDialog('请选择一个进行投票!');
@@ -157,6 +162,14 @@
                     $('form').submit();
                 }
             })
+//            $('#btn').click(function () {
+//                var val = $('input:radio:checked');
+//                if(val.length == 0) {
+//                    showModalDialog('请选择一个进行投票!');
+//                } else {
+//                    $('form').submit();
+//                }
+//            })
         })
     </script>
 @endsection
