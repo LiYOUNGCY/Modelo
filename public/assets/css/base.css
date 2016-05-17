@@ -141,8 +141,8 @@ th {
 }
 .m-checkbox label{
     position: absolute;
-    width: 15px;
-    width:15px;
+    width: 20px;
+    width: 20px;
     height: 15px;
     top:0;
     left:0;
@@ -154,10 +154,10 @@ th {
     content: '';
     position: absolute;
     width: 9px;
-    height: 5px;
+    height: 6px;
     background: transparent;
-    top: 4px;
-    left: 2px;
+    top: 5px;
+    left: 5px;
     border: 3px solid #333;
     border-top: none;
     border-right: none;
@@ -1049,7 +1049,7 @@ th {
 }
 .m-car .car-goods .car-goods-name .remove-goods{
     color: #d12e2e;
-    margin-top: 1px;
+    margin-top: 2px;
 }
 .m-car .car-goods .car-goods-detail{
     position: relative;
@@ -1098,7 +1098,7 @@ th {
     text-decoration: underline;
 }
 .m-car .car-final .m-checkbox label{
-    top: 12px;
+    top: 9px;
 }
 .m-car .car-final .car-total{
     font-size:18px;
