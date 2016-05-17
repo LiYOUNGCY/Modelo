@@ -926,11 +926,11 @@ th {
     width:100%;
 }
 #cs-shade,
-#explain-shade,
-#bar-shade{
+#explain-shade{
     z-index:500;
 }
 #bar-shade{
+    z-index: 110;
     opacity:0;
 }
 .cs-remark{
@@ -1226,7 +1226,7 @@ th {
     text-align: center;
     padding: 10px 0;
     color: #555555;
-    z-index: 550;
+    z-index: 100;
 }
 .m-bottom-bar .col{
     float: left;

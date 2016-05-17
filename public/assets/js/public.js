@@ -283,6 +283,7 @@ $(function () {
             var page = $('.wrapper');
             page.find('.m-shade').remove();
             page.find('.m-slide-nav').remove();
+            page.removeClass('hasnav');
         });
     })
 
