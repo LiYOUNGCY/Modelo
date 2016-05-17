@@ -5,7 +5,7 @@
 @section('body')
 
     <div class="v-logo">
-        <img src="img/logo.png">
+        <img src="{{ asset('assets/images') }}/logo.png">
     </div>
     <!---->
     <div class="v-title">
@@ -36,7 +36,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/all-goods2.jpeg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
                         <label for="VoteNo2">花裙子</label>
@@ -45,7 +45,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/all-goods3.jpeg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo3" value="C">
                         <label for="VoteNo3">花裙子</label>
@@ -157,7 +157,7 @@
                 event.preventDefault();
                 var val = $('input:radio:checked');
                 if(val.length == 0) {
-                    showModalDialog('请选择一个进行投票!');
+                    alert('请选择一个进行投票!')
                 } else {
                     $('form').submit();
                 }
