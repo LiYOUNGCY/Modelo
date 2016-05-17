@@ -26,7 +26,7 @@
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
+                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo1" value="A">
                         <label for="VoteNo1">花裙子</label>
