@@ -38,7 +38,7 @@
                     花裙子
                 </div>
                 <div class="vote-result">
-                    101 票
+                    101 票(70%)
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                     花裙子
                 </div>
                 <div class="vote-result">
-                    100 票
+                    100 票(30%)
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                     花裙子
                 </div>
                 <div class="vote-result">
-                    100 票
+                    100 票(70%)
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
             <div class="vote-info">
                 <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                 <div class="vote-name">
-                    花裙子
+                    花裙子(70%)
                 </div>
                 <div class="vote-result">
                     100 票
