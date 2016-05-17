@@ -1,4 +1,4 @@
-@extends('template.template')
+@extends('template.basic')
 
 @section('title', '参与投票抽奖 - 魔豆树')
 
@@ -41,11 +41,11 @@
     </div>
 @endsection
 
-@section('moreScript')
+@section('script')
     <script src="{{ asset('assets/js') }}/zoom.min.js"></script>
 @endsection
 
-@section('moreCss')
+@section('css')
     <link rel="stylesheet" href="{{ asset('assets/css') }}/zoom.css">
     <link rel="stylesheet" href="{{ asset('assets/css') }}/vote.css">
 @endsection
