@@ -284,7 +284,6 @@ function showModalDialog(text) {
     $("#m-modal").bind("touchend",function (event) {
         event.preventDefault();
         var page = $('.wrapper');
-        alert(1);
         page.find(".m-modal").remove();
     });
     // $("#m-modal").touch(function () {
