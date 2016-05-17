@@ -26,7 +26,7 @@
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <a class="voteImg" id="test1" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo1" value="A">
                         <label for="VoteNo1">花裙子</label>
@@ -136,13 +136,13 @@
     <script>
         $(function () {
             $(".voteImg").imgbox();
-//            $(".voteImg").imgbox({
-//                'speedIn'		: 0,
-//                'speedOut'		: 0,
-//                'alignment'		: 'center',
-//                'overlayShow'	: true,
-//                'allowMultiple'	: false
-//            });
+            $("#test1").imgbox({
+                'speedIn'		: 0,
+                'speedOut'		: 0,
+                'alignment'		: 'center',
+                'overlayShow'	: true,
+                'allowMultiple'	: false
+            });
             $("input[name='vote']").click(function () {
                 $(".vote-item").removeClass("active");
                 $(this).parents(".vote-item").addClass("active");
