@@ -1,7 +1,7 @@
 
 $(function () {
     //显示分类
-    $(".m-bottom-bar .col").bind('click', function () {
+    $(".m-bottom-bar .opt").bind('click', function () {
         var page = $(".wrapper");
         var shade = '<div class="m-shade" id="bar-shade"></div>';
         page.find(".m-shade").remove();

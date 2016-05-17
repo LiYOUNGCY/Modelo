@@ -1,6 +1,6 @@
 <div class="m-bottom-bar">
     <div class="col" id="theme">
-        <span class="fa fa-shopping-bag"></span> 按主题搜索
+        <div class="opt"><span class="fa fa-shopping-bag"></span> 按主题搜索</div>
         <div class="popup hide">
             @foreach($series as $s)
                 <div class="item">

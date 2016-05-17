@@ -1224,7 +1224,8 @@ th {
     bottom: 0;
     width:100%;
     text-align: center;
-    padding: 10px 0;
+    height: 36px;
+    line-height: 36px;
     color: #555555;
     z-index: 100;
 }
