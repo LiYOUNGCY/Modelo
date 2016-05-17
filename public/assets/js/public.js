@@ -271,7 +271,13 @@ function showModalDialog(text) {
     var modal = '' +
         '<div class="m-modal"><div class="block"><p>' + text + '</p><p style="color: #5c595c">（点击关闭）</p></div></div>';
     $("body").prepend($(modal));
-    $("body").on('click', ".m-modal", function () {
+
+    $(".m-modal").click(function () {
         $(this).remove();
-    });
+    })
+
+    //
+    // $("body").on('click', ".m-modal", function () {
+    //     $(this).remove();
+    // });
 }
