@@ -3,6 +3,11 @@
 @section('title', '参与投票抽奖 - 魔豆树')
 
 @section('body')
+    <div class="vote-img">
+        <div class="img-box">
+            <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+        </div>
+    </div>
     <div class="v-logo">
         <img src="img/logo.png">
     </div>
@@ -26,7 +31,7 @@
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" id="test1" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo1" value="A">
                         <label for="VoteNo1">花裙子</label>
@@ -35,8 +40,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" ></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
                         <label for="VoteNo2">花裙子</label>
                     </div>
@@ -44,8 +48,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo3" value="C">
                         <label for="VoteNo3">花裙子</label>
                     </div>
@@ -53,8 +56,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo4" value="D">
                         <label for="VoteNo4">花裙子</label>
                     </div>
@@ -62,8 +64,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo5" value="E">
                         <label for="VoteNo5">花裙子</label>
                     </div>
@@ -71,8 +72,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo6" value="F">
                         <label for="VoteNo6">花裙子</label>
                     </div>
@@ -80,8 +80,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo7" value="G">
                         <label for="VoteNo7">花裙子</label>
                     </div>
@@ -89,8 +88,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo8" value="H">
                         <label for="VoteNo8">花裙子</label>
                     </div>
@@ -98,8 +96,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo9" value="I">
                         <label for="VoteNo9">花裙子</label>
                     </div>
@@ -107,8 +104,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom"></a>
-                    <div class="vote-name">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">                    <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo10" value="J">
                         <label for="VoteNo10">花裙子</label>
                     </div>
@@ -131,18 +127,9 @@
 @endsection
 
 @section('script')
-    {{--<script src="{{ asset('assets/js') }}/zoom.min.js"></script>--}}
-    <script src="{{ asset('assets/js') }}/images.js"></script>
+    <script src="{{ asset('assets/js') }}/voteImg.js"></script>
     <script>
         $(function () {
-            $(".voteImg").imgbox();
-            $("#test1").imgbox({
-                'speedIn'		: 0,
-                'speedOut'		: 0,
-                'alignment'		: 'center',
-                'overlayShow'	: true,
-                'allowMultiple'	: false
-            });
             $("input[name='vote']").click(function () {
                 $(".vote-item").removeClass("active");
                 $(this).parents(".vote-item").addClass("active");

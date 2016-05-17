@@ -191,12 +191,30 @@ ul{
     margin: 0 auto;
     width: 84px;
 }
+.vote-img{
+    position: fixed;
+    top:0;
+    left:0;
+    background-color: #fff;
+    height:100%;
+    width:100%;
 
-#imgbox-loading {position: absolute;top: 0;left: 0;	cursor: pointer;display: none;z-index: 90;}
-#imgbox-loading div {background: #FFF;width: 100%;height : 100%;}
-#imgbox-overlay {position: absolute;top: 0;	left: 0;width: 100%;height: 100%;background: #000;display: none;z-index: 80;}
-.imgbox-wrap {position: absolute;top: 0;left: 0;background: #FFF;display: none;	z-index: 90;}
-.imgbox-img {padding: 0;margin: 0;border: none;width: 100%;	height: 100%;vertical-align: top;}
-.imgbox-title {	padding-top: 10px;font-size: 11px;text-align: center;font-family: Arial;color: #333;display: none;}
-.imgbox-bg-wrap {position: absolute;padding: 0;margin: 0;display: none;}
-.imgbox-bg {position: absolute;width: 20px;	height: 20px;}
+    z-index: 111;
+}
+.vote-img .img-box{
+    position: absolute;
+    border:7px solid rgba(0,0,0,0,5);
+    width:88%;
+    height:auto;
+    top:50%;
+    left:50%;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.vote-img .img-box img{
+    width:100%;
+}
