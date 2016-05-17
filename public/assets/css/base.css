@@ -1240,7 +1240,7 @@ th {
     color: #ffffff;
     width:100%;
     padding: 0 10px;
-    bottom:24px;
+    bottom:36px;
     font-size: 12px;
     left: 0;
 }
@@ -1252,7 +1252,6 @@ th {
 }
 .m-bottom-bar .popup .item{
     border-bottom: 1px solid #ffffff;
-    padding: 10px 0;
 }
 /*modal*/
 .m-modal{

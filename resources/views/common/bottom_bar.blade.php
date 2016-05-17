@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="col" id="classify">
-        <span class="fa fa-tags"></span> 商品分类
+        <div class="opt"><span class="fa fa-tags"></span> 商品分类</div>
         @if(isset($category))
             <div class="popup hide">
                 @foreach(\Illuminate\Support\Facades\Config::get('constants.categoryName') as $key => $value)
