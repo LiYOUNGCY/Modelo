@@ -6,7 +6,7 @@ $(function () {
         var shade = '<div class="m-shade" id="bar-shade"></div>';
         page.find(".m-shade").remove();
         var allPopup = $(this).parent().find('.col .popup');
-        var thisPopup = $(this).find('.popup');
+        var thisPopup = $(this).parent().find('.popup');
         if (thisPopup.hasClass('hide')) {
             allPopup.addClass('hide');
             thisPopup.removeClass('hide');
