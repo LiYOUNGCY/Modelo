@@ -271,19 +271,19 @@ $(function () {
         }
     })
 
-    //显示模态框
-    function showModalDialog(text) {
-        var modal = '' +
-            '<div class="m-modal"><div class="block"><p>' + text + '</p><p style="color: #5c595c">（点击关闭）</p></div></div>';
-        var page = $('.wrapper');
-        page.prepend(modal);
-
-        $(".m-modal").click(function () {
-            var page = $('.wrapper');
-            alert(1);
-            page.find(".m-modal").remove();
-        })
-    }
 
 });
 
+//显示模态框
+function showModalDialog(text) {
+    var modal = '' +
+        '<div class="m-modal" id="m-modal"><div class="block"><p>' + text + '</p><p style="color: #5c595c">（点击关闭）</p></div></div>';
+    var page = $('.wrapper');
+    page.prepend(modal);
+
+    $("#m-modal").click(function () {
+        var page = $('.wrapper');
+        alert(1);
+        page.find(".m-modal").remove();
+    })
+}
