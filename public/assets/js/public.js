@@ -277,12 +277,13 @@ $(function () {
 function showModalDialog(text) {
     var modal = '' +
         '<div class="m-modal"><div class="block"><p>' + text + '</p><p style="color: #5c595c">（点击关闭）</p></div></div>';
-    $("body").prepend($(modal));
+    var page = $('.wrapper');
+    page.prepend(modal);
 
     $(".m-modal").click(function () {
+        var page = $('.wrapper');
         alert(1);
-        //$(this).remove();
-        $("body").find(".m-modal").remove();
+        page.find(".m-modal").remove();
     })
 
 }
