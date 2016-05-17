@@ -131,8 +131,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('assets/js') }}/zoom.min.js"></script>
-    <script src="{{ asset('assets/js') }}/jquery.imgbox.min.js"></script>
+    {{--<script src="{{ asset('assets/js') }}/zoom.min.js"></script>--}}
+    <script src="{{ asset('assets/js') }}/images.js"></script>
     <script>
         $(function () {
             $(".voteImg").imgbox();
