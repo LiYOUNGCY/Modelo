@@ -17,11 +17,12 @@ $(function () {
         }
 
     });
-    $("#bar-shade").bind("touchend",function (event) {
-        event.preventDefault();
+
+    $('#bar-shade').click(function () {
         var page = $('.wrapper');
-        page.find("#bar-shade").remove();
+        page.find('.m-shade').remove();
     });
+
 
     var cart = [];
 
