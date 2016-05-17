@@ -37,6 +37,11 @@ class MenuController extends Controller
                         'name' => '我的订单',
                         'url' => url('order'),
                     ],
+                    [
+                        'type' => 'view',
+                        'name' => '参与投票',
+                        'url' => url('vote'),
+                    ],
                 ],
             ],
         ];
