@@ -264,6 +264,10 @@ $(function () {
         }
     })
 
+    $("body").on('click', ".m-modal", function () {
+        alert("body");
+        $(this).remove();
+    });
 });
 
 //显示模态框
