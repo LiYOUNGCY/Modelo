@@ -281,7 +281,7 @@ function showModalDialog(text) {
     var page = $('.wrapper');
     page.prepend(modal);
 
-    $("#m-modal").bind(touchEvents.touchend,function (event) {
+    $("#m-modal").bind("touchend",function (event) {
         event.preventDefault();
         var page = $('.wrapper');
         alert(1);
