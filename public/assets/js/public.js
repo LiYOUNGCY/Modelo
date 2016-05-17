@@ -16,7 +16,7 @@ $(function () {
             page.prepend(shade);
         }
 
-        $('#bar-shade').click(function () {
+        $('#bar-shade').onTouchEnd(function () {
             var page = $('.wrapper');
             $(".m-bottom-bar .col").find(".popup").addClass("hide");
             page.find('.m-shade').remove();
