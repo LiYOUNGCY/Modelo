@@ -18,6 +18,7 @@ $(function () {
 
         $('#bar-shade').click(function () {
             var page = $('.wrapper');
+            $(".m-bottom-bar .col").find(".popup").addClass("hide");
             page.find('.m-shade').remove();
         });
     });
