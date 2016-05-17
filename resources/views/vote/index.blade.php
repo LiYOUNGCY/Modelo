@@ -26,7 +26,7 @@
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <a id="zoomImg1" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo1" value="A">
                         <label for="VoteNo1">花裙子</label>
@@ -135,7 +135,7 @@
     <script src="{{ asset('assets/js') }}/jquery.imgbox.pack.js"></script>
     <script>
         $(function () {
-            $("#zoomImg").imgbox({
+            $("#zoomImg1").imgbox({
                 'speedIn'		: 0,
                 'speedOut'		: 0,
                 'alignment'		: 'center',
