@@ -445,6 +445,7 @@ th {
 }
 .m-goods-size .size-list .size-item.active{
     font-weight:bold;
+    text-decoration: underline;
 }
 .m-goods-size .goods-explain{
     width:100%;
@@ -1074,6 +1075,7 @@ th {
 }
 .m-car .car-goods .car-goods-detail .goods-info .quantity span{
     font-size:12px;
+    padding: 6px;
 }
 .m-car .car-goods .car-goods-detail .goods-info .quantity .num{
     background-color: #ffffff;
