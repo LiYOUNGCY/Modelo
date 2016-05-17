@@ -1,9 +1,3 @@
-//取消微信后退
-document.addEventListener('WeixinJSBridgeReady',function onBridgeReady() {
-    WeixinJSBridge.call("hideToolbar");
-    WeixinJSBridge.call("hideOptionMenu");
-});
-
 
 $(function () {
     //显示分类
@@ -70,7 +64,7 @@ $(function () {
                             '<div class="m-checkbox">' +
                             '<input type="checkbox" name="checkAll" id="checkAll">' +
                             '<label for="checkAll"></label>' +
-                            '</div>全选' +
+                            '</div><label for="checkAll">全选</label>' +
                             '<div class="fr">' +
                             '<div class="car-total">总计：￥<span class="total">0</span></div>' +
                             '<div class="settlement">去结算</div>' +

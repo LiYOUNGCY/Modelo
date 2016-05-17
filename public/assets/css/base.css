@@ -142,8 +142,7 @@ th {
 .m-checkbox label{
     position: absolute;
     width: 20px;
-    width: 20px;
-    height: 15px;
+    height: 20px;
     top:0;
     left:0;
     background-color: #EEEEEE;
@@ -1042,6 +1041,8 @@ th {
     display: inline-block;
     width:100%;
     margin-bottom: 10px;
+    height:20px;
+    line-height:20px;
 }
 .m-car .car-goods .car-goods-name input[type="checkbox"]{
     margin:0;
