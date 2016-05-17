@@ -2,14 +2,25 @@
 $(function () {
     //显示分类
     $(".m-bottom-bar .col").bind('click', function () {
+        var page = $(".wrapper");
+        var shade = '<div class="m-shade" id="bar-shade"></div>';
+        page.find(".m-shade").remove();
         var allPopup = $(this).parent().find('.col .popup');
         var thisPopup = $(this).find('.popup');
         if (thisPopup.hasClass('hide')) {
             allPopup.addClass('hide');
             thisPopup.removeClass('hide');
+            page.prepend(shade);
         } else {
             allPopup.addClass('hide');
+            page.prepend(shade);
         }
+
+        $("#bar-shade").bind("touchend",function (event) {
+            event.preventDefault();
+            var page = $('.wrapper');
+            page.find("#bar-shade").remove();
+        });
     });
 
     var cart = [];
@@ -34,7 +45,7 @@ $(function () {
                                 '<input id="p' + cart[key].id + '"name="flag[]" type="checkbox" value="' + key + '" />' +
                                 '<label for="p' + cart[key].id + '"></label>' +
                                 '</div>' +
-                                '<a href="' + BASEURL + 'production/' + cart[key].options.production_alias + '">' + cart[key].name + '</a></span>' +
+                                '<label for="p' + cart[key].id + '">' + cart[key].name + '</label></span>' +
                                 '<span class="fr remove-goods" data-id="' + key + '">移除</span>' +
                                 '</div>' +
                                 '<div class="car-goods-detail">' +

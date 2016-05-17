@@ -18,30 +18,42 @@
             <div class="popup hide">
                 @foreach(\Illuminate\Support\Facades\Config::get('constants.categoryName') as $key => $value)
                     @if($category == $key)
+                        <a href="{{ url("production") }}?c={{ $key }}">
                         <div class="item fb">
-                            <a href="{{ url("production") }}?c={{ $key }}">{{ $value }}</a>
+                            {{ $value }}
                         </div>
+                        </a>
                     @else
+                        <a href="{{ url("production") }}?c={{ $key }}">
                         <div class="item @if($key == 3) nb @endif">
-                            <a href="{{ url("production") }}?c={{ $key }}">{{ $value }}</a>
+                            {{ $value }}
                         </div>
+                        </a>
                     @endif
                 @endforeach
             </div>
         @else
             <div class="popup hide">
+                <a href="{{ url("production") }}">
                 <div class="item">
-                    <a href="{{ url("production") }}">全部商品</a>
+                    全部商品
                 </div>
+                </a>
+                <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.up') }}">
                 <div class="item">
-                    <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.up') }}">上身</a>
+                   上身
                 </div>
+                </a>
+                <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.down') }}">
                 <div class="item">
-                    <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.down') }}">下身</a>
+                    下身
                 </div>
+                </a>
+                <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.upAndDown') }}">
                 <div class="item nb">
-                    <a href="{{ url("production") }}?c={{ \Illuminate\Support\Facades\Config::get('constants.category.upAndDown') }}">连体</a>
+                    连体
                 </div>
+                </a>
             </div>
         @endif
     </div>

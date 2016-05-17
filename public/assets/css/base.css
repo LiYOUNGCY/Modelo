@@ -926,8 +926,12 @@ th {
     width:100%;
 }
 #cs-shade,
-#explain-shade{
+#explain-shade,
+#bar-shade{
     z-index:500;
+}
+#bar-shade{
+    opacity:0;
 }
 .cs-remark{
     position: fixed;
