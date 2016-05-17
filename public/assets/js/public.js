@@ -281,9 +281,15 @@ function showModalDialog(text) {
     var page = $('.wrapper');
     page.prepend(modal);
 
-    $("#m-modal").click(function () {
+    $("#m-modal").bind(touchEvents.touchend,function (event) {
+        event.preventDefault();
         var page = $('.wrapper');
         alert(1);
         page.find(".m-modal").remove();
-    })
+    });
+    // $("#m-modal").touch(function () {
+    //     var page = $('.wrapper');
+    //     alert(1);
+    //     page.find(".m-modal").remove();
+    // })
 }
