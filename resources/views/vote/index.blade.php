@@ -26,7 +26,7 @@
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg1" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo1" value="A">
                         <label for="VoteNo1">花裙子</label>
@@ -35,7 +35,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
                         <label for="VoteNo2">花裙子</label>
@@ -44,7 +44,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo3" value="C">
                         <label for="VoteNo3">花裙子</label>
@@ -53,7 +53,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo4" value="D">
                         <label for="VoteNo4">花裙子</label>
@@ -62,7 +62,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo5" value="E">
                         <label for="VoteNo5">花裙子</label>
@@ -71,7 +71,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo6" value="F">
                         <label for="VoteNo6">花裙子</label>
@@ -80,7 +80,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo7" value="G">
                         <label for="VoteNo7">花裙子</label>
@@ -89,7 +89,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo8" value="H">
                         <label for="VoteNo8">花裙子</label>
@@ -98,7 +98,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo9" value="I">
                         <label for="VoteNo9">花裙子</label>
@@ -107,7 +107,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <a id="zoomImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg"></a>
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo10" value="J">
                         <label for="VoteNo10">花裙子</label>
@@ -131,18 +131,9 @@
 @endsection
 
 @section('script')
-    {{--<script src="{{ asset('assets/js') }}/zoom.min.js"></script>--}}
-    <script src="{{ asset('assets/js') }}/jquery.imgbox.pack.js"></script>
+    <script src="{{ asset('assets/js') }}/zoom.min.js"></script>
     <script>
         $(function () {
-            $("#zoomImg1").imgbox({
-                'speedIn'		: 0,
-                'speedOut'		: 0,
-                'alignment'		: 'center',
-                'overlayShow'	: true,
-                'allowMultiple'	: false
-            });
-
             $("input[name='vote']").click(function () {
                 $(".vote-item").removeClass("active");
                 $(this).parents(".vote-item").addClass("active");
