@@ -153,7 +153,7 @@
                 $(".vote-item").removeClass("active");
                 $(this).parents(".vote-item").addClass("active");
             });
-            $('#btn')..bind('touchend',function (event) {
+            $('#btn').bind('touchend',function (event) {
                 event.preventDefault();
                 var val = $('input:radio:checked');
                 if(val.length == 0) {
