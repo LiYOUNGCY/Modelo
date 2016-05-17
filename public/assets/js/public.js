@@ -16,12 +16,13 @@ $(function () {
             page.prepend(shade);
         }
 
+        $('#bar-shade').click(function () {
+            var page = $('.wrapper');
+            page.find('.m-shade').remove();
+        });
     });
 
-    $('#bar-shade').click(function () {
-        var page = $('.wrapper');
-        page.find('.m-shade').remove();
-    });
+
 
 
     var cart = [];
