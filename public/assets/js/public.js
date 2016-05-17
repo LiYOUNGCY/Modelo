@@ -274,18 +274,16 @@ $(function () {
                 '<div class="slide-nav-item nb">' +
                 '<a href="' + BASEURL + 'order">我的订单</a>' +
                 '</div>' +
-                '</div><div class="m-shade" id="car-shade"></div>';
+                '</div><div class="m-shade" id="bar-shade"></div>';
 
             page.prepend(navContent);
             page.addClass('hasnav');
         }
         $('#bar-shade').click(function () {
             var page = $('.wrapper');
-            $(".m-bottom-bar .col").find(".popup").addClass("hide");
             page.find('.m-shade').remove();
         });
     })
-
 
 });
 
