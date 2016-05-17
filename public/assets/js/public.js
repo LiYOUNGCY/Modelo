@@ -16,11 +16,11 @@ $(function () {
             page.prepend(shade);
         }
 
-        $("#bar-shade").bind("touchend",function (event) {
-            event.preventDefault();
-            var page = $('.wrapper');
-            page.find("#bar-shade").remove();
-        });
+    });
+    $("#bar-shade").bind("touchend",function (event) {
+        event.preventDefault();
+        var page = $('.wrapper');
+        page.find("#bar-shade").remove();
     });
 
     var cart = [];

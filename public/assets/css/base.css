@@ -1226,7 +1226,7 @@ th {
     text-align: center;
     padding: 10px 0;
     color: #555555;
-    z-index: 111;
+    z-index: 600;
 }
 .m-bottom-bar .col{
     float: left;
