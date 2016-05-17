@@ -306,7 +306,7 @@ th {
 .swiper-container .tips{
     position: absolute;
     right:0;
-    top: 50%;
+    bottom:20px;
     font-size: 18px;
     z-index: 1;
 
