@@ -132,7 +132,7 @@
 
 @section('script')
     {{--<script src="{{ asset('assets/js') }}/zoom.min.js"></script>--}}
-    <script src="{{ asset('assets/js') }}/jquery.imgbox.pack"></script>
+    <script src="{{ asset('assets/js') }}/jquery.imgbox.pack.js"></script>
     <script>
         $(function () {
             $("#zoomImg").imgbox({
