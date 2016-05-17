@@ -55,54 +55,14 @@ class AuthController extends Controller
             session()->put('user', $user->id);
             Common::createLoginCookie();
 
-            return redirect('/');
+            $url = session()->get('_url');
+            if(isset($url)) {
+                return redirect($url);
+            } else {
+                return redirect('/');
+            }
         } else {
             echo '请关注公众号';
         }
-
-        echo '<pre>';
-        var_dump($user);
-        echo '</pre>';
     }
-
-//    public function callback(Request $request)
-//    {
-//        try {
-//            $wechatAuth = EasyWeChat::oauth();
-//
-//            $userMessage = $wechatAuth->user()->toArray();
-//
-//            if (empty($userMessage)) {
-//                throw new NotFoundException("没有成功获取用户信息");
-//            }
-//
-//            $userMessage = $userMessage['original'];
-//
-//            $user = User::findOrNewByOpenid($userMessage['openid'], [
-//                'nickname' => $userMessage['nickname'],
-//                'sex' => $userMessage['sex'],
-//                'province' => $userMessage['province'],
-//                'city' => $userMessage['city'],
-//                'country' => $userMessage['country'],
-//                'headimgurl' => $userMessage['headimgurl'],
-//            ]);
-//
-//            //如果没有推荐人就当是官方推荐
-//            if (!UserRelation::hasParent($user->id)) {
-//                $userRelation = new UserRelation();
-//                $userRelation->insert($user->id, 1);
-//                $user->follow(1);
-//            }
-//
-//            //create Cookie and Session
-//            Container::setUser($user->id);
-//            session()->put('user', $user->id);
-//            Common::createLoginCookie();
-//        } catch (\Exception $e) {
-//            Log::warning($e->getMessage());
-//            abort(503, '发生未知错误');
-//        }
-//
-//        return redirect('/');
-//    }
 }
