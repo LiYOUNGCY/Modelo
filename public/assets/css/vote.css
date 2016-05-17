@@ -1,0 +1,193 @@
+*{padding :0; margin: 0;box-sizing: border-box;}
+html,body{height: 100%;}
+
+body{
+    font-size: 14px;
+    font-family: "microsoft yahei",sans-serif;
+    color: #101010;
+    background-color: #ffffff;
+    line-height: 1;
+    position: relative;
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+img{
+    vertical-align: top;
+}
+
+.cf:after, .cf:before {
+    content: " ";
+    display: table;
+}
+.cf:after {
+    clear: both;
+}
+ul{
+    list-style: none;
+}
+
+.v-logo{
+    position: relative;
+    margin-bottom: 40px;
+}
+.v-logo img{
+    width:100%;
+}
+.v-title{
+    position: relative;
+    width: 90%;
+    margin: 0 auto 25px;
+    text-align: center;
+    border-bottom: 2px solid #f288b2;
+    font-size:16px;
+}
+.v-title p{
+    margin-bottom: 30px;
+}
+.v-block{
+    position: relative;
+    background-color: rgba(245,166,88,0.5);
+    padding:15px;
+    width: 90%;
+    margin: 0 auto;
+}
+.v-block .title{
+    font-size:18px;
+    width:100%;
+    text-align: center;
+}
+.v-block p{
+    line-height:1.5;
+    text-align: justify;
+}
+.vote-list{
+    position: relative;
+    width:100%;
+    margin-top: 40px;
+}
+.vote-list .vote-item{
+    float: left;
+    width:50%;
+    margin:0 0 5px 0;
+    padding:0 10px;
+}
+.vote-list .vote-item .vote-info{
+    position: relative;
+    padding:10px;
+    border:2px solid transparent;
+
+    -webkit-transition: all ease-out .2s;
+    -moz-transition: all ease-out .2s;
+    -ms-transition: all ease-out .2s;
+    -o-transition: all ease-out .2s;
+    transition: all ease-out .2s;
+}
+.vote-list .vote-item.active .vote-info{
+    border: 2px solid #f288b2;
+}
+
+.vote-list .vote-item .vote-info img{
+    display: block;
+    width:100%;
+}
+.vote-list .vote-item .vote-info .vote-name{
+    margin-top: 10px;
+    width:100%;
+    text-align: center;
+}
+.vote-list .vote-item .vote-info input[type="radio"]{
+    margin-right: 5px;
+}
+
+.button{
+    background-color: #f288b2;
+    color: #ffffff;
+    border-radius: 4px;
+    padding:10px;
+    width:220px;
+    margin:15px auto 45px;
+    font-size: 16px;
+    text-align: center;
+}
+.follow{
+    position: relative;
+    margin:0 auto;
+    color: #888888;
+    text-align: center;
+    width:190px;
+}
+.follow img{
+    width:120px;
+    height:120px;
+}
+.follow .text{
+    padding:12px 0;
+    border-bottom: 1px solid #bbbbbb;
+}
+.follow .name{
+    padding: 10px;
+    font-weight:bold;
+}
+.v-block .exchange-num{
+    background-color: #FFFFFF;
+    width:100%;
+    margin-top: 15px;
+    text-align: center;
+    padding:13px;
+}
+.explain {
+    position: relative;
+    width: 90%;
+    margin: 40px auto 0;
+    color: #888888;
+}
+.explain .title{
+    padding: 0 20px 0;
+    margin: 20px 0;
+    line-height: 1px;
+    border-left: 88px solid #BBBBBB;
+    border-right: 88px solid #BBBBBB;
+    text-align: center;
+    font-weight: bold;
+}
+.explain p{
+    text-align: justify;
+    margin-bottom: 7px;
+    line-height:1.2;
+}
+.mt40{
+    margin-top:40px;
+}
+.explain hr{
+    border: 0;
+    height: 1px;
+    background: #bbbbbb;
+    background-image: linear-gradient(to right, #bbbbbb, #bbbbbb, #bbbbbb);
+    margin: 20px 0;
+}
+.explain .role:after {
+    content: "抽奖规则";
+    text-align: center;
+    display: block;
+    position: relative;
+    top: -9px;
+    font-size: 18px;
+    padding: 0px 15px;
+    background: white;
+    margin: 0 auto;
+    width: 84px;
+}
+.explain .gift:after {
+    content: "奖品发放";
+    text-align: center;
+    display: block;
+    position: relative;
+    top: -9px;
+    font-size: 18px;
+    padding: 0px 15px;
+    background: white;
+    margin: 0 auto;
+    width: 84px;
+}

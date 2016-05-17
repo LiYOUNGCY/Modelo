@@ -155,10 +155,13 @@ class OrderController extends Controller
         }
     }
 
+
     /**
      * 确认收货
      * @param Request $request
      * @param $orderNo
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws NotFoundException
      */
     public function receive(Request $request, $orderNo)
     {
@@ -179,6 +182,8 @@ class OrderController extends Controller
      * 申请售后
      * @param Request $request
      * @param $orderNo
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws NotFoundException
      */
     public function reject(Request $request, $orderNo)
     {

@@ -79,6 +79,7 @@ class Profit extends Model
 
                     DB::table('user')
                         ->where('user.id', '=', $user_id)
+                        ->where('freeze_total', '>=', $profit)
                         ->decrement('freeze_total', $profit);
                 }
             } else {
@@ -96,6 +97,7 @@ class Profit extends Model
 
                     DB::table('user')
                         ->where('user.id', '=', $user_id)
+                        ->where('freeze_three', '>=', $profit)
                         ->decrement('freeze_three', $profit);
                 }
             }

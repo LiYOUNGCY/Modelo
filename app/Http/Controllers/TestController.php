@@ -26,9 +26,11 @@ class TestController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::findOrNew(1);
-        $user->nickname = '魔豆树';
-        $user->save();
+        $user = User::find(1);
+
+        if(is_null($user)) {
+            throw new \Exception("请运行 install .");
+        }
 
         Container::setUser($user->id);
 

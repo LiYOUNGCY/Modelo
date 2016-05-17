@@ -20,12 +20,7 @@ class CancelOrder extends Command
      * @var string
      */
     protected $description = 'The timeout so the order will cancel';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
         parent::__construct();

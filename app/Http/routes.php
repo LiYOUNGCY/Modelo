@@ -145,7 +145,10 @@ Route::group(['middleware' => ['web']], function () {
     //Draw 提现
     Route::get('draw', 'DrawController@index');
     Route::post('draw/store', 'DrawController@store');
-
+    
+    //Vote 投票
+    Route::get('vote', 'VoteController@index');
+    Route::post('vote', 'VoteController@store');
 });
 
 Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');
