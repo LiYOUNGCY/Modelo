@@ -35,7 +35,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg" data-action="zoom">
+                    <a class="voteImg" href="{{ asset('assets/images') }}/all-goods1.jpeg"><img src="{{ asset('assets/images') }}/all-goods1.jpeg" ></a>
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
                         <label for="VoteNo2">花裙子</label>
@@ -135,13 +135,14 @@
     <script src="{{ asset('assets/js') }}/jquery.imgbox.min.js"></script>
     <script>
         $(function () {
-            $(".voteImg").imgbox({
-                'speedIn'		: 0,
-                'speedOut'		: 0,
-                'alignment'		: 'center',
-                'overlayShow'	: true,
-                'allowMultiple'	: false
-            });
+            $(".voteImg").imgbox();
+//            $(".voteImg").imgbox({
+//                'speedIn'		: 0,
+//                'speedOut'		: 0,
+//                'alignment'		: 'center',
+//                'overlayShow'	: true,
+//                'allowMultiple'	: false
+//            });
             $("input[name='vote']").click(function () {
                 $(".vote-item").removeClass("active");
                 $(this).parents(".vote-item").addClass("active");
@@ -160,6 +161,6 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('assets/css') }}/zoom.css">
+    {{--<link rel="stylesheet" href="{{ asset('assets/css') }}/zoom.css">--}}
     <link rel="stylesheet" href="{{ asset('assets/css') }}/vote.css">
 @endsection
