@@ -258,8 +258,10 @@ $(function () {
     //显示下拉导航
     $(".show-nav").bind('click', function () {
         var page = $('.wrapper');
+        var shade = '<div class="m-shade" id="bar-shade"></div>';
         if (page.hasClass('hasnav')) {
             page.find('.m-slide-nav').remove();
+            page.find(".m-shade").remove();
             page.removeClass('hasnav');
         } else {
             var navContent = '<div class="m-slide-nav">' +
@@ -272,11 +274,16 @@ $(function () {
                 '<div class="slide-nav-item nb">' +
                 '<a href="' + BASEURL + 'order">我的订单</a>' +
                 '</div>' +
-                '</div>';
+                '</div><div class="m-shade" id="car-shade"></div>';
 
             page.prepend(navContent);
             page.addClass('hasnav');
         }
+        $('#bar-shade').click(function () {
+            var page = $('.wrapper');
+            $(".m-bottom-bar .col").find(".popup").addClass("hide");
+            page.find('.m-shade').remove();
+        });
     })
 
 
