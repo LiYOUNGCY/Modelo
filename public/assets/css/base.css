@@ -1227,7 +1227,7 @@ th {
     height: 36px;
     line-height: 36px;
     color: #555555;
-    z-index: 100;
+    z-index: 120;
 }
 .m-bottom-bar .col{
     float: left;
