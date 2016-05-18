@@ -1142,6 +1142,9 @@ th {
     background-color: rgba(76,76,76,.75);
     z-index: 222;
 }
+.m-slide-nav a{
+    color: #ffffff;
+}
 .slide-nav-item{
     padding: 10px 0;
     width:110px;
