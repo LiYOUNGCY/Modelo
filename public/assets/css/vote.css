@@ -232,3 +232,9 @@ ul{
     margin:40px 0 0;
     color: #888888;
 }
+.vote-num{
+    width:100%;
+    text-align: center;
+    color: #888888;
+    font-size: 14px;
+}

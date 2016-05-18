@@ -3,9 +3,11 @@
         <div class="opt"><span class="fa fa-shopping-bag"></span> 按主题搜索</div>
         <div class="popup hide">
             @foreach($series as $s)
+                <a href="{{ url('theme') }}?s={{$s->id}}">
                 <div class="item">
-                    <a href="{{ url('theme') }}?s={{$s->id}}">{{$s->name}}</a>
+                    {{$s->name}}
                 </div>
+                </a>
             @endforeach
             <div class="item nb">
                 敬请期待
