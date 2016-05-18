@@ -1,6 +1,6 @@
 @extends('template.template')
 
-@section('title', '个人中心 - 魔豆树')
+@section('title', '会员中心 - 魔豆树')
 
 @section('body')
     <div class="wrapper m-user-center">
