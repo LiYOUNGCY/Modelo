@@ -13,7 +13,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+        Commands\CancelOrder::class,
+        Commands\ConfirmOrder::class,
+        Commands\Install::class,
+        Commands\ReceivedOrder::class,
+        Commands\FinishOrder::class,
     ];
 
     /**
@@ -24,7 +28,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('order:cancel')
+            ->everyMinute();
+
+        $schedule->command('order:confirm')
+            ->everyMinute();
+        
+        $schedule->command('order:received')
+            ->everyMinute();
+        
+        $schedule->command('order:finish')
+            ->everyMinute();
     }
 }

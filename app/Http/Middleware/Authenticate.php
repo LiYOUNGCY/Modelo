@@ -2,29 +2,31 @@
 
 namespace App\Http\Middleware;
 
+use App\Container\Container;
+use App\Http\Common;
+use App\Model\User;
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 
 class Authenticate
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
-     * @return mixed
-     */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard($guard)->guest()) {
-            if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
+        if (!session('user')) {
+            if (Common::checkLoginCookie()) {
+                session()->put('user', Container::getUser()->id);
+                return $next($request);
             } else {
-                return redirect()->guest('login');
+                //记录当前的 url
+                $url = $request->getUri();
+                session()->put('_url', $url);
+                return redirect('wechat/login');
             }
+        } else {
+            $userId = session()->get('user');
+            Container::setUser($userId);
+            return $next($request);
         }
-
-        return $next($request);
     }
 }

@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Image;
 use App\Http\Controllers\AdminController;
-use App\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Storage;
-use PHPImageWorkshop\ImageWorkshop;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageController extends AdminController
 {
+
+    public function upload()
+    {
+        return view('admin.image.upload');
+    }
+    
     public function index(Request $request)
     {
-        $page = $request->get('page');
-        $page = is_null($page) ? 1 : $page;
-        $images = Image::getAll($page);
+        $images = Image::getAll();
 
         return view('admin.image.index', [
             'images' => $images,
-            'page' => Image::getAllPage(),
-            'nowPage' => $page,
         ]);
     }
 
@@ -42,11 +41,17 @@ class ImageController extends AdminController
     public function store(Request $request)
     {
         $name = $request->get('name');
+        var_dump($name);
         if ($request->hasFile('image')) {
             $images = $request->file('image');
-            foreach ($images as $key => $image) {
-                if ($image->isValid()) {
-                    $this->storeImage(new Image(), $name[$key], $image);
+            foreach ($images as $key => $imageFile) {
+                if ($imageFile->isValid()) {
+                    $image = new Image();
+                    $image->storeImage(
+                        $name[$key],
+                        $imageFile,
+                        $imageFile->extension()
+                    );
                 }
             }
         }
@@ -56,11 +61,7 @@ class ImageController extends AdminController
 
     public function destroy($id)
     {
-        $image = Image::find($id);
-
-        if (isset($image)) {
-            $this->destroyImage($image->path);
-            $image->delete();
+        if(Image::destroy($id)) {
             return response()->json([
                 'success' => 0,
             ]);
@@ -80,7 +81,11 @@ class ImageController extends AdminController
             if ($request->hasFile('image')) {
                 $photo = $request->file('image');
                 if ($photo->isValid()) {
-                    $this->storeImage($image, $name, $photo);
+                    $image->storeImage(
+                        $name,
+                        $photo,
+                        $photo->getExtension()
+                    );
                 }
             } else {
                 $image->name = $name;
@@ -91,48 +96,5 @@ class ImageController extends AdminController
         } else {
             abort(404);
         }
-    }
-
-    private function storeImage(Image $image, $name, UploadedFile $file)
-    {
-        $path = $this->renameAndMove($file);
-        $layer = ImageWorkshop::initFromPath($path['absolutePath']);
-
-        $image->name = $name;
-
-        if (isset($image->path)) {
-            //destroy the image
-            $this->destroyImage($image->path);
-        }
-        $image->path = $path['relativePath'];
-
-        $image->width = $layer->getWidth();
-        $image->height = $layer->getHeight();
-        $image->save();
-    }
-
-    private function renameAndMove(UploadedFile $file)
-    {
-        $newName = str_random() . '.' . $file->getClientOriginalExtension();
-        $file->move(base_path() . "/public/images", $newName);
-        return [
-            'absolutePath' => base_path() . "/public/images/" . $newName,
-            'relativePath' => "images/{$newName}",
-        ];
-    }
-
-    private function destroyImage($imagePath)
-    {
-        $fileName = '';
-        //parse the imagePath
-        if (is_array($imagePath)) {
-            $fileName = end($imagePath);
-        } else if (is_string($imagePath)) {
-            $fileName = explode('/', $imagePath);
-            $fileName = end($fileName);
-        }
-
-        //delete from disk
-        Storage::disk('public')->delete($fileName);
     }
 }

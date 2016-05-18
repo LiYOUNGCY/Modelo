@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
-use App\Image;
-use App\Production;
-use App\ProductionColor;
-use App\ProductionImage;
-use App\ProductionSize;
-use App\Series;
+use App\Model\Image;
+use App\Model\Production;
+use App\Model\ProductionCategory;
+use App\Model\ProductionColor;
+use App\Model\ProductionImage;
+use App\Model\ProductionSize;
+use App\Model\Series;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -21,7 +22,7 @@ class ProductionController extends AdminController
      */
     public function index()
     {
-        $productions = Production::getAll();
+        $productions = Production::all();
 
         return view('admin.production.index', [
             'productions' => $productions,
@@ -37,7 +38,10 @@ class ProductionController extends AdminController
     {
         $images = Image::all();
         $series = Series::all();
+        $categories = ProductionCategory::all();
+
         return view('admin.production.create', [
+            'categories' => $categories,
             'images' => $images,
             'series' => $series,
         ]);
@@ -55,12 +59,20 @@ class ProductionController extends AdminController
         $alias = $request->get('alias');
         $series_id = $request->get('series_id');
         $cover_id = $request->get('cover_id');
+        $category_id = $request->get('category_id');
+        $series_image = $request->get('series_image');
+        $size_info_id = $request->get('size_info_id');
+        $fabric_info_id = $request->get('fabric_info_id');
 
         $production = new Production();
         $production->name = $name;
         $production->alias = $alias;
         $production->series_id = $series_id;
         $production->cover_id = $cover_id;
+        $production->category_id = $category_id;
+        $production->series_image = $series_image;
+        $production->size_info_id = $size_info_id;
+        $production->fabric_info_id = $fabric_info_id;
         $production->save();
 
         return response()->json([
@@ -77,12 +89,14 @@ class ProductionController extends AdminController
             $name = $request->get('name');
             $price = $request->get('price');
             $alias = $request->get('alias');
+            $image_id = $request->get('image_id');
 
             $productionColor = new ProductionColor();
             $productionColor->production_id = $id;
             $productionColor->name = $name;
             $productionColor->price = $price;
             $productionColor->alias = $alias;
+            $productionColor->image_id = $image_id;
             $productionColor->save();
 
             return response()->json([

@@ -6,8 +6,9 @@ Homestead.json
 .env*
 
 /public/images/*
-/tests/*
 .idea/*
 composer.lock
-package.json
-phpunit.xml
+cron
+config/wechat.php
+phpunit.phar
+cert/*

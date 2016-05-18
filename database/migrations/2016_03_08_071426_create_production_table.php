@@ -19,9 +19,23 @@ class CreateProductionTable extends Migration
             //封面图
             $table->bigInteger('cover_id')->unsigned();
 
+            //专题图
+            $table->bigInteger('series_image')->unsigned();
+
+            $table->bigInteger('category_id')->unsigned();
+
+            $table->bigInteger('size_info_id')->unsigned();
+            $table->bigInteger('fabric_info_id')->unsigned();
+
             $table->string('name');
             $table->string('alias');
             $table->timestamps();
+
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('production_category')
+                ->onDelete('cascade');
 
             //foreign key
             $table->foreign('series_id')

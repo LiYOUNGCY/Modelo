@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
-use App\Series;
+use App\Model\Image;
+use App\Model\Series;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -11,19 +12,16 @@ class SeriesController extends AdminController
 {
     public function index(Request $request)
     {
-        $page = $request->get('page');
-        $page = is_null($page) || !is_numeric($page) ? 1 : $page;
-        $series = Series::getAll($page);
+        $series = Series::getAll();
 
         return view('admin.series.index', [
             'series' => $series,
-            'page' => Series::getAllPage(),
-            'nowPage' => $page,
         ]);
     }
 
     public function create()
     {
+
         return view('admin.series.create');
     }
 
@@ -31,7 +29,6 @@ class SeriesController extends AdminController
     {
         $name = $request->get('name');
         $alias = $request->get('alias');
-
         $series = new Series();
         $series->name = $name;
         $series->alias = $alias;

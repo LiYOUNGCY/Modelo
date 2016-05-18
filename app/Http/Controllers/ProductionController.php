@@ -2,82 +2,90 @@
 
 namespace App\Http\Controllers;
 
-use App\Production;
+use App\Container\Container;
+use App\Model\Production;
 use App\Http\Requests;
-use App\ProductionColor;
-use App\ProductionSize;
+use App\Model\ProductionColor;
+use App\Model\ProductionImage;
+use App\Model\ProductionSize;
+use App\Model\Series;
+use App\Model\UserAddress;
 use Illuminate\Http\Request;
 
 class ProductionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('production.index');
-    }
+        $category = $request->get('c');
 
-    public function show($alias)
-    {
-        $production = Production::getProductionByAlias($alias);
-        if (!empty($production)) {
-            $productionColor = Production::getProductionColorByAlias($alias);
-            $data = Production::getProduction($productionColor[0]->id);
-
-            return view('production.show', [
-                'production' => $production,
-                'data' => $data,
-            ]);
+        if(isset($category) && is_numeric($category) && $category != 0) {
+            $productions = Production::where('category_id', $category)->get();
         } else {
-            abort(404);
+            $productions = Production::all();
+            $category = 0;
         }
+
+        $series = Series::getAll();
+
+        return view('production.index', [
+            'productions' => $productions,
+            'series' => $series,
+            'category' => $category,
+        ]);
     }
 
     public function redirect(Request $request, $alias)
     {
-        $production = Production::getProductionByAlias($alias);
-        if (!empty($production)) {
-            $productionColor = Production::getProductionColorByAlias($alias);
-            return redirect("buy/{$alias}/{$productionColor[0]->alias}");
-        } else {
-            abort(404);
-        }
-    }
-
-    public function buy(Request $request, $alias, $colorAlias)
-    {
-        $production = Production::getProductionByAlias($alias);
-        $productionColor = ProductionColor::where('alias', $colorAlias)->first();
-
-        if (!empty($production) && !empty($productionColor)) {
-            $size_id = $request->get('size');
-            $size = ProductionSize::find($size_id);
-            if (empty($size)) {
-                $sizes = Production::getProductionSize($productionColor->id);
-                return redirect("buy/{$alias}/{$productionColor->alias}?size={$sizes[0]->id}");
+        $production = Production::where('alias', $alias)->first();
+        if(isset($production)) {
+            $productionColor = $production->color()->first();
+            if(isset($productionColor)) {
+                return redirect("production/{$alias}/{$productionColor->alias}");
             } else {
-                $colors = Production::getProductionColorByAlias($alias);
-                $data = [];
-
-                foreach ($colors as $color) {
-                    $data[$color->alias] = Production::getProduction($color->id);
-                }
-
-                return view('production.buy', [
-                    'production' => $production,
-                    'colors' => $colors,
-                    'data' => $data,
-                    'colorAlias' => $colorAlias,
-                    'colorPrice' => $productionColor->price,
-                    'sizeQuantity' => $size->quantity,
-                    'sizeId' => $size_id,
-                ]);
+                abort(404);
             }
         } else {
             abort(404);
         }
     }
 
+    public function show(Request $request, $alias, $colorAlias)
+    {
+        $production = Production::where('alias', $alias)->first();
+        $productionColor = $production->color()->where('alias', $colorAlias)->first();
+        $sizes = ProductionSize::get($production->id, $colorAlias);
+        $images = ProductionImage::get($production->id, $colorAlias);
+        $colors = ProductionColor::get($production->id);
+
+//        echo \GuzzleHttp\json_encode($sizes);
+
+        if (isset($production)
+            && isset($productionColor)
+            && isset($sizes)
+            && isset($images)
+            && isset($colors)
+        ) {
+            return view('production.show', [
+                'production' => $production,
+                'thisColor' => $productionColor,
+                'sizes' => $sizes,
+                'images' => $images,
+                'colors' => $colors,
+            ]);
+        } else {
+            abort(404);
+        }
+    }
+
+
     public function getQuantityBySize(Request $request, $sizeId)
     {
+        if (!is_numeric($sizeId)) {
+            return response()->json([
+                'error' => 0,
+            ]);
+        }
+
         $productionSize = ProductionSize::find($sizeId);
 
         if (!empty($productionSize)) {

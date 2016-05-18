@@ -10,6 +10,7 @@
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
+                    <td><input type="checkbox" name="checkAll" id="checkAll"></td>
                     <td>#</td>
                     <td>名称</td>
                     <td>路径</td>
@@ -21,6 +22,7 @@
                 <tbody>
                 @foreach($images as $image)
                     <tr data-id="{{ $image->id }}">
+                        <td><input type="checkbox" name="flag[]" value="{{ $image->id }}"></td>
                         <td><a href="{{ url("{$ADMIN}/image/{$image->id}") }}">{{ $image->id }}</a></td>
                         <td>{{ $image->name }}</td>
                         <td>{{ $image->path }}</td>
@@ -31,32 +33,42 @@
                 @endforeach
                 </tbody>
             </table>
-            <div style="text-align: center; font-size: 125%;">
-                @if($nowPage > 1)
-                    <a href="{{ url("$ADMIN/image?page=".($nowPage-1)) }}">
-                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                    </a>
-                @endif
-                {{ $nowPage }}/{{ $page }}页
-                @if($nowPage < $page)
-                    <a href="{{ url("$ADMIN/image?page=".($nowPage+1)) }}">
-                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                    </a>
-                @endif
-            </div>
+
+            <button class="btn btn-danger" id="delete" type="button">删除</button>
         </div>
     </div>
 @endsection
 
 @section('moreScript')
     <script>
-        $(function () {
-            $('tbody > tr').each(function () {
-                $(this).click(function () {
-                    var id = $(this).attr('data-id');
-                    window.location.href = '{{ url("{$ADMIN}/image") }}/' + id;
-                });
+        $(function(){
+            $('#checkAll').click(function(){
+                $('input[name^=flag]').prop('checked', $(this).prop('checked'));
             });
+
+            $('#delete').click(function(){
+                if(confirm('你确定删除这些图片')) {
+                    $('input[name^=flag]').each(function (i, ele) {
+                        if ($(ele).is(':checked')) {
+                            ajaxDelete($(ele).val());
+                        }
+                    });
+                }
+            });
+
+            function ajaxDelete(id) {
+                $.ajax({
+                    url: ADMIN + 'image/' + id,
+                    data: {
+                        _method: 'DELETE'
+                    },
+                    success: function(data) {
+                        if(data.success == 0) {
+                            $('tr[data-id=' + id + ']').remove();
+                        }
+                    }
+                });
+            }
         });
     </script>
 @endsection
