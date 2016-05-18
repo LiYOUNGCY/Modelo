@@ -1244,6 +1244,9 @@ th {
     font-size: 12px;
     left: 0;
 }
+.m-bottom-bar a{
+    color: #ffffff;
+}
 .m-bottom-bar #popup-l{
     left:0;
 }
@@ -1253,9 +1256,7 @@ th {
 .m-bottom-bar .popup .item{
     border-bottom: 1px solid #ffffff;
 }
-.m-bottom-bar .popup .item a{
-    color: inherit;
-}
+
 /*modal*/
 .m-modal{
     height: 100%;
