@@ -159,7 +159,26 @@
                 if(val.length == 0) {
                     alert('请选择一个进行投票!')
                 } else {
-                    $('form').submit();
+                    var message_Content = '<div class="vote-message">' +
+                            '<div class="box">' +
+                            '<div class="top">' +
+                            '<span class="left">投票留言</span>' +
+                            '<span class="right" id="skip">跳过</span>' +
+                            '</div>' +
+                            '<textarea name="message" id="message" placeholder="你为什么会选_?"></textarea>' +
+                            '<div class="button" id="submitMessage">提交</div>' +
+                            '</div>' +
+                            '</div>';
+                    $('body').prepend(message_Content);
+
+                    $("#skip").bind('touchend', function () {
+                        $(this).parents(".vote-message").remove();
+                        $('form').submit();
+                    })
+                    $("#submitMessage").bind('touchend', function () {
+                        $('form').submit();
+                    })
+
                 }
             })
 //            $('#btn').click(function () {
