@@ -69,7 +69,7 @@
             <div class="vote-info">
                 <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                 <div class="vote-name">
-                    花裙子(70%)
+                    花裙子
                 </div>
                 <div class="vote-result">
                     {{ $vote->D }} 票({{ $vote->D/$vote->total*100 }}%)
