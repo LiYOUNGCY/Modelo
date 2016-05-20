@@ -30,7 +30,7 @@
         <p>1.如果你无法简洁的表达你的想法，那只说明你还不够了解它。</p>
     </div>
     <div class="result-title">投票结果</div>
-    <div class="vote-num">投票人数：1000 人</div>
+    <div class="vote-num">投票人数：{{ $vote->total }} 人</div>
     <div class="vote-list">
         <div class="vote-item">
             <div class="vote-info">
