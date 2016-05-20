@@ -16,6 +16,8 @@ class VoteController extends Controller
     {
         $user = Container::getUser();
         $voteResult = VoteResult::where('user_id', $user->id)->first();
+        $vote = Vote::find(1);
+        return view('vote.index');
         if(is_null($voteResult)) {
             return view('vote.index');
         }
@@ -31,11 +33,11 @@ class VoteController extends Controller
     {
         //validate
 
-
         $user = Container::getUser();
         $voteResult = VoteResult::where('user_id', $user->id)->first();
 
         $result = $request->get('vote');
+        $reason = $request->get('reason');
 
         if (is_null($voteResult)) {
             $vote = Vote::findOrNew(1);
@@ -47,14 +49,28 @@ class VoteController extends Controller
 
             $voteResult = new VoteResult();
             $voteResult->user_id = $user->id;
-            $voteResult->result_a = $result . $count;
+            $voteResult->result_a = $result . ' - ' . $count;
             $voteResult->result_b = $total;
+            $voteResult->reason = $reason;
             $voteResult->save();
         }
 
         return view('vote.result', [
             'result_a' => $voteResult->result_a,
             'result_b' => $voteResult->result_b,
+        ]);
+    }
+
+    public function result()
+    {
+        $user = Container::getUser();
+        $voteResult = VoteResult::where('user_id', $user->id)->first();
+        $vote = Vote::find(1);
+
+        return view('vote.result', [
+            'result_a' => $voteResult->result_a,
+            'result_b' => $voteResult->result_b,
+            'vote' => $vote,
         ]);
     }
 }

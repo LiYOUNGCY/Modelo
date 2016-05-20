@@ -24,6 +24,7 @@
 
     <form action="{{ url('vote') }}" method="post">
         {!! csrf_field() !!}
+        <input type="hidden" name="reason" id="reason">
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
@@ -176,6 +177,7 @@
                         $('form').submit();
                     })
                     $("#submitMessage").bind('touchend', function () {
+                        $('#reason').val($('#message').val());
                         $('form').submit();
                     })
 

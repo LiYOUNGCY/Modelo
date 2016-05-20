@@ -32,14 +32,14 @@
     <div class="result-title">投票结果</div>
     <div class="vote-num">投票人数：1000 人</div>
     <div class="vote-list">
-        <div class="vote-item active">
+        <div class="vote-item">
             <div class="vote-info">
                 <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                 <div class="vote-name">
                     花裙子
                 </div>
                 <div class="vote-result">
-                    101 票(70%)
+                    {{ $vote->A }} 票({{ $vote->A/$vote->total*100 }}%)
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     花裙子
                 </div>
                 <div class="vote-result">
-                    100 票(30%)
+                    {{ $vote->B }} 票({{ $vote->B/$vote->total*100 }}%)
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                     花裙子
                 </div>
                 <div class="vote-result">
-                    100 票(70%)
+                    {{ $vote->C }} 票({{ $vote->C/$vote->total*100 }}%)
                 </div>
             </div>
         </div>
@@ -72,7 +72,73 @@
                     花裙子(70%)
                 </div>
                 <div class="vote-result">
-                    100 票
+                    {{ $vote->D }} 票({{ $vote->D/$vote->total*100 }}%)
+                </div>
+            </div>
+        </div>
+        <div class="vote-item">
+            <div class="vote-info">
+                <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                <div class="vote-name">
+                    花裙子
+                </div>
+                <div class="vote-result">
+                    {{ $vote->E }} 票({{ $vote->E/$vote->total*100 }}%)
+                </div>
+            </div>
+        </div>
+        <div class="vote-item">
+            <div class="vote-info">
+                <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                <div class="vote-name">
+                    花裙子
+                </div>
+                <div class="vote-result">
+                    {{ $vote->F }} 票({{ $vote->F/$vote->total*100 }}%)
+                </div>
+            </div>
+        </div>
+        <div class="vote-item">
+            <div class="vote-info">
+                <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                <div class="vote-name">
+                    花裙子
+                </div>
+                <div class="vote-result">
+                    {{ $vote->G }} 票({{ $vote->G/$vote->total*100 }}%)
+                </div>
+            </div>
+        </div>
+        <div class="vote-item">
+            <div class="vote-info">
+                <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                <div class="vote-name">
+                    花裙子
+                </div>
+                <div class="vote-result">
+                    {{ $vote->H }} 票({{ $vote->H/$vote->total*100 }}%)
+                </div>
+            </div>
+        </div>
+        <div class="vote-item">
+            <div class="vote-info">
+                <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                <div class="vote-name">
+                    花裙子
+                </div>
+                <div class="vote-result">
+                    {{ $vote->I }} 票({{ $vote->I/$vote->total*100 }}%)
+                </div>
+            </div>
+        </div>
+        <div class="vote-item">
+            <div class="vote-info">
+                <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                <div class="vote-name">
+                    花裙子
+                </div>
+                <div class="vote-result">
+                    {{ $vote->J }} 票({{ $vote->J/$vote->total*100 }}%)
                 </div>
             </div>
         </div>
