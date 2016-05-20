@@ -17,15 +17,12 @@ class VoteController extends Controller
         $user = Container::getUser();
         $voteResult = VoteResult::where('user_id', $user->id)->first();
         $vote = Vote::find(1);
-        return view('vote.index');
+
         if(is_null($voteResult)) {
             return view('vote.index');
         }
         else {
-            return view('vote.result', [
-                'result_a' => $voteResult->result_a,
-                'result_b' => $voteResult->result_b,
-            ]);
+            return redirect('vote/result')
         }
     }
 
@@ -55,10 +52,7 @@ class VoteController extends Controller
             $voteResult->save();
         }
 
-        return view('vote.result', [
-            'result_a' => $voteResult->result_a,
-            'result_b' => $voteResult->result_b,
-        ]);
+        return redirect('vote/result');
     }
 
     public function result()
