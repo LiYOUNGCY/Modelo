@@ -22,7 +22,7 @@ class VoteController extends Controller
             return view('vote.index');
         }
         else {
-            return redirect('vote/result')
+            return redirect('vote/result');
         }
     }
 
