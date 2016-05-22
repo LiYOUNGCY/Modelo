@@ -20,7 +20,13 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $oauth = app('wechat')->oauth();
+        $userService  = app('wechat')->user();
+
+        $info = $userService->get('o4-YOwDNj08Y8NMbhbjQspPb7twg');
+
+        echo '<pre>';
+        var_dump($info);
+        echo '</pre>';
         
     }
 
