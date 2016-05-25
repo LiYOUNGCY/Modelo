@@ -24,6 +24,7 @@
 
     <form action="{{ url('vote') }}" method="post">
         {!! csrf_field() !!}
+        <input type="hidden" name="reason" id="reason">
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
@@ -36,7 +37,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods2.jpeg">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
                         <label for="VoteNo2">花裙子</label>
@@ -45,7 +46,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods3.jpeg">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo3" value="C">
                         <label for="VoteNo3">花裙子</label>
@@ -176,6 +177,7 @@
                         $('form').submit();
                     })
                     $("#submitMessage").bind('touchend', function () {
+                        $('#reason').val($('#message').val());
                         $('form').submit();
                     })
 

@@ -81,6 +81,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('group/store', 'Admin\GroupController@store');
         Route::post('group/production/store', 'Admin\GroupController@storeGroupProduction');
 
+        //投票
+        Route::get('vote', 'Admin\VoteController@index');
+
         //ajax
         Route::any('ajax/image', 'Admin\Ajax\ImageController@all');
         Route::any('ajax/production', 'Admin\Ajax\ProductionController@all');
@@ -149,6 +152,7 @@ Route::group(['middleware' => ['web']], function () {
     //Vote 投票
     Route::get('vote', 'VoteController@index');
     Route::post('vote', 'VoteController@store');
+    Route::get('vote/result', 'VoteController@result');
 });
 
 Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');

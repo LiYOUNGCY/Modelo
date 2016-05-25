@@ -27,6 +27,8 @@ class CreateProductionTable extends Migration
             $table->bigInteger('size_info_id')->unsigned();
             $table->bigInteger('fabric_info_id')->unsigned();
 
+            $table->bigInteger('click')->unsigned()->default(0);
+
             $table->string('name');
             $table->string('alias');
             $table->timestamps();
