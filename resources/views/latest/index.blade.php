@@ -22,7 +22,7 @@
 
         <div class="container">
             @foreach($data as $item)
-                <div class="row" style="margin-bottom: .5em;">
+                <div class="row" style="margin-bottom: .7em;">
                     @foreach($item as $col)
                         <div class="col col-xs-{{ $col->size }} @if($col->offset != 0) col-xs-offset-{{ $col->offset }} @endif"
                              style="text-align: center;">
