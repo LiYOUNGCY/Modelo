@@ -269,7 +269,7 @@ $(function () {
                 '全部商品' +
                 '</div></a>' +
                 '<a href="' + BASEURL + 'user"><div class="slide-nav-item">' +
-                '用户中心' +
+                '会员中心' +
                 '</div></a>' +
                 '<a href="' + BASEURL + 'order"><div class="slide-nav-item nb">' +
                 '我的订单' +
