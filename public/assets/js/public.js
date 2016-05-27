@@ -16,7 +16,7 @@ $(function () {
             page.prepend(shade);
         }
 
-        $('#bar-shade').onTouchEnd(function () {
+        $('#bar-shade').click(function () {
             var page = $('.wrapper');
             $(".m-bottom-bar .col").find(".popup").addClass("hide");
             page.find('.m-shade').remove();
@@ -265,15 +265,15 @@ $(function () {
             page.removeClass('hasnav');
         } else {
             var navContent = '<div class="m-slide-nav">' +
-                '<div class="slide-nav-item">' +
-                '<a href="' + BASEURL + 'production">全部商品</a>' +
-                '</div>' +
-                '<div class="slide-nav-item">' +
-                '<a href="' + BASEURL + 'user">用户中心</a>' +
-                '</div>' +
-                '<div class="slide-nav-item nb">' +
-                '<a href="' + BASEURL + 'order">我的订单</a>' +
-                '</div>' +
+                '<a href="' + BASEURL + 'production"><div class="slide-nav-item">' +
+                '全部商品' +
+                '</div></a>' +
+                '<a href="' + BASEURL + 'user"><div class="slide-nav-item">' +
+                '会员中心' +
+                '</div></a>' +
+                '<a href="' + BASEURL + 'order"><div class="slide-nav-item nb">' +
+                '我的订单' +
+                '</div></a>' +
                 '</div><div class="m-shade" id="bar-shade"></div>';
 
             page.prepend(navContent);

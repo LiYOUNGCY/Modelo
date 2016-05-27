@@ -159,6 +159,9 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="{{ url("{$ADMIN}/vote") }}">投票结果</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

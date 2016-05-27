@@ -191,7 +191,12 @@ class OrderController extends Controller
         $result = $request->get('result');
 
         $order = Order::get($orderNo);
-        if(isset($order) && $order->status_id == Config::get('constants.orderStatus.received')) {
+        if(isset($order)
+            && (
+                $order->status_id == Config::get('constants.orderStatus.received')
+                || $order->status_id == Config::get('constants.orderStatus.deliver')
+            )
+        ) {
             $order->status_id = Config::get('constants.orderStatus.reject');
             $order->result = $result;
             $order->save();

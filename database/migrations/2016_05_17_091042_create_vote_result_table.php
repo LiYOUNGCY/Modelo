@@ -17,6 +17,7 @@ class CreateVoteResultTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('result_a');
             $table->string('result_b');
+            $table->string('reason');
             $table->timestamps();
 
             $table->foreign('user_id')

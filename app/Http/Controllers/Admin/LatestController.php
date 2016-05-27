@@ -23,7 +23,8 @@ class LatestController extends AdminController
         $type = $request->get('type');
         $content = $request->get('content');
         $name = $request->get('name');
-        
+        $text = $request->get('text');
+
         $latest = new Latest();
         $latest->row = $row;
         $latest->col = $col;
@@ -32,6 +33,7 @@ class LatestController extends AdminController
         $latest->type = $type;
         $latest->content = $content;
         $latest->name = $name;
+        $latest->text = $text;
         $latest->save();
 
         return response()->json([

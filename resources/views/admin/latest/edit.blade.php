@@ -72,6 +72,13 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col col-md-offset-1 col-md-10">
+                            <div class="form-group">
+                                <label for="">商品链接文字</label>
+                                <input type="text" class="form-control" id="productionText">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -100,13 +107,15 @@
                 var type = $('#type').val();
                 var content = $('#content').val();
                 var url = $('#imageUrl').val();
+                var productionText = $('#productionText').val();
 
                 wrapper.createColumn({
                     'size': size,
                     'offset': offset,
                     'type': type,
                     'content': content,
-                    'url': url
+                    'url': url,
+                    'productionText': productionText
                 });
 
                 $('#myModal').modal('hide');
@@ -118,11 +127,13 @@
                 var type = $('#type').val();
                 var container = $('#content');
                 var imageUrl = $('#imageUrl');
+                var productionText = $('#productionText');
                 container.empty();
 
                 //如果是插入图片
                 if (type == 1) {
                     var images = getImages();
+                    productionText.attr('disabled', true);
                     for (var i in images) {
                         var image = images[i];
                         var value = image.path + ',' + image.name;
@@ -132,10 +143,10 @@
                     var productions = getProduction();
 
                     imageUrl.empty();
-                    for(var i in productions) {
+                    for (var i in productions) {
                         var production = productions[i];
-                        var value = BASEURL+'production/' + production.alias;
-                        imageUrl.append('<option value="'+value+'">' + production.name + '</option>');
+                        var value = BASEURL + 'production/' + production.alias;
+                        imageUrl.append('<option value="' + value + '">' + production.name + '</option>');
                     }
                 } else if (type == 2) {
                     //如果是插入链接
@@ -145,7 +156,7 @@
                         var value = BASEURL + 'production/' + production.alias + ',' + production.name;
                         container.append('<option value="' + value + '">' + production.name + '</option>');
                     }
-
+                    productionText.attr('disabled', false);
                     imageUrl.empty();
                 }
             }

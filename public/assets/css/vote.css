@@ -229,6 +229,61 @@ ul{
     width:100%;
     text-align: center;
     font-size: 18px;
-    margin:40px 0 0;
+    margin:40px 0 15px;
     color: #888888;
+}
+.vote-num{
+    width:100%;
+    text-align: center;
+    color: #888888;
+    font-size: 14px;
+}
+.vote-message{
+    position: fixed;
+    top:0;
+    left:0;
+    background-color: rgba(225,225,225,0.8);
+    height:100%;
+    width:100%;
+
+    z-index: 111;
+}
+.vote-message .box{
+    position: absolute;
+    width:88%;
+    height:auto;
+    top:50%;
+    left:50%;
+    padding:15px;
+    background: #ffffff;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.vote-message .box .top{
+    height: 36px;
+    line-height: 36px;
+    width:100%;
+    display: inline-block;
+}
+.vote-message .box .top .left{
+    font-size: 16px;
+    float: left;
+}
+.vote-message .box .top .right{
+    color: #888888;
+    float: right;
+}
+.vote-message textarea{
+    width:100%;
+    height:95px;
+    border:1px #bbbbbb solid;
+    padding:7px;
+    color: #444444;
+}
+.vote-message .button{
+    margin:15px auto 0;
 }

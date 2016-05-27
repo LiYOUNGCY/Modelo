@@ -32,8 +32,11 @@
             <div class="line">
                 <label>商品</label>
                 <div class="field">
-                    <p><a href="{{ url('production') }}/{{ $link }}" style="color: inherit;;">{{ $orderItem->production_name }}</a></p>
-                    <a href="{{ url('production') }}/{{ $link }}" style="color: inherit;;"><div class="pic" style="background-image: url({{ asset($orderItem->cover) }})"></div></a>
+                    <p><a href="{{ url('production') }}/{{ $link }}"
+                          style="color: inherit;;">{{ $orderItem->production_name }}</a></p>
+                    <a href="{{ url('production') }}/{{ $link }}" style="color: inherit;;">
+                        <div class="pic" style="background-image: url({{ asset($orderItem->cover) }})"></div>
+                    </a>
                 </div>
             </div>
             <div class="line">
@@ -111,6 +114,16 @@
             </form>
         @endif
 
+        @if($order->status_id == \Illuminate\Support\Facades\Config::get('constants.orderStatus.deliver'))
+            <form action="{{ url("order/{$encodeOrderNo}/reject") }}" method="post" id="rejectForm">
+                {!! csrf_field() !!}
+                <input type="hidden" name="result" id="result">
+                <button id="reject" class="btn order-option" type="button">
+                    申请售后(退货或换货)
+                </button>
+            </form>
+        @endif
+
         <div class="m-shade" id="cs-shade" style="display: none;"></div>
         <div class="cs-remark" id="model" style="display: none;">
             <div class="title">申请理由</div>
@@ -130,17 +143,17 @@
                 }
             });
 
-            $('#reject').click(function(){
+            $('#reject').click(function () {
                 $('#cs-shade').show();
                 $('#model').show();
             });
 
-            $('#cs-shade').bind('click', function(){
+            $('#cs-shade').bind('click', function () {
                 $('#cs-shade').hide();
                 $('#model').hide();
             });
 
-            $('#sub').click(function(){
+            $('#sub').click(function () {
                 $('#result').val($('#cs-remark').val());
                 $('#rejectForm').submit();
             });

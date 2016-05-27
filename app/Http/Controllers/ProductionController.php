@@ -52,6 +52,8 @@ class ProductionController extends Controller
     public function show(Request $request, $alias, $colorAlias)
     {
         $production = Production::where('alias', $alias)->first();
+        $production->click += 1;
+        $production->save();
         $productionColor = $production->color()->where('alias', $colorAlias)->first();
         $sizes = ProductionSize::get($production->id, $colorAlias);
         $images = ProductionImage::get($production->id, $colorAlias);

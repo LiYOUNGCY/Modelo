@@ -22,7 +22,7 @@
 
         <div class="container">
             @foreach($data as $item)
-                <div class="row" style="margin-bottom: .5em;">
+                <div class="row" style="margin-bottom: .7em;">
                     @foreach($item as $col)
                         <div class="col col-xs-{{ $col->size }} @if($col->offset != 0) col-xs-offset-{{ $col->offset }} @endif"
                              style="text-align: center;">
@@ -30,7 +30,7 @@
                             @if($col->type == 1)
                                 <a href="{{ $col->name }}"><img src="{{ $col->content }}" alt="最新商品图片" style="width: 100%;"></a>
                             @else
-                                <a href="{{ $col->content }}" style="color: #101010;">{{ $col->name }}</a>
+                                <a href="{{ $col->content }}" style="color: #101010;">{{ $col->name }}{{ $col->text }}</a>
                             @endif
                         </div>
                     @endforeach

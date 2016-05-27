@@ -24,6 +24,7 @@
 
     <form action="{{ url('vote') }}" method="post">
         {!! csrf_field() !!}
+        <input type="hidden" name="reason" id="reason">
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
@@ -36,7 +37,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods2.jpeg">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
                         <label for="VoteNo2">花裙子</label>
@@ -45,7 +46,7 @@
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods3.jpeg">
+                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo3" value="C">
                         <label for="VoteNo3">花裙子</label>
@@ -159,7 +160,27 @@
                 if(val.length == 0) {
                     alert('请选择一个进行投票!')
                 } else {
-                    $('form').submit();
+                    var message_Content = '<div class="vote-message">' +
+                            '<div class="box">' +
+                            '<div class="top">' +
+                            '<span class="left">投票留言</span>' +
+                            '<span class="right" id="skip">跳过</span>' +
+                            '</div>' +
+                            '<textarea name="message" id="message" placeholder="你为什么会选_?"></textarea>' +
+                            '<div class="button" id="submitMessage">提交</div>' +
+                            '</div>' +
+                            '</div>';
+                    $('body').prepend(message_Content);
+
+                    $("#skip").bind('touchend', function () {
+                        $(this).parents(".vote-message").remove();
+                        $('form').submit();
+                    })
+                    $("#submitMessage").bind('touchend', function () {
+                        $('#reason').val($('#message').val());
+                        $('form').submit();
+                    })
+
                 }
             })
 //            $('#btn').click(function () {

@@ -20,10 +20,13 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $a = User::getOneFinishTotal(1);
-        $b = User::getSecondFinishTotal(1);
+        $userService  = app('wechat')->user();
 
-        echo $a, $b;
+        $info = $userService->get('o4-YOwDNj08Y8NMbhbjQspPb7twg');
+
+        echo '<pre>';
+        var_dump($info);
+        echo '</pre>';
     }
 
     public function login(Request $request)
