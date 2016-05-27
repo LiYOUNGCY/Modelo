@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\AdminController;
 use App\Model\GroupProduction;
 use App\Model\Image;
 use App\Model\Series;
@@ -11,8 +12,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class GroupController extends Controller
+class GroupController extends AdminController
 {
+
+    public function index()
+    {
+        $data = SeriesGroup::all();
+
+        return view('admin.group.index', [
+            'data' => $data,
+        ]);
+    }
+
     public function create()
     {
         $series = Series::getAll();
@@ -55,6 +66,23 @@ class GroupController extends Controller
 
         return response()->json([
             'success' => 0,
+        ]);
+    }
+
+    public function destroyGroup($id)
+    {
+        $groupId = $id;
+        $seriesGroup = SeriesGroup::find($groupId);
+
+        if (isset($seriesGroup)) {
+            $seriesGroup->delete();
+            return response()->json([
+                'success' => 0,
+            ]);
+        }
+
+        return response()->json([
+            'error' => 0,
         ]);
     }
 }

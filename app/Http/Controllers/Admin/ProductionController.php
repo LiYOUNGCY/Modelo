@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
+use App\Model\Category;
 use App\Model\Image;
 use App\Model\Production;
 use App\Model\ProductionCategory;
@@ -38,7 +39,7 @@ class ProductionController extends AdminController
     {
         $images = Image::all();
         $series = Series::all();
-        $categories = ProductionCategory::all();
+        $categories = Category::all();
 
         return view('admin.production.create', [
             'categories' => $categories,
@@ -59,21 +60,30 @@ class ProductionController extends AdminController
         $alias = $request->get('alias');
         $series_id = $request->get('series_id');
         $cover_id = $request->get('cover_id');
-        $category_id = $request->get('category_id');
         $series_image = $request->get('series_image');
         $size_info_id = $request->get('size_info_id');
         $fabric_info_id = $request->get('fabric_info_id');
+        $category = $request->get('category');
 
         $production = new Production();
         $production->name = $name;
         $production->alias = $alias;
         $production->series_id = $series_id;
         $production->cover_id = $cover_id;
-        $production->category_id = $category_id;
         $production->series_image = $series_image;
         $production->size_info_id = $size_info_id;
         $production->fabric_info_id = $fabric_info_id;
         $production->save();
+
+        if (isset($category) && is_array($category)) {
+
+            foreach ($category as $value) {
+                $productionCategory = new ProductionCategory();
+                $productionCategory->production_id = $production->id;
+                $productionCategory->category_id = $value;
+                $productionCategory->save();
+            }
+        }
 
         return response()->json([
             'success' => 0,
@@ -240,9 +250,9 @@ class ProductionController extends AdminController
     {
         $production = Production::find($id);
 
-        if(! empty($production)) {
+        if (!empty($production)) {
             $name = $request->get('name');
-            $alias= $request->get('alias');
+            $alias = $request->get('alias');
             $cover_id = $request->get('cover_id');
             $series_id = $request->get('series_id');
 
@@ -266,7 +276,7 @@ class ProductionController extends AdminController
     public function updateProductionColor(Request $request, $id, $color_id)
     {
         $production = Production::find($id);
-        if(isset($production)) {
+        if (isset($production)) {
             $productionColor = ProductionColor::findOrNew($color_id);
             $productionColor->production_id = $id;
             $productionColor->name = $request->get('color_name');
@@ -276,7 +286,7 @@ class ProductionController extends AdminController
 
             //size
             $sizes = $request->get('size');
-            if(isset($sizes) and is_array($sizes)) {
+            if (isset($sizes) and is_array($sizes)) {
                 foreach ($sizes as $size) {
                     $productionSize = ProductionSize::findOrNew($size['id']);
                     $productionSize->name = $size['size_name'];
@@ -288,7 +298,7 @@ class ProductionController extends AdminController
 
             //image
             $images = $request->get('image');
-            if(isset($images) and is_array($images)) {
+            if (isset($images) and is_array($images)) {
                 //delete all images from this production
                 ProductionImage::where('production_color_id', $productionColor->id)->delete();
                 foreach ($images as $image) {
@@ -363,7 +373,7 @@ class ProductionController extends AdminController
 
     public function destroyImage($id)
     {
-        if($id == 0) {
+        if ($id == 0) {
             return response()->json([
                 'success' => 0,
             ]);

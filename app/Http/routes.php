@@ -80,6 +80,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('group/create', 'Admin\GroupController@create');
         Route::post('group/store', 'Admin\GroupController@store');
         Route::post('group/production/store', 'Admin\GroupController@storeGroupProduction');
+        Route::get('group', 'Admin\GroupController@index');
+        Route::delete('group/{id}', 'Admin\GroupController@destroyGroup');
 
         //投票
         Route::get('vote', 'Admin\VoteController@index');

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Model\ProductionCategory;
+use App\Model\Category;
 use App\Model\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
@@ -127,7 +127,7 @@ class Install extends Command
 
     private function createCategory($id, $name)
     {
-        $category = new ProductionCategory();
+        $category = new Category();
         $category->id = $id;
         $category->name = $name;
         $category->save();

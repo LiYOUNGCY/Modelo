@@ -12,70 +12,74 @@
                     <h3 class="panel-title">第一步：添加服装</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="form-group">
-                        <label for="name">服装名称：</label>
-                        <input class="form-control" id="name" name="name">
-                    </div>
+                    <form id="productionForm" action="{{ url("{$ADMIN}/production/store") }}" method="post">
+                        {!! csrf_field() !!}
+                        <div class="form-group">
+                            <label for="name">服装名称：</label>
+                            <input class="form-control" id="name" name="name">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="alias">服装别名：</label>
-                        <input class="form-control" id="alias" name="alias">
-                        <p class="help-block">服装名称的英文名，允许数字、英文、下划线（必填）</p>
-                    </div>
+                        <div class="form-group">
+                            <label for="alias">服装别名：</label>
+                            <input class="form-control" id="alias" name="alias">
+                            <p class="help-block">服装名称的英文名，允许数字、英文、下划线（必填）</p>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="cover_id">封面图：</label>
-                        <select name="cover_id" id="cover_id" class="form-control">
-                            @foreach($images as $image)
-                                <option value="{{ $image->id }}">{{ $image->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="cover_id">封面图：</label>
+                            <select name="cover_id" id="cover_id" class="form-control">
+                                @foreach($images as $image)
+                                    <option value="{{ $image->id }}">{{ $image->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="cover_id">主题图：</label>
-                        <select name="series_image" id="series_image" class="form-control">
-                            @foreach($images as $image)
-                                <option value="{{ $image->id }}">{{ $image->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="cover_id">主题图：</label>
+                            <select name="series_image" id="series_image" class="form-control">
+                                @foreach($images as $image)
+                                    <option value="{{ $image->id }}">{{ $image->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="cover_id">成分说明图：</label>
-                        <select name="fabric_info_id" id="fabric_info_id" class="form-control">
-                            @foreach($images as $image)
-                                <option value="{{ $image->id }}">{{ $image->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="cover_id">成分说明图：</label>
+                            <select name="fabric_info_id" id="fabric_info_id" class="form-control">
+                                @foreach($images as $image)
+                                    <option value="{{ $image->id }}">{{ $image->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="cover_id">尺码说明图：</label>
-                        <select name="size_info_id" id="size_info_id" class="form-control">
-                            @foreach($images as $image)
-                                <option value="{{ $image->id }}">{{ $image->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="cover_id">尺码说明图：</label>
+                            <select name="size_info_id" id="size_info_id" class="form-control">
+                                @foreach($images as $image)
+                                    <option value="{{ $image->id }}">{{ $image->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="cover_id">分类:</label>
-                        <select name="category" id="category_id" class="form-control">
+                        <div class="form-group">
+                            <label for="cover_id">分类:</label>
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="{{ $category->id }}" name="category[]"
+                                           id="category">{{ $category->name }}
+                                </label>
                             @endforeach
-                        </select>
-                    </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="series_id">所属系列：</label>
-                        <select name="series_id" id="series_id" class="form-control">
-                            @foreach($series as $s)
-                                <option value="{{ $s->id }}">{{ $s->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="series_id">所属系列：</label>
+                            <select name="series_id" id="series_id" class="form-control">
+                                @foreach($series as $s)
+                                    <option value="{{ $s->id }}">{{ $s->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="panel-footer">
                     <button type="button" class="btn btn-primary" id="createProduction">确定</button>
@@ -235,29 +239,11 @@
 
             $('#createProduction').click(function () {
                 var createButton = $(this);
-                var name = $('#name').val();
-                var alias = $('#alias').val();
-                var series_id = $('#series_id').val();
-                var cover_id = $('#cover_id').val();
-                var category_id = $('#category_id').val();
-                var series_image = $('#series_image').val();
-                var size_info_id = $('#size_info_id').val();
-                var fabric_info_id = $('#fabric_info_id').val();
-
-                console.log(series_id);
+                var data = $('#productionForm').serialize();
 
                 $.ajax({
                     url: '{{ url("{$ADMIN}/production/store") }}',
-                    data: {
-                        name: name,
-                        alias: alias,
-                        series_id: series_id,
-                        cover_id: cover_id,
-                        category_id: category_id,
-                        series_image: series_image,
-                        size_info_id: size_info_id,
-                        fabric_info_id: fabric_info_id
-                    },
+                    data: data,
                     success: function (data) {
                         console.log(data);
                         if (data.success == 0) {
@@ -284,8 +270,8 @@
                         alias: alias,
                         image_id: image_id
                     },
-                    success:function(data) {
-                        if(data.success == 0) {
+                    success: function (data) {
+                        if (data.success == 0) {
                             cid = data.color_id;
                             createColor(colorName);
                         } else {
@@ -306,7 +292,7 @@
                     container = $(colorTemplate);
                 });
                 $(colorTemplate).find('button[data-name=createSize]').click(createSize);
-                $(colorTemplate).find('button[data-name=submit]').click(function(){
+                $(colorTemplate).find('button[data-name=submit]').click(function () {
                     var wrapper = $(this).parent().prev();
                     submitImage(wrapper);
                     submitSize(wrapper);
@@ -324,63 +310,63 @@
                 var quantityInput = $(container).find('input');
                 var data = new Object();
 
-                for(var i = 0; i < sizeInput.length; i ++) {
+                for (var i = 0; i < sizeInput.length; i++) {
                     data['size[' + i + ']'] = sizeInput[i].value;
                     data['quantity[' + i + ']'] = quantityInput[i].value;
                 }
 
-                if(pid == 'undefined' || pid == null) {
+                if (pid == 'undefined' || pid == null) {
                     alert('保存尺码失败，没有该商品！');
-                    return ;
+                    return;
                 }
 
-                if(cid == 'undefined' || cid == null) {
+                if (cid == 'undefined' || cid == null) {
                     alert('保存尺码失败，没有该款式');
-                    return ;
+                    return;
                 }
 
                 $.ajax({
                     url: ADMINURL + '/production/' + pid + '/color/' + cid + '/size/store',
                     data: data,
-                    success: function(data) {
-                        if(data.success == 0) {
+                    success: function (data) {
+                        if (data.success == 0) {
                             alert('操作成功');
-                        } else if(data.error == 0) {
+                        } else if (data.error == 0) {
                             alert(data.message);
                         }
                     }
                 });
             }
 
-            function submitImage(container){
+            function submitImage(container) {
                 container = $(container).children('div[data-name=image]');
                 var image_id = $(container).find('input[type=hidden]');
                 var type = $(container).find('select');
                 var data = new Object();
 
-                for(var i = 0; i < image_id.length; i ++) {
+                for (var i = 0; i < image_id.length; i++) {
                     data['images_id[' + i + ']'] = image_id[i].value;
                     data['primary[' + i + ']'] = type[i].value;
                 }
 
 
-                if(pid == 'undefined' || pid == null) {
+                if (pid == 'undefined' || pid == null) {
                     alert('保存尺码失败，没有该商品！');
-                    return ;
+                    return;
                 }
 
-                if(cid == 'undefined' || cid == null) {
+                if (cid == 'undefined' || cid == null) {
                     alert('保存尺码失败，没有该款式');
-                    return ;
+                    return;
                 }
 
                 $.ajax({
                     url: ADMINURL + '/production/' + pid + '/color/' + cid + '/image/store',
                     data: data,
-                    success: function(data) {
-                        if(data.success == 0) {
+                    success: function (data) {
+                        if (data.success == 0) {
                             alert('操作成功');
-                        } else if(data.error == 0 && (data.message != 'undefined')) {
+                        } else if (data.error == 0 && (data.message != 'undefined')) {
                             alert(data.message);
                         }
                     }
