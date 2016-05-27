@@ -20,8 +20,10 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $oauth = app('wechat')->oauth();
-        
+        $a = User::getOneFinishTotal(1);
+        $b = User::getSecondFinishTotal(1);
+
+        echo $a, $b;
     }
 
     public function login(Request $request)

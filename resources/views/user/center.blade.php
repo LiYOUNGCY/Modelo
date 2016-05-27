@@ -87,7 +87,7 @@
                         {{--</li>--}}
                         <li>
                             <span class="fl">已完成订单金额</span>
-                            <span class="fr right">￥{{ $sales }}</span>
+                            <span class="fr right">￥{{ $oneAndTwoFinish }}</span>
                         </li>
                         <li>
                             <span class="fl">冻结中奖励金额</span>
