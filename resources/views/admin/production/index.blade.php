@@ -12,7 +12,6 @@
                 <tr>
                     <td>#</td>
                     <td>名称</td>
-                    <td>别名</td>
                     <td>所属系列</td>
                     <td>操作</td>
                 </tr>
@@ -20,19 +19,14 @@
                 <tbody>
                 @foreach($productions as $production)
                     <tr>
-                        <td><a href="{{ url("{$ADMIN}/production/{$production->alias}") }}">{{ $production->id }}</a>
+                        <td><a href="{{ url("{$ADMIN}/production/{$production->id}") }}">{{ $production->id }}</a>
                         </td>
                         <td>{{ $production->name }}</td>
-                        <td>{{ $production->alias }}</td>
-                        <td>{{ $production->series }}</td>
+                        <td>{{ $production->series->name }}</td>
                         <td>
-                            <a herf="javascript:;" name="delete" data-id="{{ $production->alias }}" title="删除">
-                                <i class="fa fa-trash-o fa-lg"></i>
-                            </a>
-                            <a href="javascript:;" name="edit" data-id="{{ $production->alias }}" title="修改">
-                                <i class="fa fa-edit fa-lg"></i>
-                            </a>
-                            <a href="{{ url("production/{$production->alias}") }}">打开</a>
+                            <a href="{{ url("{$ADMIN}/production/{$production->id}/edit") }}">编辑</a>
+                            <a href="{{ url("production/{$production->id}") }}">打开</a>
+                            <a href="javascript:void(0);" data-name="delete" data-id="{{ $production->id }}">删除</a>
                         </td>
                     </tr>
                 @endforeach
@@ -45,36 +39,22 @@
 @section('moreScript')
     <script>
         $(function () {
-            $('a[name=delete]').each(function (i, ele) {
-                $(ele).click(function () {
-                    if (confirm('你确定删除该商品？')) {
-                        var alias = $(this).attr('data-id');
-                        $.ajax({
-                            url: '{{ url("{$ADMIN}/production/") }}/' + alias,
-                            data: {
-                                _method: 'DELETE'
-                            },
-                            success: function (data) {
-                                console.log(data);
-                                if (data.success == 0) {
-                                    alert('操作成功');
-                                    window.location.reload();
-                                } else if (data.error == 0) {
-                                    alert('操作失败');
-                                    window.location.reload();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
+            $('a[data-name=delete]').click(function (event) {
+                event.preventDefault();
 
-            $('a[name=edit]').each(function(i, ele){
-                $(ele).click(function(){
-                    var alias = $(this).attr('data-id');
-                    window.location.href = '{{ url("{$ADMIN}/production") }}/' + alias + '/edit';
-                });
-            });
+                if(confirm('你确定删除该商品')) {
+                    var id = $(this).attr('data-id');
+                    $.ajax({
+                        url: ADMIN + '/production/' + id + '/destroy',
+                        type: 'post',
+                        success: function (data) {
+                            if(data.success == 0) {
+                                window.location.reload();
+                            }
+                        }
+                    })
+                }
+            })
         })
     </script>
 @endsection

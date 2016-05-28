@@ -16,11 +16,7 @@ use App\Http\Requests;
 
 class ProductionController extends AdminController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $productions = Production::all();
@@ -30,11 +26,7 @@ class ProductionController extends AdminController
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $images = Image::all();
@@ -48,16 +40,9 @@ class ProductionController extends AdminController
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $name = $request->get('name');
-        $alias = $request->get('alias');
         $series_id = $request->get('series_id');
         $cover_id = $request->get('cover_id');
         $series_image = $request->get('series_image');
@@ -67,7 +52,6 @@ class ProductionController extends AdminController
 
         $production = new Production();
         $production->name = $name;
-        $production->alias = $alias;
         $production->series_id = $series_id;
         $production->cover_id = $cover_id;
         $production->series_image = $series_image;
@@ -76,7 +60,6 @@ class ProductionController extends AdminController
         $production->save();
 
         if (isset($category) && is_array($category)) {
-
             foreach ($category as $value) {
                 $productionCategory = new ProductionCategory();
                 $productionCategory->production_id = $production->id;
@@ -91,225 +74,181 @@ class ProductionController extends AdminController
         ]);
     }
 
-    public function storeColor(Request $request, $id)
+    public function storeColor(Request $request, $productionId)
     {
-        $production = Production::find($id);
+        $colorName = $request->get('colorName');
+        $colorImage = $request->get('colorImage');
+        $colorPrice = $request->get('colorPrice');
 
-        if (isset($production)) {
-            $name = $request->get('name');
-            $price = $request->get('price');
-            $alias = $request->get('alias');
-            $image_id = $request->get('image_id');
+        $productionColor = ProductionColor::create([
+            'production_id' => $productionId,
+            'image_id' => $colorImage,
+            'name' => $colorName,
+            'price' => $colorPrice,
+        ]);
 
-            $productionColor = new ProductionColor();
-            $productionColor->production_id = $id;
-            $productionColor->name = $name;
-            $productionColor->price = $price;
-            $productionColor->alias = $alias;
-            $productionColor->image_id = $image_id;
-            $productionColor->save();
+        //store image
+        $images = $request->get('image');
+        if(isset($images)) {
+            foreach ($images as $image) {
+                ProductionImage::create([
+                    'production_color_id' => $productionColor->id,
+                    'image_id' => $image,
+                ]);
+            }
+        }
 
-            return response()->json([
-                'success' => 0,
-                'color_id' => $productionColor->id,
-            ]);
+        //store size
+        $sizes = $request->get('size');
+        $quantities = $request->get('quantity');
+
+        if(isset($sizes)) {
+            foreach ($sizes as $key => $size) {
+                ProductionSize::create([
+                    'production_color_id' => $productionColor->id,
+                    'name' => $size,
+                    'quantity' => $quantities[$key],
+                ]);
+            }
         }
 
         return response()->json([
-            'error' => 0,
+            'success' => 0,
         ]);
     }
 
-    public function storeSize(Request $request, $id, $cid)
+    public function edit($productionId)
     {
-        //check the production exist?
-        $production = Production::find($id);
-        $productionColor = ProductionColor::find($cid);
+        $production = Production::find($productionId);
+        $productionColors = ProductionColor::where('production_id', $production->id)->get();
 
-        if (isset($production) && isset($productionColor)) {
-            $sizes = $request->get('size');
-            $quantityes = $request->get('quantity');
-            $set = [];
+        $productionSize = [];
+        $productionImage = [];
+        $productionCategory = ProductionCategory::where('production_id', $production->id)->get();
 
-            //check size is only one
-            foreach ($sizes as $size) {
-                if (empty($set[$size])) {
-                    $set[$size] = true;
-                } else {
-                    return response()->json([
-                        'error' => 0,
-                        'message' => '尺码的值不能重复',
-                    ]);
-                }
-            }
+        foreach ($productionColors as $productionColor) {
+            $productionSize[$productionColor->id] = ProductionSize::where('production_color_id', $productionColor->id)->get();
 
-            //clear all
-            ProductionSize::where('production_color_id', $cid)->delete();
-
-            foreach ($sizes as $i => $size) {
-
-                $productionSize = new ProductionSize();
-                $productionSize->production_color_id = $cid;
-                $productionSize->name = $size;
-                $productionSize->quantity = $quantityes[$i];
-                $productionSize->save();
-            }
-
-            return response()->json([
-                'success' => 0,
-            ]);
-        }
-
-        return response()->json([
-            'error' => 0,
-        ]);
-    }
-
-    public function storeImage(Request $request, $id, $cid)
-    {
-        //check the production exist?
-        $production = Production::find($id);
-        $productionColor = ProductionColor::find($cid);
-
-        if (isset($production) && isset($productionColor)) {
-            $images_id = $request->get('images_id');
-            $primary = $request->get('primary');
-
-            //clear all
-            ProductionImage::where('production_color_id', $cid)->delete();
-
-            foreach ($images_id as $i => $image_id) {
-                $productionImage = new ProductionImage();
-                $productionImage->production_color_id = $cid;
-                $productionImage->image_id = $image_id;
-                $productionImage->primary = $primary[$i];
-                $productionImage->save();
-            }
-
-            return response()->json([
-                'success' => 0,
-            ]);
-        }
-
-        return response()->json([
-            'error' => 0,
-        ]);
-    }
-
-    /**
-     * @param $alias
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($alias)
-    {
-        $production = Production::getProductionByAlias($alias);
-        $colors = Production::getProductionColorByAlias($alias);
-        $data = [];
-
-        foreach ($colors as $color) {
-            $data[$color->alias] = Production::getProduction($color->id);
-        }
-
-//        return response()->json([
-////            'production' => $production,
-////            'colors' => $colors,
-////            'data' => $data,
-//        ]);
-
-        return view('admin.production.show', [
-            'production' => $production,
-            'colors' => $colors,
-            'data' => $data,
-        ]);
-    }
-
-    public function edit($alias)
-    {
-        $production = Production::getProductionByAlias($alias);
-        $colors = Production::getProductionColorByAlias($alias);
-
-        $data = [];
-
-        foreach ($colors as $color) {
-            $data[$color->alias] = Production::getProduction($color->id);
+            $productionImage[$productionColor->id] = ProductionImage::where('production_color_id', $productionColor->id)->get();
         }
 
         $images = Image::all();
         $series = Series::all();
+        $categories = Category::all();
 
-        return view('admin.production.edit', [
-            'production' => $production,
-            'colors' => $colors,
-            'data' => $data,
-            'images' => $images,
-            'series' => $series,
-        ]);
+        if(isset($production)) {
+            return view('admin.production.edit', [
+                'production' => $production,
+                'productionCategory' => $productionCategory,
+                'productionColors' => $productionColors,
+                'productionImages' =>$productionImage,
+                'productionSizes' => $productionSize,
+                'categories' => $categories,
+                'images' => $images,
+                'series' => $series,
+            ]);
+        }
+        else {
+            abort(404);
+        }
     }
 
-    public function updateProduction(Request $request, $id)
+    public function updateProduction(Request $request, $productionId)
     {
-        $production = Production::find($id);
+        $production = Production::find($productionId);
 
-        if (!empty($production)) {
+        if(isset($production)) {
             $name = $request->get('name');
-            $alias = $request->get('alias');
-            $cover_id = $request->get('cover_id');
             $series_id = $request->get('series_id');
-
+            $cover_id = $request->get('cover_id');
+            $series_image = $request->get('series_image');
+            $size_info_id = $request->get('size_info_id');
+            $fabric_info_id = $request->get('fabric_info_id');
             $production->name = $name;
-            $production->alias = $alias;
-            $production->cover_id = $cover_id;
             $production->series_id = $series_id;
+            $production->cover_id = $cover_id;
+            $production->series_image = $series_image;
+            $production->size_info_id = $size_info_id;
+            $production->fabric_info_id = $fabric_info_id;
             $production->save();
 
+            //clear all category
+            ProductionCategory::where('production_id', $production->id)->delete();
+
+            $category = $request->get('category');
+            //save category
+            if (isset($category) && is_array($category)) {
+                foreach ($category as $value) {
+                    $productionCategory = new ProductionCategory();
+                    $productionCategory->production_id = $production->id;
+                    $productionCategory->category_id = $value;
+                    $productionCategory->save();
+                }
+            }
+
             return response()->json([
                 'success' => 0,
             ]);
         } else {
-            return response()->json([
-                'error' => 0,
-                'message' => 'Object Not Found.',
-            ]);
+            abort(404);
         }
     }
 
-    public function updateProductionColor(Request $request, $id, $color_id)
+    public function updateColor(Request $request, $colorId)
     {
-        $production = Production::find($id);
-        if (isset($production)) {
-            $productionColor = ProductionColor::findOrNew($color_id);
-            $productionColor->production_id = $id;
-            $productionColor->name = $request->get('color_name');
-            $productionColor->alias = $request->get('color_alias');
-            $productionColor->price = $request->get('color_price');
+        $productionColor = ProductionColor::find($colorId);
+
+        if(isset($productionColor)) {
+            $colorName = $request->get('colorName');
+            $colorImage = $request->get('colorImage');
+            $colorPrice = $request->get('colorPrice');
+
+            $productionColor->name = $colorName;
+            $productionColor->image_id = $colorImage;
+            $productionColor->price = $colorPrice;
             $productionColor->save();
 
-            //size
-            $sizes = $request->get('size');
-            if (isset($sizes) and is_array($sizes)) {
-                foreach ($sizes as $size) {
-                    $productionSize = ProductionSize::findOrNew($size['id']);
-                    $productionSize->name = $size['size_name'];
-                    $productionSize->production_color_id = $productionColor->id;
-                    $productionSize->quantity = $size['size_quantity'];
-                    $productionSize->save();
-                }
-            }
-
-            //image
+            //update image
+            $imageIds = $request->get('imageId');
             $images = $request->get('image');
-            if (isset($images) and is_array($images)) {
-                //delete all images from this production
-                ProductionImage::where('production_color_id', $productionColor->id)->delete();
-                foreach ($images as $image) {
-                    $productionImage = new ProductionImage();
-                    $productionImage->production_color_id = $productionColor->id;
-                    $productionImage->image_id = $image['image_id'];
-                    $productionImage->primary = $image['image_type'];
-                    $productionImage->save();
+
+            if(isset($imageIds)) {
+                foreach ($imageIds as $key => $imageId) {
+                    $image = ProductionImage::find($imageId);
+
+                    if (!isset($image)) {
+                        $image = new ProductionImage();
+                        $image->production_color_id = $productionColor->id;
+                    }
+
+                    $image->image_id = $images[$key];
+                    $image->save();
                 }
             }
+            
+            //update size
+            $sizeIds = $request->get('sizeId');
+            $sizes = $request->get('size');
+            $amount = $request->get('amount');
+            $quantity = $request->get('quantity');
+            $i = 0;
 
+            if(isset($sizeIds)) {
+                foreach ($sizeIds as $key => $sizeId) {
+                    $size = ProductionSize::find($sizeId);
+
+                    if (!isset($size)) {
+                        $size = new ProductionSize();
+                        $size->production_color_id = $productionColor->id;
+                        $size->name = $sizes[$key];
+                        $size->quantity = $quantity[$i++];
+                    } else {
+                        $size->name = $sizes[$key];
+                        $size->quantity += $amount[$key];
+                    }
+                    $size->save();
+                }
+            }
 
             return response()->json([
                 'success' => 0,
@@ -317,17 +256,63 @@ class ProductionController extends AdminController
         } else {
             return response()->json([
                 'error' => 0,
-                'message' => 'Production Not Found.',
             ]);
         }
     }
 
-
-    public function destroyProduction($alias)
+    public function destroyColor(Request $request, $colorId)
     {
-        $production = Production::where('alias', $alias)->first();
+        $productionColor = ProductionColor::find($colorId);
 
-        if (isset($production)) {
+        if(isset($productionColor)) {
+            $productionColor->delete();
+            return response()->json([
+                'success' => 0,
+            ]);
+        } else {
+            return response()->json([
+                'error' => 0,
+            ]);
+        }
+    }
+
+    public function destroyImage(Request $request, $imageId)
+    {
+        $productionImage = ProductionImage::find($imageId);
+
+        if(isset($productionImage)) {
+            $productionImage->delete();
+            return response()->json([
+                'success' => 0,
+            ]);
+        } else {
+            return response()->json([
+                'error' => 0,
+            ]);
+        }
+    }
+
+    public function destroySize(Request $request, $colorId)
+    {
+        $productionSize = ProductionSize::find($colorId);
+
+        if(isset($productionSize)) {
+            $productionSize->delete();
+            return response()->json([
+                'success' => 0,
+            ]);
+        } else {
+            return response()->json([
+                'error' => 0,
+            ]);
+        }
+    }
+
+    public function destroyProduction(Request $request, $Id)
+    {
+        $production = Production::find($Id);
+
+        if(isset($production)) {
             $production->delete();
             return response()->json([
                 'success' => 0,
@@ -335,60 +320,6 @@ class ProductionController extends AdminController
         } else {
             return response()->json([
                 'error' => 0,
-            ]);
-        }
-    }
-
-    public function destroyColor($alias)
-    {
-        $color = ProductionColor::where('alias', $alias)->first();
-
-        if (isset($color)) {
-            $color->delete();
-            return response()->json([
-                'success' => 0,
-            ]);
-        } else {
-            return response()->json([
-                'error' => 0,
-            ]);
-        }
-    }
-
-    public function destroySize($id)
-    {
-        $size = ProductionSize::find($id);
-
-        if (isset($size)) {
-            $size->delete();
-            return response()->json([
-                'success' => 0,
-            ]);
-        } else {
-            return response()->json([
-                'error' => 0,
-            ]);
-        }
-    }
-
-    public function destroyImage($id)
-    {
-        if ($id == 0) {
-            return response()->json([
-                'success' => 0,
-            ]);
-        }
-
-        $image = ProductionImage::find($id);
-        if (isset($image)) {
-            $image->delete();
-            return response()->json([
-                'success' => 0,
-            ]);
-        } else {
-            return response()->json([
-                'error' => 0,
-                'message' => 'Production Image Not Found.'
             ]);
         }
     }

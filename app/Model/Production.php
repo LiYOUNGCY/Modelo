@@ -32,7 +32,11 @@ class Production extends Model
     public function theme()
     {
         return $this->belongsTo('App\Model\Image', 'series_image');
-//        return $this->belongsTo('App\Model\Image', 'theme_id');
+    }
+
+    public function series()
+    {
+        return $this->belongsTo('App\Model\Series', 'series_id');
     }
 
     public function get($alias)

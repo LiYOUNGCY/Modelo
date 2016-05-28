@@ -21,12 +21,12 @@
         @foreach($productions as $production)
             <div class="all-goods-item">
                 <div class="goods-pic">
-                    <a href="{{ url("production/{$production->alias}") }}">
+                    <a href="{{ url("production/{$production->id}") }}">
                         <img src="{{ asset($production->cover->path) }}">
                     </a>
                 </div>
                 <div class="goods-name">
-                    <a href="{{ url("production/{$production->alias}") }}">{{$production->name}}</a>
+                    <a href="{{ url("production/{$production->id}") }}">{{$production->name}}</a>
                 </div>
             </div>
         @endforeach

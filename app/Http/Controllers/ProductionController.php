@@ -36,13 +36,13 @@ class ProductionController extends Controller
         ]);
     }
 
-    public function redirect(Request $request, $alias)
+    public function redirect(Request $request, $id)
     {
-        $production = Production::where('alias', $alias)->first();
+        $production = Production::where('id', $id)->first();
         if(isset($production)) {
             $productionColor = $production->color()->first();
             if(isset($productionColor)) {
-                return redirect("production/{$alias}/{$productionColor->alias}");
+                return redirect("production/{$id}/{$productionColor->id}");
             } else {
                 abort(404);
             }
@@ -51,17 +51,17 @@ class ProductionController extends Controller
         }
     }
 
-    public function show(Request $request, $alias, $colorAlias)
+    public function show(Request $request, $id, $colorId)
     {
-        $production = Production::where('alias', $alias)->first();
+        $production = Production::where('id', $id)->first();
         $production->click += 1;
         $production->save();
-        $productionColor = $production->color()->where('alias', $colorAlias)->first();
-        $sizes = ProductionSize::get($production->id, $colorAlias);
-        $images = ProductionImage::get($production->id, $colorAlias);
+        $productionColor = $production->color()->where('id', $colorId)->first();
+        
+        $sizes = ProductionSize::get($production->id, $colorId);
+        $images = ProductionImage::get($production->id, $colorId);
         $colors = ProductionColor::get($production->id);
 
-//        echo \GuzzleHttp\json_encode($sizes);
 
         if (isset($production)
             && isset($productionColor)

@@ -15,12 +15,6 @@
                     <input class="form-control" id="name" name="name">
                 </div>
 
-                <div class="form-group">
-                    <label id="alias">系列的别名：</label>
-                    <input class="form-control" id="alias" name="alias">
-                    <p class="help-block">系列的英文名称，只能填写数字、英文、下划线（必填）。</p>
-                </div>
-
                 <button type="submit" class="btn btn-success">提交</button>
             </form>
         </div>

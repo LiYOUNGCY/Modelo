@@ -45,19 +45,16 @@ Route::group(['middleware' => ['web']], function () {
         //Production
         Route::get('production', 'Admin\ProductionController@index');
         Route::get('production/create', 'Admin\ProductionController@create');
-        Route::get('production/{alias}', 'Admin\ProductionController@show');
-        Route::get('production/{alias}/edit', 'Admin\ProductionController@edit');
+        Route::get('production/{productionId}/edit', 'Admin\ProductionController@edit');
 
         Route::post('production/store', 'Admin\ProductionController@store');
-        Route::post('production/{id}/color/store', 'Admin\ProductionController@storeColor');
-        Route::post('production/{id}/color/{cid}/image/store', 'Admin\ProductionController@storeImage');
-        Route::post('production/{id}/color/{cid}/size/store', 'Admin\ProductionController@storeSize');
-        Route::put('production/{id}', 'Admin\ProductionController@updateProduction');
-        Route::put('production/{id}/color/{color_id}', 'Admin\ProductionController@updateProductionColor');
-        Route::delete('production/{alias}', 'Admin\ProductionController@destroyProduction');
-        Route::delete('color/{alias}', 'Admin\ProductionController@destroyColor');
-        Route::delete('production/size/{id}', 'Admin\ProductionController@destroySize');
-        Route::delete('production/image/{id}', 'Admin\ProductionController@destroyImage');
+        Route::post('production/{productionId}/color/store', 'Admin\ProductionController@storeColor');
+        Route::post('production/{productionId}/update', 'Admin\ProductionController@updateProduction');
+        Route::post('color/{colorId}/update', 'Admin\ProductionController@updateColor');
+        Route::post('color/{colorId}/destroy', 'Admin\ProductionController@destroyColor');
+        Route::post('production/size/{sizeId}/destroy', 'Admin\ProductionController@destroySize');
+        Route::post('production/image/{imageId}/destroy', 'Admin\ProductionController@destroyImage');
+        Route::post('production/{Id}/destroy', 'Admin\ProductionController@destroyProduction');
 
         //Order
         Route::get('order', 'Admin\OrderController@index');
@@ -112,8 +109,8 @@ Route::group(['middleware' => ['web']], function () {
 
     //Production
     Route::get('production', 'ProductionController@index');
-    Route::get('production/{alias}', 'ProductionController@redirect');
-    Route::get('production/{alias}/{colorAlias}', 'ProductionController@show');
+    Route::get('production/{id}', 'ProductionController@redirect');
+    Route::get('production/{id}/{colorId}', 'ProductionController@show');
 
     // Order
     Route::get('order/create', 'OrderController@create');
@@ -150,7 +147,7 @@ Route::group(['middleware' => ['web']], function () {
     //Draw 提现
     Route::get('draw', 'DrawController@index');
     Route::post('draw/store', 'DrawController@store');
-    
+
     //Vote 投票
     Route::get('vote', 'VoteController@index');
     Route::post('vote', 'VoteController@store');

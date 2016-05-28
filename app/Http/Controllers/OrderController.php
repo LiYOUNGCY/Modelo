@@ -44,7 +44,7 @@ class OrderController extends Controller
     {
         $order = Order::find($orderId);
         $orderItem = Order::getOrderItems($orderId);
-        $link = Production::find($orderItem->production_id)->alias;
+        $link = $orderItem->production_id;
 
         return view('order.show', [
             'order' => $order,

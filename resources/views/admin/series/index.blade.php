@@ -12,7 +12,6 @@
                 <tr>
                     <td>#</td>
                     <td>名称</td>
-                    <td>别名</td>
                     <td>操作</td>
                 </tr>
                 </thead>
@@ -21,7 +20,6 @@
                     <tr data-id="{{ $s->id }}">
                         <td>{{ $s->id }}</td>
                         <td>{{ $s->name }}</td>
-                        <td>{{ $s->alias }}</td>
                         <td><a herf="javascript:;" name="delete" data-id="{{ $s->id }}"><i class="fa fa-trash-o fa-lg"></i></a></td>
                     </tr>
                 @endforeach

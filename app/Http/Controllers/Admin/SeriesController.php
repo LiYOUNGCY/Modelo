@@ -28,10 +28,8 @@ class SeriesController extends AdminController
     public function store(Request $request)
     {
         $name = $request->get('name');
-        $alias = $request->get('alias');
         $series = new Series();
         $series->name = $name;
-        $series->alias = $alias;
         $series->save();
 
         return redirect("{$this->ADMIN}/series");

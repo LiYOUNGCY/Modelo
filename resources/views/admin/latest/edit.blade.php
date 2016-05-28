@@ -145,7 +145,7 @@
                     imageUrl.empty();
                     for (var i in productions) {
                         var production = productions[i];
-                        var value = BASEURL + 'production/' + production.alias;
+                        var value = BASEURL + 'production/' + production.id;
                         imageUrl.append('<option value="' + value + '">' + production.name + '</option>');
                     }
                 } else if (type == 2) {
@@ -153,7 +153,7 @@
                     var productions = getProduction();
                     for (var i in productions) {
                         var production = productions[i];
-                        var value = BASEURL + 'production/' + production.alias + ',' + production.name;
+                        var value = BASEURL + 'production/' + production.id + ',' + production.name;
                         container.append('<option value="' + value + '">' + production.name + '</option>');
                     }
                     productionText.attr('disabled', false);

@@ -18,7 +18,6 @@ class ProductionColor extends Migration
             $table->bigInteger('image_id')->unsigned();
 
             $table->string('name', 32);
-            $table->string('alias', 32);
             $table->float('price')->unsigned();
             $table->timestamps();
 

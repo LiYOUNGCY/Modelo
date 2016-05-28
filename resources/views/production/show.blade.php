@@ -34,8 +34,8 @@
             <div class="left fl">
                 <p class="goods-name">{{ $production->name }}</p>
                 <p class="goods-state mb0">预售中（7-14日后发货）</p>
-                <!--<p class="goods-state mb0">库存：30</p>-->
-                <!--<p class="goods-state mb0">已下架</p>-->
+                {{--<p class="goods-state mb0">库存：30</p>--}}
+                {{--<p class="goods-state mb0">已下架</p>--}}
             </div>
             <div class="right fr">
                 <div class="goods-price">
@@ -50,22 +50,31 @@
         </div>
         <div class="m-goods-color">
             @foreach($colors as $color)
-                <a class="color-item" href="{{ url("production/{$production->alias}/{$color->alias}") }}"
-                   style="display: block; color: inherit; text-decoration: none;">
-                    <img class="color-pic" src="{{ asset($color->image->path) }}">
-                    @if($color->id == $thisColor->id)
+                @if($color->id == $thisColor->id)
+                    <div class="color-item" href="{{ url("production/{$production->id}/{$color->id}") }}"
+                         style="display: block; color: inherit; text-decoration: none;">
+                        <img class="color-pic" src="{{ asset($color->image->path) }}">
+
                         <div class="arrow active">
                             <span class="fa fa-sort-up"></span>
                         </div>
-                    @else
+                        <div class="color-name">
+                            {{ $color->name }}
+                        </div>
+                    </div>
+                @else
+                    <a class="color-item" href="{{ url("production/{$production->id}/{$color->id}") }}"
+                         style="display: block; color: inherit; text-decoration: none;">
+                        <img class="color-pic" src="{{ asset($color->image->path) }}">
+
                         <div class="arrow">
                             <span class="fa fa-sort-up"></span>
                         </div>
-                    @endif
-                    <div class="color-name">
-                        {{ $color->name }}
-                    </div>
-                </a>
+                        <div class="color-name">
+                            {{ $color->name }}
+                        </div>
+                    </a>
+                @endif
             @endforeach
             <div class="cf"></div>
         </div>
@@ -209,7 +218,7 @@
             function showExplain(type) {
                 var content = '' +
                         '<div class="goods-explain-modal">' +
-                            '<img src="'+type+'">' +
+                        '<img src="' + type + '">' +
                         '</div>' +
                         '<div class="m-shade" id="explain-shade"></div>';
                 $("body").prepend(content);
@@ -254,11 +263,11 @@
                 });
             });
 
-            $('#size').click(function(){
+            $('#size').click(function () {
                 showExplain('{{ url($production->size_info->path) }}');
             });
 
-            $('#component').click(function(){
+            $('#component').click(function () {
                 showExplain('{{ url($production->fabric_info->path) }}');
             });
         });
