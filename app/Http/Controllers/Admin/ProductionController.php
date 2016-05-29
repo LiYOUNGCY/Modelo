@@ -29,7 +29,7 @@ class ProductionController extends AdminController
 
     public function create()
     {
-        $images = Image::all();
+        $images = Image::getAll();
         $series = Series::all();
         $categories = Category::all();
 
@@ -132,7 +132,7 @@ class ProductionController extends AdminController
             $productionImage[$productionColor->id] = ProductionImage::where('production_color_id', $productionColor->id)->get();
         }
 
-        $images = Image::all();
+        $images = Image::getAll();
         $series = Series::all();
         $categories = Category::all();
 

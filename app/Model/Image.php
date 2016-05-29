@@ -26,7 +26,6 @@ class Image extends Model
     public static function getAll()
     {
         $data = DB::table('image')
-            ->where('image.visible', '=', true)
             ->where('image.visible', 1)
             ->select('*')
             ->get();
