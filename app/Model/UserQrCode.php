@@ -39,7 +39,7 @@ class UserQrCode extends Model
 
     public static function generateQrCode($user_id)
     {
-var_dump($user_id);
+        var_dump($user_id);
         $app = app('wechat');
         $qrcode = $app->qrcode;
 
@@ -55,29 +55,22 @@ var_dump($user_id);
         $storagePath = Storage::getDriver()->getAdapter()->getPathPrefix();
         $absolutePath = $storagePath . $fileName;
         $layer = ImageWorkshop::initFromPath($absolutePath);
-	$layer->resizeInPixel(397, 397, false);
-	$path2 = $storagePath.'qrcode_background.jpg';
+        $layer->resizeInPixel(397, 397, false);
+        $path2 = $storagePath . 'qrcode_background.jpg';
         $pingLayer = ImageWorkshop::initFromPath($path2);
         $pingLayer->addLayerOnTop($layer, 388, 255, 'LB');
         $pingLayer->save($storagePath, '123456.png', true, null, 95);
 
-        $content = file_get_contents($absolutePath = $storagePath . $fileName);
-/*
+        $content = file_get_contents($absolutePath = $storagePath . '123456.png');
+
         $image = new Image();
         $image->storeImage('QrCode', $content, 'png', false);
-*/
-//        $user_qrcode = new UserQrCode();
-//        $user_qrcode->user_id = $user_id;
-//        $user_qrcode->image_id = $image->id;
-//        $user_qrcode->token = $token;
-//        $user_qrcode->save();
-/*
+
         UserQrCode::create([
             'user_id' => $user_id,
             'image_id' => $image->id,
             'token' => $token,
         ]);
-*/
     }
 
     public static function getQrCode($user_id)
@@ -89,7 +82,7 @@ var_dump($user_id);
                 'image.path as qrcode'
             )
             ->first();
-        
+
         return $query;
     }
 
