@@ -25,7 +25,7 @@ class ServerController extends Controller
             if ($message->MsgType == 'event') {
                 switch ($message->Event) {
                     case 'subscribe':
-                        return $this->handlerEvent($message);
+                        $this->handlerEvent($message);
                         break;
                     default:
                         break;
@@ -60,8 +60,6 @@ class ServerController extends Controller
             $user->follow($parentId);
         }
 
-        $this->dispatch((new SendWechatMessage($fromUserOpenId))->delay(15));
-
-        return "谢谢那么好看的你来加入魔豆世界，这里是有颜走心的购物分享平台。了解我们请点击这里，喜欢我们的原创设计点击这里购买。";
+        $this->dispatch((new SendWechatMessage($fromUserOpenId)));
 	}
 }
