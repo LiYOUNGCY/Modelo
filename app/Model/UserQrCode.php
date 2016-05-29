@@ -39,7 +39,6 @@ class UserQrCode extends Model
 
     public static function generateQrCode($user_id)
     {
-        var_dump($user_id);
         $app = app('wechat');
         $qrcode = $app->qrcode;
 
