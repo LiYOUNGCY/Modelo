@@ -62,6 +62,6 @@ class ServerController extends Controller
         }
 
         $this->dispatch(new SendWechatFollow($fromUserOpenId));
-        $this->dispatch((new SendWechatMessage($fromUserOpenId)));
+        $this->dispatch((new SendWechatMessage($fromUserOpenId))->delay(3));
 	}
 }
