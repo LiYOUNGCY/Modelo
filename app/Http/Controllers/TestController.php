@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Container\Container;
 use App\Http\Common;
+use App\Jobs\SendWechatMessage;
 use App\Model\Order;
 use App\Model\Profit;
 use App\Model\User;
@@ -22,22 +23,24 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $app  = app('wechat');
-        $message = new Text(['content' => 'Hello world!']);;
-	$news = new News([
-'title' => 'aaa',
-'description' => 'qqq',
-'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000047&idx=2&sn=fffcfea7b08711b085fd0226beef8dd5#rd',
-'image' => 'https://mmbiz.qlogo.cn/mmbiz/CaiburVeswg4QRLzpP3ficxjBlKRGgRIIHzc2x1C8xqoIB4hwIs6UPibgWOiba3AicZxfdbspObCIXLia2ONdzgPf9rQ/0?wx_fmt=jpeg',
-]);
-        $app->staff->message([$news, $news, $news])->to('o4-YOwBjMKaYE8MiUT_vHHZP2oHg')->send();
+//        $app = app('wechat');
+//        $message = new Text(['content' => 'Hello world!']);;
+//        $news = new News([
+//            'title' => 'aaa',
+//            'description' => 'qqq',
+//            'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000047&idx=2&sn=fffcfea7b08711b085fd0226beef8dd5#rd',
+//            'image' => 'https://mmbiz.qlogo.cn/mmbiz/CaiburVeswg4QRLzpP3ficxjBlKRGgRIIHzc2x1C8xqoIB4hwIs6UPibgWOiba3AicZxfdbspObCIXLia2ONdzgPf9rQ/0?wx_fmt=jpeg',
+//        ]);
+//        $app->staff->message([$news, $news, $news])->to('o4-YOwBjMKaYE8MiUT_vHHZP2oHg')->send();
+
+        $this->dispatch(new SendWechatMessage('o4-YOwBjMKaYE8MiUT_vHHZP2oHg'));
     }
 
     public function login(Request $request)
     {
         $user = User::find(1);
 
-        if(is_null($user)) {
+        if (is_null($user)) {
             throw new \Exception("请运行 install .");
         }
 
@@ -54,17 +57,21 @@ class TestController extends Controller
     {
         Session::forget('user');
         $cookieName = Config::get('constants.rememberCookie');
-        Cookie::queue($cookieName, null , -1); // 销毁
+        Cookie::queue($cookieName, null, -1); // 销毁
     }
 
     public function check()
     {
         $session = session()->get('user');
-        echo '<pre>'; print_r($session); echo '</pre>';
+        echo '<pre>';
+        print_r($session);
+        echo '</pre>';
 
         $cookieName = Config::get('constants.rememberCookie');
         $cookie = Cookie::get($cookieName);
-        echo '<pre>'; print_r($cookie); echo '</pre>';
+        echo '<pre>';
+        print_r($cookie);
+        echo '</pre>';
     }
 
     public function pay()
