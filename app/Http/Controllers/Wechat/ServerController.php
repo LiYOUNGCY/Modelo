@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Wechat;
 
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendWechatMessage;
 use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
@@ -56,6 +57,8 @@ class ServerController extends Controller
             //推荐后对 User 的操作
             $user->follow($parentId);
         }
+
+        $this->dispatch(new SendWechatMessage($fromUserOpenId));
 
         return "您好，欢迎关注魔豆树，您的推荐人是{$user->referee}。";
 	}
