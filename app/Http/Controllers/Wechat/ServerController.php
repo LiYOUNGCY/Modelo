@@ -22,12 +22,14 @@ class ServerController extends Controller
         $server = app('wechat')->server;
 
         $server->setMessageHandler(function ($message) {
-            switch ($message->MsgType) {
-                case 'subscribe':
-                    return $this->handlerEvent($message);
-                    break;
-                default:
-                    break;
+            if ($message->MsgType == 'event') {
+                switch ($message->Event) {
+                    case 'subscribe':
+                        $this->handlerEvent($message);
+                        break;
+                    default:
+                        break;
+                }
             }
         });
 
