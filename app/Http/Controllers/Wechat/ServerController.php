@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Wechat;
 
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendWechatFollow;
 use App\Jobs\SendWechatMessage;
 use App\Model\User;
 use App\Model\UserQrCode;
@@ -60,6 +61,7 @@ class ServerController extends Controller
             $user->follow($parentId);
         }
 
+        $this->dispatch(new SendWechatFollow($fromUserOpenId));
         $this->dispatch((new SendWechatMessage($fromUserOpenId)));
 	}
 }
