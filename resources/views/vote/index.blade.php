@@ -182,7 +182,7 @@
                     })
 
                 }
-            })
+            });
 //            $('#btn').click(function () {
 //                var val = $('input:radio:checked');
 //                if(val.length == 0) {
