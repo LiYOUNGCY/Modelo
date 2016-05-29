@@ -33,17 +33,18 @@
         <div class="m-goods-info">
             <div class="left fl">
                 <p class="goods-name">{{ $production->name }}</p>
-                <p class="goods-state mb0">预售中（7-14日后发货）</p>
+                <p class="goods-state mb0">3 天后开放购买</p>
                 {{--<p class="goods-state mb0">库存：30</p>--}}
                 {{--<p class="goods-state mb0">已下架</p>--}}
             </div>
             <div class="right fr">
-                <div class="goods-price">
-                    ￥{{ $thisColor->price }}
+                <div class="goods-price" style="font-size: 14px;;">
+                    {{--￥{{ $thisColor->price }}--}}
+                    ￥100 - 500
                 </div>
-                <div class="addtocar">
+                <div class="addtocar" style="display: none;">
                     <span class="fa fa-cart-arrow-down" style="font-size: 16px;"></span>
-                    <a href="#" id="addToCart">添加到购物车</a>
+                    <a href="javascript:void(0);" id="addToCart">添加到购物车</a>
                 </div>
             </div>
             <div class="cf"></div>
@@ -134,7 +135,8 @@
             <input type="hidden" name="size_id">
             <input type="hidden" name="color_id" value="{{ $thisColor->id }}">
             <input type="hidden" name="quantity">
-            <div class="btn full buy-goods" id="buy">确认购买</div>
+            {{--<div class="btn full buy-goods" id="buy">确认购买</div>--}}
+            <div class="btn full buy-goods">确认购买</div>
         </form>
     </div>
 @endsection
