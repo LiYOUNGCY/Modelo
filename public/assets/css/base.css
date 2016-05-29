@@ -527,7 +527,9 @@ th {
     width:90%;
     max-height:80%;
     border:solid 7px rgba(255,255,255,0.2);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+
 
     top:50%;
     left:50%;
