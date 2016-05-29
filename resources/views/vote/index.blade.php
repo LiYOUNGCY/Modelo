@@ -40,7 +40,7 @@
                     <img src="{{ asset('assets/images') }}/vote/2.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
-                        <label for="VoteNo2">藏青亚麻上衣</label>
+                        <label for="VoteNo2">藏青色亚麻上衣</label>
                     </div>
                 </div>
             </div>

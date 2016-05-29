@@ -60,7 +60,7 @@ x的平方 除以投票总人数所得的余数为基准数，5个中奖号码�
             <div class="vote-info">
                 <img src="{{ asset('assets/images') }}/vote/2.jpg">
                 <div class="vote-name">
-                    藏青亚麻上衣
+                    藏青色亚麻上衣
                 </div>
                 <div class="vote-result">
                     {{ $vote->B }} 票({{ $vote->B/$vote->total*100 }}%)
