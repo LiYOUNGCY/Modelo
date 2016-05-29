@@ -4,6 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use PHPImageWorkshop\ImageWorkshop;
+use Storage;
 use QrCode;
 
 class UserQrCode extends Model
@@ -46,6 +48,17 @@ class UserQrCode extends Model
         $ticket = $result->ticket;
         $url = $qrcode->url($ticket);
         $content = file_get_contents($url);
+
+        $fileName = str_random(32) . ".png";
+        Storage::put($fileName, $content);
+        $storagePath = Storage::getDriver()->getAdapter()->getPathPrefix();
+        $absolutePath = $storagePath . $fileName;
+        $layer = ImageWorkshop::initFromPath($absolutePath);
+        $pinguLayer = ImageWorkshop::initFromPath($storagePath.'qrcode_background.jpg');
+        $layer->addLayerOnTop($pinguLayer, 586.50, 1248.5, 'LT');
+        $layer->save($storagePath, $fileName, true, null, 95);
+
+        $content = file_get_contents($absolutePath = $storagePath . $fileName);
 
         $image = new Image();
         $image->storeImage('QrCode', $content, 'png', false);
