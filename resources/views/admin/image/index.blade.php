@@ -58,7 +58,7 @@
 
             function ajaxDelete(id) {
                 $.ajax({
-                    url: ADMIN + 'image/' + id,
+                    url: ADMIN + '/image/' + id,
                     data: {
                         _method: 'DELETE'
                     },

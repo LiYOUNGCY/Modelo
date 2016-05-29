@@ -16,6 +16,7 @@ use Log;
 use Session;
 use Illuminate\Http\Response;
 use EasyWeChat\Message\Text;
+use EasyWeChat\Message\News;
 
 class TestController extends Controller
 {
@@ -23,7 +24,13 @@ class TestController extends Controller
     {
         $app  = app('wechat');
         $message = new Text(['content' => 'Hello world!']);;
-        $app->staff->message($message)->to('o4-YOwBjMKaYE8MiUT_vHHZP2oHg')->send();
+	$news = new News([
+'title' => 'aaa',
+'description' => 'qqq',
+'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000047&idx=2&sn=fffcfea7b08711b085fd0226beef8dd5#rd',
+'image' => 'https://mmbiz.qlogo.cn/mmbiz/CaiburVeswg4QRLzpP3ficxjBlKRGgRIIHzc2x1C8xqoIB4hwIs6UPibgWOiba3AicZxfdbspObCIXLia2ONdzgPf9rQ/0?wx_fmt=jpeg',
+]);
+        $app->staff->message([$news, $news, $news])->to('o4-YOwBjMKaYE8MiUT_vHHZP2oHg')->send();
     }
 
     public function login(Request $request)
