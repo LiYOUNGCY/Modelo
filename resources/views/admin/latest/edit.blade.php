@@ -167,7 +167,7 @@
                 var images = '';
 
                 $.ajax({
-                    url: ADMIN + 'ajax/image',
+                    url: ADMIN + '/ajax/image',
                     async: false,
                     success: function (data) {
                         if (data.success == 0) {
@@ -184,7 +184,7 @@
                 var production = '';
 
                 $.ajax({
-                    url: ADMIN + 'ajax/production',
+                    url: ADMIN + '/ajax/production',
                     async: false,
                     success: function (data) {
                         if (data.success == 0) {

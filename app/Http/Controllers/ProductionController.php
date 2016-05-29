@@ -19,9 +19,7 @@ class ProductionController extends Controller
         $category = $request->get('c');
 
         if(isset($category) && is_numeric($category) && $category != 0) {
-            $productions = Production::join('production_category', 'production_category.production_id', '=', 'production.id')
-                ->where('production_category.category_id', $category)
-                ->get();
+            $productions = Production::get($category);
         } else {
             $productions = Production::all();
             $category = 0;
