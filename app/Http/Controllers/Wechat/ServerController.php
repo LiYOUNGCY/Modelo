@@ -23,7 +23,7 @@ class ServerController extends Controller
 
         $server->setMessageHandler(function ($message) {
             switch ($message->MsgType) {
-                case 'event':
+                case 'subscribe':
                     return $this->handlerEvent($message);
                     break;
                 default:
