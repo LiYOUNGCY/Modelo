@@ -55,16 +55,13 @@ var_dump($user_id);
         $storagePath = Storage::getDriver()->getAdapter()->getPathPrefix();
         $absolutePath = $storagePath . $fileName;
         $layer = ImageWorkshop::initFromPath($absolutePath);
-var_dump($layer);
+	$layer->resizeInPixel(397, 397, false);
 	$path2 = $storagePath.'qrcode_background.jpg';
-var_dump($path2);
         $pingLayer = ImageWorkshop::initFromPath($path2);
-var_dump($pingLayer);
-        $pingLayer->addLayerOnTop($layer, 364, 250, 'LB');
+        $pingLayer->addLayerOnTop($layer, 388, 255, 'LB');
         $pingLayer->save($storagePath, '123456.png', true, null, 95);
 
         $content = file_get_contents($absolutePath = $storagePath . $fileName);
-var_dump($content);
 /*
         $image = new Image();
         $image->storeImage('QrCode', $content, 'png', false);
