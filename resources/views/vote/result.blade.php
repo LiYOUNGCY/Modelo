@@ -40,7 +40,7 @@
                     白色府绸长衬衣
                 </div>
                 <div class="vote-result">
-                    {{ $vote->A }} 票({{ $vote->A/$vote->total*100 }}%)
+                    {{ $vote->A }} 票({{ round($vote->A/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     藏青色亚麻上衣
                 </div>
                 <div class="vote-result">
-                    {{ $vote->B }} 票({{ $vote->B/$vote->total*100 }}%)
+                    {{ $vote->B }} 票({{ round($vote->B/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     缎面印花半身裙
                 </div>
                 <div class="vote-result">
-                    {{ $vote->C }} 票({{ $vote->C/$vote->total*100 }}%)
+                    {{ $vote->C }} 票({{ round($vote->C/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     黑白前后拼色连衣裙
                 </div>
                 <div class="vote-result">
-                    {{ $vote->D }} 票({{ $vote->D/$vote->total*100 }}%)
+                    {{ $vote->D }} 票({{ round($vote->D/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
                     后镂空针织连衣裙
                 </div>
                 <div class="vote-result">
-                    {{ $vote->E }} 票({{ $vote->E/$vote->total*100 }}%)
+                    {{ $vote->E }} 票({{ round($vote->E/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@
                     黑色雪纺连体裤
                 </div>
                 <div class="vote-result">
-                    {{ $vote->F }} 票({{ $vote->F/$vote->total*100 }}%)
+                    {{ $vote->F }} 票({{ round($vote->F/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
                     印花背心连衣长裙
                 </div>
                 <div class="vote-result">
-                    {{ $vote->G }} 票({{ $vote->G/$vote->total*100 }}%)
+                    {{ $vote->G }} 票({{ round($vote->G/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                     亚麻短上衣
                 </div>
                 <div class="vote-result">
-                    {{ $vote->H }} 票({{ $vote->H/$vote->total*100 }}%)
+                    {{ $vote->H }} 票({{ round($vote->H/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@
                     亚麻风琴褶阔腿裤
                 </div>
                 <div class="vote-result">
-                    {{ $vote->I }} 票({{ $vote->I/$vote->total*100 }}%)
+                    {{ $vote->I }} 票({{ round($vote->I/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                     印花雪纺长衬衣
                 </div>
                 <div class="vote-result">
-                    {{ $vote->J }} 票({{ $vote->J/$vote->total*100 }}%)
+                    {{ $vote->J }} 票({{ round($vote->J/$vote->total*100, 2) }}%)
                 </div>
             </div>
         </div>
