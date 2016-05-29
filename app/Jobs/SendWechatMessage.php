@@ -3,6 +3,8 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+use EasyWeChat\Message\News;
+use EasyWeChat\Message\Text;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
