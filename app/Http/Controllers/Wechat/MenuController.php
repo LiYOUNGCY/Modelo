@@ -29,6 +29,11 @@ class MenuController extends Controller
                 'sub_button' => [
                     [
                         'type' => 'view',
+                        'name' => '优惠活动',
+                        'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000070&idx=1&sn=2949a971cdd2244dc489dd88a3745737#rd',
+                    ],
+                    [
+                        'type' => 'view',
                         'name' => '我的二维码',
                         'url' => url('qrcode'),
                     ],
