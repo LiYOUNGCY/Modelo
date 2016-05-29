@@ -93,7 +93,7 @@ x的平方 除以投票总人数所得的余数为基准数，5个中奖号码�
             <div class="vote-info">
                 <img src="{{ asset('assets/images') }}/vote/5.jpg">
                 <div class="vote-name">
-                    黑色后镂空针织连衣裙
+                    后镂空针织连衣裙
                 </div>
                 <div class="vote-result">
                     {{ $vote->E }} 票({{ $vote->E/$vote->total*100 }}%)
@@ -115,7 +115,7 @@ x的平方 除以投票总人数所得的余数为基准数，5个中奖号码�
             <div class="vote-info">
                 <img src="{{ asset('assets/images') }}/vote/7.jpg">
                 <div class="vote-name">
-                    雪纺印花背心连衣长裙
+                    印花背心连衣长裙
                 </div>
                 <div class="vote-result">
                     {{ $vote->G }} 票({{ $vote->G/$vote->total*100 }}%)

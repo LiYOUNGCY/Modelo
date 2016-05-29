@@ -188,7 +188,7 @@ Wrapper.prototype.createRow = function () {
 
 Wrapper.prototype.submit = function () {
     $.ajax({
-        url: ADMIN + 'latest/destroy',
+        url: ADMIN + '/latest/destroy',
         async: false
     });
     var rows = this.container.get('row');
@@ -202,7 +202,7 @@ Wrapper.prototype.submit = function () {
 
             $.ajax({
                 async: false,
-                url: ADMIN + 'latest/store',
+                url: ADMIN + '/latest/store',
                 data: data,
                 success: function (data) {
                     console.log(data);

@@ -67,7 +67,7 @@
                     <img src="{{ asset('assets/images') }}/vote/5.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo5" value="E">
-                        <label for="VoteNo5">黑色后镂空针织连衣裙</label>
+                        <label for="VoteNo5">后镂空针织连衣裙</label>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                     <img src="{{ asset('assets/images') }}/vote/7.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo7" value="G">
-                        <label for="VoteNo7">雪纺印花背心连衣长裙</label>
+                        <label for="VoteNo7">印花背心连衣长裙</label>
                     </div>
                 </div>
             </div>

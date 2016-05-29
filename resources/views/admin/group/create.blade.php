@@ -58,7 +58,7 @@
                 console.log(image_id);
 
                 $.ajax({
-                    url: ADMIN + 'group/store',
+                    url: ADMIN + '/group/store',
                     data: {
                         series_id: series_id,
                         image_id: image_id
@@ -102,7 +102,7 @@
                     return 0;
                 }
                 $.ajax({
-                    url: ADMIN + 'group/production/store',
+                    url: ADMIN + '/group/production/store',
                     data: {
                         group_id: group_id,
                         production_id: data
@@ -120,7 +120,7 @@
         function good() {
             var goods = [];
             $.ajax({
-                url: ADMIN + 'ajax/production',
+                url: ADMIN + '/ajax/production',
                 async: false,
                 success: function (data) {
                     if (data.success == 0) {
