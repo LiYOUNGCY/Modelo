@@ -60,8 +60,8 @@ class ServerController extends Controller
             $user->follow($parentId);
         }
 
-        $this->dispatch(new SendWechatMessage($fromUserOpenId));
+        $this->dispatch((new SendWechatMessage($fromUserOpenId))->delay(15));
 
-        return "您好，欢迎关注魔豆树，您的推荐人是{$user->referee}。";
+        return "谢谢那么好看的你来加入魔豆世界，这里是有颜走心的购物分享平台。了解我们请点击这里，喜欢我们的原创设计点击这里购买。";
 	}
 }
