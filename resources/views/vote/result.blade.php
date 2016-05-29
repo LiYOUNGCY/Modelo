@@ -70,7 +70,7 @@
             <div class="vote-info">
                 <img src="{{ asset('assets/images') }}/vote/4.jpg">
                 <div class="vote-name">
-                    黑白前后拼色连衣裙
+                    黑白拼色连衣裙
                 </div>
                 <div class="vote-result">
                     {{ $vote->D }} 票({{ round($vote->D/$vote->total*100, 2) }}%)

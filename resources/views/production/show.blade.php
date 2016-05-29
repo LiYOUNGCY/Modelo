@@ -64,7 +64,7 @@
                     </div>
                 @else
                     <a class="color-item" href="{{ url("production/{$production->id}/{$color->id}") }}"
-                         style="display: block; color: inherit; text-decoration: none;">
+                       style="display: block; color: inherit; text-decoration: none;">
                         <img class="color-pic" src="{{ asset($color->image->path) }}">
 
                         <div class="arrow">
@@ -96,7 +96,7 @@
                 <div class="item"><a id="size" href="javascript:void(0);">尺码说明</a></div>
                 <div class="item"><a id="component" href="javascript:void(0);">成分说明</a></div>
                 <div class="item"><a id="send" href="javascript:void(0);">关于寄送</a></div>
-                <div class="item nb"><a href="javascript:showExplain('refund')">关于退换</a></div>
+                <div class="item nb"><a id="reject" href="javascript:void(0)">关于退换</a></div>
                 <div class="cf"></div>
             </div>
         </div>
@@ -137,7 +137,6 @@
             <div class="btn full buy-goods" id="buy">确认购买</div>
         </form>
     </div>
-
 @endsection
 
 @section('moreCss')
@@ -230,7 +229,51 @@
                 $("#explain-shade").click(function () {
                     $("body").find(".goods-explain-modal").remove();
                     $("body").find(".m-shade").remove();
+                });
+            }
+
+            function showSend() {
+                var content = '' +
+                        '<div class="goods-explain-modal" style="padding: 1em; background: #EEE; line-height: 125%; font-size: 16px;">' +
+                        '<p>In Mods’ Code 每一件单品都是采用原创设计，手工精工制作，保证匠心品质。</p>' +
+                        '<p>我们会在收到订单后7-10天内，为魔豆们精心制作每一件单品并安排发货，保证品质。发货7天后，系统默认收货。</p>' +
+                        '<p>具体发货时间可联系客服，以客服答复为准！本店默认顺丰快递需要其他快递请联系客服。包邮范围为中国大陆地区，海外及港澳台客户请联系客服协商运费事宜。</p>' +
+                        '</div>' +
+                        '<div class="m-shade" id="explain-shade"></div>';
+                $("body").prepend(content);
+
+                $(".goods-explain-modal").click(function () {
+                    $("body").find(".goods-explain-modal").remove();
+                    $("body").find(".m-shade").remove();
                 })
+                $("#explain-shade").click(function () {
+                    $("body").find(".goods-explain-modal").remove();
+                    $("body").find(".m-shade").remove();
+                })
+            }
+
+            function showReject() {
+                var content = '' +
+                        '<div class="goods-explain-modal" style="padding: 1em; background: #EEE; line-height: 125%; font-size: 16px;">' +
+                        '<p>买买买也烧脑，我们都懂，贴心为你提供优厚的退换条款。让你购买放心，退换省心。</p>' +
+                        '<p>收货后的3天内，你可以无条件申请换货，客服会联系你处理退换货。你需在收货后7天内寄回货品。</p>' +
+                        '<p>在保持产品原样，不影响第二次销售的情况下，客服安排为你退换货。</p>' +
+                        '<p><strong>因质量原因退换货，魔豆树承担退货运费；因尺寸、喜好等个人原因退换货，买家承担运费。</strong></p>' +
+                        '<p>各位魔豆请注意：</p>' +
+                        '<p>如你选择退货，将会失去魔豆资格，二维码和佣金会被冻结，无法提现。</p>' +
+                        '<p>直到你再次成功购买任意商品，订单完成，方可提现你的奖励财富。</p>' +
+                        '</div>' +
+                        '<div class="m-shade" id="explain-shade"></div>';
+                $("body").prepend(content);
+
+                $(".goods-explain-modal").click(function () {
+                    $("body").find(".goods-explain-modal").remove();
+                    $("body").find(".m-shade").remove();
+                })
+                $("#explain-shade").click(function () {
+                    $("body").find(".goods-explain-modal").remove();
+                    $("body").find(".m-shade").remove();
+                });
             }
 
             $('#buy').click(function () {
@@ -265,6 +308,14 @@
 
             $('#size').click(function () {
                 showExplain('{{ url($production->size_info->path) }}');
+            });
+
+            $('#send').click(function () {
+                showSend();
+            });
+
+            $('#reject').click(function () {
+                showReject();
             });
 
             $('#component').click(function () {
