@@ -21,7 +21,7 @@ class ProductionController extends Controller
         if(isset($category) && is_numeric($category) && $category != 0) {
             $productions = Production::get($category);
         } else {
-            $productions = Production::all();
+            $productions = Production::get(0);
             $category = 0;
         }
 

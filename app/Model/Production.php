@@ -54,7 +54,7 @@ class Production extends Model
     {
         $result = [];
 
-        if(isset($category) && is_numeric($category) && $category != 0) {
+        if(isset($categoryId) && is_numeric($categoryId) && $categoryId != 0) {
             $result = DB::table('production')
                 ->join('image', 'image.id', '=', 'production.cover_id')
                 ->join('production_category', 'production_category.production_id', '=', 'production.id')
