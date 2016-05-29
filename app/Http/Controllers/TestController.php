@@ -23,7 +23,7 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $this->dispatch(new SendWechatMessage('o4-YOwBjMKaYE8MiUT_vHHZP2oHg'));
+        UserQrCode::generateQrCode(2);
     }
 
     public function login(Request $request)

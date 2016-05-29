@@ -55,8 +55,8 @@ class UserQrCode extends Model
         $absolutePath = $storagePath . $fileName;
         $layer = ImageWorkshop::initFromPath($absolutePath);
         $pinguLayer = ImageWorkshop::initFromPath($storagePath.'qrcode_background.jpg');
-        $layer->addLayerOnTop($pinguLayer, 586.50, 1248.5, 'LT');
-        $layer->save($storagePath, $fileName, true, null, 95);
+        $pinguLayer->addLayerOnTop($layer, 586.50, 1248.5, 'LT');
+        $pinguLayer->save($storagePath, $fileName, true, null, 95);
 
         $content = file_get_contents($absolutePath = $storagePath . $fileName);
 
