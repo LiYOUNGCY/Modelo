@@ -38,7 +38,7 @@
                 var id = $(this).attr('data-id');
                 console.log(id);
                 $.ajax({
-                    url: ADMIN + 'group/'+ id,
+                    url: ADMIN + '/group/'+ id,
                     data: {
                         _method: 'DELETE'
                     },
