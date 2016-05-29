@@ -23,7 +23,6 @@ class SendWechatMessage extends Job implements ShouldQueue
     public function handle()
     {
         $app = app('wechat');
-        $message = new Text(['content' => 'Hello world!']);;
         $index = url('/');
 
         $news1 = new News([
