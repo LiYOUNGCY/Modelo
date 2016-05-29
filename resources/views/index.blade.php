@@ -7,7 +7,7 @@
         <div class="m-logo">
             <img src="{{ url('assets/images') }}/logo.jpg">
         </div>
-        <div class="m-postcard" style="background-image: url({{ asset('assets/images') }}/index.jpeg)"></div>
+        <div class="m-postcard" style="background-image: url({{ asset('assets/images') }}/index.jpg)"></div>
     </div>
 
     <div class="nav-bar">
