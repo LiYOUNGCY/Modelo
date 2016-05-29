@@ -15,18 +15,15 @@ use Cookie;
 use Log;
 use Session;
 use Illuminate\Http\Response;
+use EasyWeChat\Message\Text;
 
 class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $userService  = app('wechat')->user();
-
-        $info = $userService->get('o4-YOwDNj08Y8NMbhbjQspPb7twg');
-
-        echo '<pre>';
-        var_dump($info);
-        echo '</pre>';
+        $app  = app('wechat');
+        $message = new Text(['content' => 'Hello world!']);;
+        $app->staff->message($message)->to('o4-YOwBjMKaYE8MiUT_vHHZP2oHg')->send();
     }
 
     public function login(Request $request)
