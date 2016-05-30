@@ -67,4 +67,11 @@ class VoteController extends Controller
             'vote' => $vote,
         ]);
     }
+    public function jump()
+    {
+        $user = Container::getUser();
+        $voteResult = where('user_id', $user->id)->first();
+
+        return view('vote.jump');
+    }
 }
