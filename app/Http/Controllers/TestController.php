@@ -25,8 +25,14 @@ class TestController extends Controller
     {
         $app = app('wechat');
         $userService = $app->user;
-        $info = $userService->get('o4-YOwLHW2R82FT-eBPZWqpegg9U');
-        var_dump($info);
+
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $info = $userService->get($user->openid);
+            $user->nickname = $info->nickname;
+            $user->save();
+        }
     }
 
     public function login(Request $request)
