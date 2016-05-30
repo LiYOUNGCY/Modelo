@@ -24,18 +24,18 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-//		$app = app('wechat');
-//		$userService = $app->user;
-//		$users = User::all();
-//		foreach ($users as $user) {
-//			if(!empty($user->openid)) {
-//				$info = $userService->get($user->openid);
-//				$first_name = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $info->nickname);
-//				$user->nickname = $first_name;
-//				$user->save();
-//			}
-//		}
+		$app = app('wechat');
+		$userService = $app->user;
+		$users = User::all();
+		foreach ($users as $user) {
+			if(!empty($user->openid)) {
+				$info = $userService->get($user->openid);
+				$user->nickname = $info->nickname;
+				$user->save();
+			}
+		}
 
+/*
         $users = User::all();
 
         foreach ($users as $user) {
@@ -50,6 +50,7 @@ class TestController extends Controller
                 $user->referee = $referee->nickname;
             }
         }
+*/
     }
 
     public function login(Request $request)
