@@ -22,8 +22,8 @@ use EasyWeChat\Message\News;
 
 class TestController extends Controller
 {
-	public function index(Request $request)
-	{
+    public function index(Request $request)
+    {
 //		$app = app('wechat');
 //		$userService = $app->user;
 //		$users = User::all();
@@ -36,60 +36,63 @@ class TestController extends Controller
 //			}
 //		}
 
-		$users = User::all();
+        $users = User::all();
 
-		foreach ($users as $user) {
-			$referee = DB::table('user')
-				->join('user_relation', 'user_relation.parent_id', '=', 'user.id')
-				->where('user_relation.children_id', $user->id)
-				->select('user.nickname')
-				->first();
+        foreach ($users as $user) {
+            $referee = DB::table('user')
+                ->join('user_relation', 'user_relation.parent_id', '=', 'user.id')
+                ->where('user_relation.children_id', $user->id)
+                ->select('user.nickname')
+                ->first();
 
-			var_dump($referee);
-//			$user->referee = $referee;
-		}
-	}
-	public function login(Request $request)
-	{
-		$user = User::find(1);
+            var_dump($referee);
+            if (isset($referee)) {
+                $user->referee = $referee->nickname;
+            }
+        }
+    }
 
-		if (is_null($user)) {
-			throw new \Exception("请运行 install .");
-		}
+    public function login(Request $request)
+    {
+        $user = User::find(1);
 
-		Container::setUser($user->id);
+        if (is_null($user)) {
+            throw new \Exception("请运行 install .");
+        }
 
-		Common::createLoginCookie();
+        Container::setUser($user->id);
+
+        Common::createLoginCookie();
 
 #Log::info("user: {$user->id}");
 
-		echo 'Success';
-	}
+        echo 'Success';
+    }
 
-	public function logout(Request $request)
-	{
-		Session::forget('user');
-		$cookieName = Config::get('constants.rememberCookie');
-		Cookie::queue($cookieName, null, -1); // 销毁
-	}
+    public function logout(Request $request)
+    {
+        Session::forget('user');
+        $cookieName = Config::get('constants.rememberCookie');
+        Cookie::queue($cookieName, null, -1); // 销毁
+    }
 
-	public function check()
-	{
-		$session = session()->get('user');
-		echo '<pre>';
-		print_r($session);
-		echo '</pre>';
+    public function check()
+    {
+        $session = session()->get('user');
+        echo '<pre>';
+        print_r($session);
+        echo '</pre>';
 
-		$cookieName = Config::get('constants.rememberCookie');
-		$cookie = Cookie::get($cookieName);
-		echo '<pre>';
-		print_r($cookie);
-		echo '</pre>';
-	}
+        $cookieName = Config::get('constants.rememberCookie');
+        $cookie = Cookie::get($cookieName);
+        echo '<pre>';
+        print_r($cookie);
+        echo '</pre>';
+    }
 
-	public function pay()
-	{
-		$wechat_order_no = '1462067555I4pKwTEBVDK0qzvKHIkgGB';
-		Order::payOrder($wechat_order_no);
-	}
+    public function pay()
+    {
+        $wechat_order_no = '1462067555I4pKwTEBVDK0qzvKHIkgGB';
+        Order::payOrder($wechat_order_no);
+    }
 }
