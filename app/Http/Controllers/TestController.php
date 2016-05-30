@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Container\Container;
 use App\Http\Common;
-use App\Jobs\SendWechatMessage;
-use App\Model\Order;
-use App\Model\Profit;
 use App\Model\User;
 use App\Model\UserQrCode;
 use Illuminate\Http\Request;
@@ -16,41 +13,12 @@ use Cookie;
 use Log;
 use Session;
 use DB;
-use Illuminate\Http\Response;
-use EasyWeChat\Message\Text;
-use EasyWeChat\Message\News;
 
 class TestController extends Controller
 {
     public function index(Request $request)
     {
-		$app = app('wechat');
-		$userService = $app->user;
-		$users = User::all();
-		foreach ($users as $user) {
-			if(!empty($user->openid)) {
-				$info = $userService->get($user->openid);
-				$user->nickname = $info->nickname;
-				$user->save();
-			}
-		}
-
-/*
-        $users = User::all();
-
-        foreach ($users as $user) {
-            $referee = DB::table('user')
-                ->join('user_relation', 'user_relation.parent_id', '=', 'user.id')
-                ->where('user_relation.children_id', $user->id)
-                ->select('user.nickname')
-                ->first();
-
-            var_dump($referee);
-            if (isset($referee)) {
-                $user->referee = $referee->nickname;
-            }
-        }
-*/
+        UserQrCode::generateQrCode(2);
     }
 
     public function login(Request $request)
@@ -91,9 +59,35 @@ class TestController extends Controller
         echo '</pre>';
     }
 
-    public function pay()
+    public function refreshWechatNickname()
     {
-        $wechat_order_no = '1462067555I4pKwTEBVDK0qzvKHIkgGB';
-        Order::payOrder($wechat_order_no);
+        $app = app('wechat');
+        $userService = $app->user;
+        $users = User::all();
+        foreach ($users as $user) {
+            if (!empty($user->openid)) {
+                $info = $userService->get($user->openid);
+                $user->nickname = $info->nickname;
+                $user->save();
+            }
+        }
+    }
+
+    public function refreshReferee()
+    {
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $referee = DB::table('user')
+                ->join('user_relation', 'user_relation.parent_id', '=', 'user.id')
+                ->where('user_relation.children_id', $user->id)
+                ->select('user.nickname')
+                ->first();
+
+            var_dump($referee);
+            if (isset($referee)) {
+                $user->referee = $referee->nickname;
+            }
+        }
     }
 }
