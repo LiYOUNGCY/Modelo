@@ -16,9 +16,9 @@
             </div>
         </div>
 
-        <div style="padding: .5em; text-align: center">
-            <p>长按图片保存到手机，分享图片传播你的二维码。</p>
-            <p>（直接分享此页面二维码无效）</p>
+        <div style="padding: .5em; text-align: center;">
+            <p style="text-align: center;">长按图片保存到手机，分享图片传播你的二维码。</p>
+            <p style="text-align: center;">（直接分享此页面二维码无效）</p>
         </div>
 
         <img src="{{ $qrcode->qrcode }}" style="width: 100%;">
