@@ -6,6 +6,8 @@ Route::group(['middleware' => ['withoutLogin']], function () {
     Route::get('test/logout', 'TestController@logout');
     Route::get('test/check', 'TestController@check');
     Route::get('test/pay', 'TestController@pay');
+
+    Route::get('/deny', 'IndexController@deny');
 });
 
 Route::group(['middleware' => ['web']], function () {

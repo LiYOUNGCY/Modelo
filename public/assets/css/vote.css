@@ -287,3 +287,38 @@ ul{
 .vote-message .button{
     margin:15px auto 0;
 }
+.jump-bg{
+    position: relative;
+    width:100%;
+}
+.jump-bg img{
+    width:100%;
+    position: relative;
+}
+.jump-bg .jump-qrcode{
+    position: absolute;
+    left:50%;
+    top:55%;
+
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.jump-bg .jump-qrcode .qrcode{
+    display: block;
+    width:150px;
+    height:150px;
+}
+.jump-bg .jump-qrcode .tip{
+    margin-top: 10px;
+    background-color: rgba(0,0,0,0.3);
+    padding:10px;
+    text-align: center;
+    width:150px;
+    color: #ffffff;
+}
+.jump-bg .jump-qrcode .tip p{
+    margin-bottom: 5px;
+}

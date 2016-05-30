@@ -163,7 +163,7 @@
                             '<span class="left">投票留言</span>' +
                             '<span class="right" id="skip">跳过</span>' +
                             '</div>' +
-                            '<textarea name="message" id="message" placeholder="你为什么会选_?"></textarea>' +
+                            '<textarea name="message" id="message" placeholder="你为什么会选它?"></textarea>' +
                             '<div class="button" id="submitMessage">提交</div>' +
                             '</div>' +
                             '</div>';

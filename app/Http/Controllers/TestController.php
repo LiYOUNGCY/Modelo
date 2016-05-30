@@ -15,6 +15,7 @@ use Config;
 use Cookie;
 use Log;
 use Session;
+use DB;
 use Illuminate\Http\Response;
 use EasyWeChat\Message\Text;
 use EasyWeChat\Message\News;
@@ -23,7 +24,32 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        UserQrCode::generateQrCode(2);
+//		$app = app('wechat');
+//		$userService = $app->user;
+//		$users = User::all();
+//		foreach ($users as $user) {
+//			if(!empty($user->openid)) {
+//				$info = $userService->get($user->openid);
+//				$first_name = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $info->nickname);
+//				$user->nickname = $first_name;
+//				$user->save();
+//			}
+//		}
+
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $referee = DB::table('user')
+                ->join('user_relation', 'user_relation.parent_id', '=', 'user.id')
+                ->where('user_relation.children_id', $user->id)
+                ->select('user.nickname')
+                ->first();
+
+            var_dump($referee);
+            if (isset($referee)) {
+                $user->referee = $referee->nickname;
+            }
+        }
     }
 
     public function login(Request $request)
@@ -38,7 +64,7 @@ class TestController extends Controller
 
         Common::createLoginCookie();
 
-        #Log::info("user: {$user->id}");
+#Log::info("user: {$user->id}");
 
         echo 'Success';
     }
