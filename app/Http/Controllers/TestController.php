@@ -15,6 +15,7 @@ use Config;
 use Cookie;
 use Log;
 use Session;
+use DB;
 use Illuminate\Http\Response;
 use EasyWeChat\Message\Text;
 use EasyWeChat\Message\News;
@@ -38,13 +39,13 @@ class TestController extends Controller
 		$users = User::all();
 
 		foreach ($users as $user) {
-			$referee = DB::table('user.nickname')
+			$referee = DB::table('user')
 				->join('user_relation', 'user_relation.parent_id', '=', 'user.id')
 				->where('user_relation.children_id', $user->id)
 				->select('user.nickname')
-				->get();
+				->first();
 
-			var_dump($referee['nickname']);
+			var_dump($referee);
 //			$user->referee = $referee;
 		}
 	}
