@@ -28,7 +28,7 @@ class TestController extends Controller
 
 		$users = User::all();
 		foreach ($users as $user) {
-			if(!empty($user->openid)&& empty($user->nickname) ) {
+			if(!empty($user->openid)) {
 				$info = $userService->get($user->openid);
 				$first_name = utf8_encode($info->nickname);
 				var_dump($first_name);
