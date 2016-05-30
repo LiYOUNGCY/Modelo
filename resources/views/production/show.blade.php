@@ -40,7 +40,7 @@
             <div class="right fr">
                 <div class="goods-price" style="font-size: 14px;;">
                     {{--￥{{ $thisColor->price }}--}}
-                    ￥100 ~ 500
+                    ￥???
                 </div>
                 <div class="addtocar" style="display: none;">
                     <span class="fa fa-cart-arrow-down" style="font-size: 16px;"></span>
@@ -116,7 +116,8 @@
                         </div>
                     </div>
                     <div class="fr right">
-                        ￥<span id="price">{{ $thisColor->price }}</span>
+                        {{--￥<span id="price">{{ $thisColor->price }}</span>--}}
+                        ￥<span id="price">???</span>
                     </div>
 
                     <div class="cf"></div>
@@ -210,10 +211,11 @@
             });
 
             function calTotal() {
-                var count = parseInt($("#count").html());
-                var price = parseInt($("#price").html());
-                var total = count * price;
-                $("#total").html(total);
+//                var count = parseInt($("#count").html());
+//                var price = parseInt($("#price").html());
+//                var total = count * price;
+//                $("#total").html(total);
+                $("#total").html('￥???');
             }
 
             function showExplain(type) {
