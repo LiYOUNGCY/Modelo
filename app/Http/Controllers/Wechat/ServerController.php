@@ -66,6 +66,6 @@ class ServerController extends Controller
 
         $qrcode = url('qrcode');
 
-        return "恭喜那么好看的你成为魔豆代言人，这里是有颜走心购物分享平台。\n你的推荐人是{$user->referee}\n了解我们的模式请点<a href='http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000082&idx=1&sn=771c9e17262385afe7048b54e274dc74#rd'>这里</a>\n喜欢我们的原创设计就点击<a href='{$url}'>这里</a>购买\n传播你的<a href='{$qrcode}'>专属二维码</a>，感受分享经济的魅力吧\n";
+        return "恭喜那么好看的你成为魔豆代言人，这里是有颜走心购物分享平台。\n你的推荐人是{$user->referee}。\n了解我们的模式请点<a href='http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000082&idx=1&sn=771c9e17262385afe7048b54e274dc74#rd'>这里</a>。\n喜欢我们的原创设计就点击<a href='{$url}'>这里</a>购买。\n传播你的<a href='{$qrcode}'>专属二维码</a>，感受分享经济的魅力吧/:,@-D";
 	}
 }
