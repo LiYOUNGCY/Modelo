@@ -69,7 +69,6 @@ class VoteController extends Controller
     }
     public function jump()
     {
-
-        return redirect('vote/jump');
+        return view('vote.jump');
     }
 }
