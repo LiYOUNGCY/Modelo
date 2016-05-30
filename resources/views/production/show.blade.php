@@ -215,7 +215,7 @@
 //                var price = parseInt($("#price").html());
 //                var total = count * price;
 //                $("#total").html(total);
-                $("#total").html('￥???');
+                $("#total").html('???');
             }
 
             function showExplain(type) {
