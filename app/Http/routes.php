@@ -152,7 +152,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('vote', 'VoteController@index');
     Route::post('vote', 'VoteController@store');
     Route::get('vote/result', 'VoteController@result');
-    Route::post('vote/jump', 'VoteController@jump');
+    Route::get('vote/jump', 'VoteController@jumped');
 });
 
 Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');

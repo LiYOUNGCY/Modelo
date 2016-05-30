@@ -9,8 +9,8 @@
     <div class="jump-qrcode">
         <img class="qrcode" src="{{ asset('assets/images') }}/voteqrcode.jpg">
         <div class="tip">
-            <p>长按二维码关注我们</p>
-            参与投票，赢取双礼
+            <p>长按二维码</p>
+            关注公众号参与投票
         </div>
     </div>
 </div>

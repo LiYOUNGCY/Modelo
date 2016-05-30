@@ -298,22 +298,25 @@ ul{
 .jump-bg .jump-qrcode{
     position: absolute;
     left:50%;
-    top:50%;
+    top:55%;
 
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 .jump-bg .jump-qrcode .qrcode{
     display: block;
+    width:150px;
+    height:150px;
 }
 .jump-bg .jump-qrcode .tip{
     margin-top: 10px;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.5);
     padding:10px;
     text-align: center;
+    width:150px;
 }
 .jump-bg .jump-qrcode .tip p{
     margin-bottom: 5px;

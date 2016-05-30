@@ -67,7 +67,7 @@ class VoteController extends Controller
             'vote' => $vote,
         ]);
     }
-    public function jump()
+    public function jumped()
     {
         return view('vote.jump');
     }
