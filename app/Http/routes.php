@@ -6,6 +6,8 @@ Route::group(['middleware' => ['withoutLogin']], function () {
     Route::get('test/logout', 'TestController@logout');
     Route::get('test/check', 'TestController@check');
     Route::get('test/pay', 'TestController@pay');
+
+    Route::get('/deny', 'IndexController@deny');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -152,7 +154,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('vote', 'VoteController@index');
     Route::post('vote', 'VoteController@store');
     Route::get('vote/result', 'VoteController@result');
-    Route::get('vote/jump', 'VoteController@jumped');
 });
 
 Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');

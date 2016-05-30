@@ -62,7 +62,7 @@ class AuthController extends Controller
                 return redirect('/');
             }
         } else {
-            echo '请关注公众号';
+            return redirect('deny');
         }
     }
 }
