@@ -23,16 +23,29 @@ class TestController extends Controller
 {
 	public function index(Request $request)
 	{
-		$app = app('wechat');
-		$userService = $app->user;
+//		$app = app('wechat');
+//		$userService = $app->user;
+//		$users = User::all();
+//		foreach ($users as $user) {
+//			if(!empty($user->openid)) {
+//				$info = $userService->get($user->openid);
+//				$first_name = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $info->nickname);
+//				$user->nickname = $first_name;
+//				$user->save();
+//			}
+//		}
+
 		$users = User::all();
+
 		foreach ($users as $user) {
-			if(!empty($user->openid)) {
-				$info = $userService->get($user->openid);
-				$first_name = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $info->nickname);
-				$user->nickname = $first_name;
-				$user->save();
-			}
+			$referee = DB::table('user.nickname')
+				->join('user_relation', 'user_relation.parent_id', '=', 'user.id')
+				->where('user_relation.children_id', $user->id)
+				->select('user.nickname')
+				->get();
+
+			var_dump($referee['nickname']);
+//			$user->referee = $referee;
 		}
 	}
 	public function login(Request $request)
