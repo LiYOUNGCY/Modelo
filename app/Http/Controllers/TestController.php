@@ -23,7 +23,10 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        UserQrCode::generateQrCode(2);
+        $app = app('wechat');
+        $userService = $app->user;
+        $info = $userService->get('o4-YOwLHW2R82FT-eBPZWqpegg9U');
+        var_dump($info);
     }
 
     public function login(Request $request)
