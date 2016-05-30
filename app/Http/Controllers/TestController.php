@@ -29,7 +29,6 @@ class TestController extends Controller
 		foreach ($users as $user) {
 			if(!empty($user->openid)) {
 				$info = $userService->get($user->openid);
-
 				$first_name = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $info->nickname);
 				$user->nickname = $first_name;
 				$user->save();
