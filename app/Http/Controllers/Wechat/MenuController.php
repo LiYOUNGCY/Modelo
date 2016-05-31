@@ -49,11 +49,6 @@ class MenuController extends Controller
                     ],
                     [
                         'type' => 'view',
-                        'name' => '我的订单',
-                        'url' => url('order'),
-                    ],
-                    [
-                        'type' => 'view',
                         'name' => '我是魔豆',
                         'url' => url('user'),
                     ],
