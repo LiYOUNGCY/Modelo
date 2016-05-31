@@ -19,7 +19,7 @@
         <div class="share-tips">
 			长按图片保存到手机，分享图片传播你的二维码。
 			<div class="btn check_sharephpto">
-                <a href="{{ url('qrcode/share') }}">查看保存分享图片</a>
+                <a href="{{ url('image/share') }}">查看保存分享图片</a>
 			</div>
 		</div>
 

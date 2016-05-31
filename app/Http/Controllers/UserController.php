@@ -28,14 +28,6 @@ class UserController extends Controller
             return view('qrcode.deny');
         }
     }
-    public function sharePhoto()
-    {
-        return view('qrcode.photo');
-    }
-    public function saveSharePhoto()
-    {
-        return view('qrcode.save');
-    }
 
     public function userCenter()
     {

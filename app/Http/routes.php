@@ -132,8 +132,6 @@ Route::group(['middleware' => ['web']], function () {
 
     // QrCode
     Route::get('qrcode', 'UserController@getQrCode');
-    Route::get('qrcode/share', 'UserController@sharePhoto');
-    Route::get('qrcode/save', 'UserController@saveSharePhoto');
 
     Route::get('user', 'UserController@userCenter');
     Route::get('user/children/one', 'UserController@oneChildren');
@@ -156,6 +154,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('vote', 'VoteController@index');
     Route::post('vote', 'VoteController@store');
     Route::get('vote/result', 'VoteController@result');
+
+
+    Route::get('image/share', 'ImageController@index');
+    Route::get('image/{id}/show', 'ImageController@show');
 });
 
 Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');

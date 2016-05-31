@@ -20,24 +20,26 @@
             <p>点击查看并保存图片</p>
         </div>
         <div class="share-photo-list">
+            @foreach($images as $image)
             <div class="share-photo-item">
-                <img src="{{ asset('assets/images') }}/vote/1.jpg">
+                <img src="{{ url($image->image) }}">
             </div>
-            <div class="share-photo-item">
-                <img src="{{ asset('assets/images') }}/vote/2.jpg">
-            </div>
-            <div class="share-photo-item">
-                <img src="{{ asset('assets/images') }}/vote/3.jpg">
-            </div>
-            <div class="share-photo-item">
-                <img src="{{ asset('assets/images') }}/vote/4.jpg">
-            </div>
-            <div class="share-photo-item">
-                <img src="{{ asset('assets/images') }}/vote/5.jpg">
-            </div>
-            <div class="share-photo-item">
-                <img src="{{ asset('assets/images') }}/vote/6.jpg">
-            </div>
+            @endforeach
+            {{--<div class="share-photo-item">--}}
+                {{--<img src="{{ asset('assets/images') }}/vote/2.jpg">--}}
+            {{--</div>--}}
+            {{--<div class="share-photo-item">--}}
+                {{--<img src="{{ asset('assets/images') }}/vote/3.jpg">--}}
+            {{--</div>--}}
+            {{--<div class="share-photo-item">--}}
+                {{--<img src="{{ asset('assets/images') }}/vote/4.jpg">--}}
+            {{--</div>--}}
+            {{--<div class="share-photo-item">--}}
+                {{--<img src="{{ asset('assets/images') }}/vote/5.jpg">--}}
+            {{--</div>--}}
+            {{--<div class="share-photo-item">--}}
+                {{--<img src="{{ asset('assets/images') }}/vote/6.jpg">--}}
+            {{--</div>--}}
             <div class="cf"></div>
         </div>
     </div>
