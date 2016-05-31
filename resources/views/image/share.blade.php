@@ -19,7 +19,7 @@
         <div class="share-photo-tips">
             <p>找到你喜欢的款式</p>
             <p>保存到手机</p>
-            <p>连你的二维码一同分享!</p>
+            <p class="mb0">连你的二维码一同分享!</p>
         </div>
         <div class="share-photo-list">
             @foreach($productions as $production)

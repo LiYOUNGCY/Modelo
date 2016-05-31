@@ -1083,16 +1083,10 @@ th {
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-.share-photo .close{
-    color: #FFFFFF;
-    border: 1px solid #FFFFFF;
-    padding: 5px 8px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
+
 .share-photo .tips{
     background-color: rgba(16,16,16,.4);
+    width:220px;
     color: #FFFFFF;
     padding: 5px 8px;
     position: absolute;

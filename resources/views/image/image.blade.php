@@ -17,7 +17,7 @@
         </div>
 
         <div class="share-photo-tips">
-            <p>点击查看并保存图片</p>
+            <p class="mb0">点击查看并保存图片</p>
         </div>
         <div class="share-photo-list">
             @foreach($images as $image)
