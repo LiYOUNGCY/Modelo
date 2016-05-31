@@ -16,10 +16,12 @@
             </div>
         </div>
 
-        <div style="padding: .5em; text-align: center;">
-            <p style="text-align: center;">长按图片保存到手机，分享图片传播你的二维码。</p>
-            <p style="text-align: center;">（直接分享此页面二维码无效）</p>
-        </div>
+        <div class="share-tips">
+			长按图片保存到手机，分享图片传播你的二维码。
+			<div class="btn check_sharephpto">
+                <a href="{{ url('qrcode/share') }}">查看保存分享图片</a>
+			</div>
+		</div>
 
         <img src="{{ $qrcode->qrcode }}" style="width: 100%;">
     </div>

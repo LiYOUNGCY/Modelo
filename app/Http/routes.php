@@ -132,6 +132,8 @@ Route::group(['middleware' => ['web']], function () {
 
     // QrCode
     Route::get('qrcode', 'UserController@getQrCode');
+    Route::get('qrcode/share', 'UserController@sharePhoto');
+    Route::get('qrcode/save', 'UserController@saveSharePhoto');
 
     Route::get('user', 'UserController@userCenter');
     Route::get('user/children/one', 'UserController@oneChildren');
