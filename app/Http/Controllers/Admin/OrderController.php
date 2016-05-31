@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Wechat\Notice;
+use App\Jobs\DliverNotice;
+use App\Jobs\RejectNotice;
 use App\Model\Order;
 use App\Model\Production;
 use App\Model\Profit;
@@ -17,8 +19,6 @@ use Log;
 
 class OrderController extends AdminController
 {
-    use Notice;
-
     public function index(Request $request)
     {
         $status = $request->get('status');
@@ -66,8 +66,8 @@ class OrderController extends AdminController
             $order->express = $express;
             $order->tracking_no = $tracking_no;
             $order->save();
-            
-            $this->deliverNotice($order->user_id, $order->id);
+
+            $this->dispatch(new DliverNotice($order->id, $order->user_id));
 
             return redirect("{$this->ADMIN}/order");
         } else {
@@ -94,7 +94,8 @@ class OrderController extends AdminController
                 $order->status_id = Config::get('constants.orderStatus.rejected');
                 $order->save();
 
-                $this->rejectNotice($order->user_id, $order->id);
+                //退货消息提醒
+                $this->dispatch(new RejectNotice($order->user_id, $order->id));
 
                 //商品数量
                 $sizes = DB::table('order_item')
@@ -111,6 +112,17 @@ class OrderController extends AdminController
 
                 //将奖励金额取消
                 Profit::removeProfit($order->id);
+
+                //检查二维码信息
+                $finishOrder = Order::getFinishOrder($order->user_id);
+
+                if (empty($finishOrder)) {
+                    //取消获取二维码权限
+                    $user = User::find($order->user_id);
+                    $user->can_qrcode = 0;
+                    $user->save();
+                }
+
                 return redirect("{$this->ADMIN}/order/{$order->id}")->with('success', '操作成功');
             } //end if
         }
@@ -125,7 +137,7 @@ class OrderController extends AdminController
         if (isset($order) && $order->status_id == Config::get('constants.orderStatus.reject')) {
             $order->status_id = Config::get('constants.orderStatus.exchange');
             $order->save();
-            
+
 //            $this->exchangeNotice($order->user_id, $order->id);
 
             return redirect("{$this->ADMIN}/order/{$order->id}");
