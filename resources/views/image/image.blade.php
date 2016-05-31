@@ -21,7 +21,7 @@
         </div>
         <div class="share-photo-list">
             @foreach($images as $image)
-            <div class="share-photo-item">
+            <div class="share-photo-item flow">
                 <img src="{{ url($image->image) }}">
             </div>
             @endforeach
