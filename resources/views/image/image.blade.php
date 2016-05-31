@@ -52,13 +52,12 @@
                 var src = $(this).attr("src");
                 var content = '<div class="share-photo">' +
                             '<img src="'+ src +'">' +
-                            '<div class="close">关闭</div>' +
-                            '<div class="tips">（长按保存图片）</div>' +
+                            '<div class="tips">（长按保存图片，轻触关闭）</div>' +
                             '</div>';
                 $("body").prepend(content);
-                $(".close").bind('touchend',function (event) {
+                $(".share-photo").bind('touchend',function (event) {
                     event.preventDefault();
-                    $(this).parent().remove();
+                    $(this).remove();
                 })
             });
     })

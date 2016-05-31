@@ -1105,6 +1105,9 @@ th {
     -o-transform: translateX(-50%);
     transform: translateX(-50%);
 }
+.share-tips p{
+    text-align: center;
+}
 
 /*购物车*/
 
