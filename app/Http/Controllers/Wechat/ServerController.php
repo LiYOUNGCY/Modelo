@@ -10,6 +10,7 @@ use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
 use EasyWeChat\Message\News;
+use Log;
 
 /**
  * Created by PhpStorm.
@@ -29,7 +30,7 @@ class ServerController extends Controller
                     case 'subscribe':
                         return $this->handlerEvent($message);
                         break;
-                    case 'click':
+                    case 'CLICK':
                         return $this->handleClickEvent($message);
                         break;
                     default:
