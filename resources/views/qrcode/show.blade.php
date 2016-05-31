@@ -19,9 +19,9 @@
         <div class="share-tips">
 			<p>长按图片保存到手机，分享图片传播你的二维码。</p>
 			<p>（直接分享此页面二维码无效）</p>
-			<div class="btn check_sharephpto">
-                <a href="{{ url('image/share') }}">查看更多商品图片</a>
-			</div>
+            <a href="{{ url('image/share') }}"><div class="btn check_sharephpto">
+                查看更多商品图片
+			</div></a>
 		</div>
 
         <img src="{{ $qrcode->qrcode }}" style="width: 100%;">
