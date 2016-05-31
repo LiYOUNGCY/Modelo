@@ -941,6 +941,9 @@ th {
     width: 180px;
     margin: 0 auto;
 }
+.check_sharephpto a{
+    color: #ffffff;
+}
 
 
 #cs-shade,
