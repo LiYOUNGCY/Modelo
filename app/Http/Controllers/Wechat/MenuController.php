@@ -21,8 +21,8 @@ class MenuController extends Controller
             ],
             [
                 'name' => '优惠活动',
-                'type' => 'view',
-                'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000070&idx=1&sn=2949a971cdd2244dc489dd88a3745737#rd',
+                'type' => 'click',
+                'key' => '100',
             ],
             [
                 'name' => '我的助手',
@@ -36,11 +36,6 @@ class MenuController extends Controller
                         'name' => '代言人指南',
                         'type' => 'view',
                         'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=2247483750&idx=2&sn=2bf581e589d702ffa23b44d28ae78377#rd',
-                    ],
-                    [
-                        'type' => 'view',
-                        'name' => '参与投票',
-                        'url' => url('vote'),
                     ],
                     [
                         'type' => 'view',

@@ -9,6 +9,7 @@ use App\Jobs\SendWechatMessage;
 use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
+use EasyWeChat\Message\News;
 
 /**
  * Created by PhpStorm.
@@ -28,6 +29,9 @@ class ServerController extends Controller
                     case 'subscribe':
                         return $this->handlerEvent($message);
                         break;
+                    case 'click':
+                        return $this->handleClickEvent($message);
+                        break;
                     default:
                         break;
                 }
@@ -43,7 +47,7 @@ class ServerController extends Controller
         $user = User::findOrNewByOpenid($fromUserOpenId);
 
         //没有推荐人
-        if(! UserRelation::hasParent($user->id)) {
+        if (!UserRelation::hasParent($user->id)) {
             $token = $message->EventKey;
 
             if (!empty($token) && substr($token, 0, 8) == 'qrscene_') {
@@ -62,10 +66,35 @@ class ServerController extends Controller
         }
 
         $this->dispatch((new SendWechatMessage($fromUserOpenId)));
-        $url= url('/');
+        $url = url('/');
 
         $qrcode = url('qrcode');
 
         return "恭喜那么好看的你成为魔豆代言人，这里是有颜走心购物分享平台。\n你的推荐人是{$user->referee}。\n了解我们的模式请点<a href='http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000082&idx=1&sn=771c9e17262385afe7048b54e274dc74#rd'>这里</a>。\n喜欢我们的原创设计就点击<a href='{$url}'>这里</a>购买。\n传播你的<a href='{$qrcode}'>专属二维码</a>，感受分享经济的魅力吧/:,@-D";
-	}
+    }
+
+    private function handleClickEvent(& $message)
+    {
+        switch ($message->EventKey) {
+            case '100':
+                $news1 = new News([
+                    'title' => '优惠活动',
+                    'description' => '优惠活动',
+                    'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000070&idx=1&sn=2949a971cdd2244dc489dd88a3745737#rd',
+                    'image' => 'http://mmbiz.qpic.cn/mmbiz/CaiburVeswg4QRLzpP3ficxjBlKRGgRIIHw2qDMxxaTmtq0YzRM65g4CMSB7QJ1mmTG6pLGsCVeyZGjqbq9KHSicA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1',
+                ]);
+
+                $news2 = new News([
+                    'title' => '参与投票',
+                    'description' => '参与投票',
+                    'url' => url('vote'),
+                    'image' => 'http://modelo.taiyishou.cn/assets/images/vote/1.jpg',
+                ]);
+
+                return [$news1, $news2];
+                break;
+            default:
+                break;
+        }
+    }
 }
