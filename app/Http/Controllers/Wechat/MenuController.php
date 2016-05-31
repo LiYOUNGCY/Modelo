@@ -28,6 +28,11 @@ class MenuController extends Controller
                 'name' => '我的助手',
                 'sub_button' => [
                     [
+                        'name' => '联系客服',
+                        'type' => 'view',
+                        'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000106&idx=1&sn=458f1e08652bf9e2953b1b45509d2cda#rd',
+                    ],
+                    [
                         'name' => '代言人指南',
                         'type' => 'view',
                         'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=2247483750&idx=2&sn=2bf581e589d702ffa23b44d28ae78377#rd',
