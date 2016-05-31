@@ -1,6 +1,6 @@
 @extends('template.template')
 
-@section('title', '我的二维码 - 魔豆树')
+@section('title', '图片 - 魔豆树')
 
 @section('body')
     <div class="wrapper qrcode-page">
@@ -8,7 +8,7 @@
             <div class="m-name">In Modss' Code</div>
             <div class="icon-group">
                 <div class="l-icon fl">
-                    <a href="{{ url('user') }}"><span class="fa fa-reply fl"></span></a>
+                    <a href="{{ url('image/share') }}"><span class="fa fa-reply fl"></span></a>
                 </div>
                 <div class="r-icon fr show-nav">
                     <span class="fa fa-navicon"></span>

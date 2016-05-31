@@ -17,9 +17,10 @@
         </div>
 
         <div class="share-tips">
-			长按图片保存到手机，分享图片传播你的二维码。
+			<p>长按图片保存到手机，分享图片传播你的二维码。</p>
+			<p>（直接分享此页面二维码无效）</p>
 			<div class="btn check_sharephpto">
-                <a href="{{ url('image/share') }}">查看保存分享图片</a>
+                <a href="{{ url('image/share') }}">查看更多商品图片</a>
 			</div>
 		</div>
 
