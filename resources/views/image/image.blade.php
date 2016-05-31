@@ -17,7 +17,7 @@
         </div>
 
         <div class="share-photo-tips">
-            <p class="mb0">点击查看并保存图片</p>
+            <p class="mb0">长按保存图片</p>
         </div>
         <div class="share-photo-list">
             @foreach($images as $image)
@@ -48,18 +48,18 @@
 @section('script')
 <script>
     $(function(){
-        $(".share-photo-list img").bind('click',function () {
-                var src = $(this).attr("src");
-                var content = '<div class="share-photo">' +
-                            '<img src="'+ src +'">' +
-                            '<div class="tips">（长按保存图片，轻触关闭）</div>' +
-                            '</div>';
-                $("body").prepend(content);
-                $(".share-photo").bind('touchend',function (event) {
-                    event.preventDefault();
-                    $(this).remove();
-                })
-            });
+//        $(".share-photo-list img").bind('click',function () {
+//                var src = $(this).attr("src");
+//                var content = '<div class="share-photo">' +
+//                            '<img src="'+ src +'">' +
+//                            '<div class="tips">（长按保存图片，轻触关闭）</div>' +
+//                            '</div>';
+//                $("body").prepend(content);
+//                $(".share-photo").bind('touchend',function (event) {
+//                    event.preventDefault();
+//                    $(this).remove();
+//                })
+//            });
     })
 </script>
 @endsection

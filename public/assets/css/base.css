@@ -1057,8 +1057,8 @@ th {
 }
 .share-photo-list .share-photo-item{
     float: left;
-    width: 33.3%;
-    padding:0 10px 20px;
+    width: 100%;
+    margin-bottom: 15px;
 }
 .share-photo-list .share-photo-item img{
     width: 100%;
