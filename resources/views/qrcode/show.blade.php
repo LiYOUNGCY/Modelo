@@ -5,7 +5,7 @@
 @section('body')
     <div class="wrapper qrcode-page">
         <div class="m-head">
-            <div class="m-name">In Modss' Code</div>
+            <div class="m-name">In Mods' Code</div>
             <div class="icon-group">
                 <div class="l-icon fl">
                     <a href="{{ url('user') }}"><span class="fa fa-reply fl"></span></a>
@@ -16,10 +16,13 @@
             </div>
         </div>
 
-        <div style="padding: .5em; text-align: center;">
-            <p style="text-align: center;">长按图片保存到手机，分享图片传播你的二维码。</p>
-            <p style="text-align: center;">（直接分享此页面二维码无效）</p>
-        </div>
+        <div class="share-tips">
+			<p>长按图片保存到手机，分享图片传播你的二维码。</p>
+			<p>（直接分享此页面二维码无效）</p>
+            <a href="{{ url('image/share') }}"><div class="btn check_sharephpto">
+                查看更多商品图片
+			</div></a>
+		</div>
 
         <img src="{{ $qrcode->qrcode }}" style="width: 100%;">
     </div>

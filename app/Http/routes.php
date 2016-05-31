@@ -138,13 +138,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('user/children/second', 'UserController@secondChildren');
     Route::get('user/children/three', 'UserController@threeChildren');
 
-    //cart
-//    Route::post('cart/shopping/create', 'CartController@createToShoppingCart');
-//    Route::post('cart/once/create', 'CartController@createToOnceCart');
+//    cart
+    Route::post('cart/shopping/create', 'CartController@createToShoppingCart');
+    Route::post('cart/once/create', 'CartController@createToOnceCart');
     Route::get('cart/{cartName}/show', 'CartController@show');
-//    Route::get('cart/{cartName}/use', 'CartController@useCart');
-//    Route::delete('cart/shopping/{rowId}', 'CartController@remove');
-//    Route::post('cart/buy', 'CartController@cartBuy');
+    Route::get('cart/{cartName}/use', 'CartController@useCart');
+    Route::delete('cart/shopping/{rowId}', 'CartController@remove');
+    Route::post('cart/buy', 'CartController@cartBuy');
 
     //Draw 提现
     Route::get('draw', 'DrawController@index');
@@ -154,6 +154,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('vote', 'VoteController@index');
     Route::post('vote', 'VoteController@store');
     Route::get('vote/result', 'VoteController@result');
+
+
+    Route::get('image/share', 'ImageController@index');
+    Route::get('image/{id}/show', 'ImageController@show');
 });
 
 Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');

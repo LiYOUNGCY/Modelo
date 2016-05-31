@@ -33,16 +33,15 @@
         <div class="m-goods-info">
             <div class="left fl">
                 <p class="goods-name">{{ $production->name }}</p>
-                <p class="goods-state mb0">3 天后开放购买</p>
+                <p class="goods-state mb0">全手工精品制作（7 ~ 14日后发货）</p>
                 {{--<p class="goods-state mb0">库存：30</p>--}}
                 {{--<p class="goods-state mb0">已下架</p>--}}
             </div>
             <div class="right fr">
                 <div class="goods-price" style="font-size: 14px;;">
-                    {{--￥{{ $thisColor->price }}--}}
-                    ￥???
+                    ￥{{ $thisColor->price }}
                 </div>
-                <div class="addtocar" style="display: none;">
+                <div class="addtocar">
                     <span class="fa fa-cart-arrow-down" style="font-size: 16px;"></span>
                     <a href="javascript:void(0);" id="addToCart">添加到购物车</a>
                 </div>
@@ -116,8 +115,7 @@
                         </div>
                     </div>
                     <div class="fr right">
-                        {{--￥<span id="price">{{ $thisColor->price }}</span>--}}
-                        ￥<span id="price">???</span>
+                        ￥<span id="price">{{ $thisColor->price }}</span>
                     </div>
 
                     <div class="cf"></div>
@@ -136,8 +134,8 @@
             <input type="hidden" name="size_id">
             <input type="hidden" name="color_id" value="{{ $thisColor->id }}">
             <input type="hidden" name="quantity">
-            {{--<div class="btn full buy-goods" id="buy">确认购买</div>--}}
-            <div class="btn full buy-goods">确认购买</div>
+            <div class="btn full buy-goods" id="buy">确认购买</div>
+            {{--<div class="btn full buy-goods">确认购买</div>--}}
         </form>
     </div>
 @endsection
@@ -211,11 +209,10 @@
             });
 
             function calTotal() {
-//                var count = parseInt($("#count").html());
-//                var price = parseInt($("#price").html());
-//                var total = count * price;
-//                $("#total").html(total);
-                $("#total").html('???');
+                var count = parseInt($("#count").html());
+                var price = parseInt($("#price").html());
+                var total = count * price;
+                $("#total").html(total);
             }
 
             function showExplain(type) {
