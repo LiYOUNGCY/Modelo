@@ -5,7 +5,7 @@
 @section('body')
     <div class="wrapper qrcode-page">
         <div class="m-head">
-            <div class="m-name">In Modss' Code</div>
+            <div class="m-name">In Mods' Code</div>
             <div class="icon-group">
                 <div class="l-icon fl">
                     <a href="{{ url('user') }}"><span class="fa fa-reply fl"></span></a>

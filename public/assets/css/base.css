@@ -1095,6 +1095,7 @@ th {
     position: absolute;
     bottom: 20px;
     left: 50%;
+    text-align: center;
 
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
