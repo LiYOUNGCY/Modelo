@@ -35,10 +35,10 @@ class AuthController extends Controller
 
         //关注了才能获取信息
         if($userMessage['subscribe'] === 1) {
-            $nickname = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $userMessage['nickname']);
+//            $nickname = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $userMessage['nickname']);
             
             $user = User::findOrNewByOpenid($userMessage['openid'], [
-                'nickname' => $nickname,
+                'nickname' => $userMessage['nickname'],
                 'sex' => $userMessage['sex'],
                 'province' => $userMessage['province'],
                 'city' => $userMessage['city'],
