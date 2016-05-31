@@ -21,8 +21,8 @@ class MenuController extends Controller
             ],
             [
                 'type' => 'view',
-                'name' => '我是魔豆',
-                'url' => url('user')
+                'name' => '参与投票',
+                'url' => url('vote'),
             ],
             [
                 'name' => '我的助手',
@@ -44,8 +44,8 @@ class MenuController extends Controller
                     ],
                     [
                         'type' => 'view',
-                        'name' => '参与投票',
-                        'url' => url('vote'),
+                        'name' => '我是魔豆',
+                        'url' => url('user'),
                     ],
                 ],
             ],
