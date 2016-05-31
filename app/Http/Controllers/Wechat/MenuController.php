@@ -15,13 +15,13 @@ class MenuController extends Controller
 
         $buttons = [
             [
-                'type' => 'view',
                 'name' => '选购',
+                'type' => 'view',
                 'url' => url('/'),
             ],
             [
-                'type' => 'view',
                 'name' => '优惠活动',
+                'type' => 'view',
                 'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000070&idx=1&sn=2949a971cdd2244dc489dd88a3745737#rd',
             ],
             [
