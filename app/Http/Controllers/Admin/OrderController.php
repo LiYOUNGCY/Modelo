@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exceptions\NotFoundException;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Wechat\Notice;
 use App\Jobs\DliverNotice;
 use App\Jobs\RejectNotice;
 use App\Model\Order;
@@ -14,7 +12,7 @@ use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
-use Illuminate\Support\Facades\DB;
+use DB;
 use Log;
 
 class OrderController extends AdminController
@@ -122,6 +120,8 @@ class OrderController extends AdminController
                     $user = User::find($order->user_id);
                     $user->can_qrcode = 0;
                     $user->save();
+
+                    Log::info("USER ID:{$order->user_id} LOST MODELO");
                 }
 
                 return redirect("{$this->ADMIN}/order/{$order->id}")->with('success', '操作成功');

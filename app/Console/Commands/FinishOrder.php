@@ -20,7 +20,6 @@ class FinishOrder extends Command
 
     public function handle()
     {
-        Log::info('[ORDER] finish order is running');
         $orders = Order::getFinishOrder();
 
         foreach ($orders as $order) {

@@ -39,6 +39,7 @@ class ConfirmOrder extends Command
             //判断用户买了是否买了两件以上的商品
             if(Order::getBuyCount($order->user_id) >= 2 ) {
                 User::get($order->user_id)->canQrcode();
+                Log::info("USER ID: {$order->user_id} HAVE MODELO");
             }
 
             try {
