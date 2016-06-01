@@ -36,4 +36,10 @@ class UserRelation extends Model
         $this->parent_id = $parentId;
         $this->save();
     }
+
+    public static function remove($userId)
+    {
+        $userRelation = UserRelation::where('children_id', $userId)->first();
+        $userRelation->delete();
+    }
 }

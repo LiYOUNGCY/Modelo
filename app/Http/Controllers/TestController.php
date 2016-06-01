@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Container\Container;
 use App\Http\Common;
+use App\Model\Order;
 use App\Model\User;
 use App\Model\UserQrCode;
+use App\Model\UserRelation;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
@@ -18,7 +20,6 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        UserQrCode::generateQrCode(2);
     }
 
     public function login(Request $request)

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Wechat;
 
 
 use App\Http\Controllers\Controller;
-use App\Jobs\SendWechatFollow;
 use App\Jobs\SendWechatMessage;
+use App\Model\Order;
 use App\Model\User;
 use App\Model\UserQrCode;
 use App\Model\UserRelation;
@@ -28,7 +28,10 @@ class ServerController extends Controller
             if ($message->MsgType == 'event') {
                 switch ($message->Event) {
                     case 'subscribe':
-                        return $this->handlerEvent($message);
+                        return $this->handleSubscribeEvent($message);
+                        break;
+                    case 'unsubscribe':
+                        return $this->handleUnsubscribeEvent($message);
                         break;
                     case 'CLICK':
                         return $this->handleClickEvent($message);
@@ -42,7 +45,7 @@ class ServerController extends Controller
         return $server->serve();
     }
 
-    private function handlerEvent(& $message)
+    private function handleSubscribeEvent(& $message)
     {
         $fromUserOpenId = $message->FromUserName;
         $user = User::findOrNewByOpenid($fromUserOpenId);
@@ -72,6 +75,25 @@ class ServerController extends Controller
 //        $qrcode = url('qrcode');
 
         return "恭喜那么好看的你成为魔豆代言人，这里是有颜走心购物分享平台。\n你的推荐人是{$user->referee}。\n您只需要点击<a href='{$url}'>这里</a>选购累计两件服装，即可成为魔豆代言人。\n了解我们的模式请点<a href='http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000082&idx=1&sn=771c9e17262385afe7048b54e274dc74#rd'>这里</a>。\n";
+    }
+
+    private function handleUnsubscribeEvent(& $message)
+    {
+        Log::info('unsubscribe event');
+        $openId = $message->FromUserName;
+        $user = User::findOrNewByOpenid($openId);
+
+        //判断用户没有订单
+        if (Order::getBuyCount($user->id) == 0) {
+
+            //判断是否从魔豆树进来
+            if (UserRelation::hasParent($user->id)) {
+                $parentId = UserRelation::getParent($user->id)->parent;
+                if ($parentId == 1) {
+                    UserRelation::remove($user->id);
+                }
+            }
+        }
     }
 
     private function handleClickEvent(& $message)
