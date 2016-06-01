@@ -17,8 +17,8 @@
                     <th>推荐人</th>
                     <th>冻结金额</th>
                     <th>可用金额</th>
-                    <th>已提现金额</th>
                     <th>总金额</th>
+                    <th>关注时间</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -30,8 +30,8 @@
                     <th>推荐人</th>
                     <th>冻结金额</th>
                     <th>可用金额</th>
-                    <th>已提现金额</th>
                     <th>总金额</th>
+                    <th>关注时间</th>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -46,6 +46,7 @@
                         <td>{{ $user->available_total }}</td>
                         <td>{{ $user->used_total }}</td>
                         <td>{{ $user->total }}</td>
+                        <td>{{ $user->created_at }}</td>
                     </tr>
                 @endforeach
                 </tbody>
