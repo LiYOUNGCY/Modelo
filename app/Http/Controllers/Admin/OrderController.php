@@ -91,6 +91,7 @@ class OrderController extends AdminController
             );
 
             if ($result->return_code == 'SUCCESS') {
+                //修改订单状态
                 $order->status_id = Config::get('constants.orderStatus.rejected');
                 $order->save();
 
@@ -114,9 +115,9 @@ class OrderController extends AdminController
                 Profit::removeProfit($order->id);
 
                 //检查二维码信息
-                $finishOrder = Order::getFinishOrder($order->user_id);
 
-                if (empty($finishOrder)) {
+
+                if (Order::getBuyCount($order->user_id) < 2) {
                     //取消获取二维码权限
                     $user = User::find($order->user_id);
                     $user->can_qrcode = 0;
