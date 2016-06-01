@@ -44,7 +44,6 @@
                         <td>{{ $user->referee }}</td>
                         <td>{{ $user->freeze_total }}</td>
                         <td>{{ $user->available_total }}</td>
-                        <td>{{ $user->used_total }}</td>
                         <td>{{ $user->total }}</td>
                         <td>{{ $user->created_at }}</td>
                     </tr>

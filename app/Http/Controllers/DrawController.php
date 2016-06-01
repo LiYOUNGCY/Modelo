@@ -34,29 +34,36 @@ class DrawController extends Controller
         }
         $user = Container::getUser();
 
-        $total = $user->available_total;
+        if($user->can_qrcode == 1) {
 
-        if(User::getFinishOrderTotal($user->id) >= Config::get('constants.salesVolume')) {
-            $total += $user->available_three;
-        }
+            $total = $user->available_total;
 
-        if($count <= $total) {
-            $temp = $count;
-            if($user->available_total >= $count) {
-                $user->available_total -= $count;
-            } else {
-                $temp -= $user->available;
-                $user->available = 0;
-                $user->available_three -= $temp;
+            if (User::getFinishOrderTotal($user->id) >= Config::get('constants.salesVolume')) {
+                $total += $user->available_three;
             }
-            $user->save();
+
+            if ($count <= $total) {
+                $temp = $count;
+                if ($user->available_total >= $count) {
+                    $user->available_total -= $count;
+                } else {
+                    $temp -= $user->available;
+                    $user->available = 0;
+                    $user->available_three -= $temp;
+                }
+                $user->save();
+                return response()->json(['success' => 0]);
+            } else {
+                return response()->json([
+                    'error' => 0,
+                    'msg' => '你没有足够的可用金额',
+                ]);
+            }
         } else {
             return response()->json([
                 'error' => 0,
-                'msg' => '你没有足够的可用金额',
+                'msg' => '您还没成为魔豆，不能提现',
             ]);
         }
-
-        return response()->json(['success' => 0]);
     }
 }
