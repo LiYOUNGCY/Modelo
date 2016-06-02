@@ -5,7 +5,7 @@
 @section('header', '用户关系')
 
 @section('content')
-    <div id="jstree_demo_div">
+    <div id="jstree_demo_div" style="font-size: 150%;">
     </div>
 @endsection
 
