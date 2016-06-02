@@ -20,19 +20,13 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $user = User::findOrNewByOpenid('o4-YOwGt2lQeTZyOaV3_66RlTA3Q');
-        var_dump($user);
-        //判断用户没有订单
-        if (Order::getBuyCount($user->id) == 0) {
+        $app = app('wechat');
+        $user = User::findOrNewByOpenid('o4-YOwBjMKaYE8MiUT_vHHZP2oHg');
+        $userService = $app->user;
 
-            //判断是否从魔豆树进来
-            if (UserRelation::hasParent($user->id)) {
-                $parentId = UserRelation::getParent($user->id)->parent;
-                if ($parentId == 1) {
-                    UserRelation::remove($user->id);
-                }
-            }
-        }
+        $info = $userService->get($user->id);
+
+        var_dump($info->nickname);
     }
 
     public function login(Request $request)
