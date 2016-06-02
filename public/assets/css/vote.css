@@ -187,7 +187,7 @@ ul{
     width: 84px;
 }
 .explain .prize:after {
-    content: "奖品发放";
+    content: "第一期奖品";
     text-align: center;
     display: block;
     position: relative;
@@ -197,9 +197,10 @@ ul{
     background: white;
     margin: 0 auto;
     width: 84px;
+    color: #f288b2;
 }
 .explain .gift:after {
-    content: "奖品发放";
+    content: "双重礼遇";
     text-align: center;
     display: block;
     position: relative;
