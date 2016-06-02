@@ -137,6 +137,9 @@
                             <li>
                                 <a href="{{ url("{$ADMIN}/user") }}">查看</a>
                             </li>
+                            <li>
+                                <a href="{{ url("{$ADMIN}/user/relation") }}">查看关系</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
