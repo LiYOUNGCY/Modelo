@@ -126,7 +126,6 @@
                 <div class="cf"></div>
             </div>
         </div>
-        <div class="pb40"></div>
 
         <form id="form" action="{{ url('cart/once/create') }}" method="post">
             {!! csrf_field() !!}
