@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\Install::class,
         Commands\ReceivedOrder::class,
         Commands\FinishOrder::class,
+        Commands\RefreshWechatNickname::class,
     ];
 
     /**

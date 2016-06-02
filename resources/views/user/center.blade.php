@@ -87,7 +87,7 @@
                         {{--</li>--}}
                         <li>
                             <span class="fl">已完成订单金额</span>
-                            <span class="fr right">￥{{ $sales }}</span>
+                            <span class="fr right">￥{{ $oneAndTwoFinish }}</span>
                         </li>
                         <li>
                             <span class="fl">冻结中奖励金额</span>
@@ -181,7 +181,7 @@
                     console.log('is num');
                     if (cash > 0 && avaliable != 0.0 && cash <= avaliable) {
                         if (cash < 40) {
-                            showModalDialog('至少提现 40 元')
+                            showModalDialog('至少提现 40 元');
                             return 0;
                         } else if (cash > 200.0) {
                             showModalDialog('一次最多能提现 200 元');

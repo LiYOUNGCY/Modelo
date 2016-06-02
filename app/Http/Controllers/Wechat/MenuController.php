@@ -15,18 +15,28 @@ class MenuController extends Controller
 
         $buttons = [
             [
-                'type' => 'view',
                 'name' => '选购',
+                'type' => 'view',
                 'url' => url('/'),
             ],
             [
-                'type' => 'view',
-                'name' => '我是魔豆',
-                'url' => url('user')
+                'name' => '优惠活动',
+                'type' => 'click',
+                'key' => '100',
             ],
             [
                 'name' => '我的助手',
                 'sub_button' => [
+                    [
+                        'name' => '联系客服',
+                        'type' => 'view',
+                        'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=100000106&idx=1&sn=458f1e08652bf9e2953b1b45509d2cda#rd',
+                    ],
+                    [
+                        'name' => '代言人指南',
+                        'type' => 'view',
+                        'url' => 'http://mp.weixin.qq.com/s?__biz=MzIyMjIwMjA4Mw==&mid=2247483750&idx=2&sn=2bf581e589d702ffa23b44d28ae78377#rd',
+                    ],
                     [
                         'type' => 'view',
                         'name' => '我的二维码',
@@ -34,17 +44,14 @@ class MenuController extends Controller
                     ],
                     [
                         'type' => 'view',
-                        'name' => '我的订单',
-                        'url' => url('order'),
-                    ],
-                    [
-                        'type' => 'view',
-                        'name' => '参与投票',
-                        'url' => url('vote'),
+                        'name' => '我是魔豆',
+                        'url' => url('user'),
                     ],
                 ],
             ],
         ];
         $menu->add($buttons);
+
+        echo 'Update Success';
     }
 }

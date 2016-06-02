@@ -12,7 +12,7 @@ class ImageController extends AdminController
 {
     public function all()
     {
-        $images = Image::all();
+        $images = Image::getAll();
 
         return response()->json([
             'success' => 0,

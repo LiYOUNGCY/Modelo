@@ -40,6 +40,8 @@ function Column(data) {
 
     this.container.put(data);
 
+    console.log(this.container);
+
     this.create();
 }
 
@@ -93,7 +95,8 @@ Column.prototype.getData = function () {
         'type': this.container.get('type'),
         'offset': this.container.get('offset'),
         'content': this.container.get('content'),
-        'name': this.container.get('name')
+        'name': this.container.get('name'),
+        'text': this.container.get('text')
     }
 };
 
@@ -132,13 +135,18 @@ Row.prototype.getContainer = function () {
 };
 
 Row.prototype.insertColumn = function (data) {
+    console.log(data);
     data['id'] = this.getMaxColumn();
     data['row'] = this.container.get('id');
     if(data.type == 2) {
+        //如果是插入链接
         data['name'] = data['content'].split(',')[1];
+        data['text'] = data['productionText'];
     } else if(data.type == 1) {
+        //如果是插入图片
         data['name'] = data.url;
         console.log(data['name']);
+        data['text'] = '';
     }
     data['content'] = data['content'].split(',')[0];
     var col = new Column(data);
@@ -180,7 +188,7 @@ Wrapper.prototype.createRow = function () {
 
 Wrapper.prototype.submit = function () {
     $.ajax({
-        url: ADMIN + 'latest/destroy',
+        url: ADMIN + '/latest/destroy',
         async: false
     });
     var rows = this.container.get('row');
@@ -190,10 +198,11 @@ Wrapper.prototype.submit = function () {
         var columns = row.container.get('column');
         for (var j in columns) {
             var data = columns[j].getData();
+            console.log(data);
 
             $.ajax({
                 async: false,
-                url: ADMIN + 'latest/store',
+                url: ADMIN + '/latest/store',
                 data: data,
                 success: function (data) {
                     console.log(data);

@@ -26,7 +26,6 @@ class Image extends Model
     public static function getAll()
     {
         $data = DB::table('image')
-            ->where('image.visible', '=', true)
             ->where('image.visible', 1)
             ->select('*')
             ->get();
@@ -74,7 +73,7 @@ class Image extends Model
         $storagePath = Storage::getDriver()->getAdapter()->getPathPrefix();
         $absolutePath = $storagePath . $fileName;
         $layer = ImageWorkshop::initFromPath($absolutePath);
-
+        
         //write the data to database
         $this->name = $name;
         $this->path = "images/{$fileName}";

@@ -32,13 +32,11 @@ class Production extends Model
     public function theme()
     {
         return $this->belongsTo('App\Model\Image', 'series_image');
-//        return $this->belongsTo('App\Model\Image', 'theme_id');
     }
 
-    public function get($alias)
+    public function series()
     {
-        $result = Production::where('alias', $alias)->first();
-        return $result;
+        return $this->belongsTo('App\Model\Series', 'series_id');
     }
 
     public static function decreaseQuantity($sid, $qty) {
@@ -50,5 +48,34 @@ class Production extends Model
     public static function increaseQuantity($sid, $qty) {
         ProductionSize::where('id', $sid)
             ->increment('quantity', $qty);
+    }
+
+    public static function get($categoryId = 0)
+    {
+        $result = [];
+
+        if(isset($categoryId) && is_numeric($categoryId) && $categoryId != 0) {
+            $result = DB::table('production')
+                ->join('image', 'image.id', '=', 'production.cover_id')
+                ->join('production_category', 'production_category.production_id', '=', 'production.id')
+                ->where('production_category.category_id', $categoryId)
+                ->select(
+                    'production.id',
+                    'production.name',
+                    'image.path as cover'
+                )
+                ->get();
+        } else {
+            $result = DB::table('production')
+                ->join('image', 'image.id', '=', 'production.cover_id')
+                ->select(
+                    'production.id',
+                    'production.name',
+                    'image.path as cover'
+                )
+                ->get();
+        }
+
+        return $result;
     }
 }

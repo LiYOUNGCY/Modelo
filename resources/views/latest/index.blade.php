@@ -30,7 +30,7 @@
                             @if($col->type == 1)
                                 <a href="{{ $col->name }}"><img src="{{ $col->content }}" alt="最新商品图片" style="width: 100%;"></a>
                             @else
-                                <a href="{{ $col->content }}" style="color: #101010;">{{ $col->name }}</a>
+                                <a href="{{ $col->content }}" style="color: #101010;">{{ $col->name }}{{ $col->text }}</a>
                             @endif
                         </div>
                     @endforeach

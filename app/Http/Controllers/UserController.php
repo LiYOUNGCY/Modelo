@@ -45,6 +45,7 @@ class UserController extends Controller
         $buyCount = $oneBuyCount + $secondBuyCount + $threeBuyCount;
 
         $canGet = User::haveFinishOrder($user->id);
+        $oneAndTwoFinish = User::getOneFinishTotal($user->id) + User::getSecondFinishTotal($user->id);
 
         $total = $user->available_total;
 
@@ -56,6 +57,7 @@ class UserController extends Controller
             'user' => $user,
             'sales' => User::getFinishOrderTotal($user->id),
             'total' => $total,
+            'oneAndTwoFinish' => $oneAndTwoFinish,
 //            'unpaid' => User::getUnpaidOrderTotal($user->id),
 //            'unFinish' => User::getUnFinishOrderTotal($user->id),
 

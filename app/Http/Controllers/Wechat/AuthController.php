@@ -35,6 +35,8 @@ class AuthController extends Controller
 
         //关注了才能获取信息
         if($userMessage['subscribe'] === 1) {
+//            $nickname = preg_replace('~\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF]~', '', $userMessage['nickname']);
+            
             $user = User::findOrNewByOpenid($userMessage['openid'], [
                 'nickname' => $userMessage['nickname'],
                 'sex' => $userMessage['sex'],
@@ -62,7 +64,7 @@ class AuthController extends Controller
                 return redirect('/');
             }
         } else {
-            echo '请关注公众号';
+            return redirect('deny');
         }
     }
 }

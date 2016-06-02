@@ -34,12 +34,13 @@ class ConfirmOrder extends Command
 
     public function handle()
     {
-        Log::info('[ORDER] confirm order is running');
-
         $orders = Order::getPaid();
         foreach ($orders as $order) {
-            User::get($order->user_id)->canQrcode();
-            Log::info("[ORDER] {$order->order_no} is dealing");
+            //判断用户买了是否买了两件以上的商品
+            if(Order::getBuyCount($order->user_id) >= 2 ) {
+                User::get($order->user_id)->canQrcode();
+                Log::info("USER ID: {$order->user_id} HAVE MODELO");
+            }
 
             try {
                 $parent = $this->setProfit($order->user_id, $order, 'one');

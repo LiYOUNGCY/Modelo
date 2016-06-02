@@ -16,8 +16,6 @@ class ProductionImage extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('production_color_id')->unsigned();
             $table->bigInteger('image_id')->unsigned();
-
-            $table->tinyInteger('primary', false, true);
             $table->timestamps();
 
             //foreign key

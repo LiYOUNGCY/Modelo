@@ -84,7 +84,6 @@ class CartController extends Controller
                 'qty' => $quantity,
                 'price' => $color->price,
                 'options' => [
-                    'production_alias' => $production->alias,
                     'color_id' => $color->id,
                     'color_name' => $color->name,
                     'size_id' => $size->id,
@@ -142,7 +141,6 @@ class CartController extends Controller
                     $qty,
                     $data->price,
                     [
-                        'production_alias' => $data->options->production_alias,
                         'color_id' => $data->options->color_id,
                         'color_name' => $data->options->color_name,
                         'size_id' => $data->options->size_id,

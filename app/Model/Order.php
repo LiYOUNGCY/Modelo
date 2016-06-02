@@ -315,4 +315,21 @@ class Order extends Model
 
         return $result;
     }
+
+    public static function getBuyCount($userId) {
+        $count = DB::table('order')
+            ->where('user_id', '=', $userId)
+            ->whereIn('status_id', [
+                Config::get('constants.orderStatus.paid'),
+                Config::get('constants.orderStatus.confirm'),
+                Config::get('constants.orderStatus.deliver'),
+                Config::get('constants.orderStatus.received'),
+                Config::get('constants.orderStatus.finish'),
+                Config::get('constants.orderStatus.reject'),
+                Config::get('constants.orderStatus.exchange'),
+            ])
+            ->count();
+
+        return $count;
+    }
 }

@@ -40,7 +40,7 @@
                     @if(!empty($groupProduction))
                         @foreach($groupProduction as $value)
                             <div class="theme-goods-item">
-                                <a href="{{ url("production/{$value->alias}") }}">
+                                <a href="{{ url("production/{$value->id}") }}">
                                     <img src="{{ $value->image }}">
                                 </a>
                             </div>

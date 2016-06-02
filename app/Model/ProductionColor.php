@@ -9,6 +9,13 @@ class ProductionColor extends Model
 {
     protected $table = 'production_color';
 
+    protected $fillable = [
+        'production_id',
+        'price',
+        'name',
+        'image_id',
+    ];
+
     public function image()
     {
         return $this->belongsTo('App\Model\Image', 'image_id');

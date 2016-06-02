@@ -5,7 +5,7 @@
 @section('body')
 
     <div class="v-logo">
-        <img src="{{ asset('assets/images') }}/logo.png">
+        <img src="{{ asset('assets/images') }}/logo.jpg">
     </div>
     <!---->
     <div class="v-title">
@@ -14,10 +14,7 @@
     </div>
     <div class="v-block">
         <p>
-            活动说明：
-        </p>
-        <p>
-            这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明这是活动说明
+            活动说明：参与以下投票，即可获得兑奖号。你的眼光，可以帮你赢取价值过千元的花瓣腮红。抽奖规则投票后可见。
         </p>
     </div>
     <!---->
@@ -28,91 +25,91 @@
         <div class="vote-list">
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/1.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo1" value="A">
-                        <label for="VoteNo1">花裙子</label>
+                        <label for="VoteNo1">白色府绸长衬衣</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/2.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo2" value="B">
-                        <label for="VoteNo2">花裙子</label>
+                        <label for="VoteNo2">藏青色亚麻上衣</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/3.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo3" value="C">
-                        <label for="VoteNo3">花裙子</label>
+                        <label for="VoteNo3">缎面印花半身裙</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/4.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo4" value="D">
-                        <label for="VoteNo4">花裙子</label>
+                        <label for="VoteNo4">黑白拼色连衣裙</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/5.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo5" value="E">
-                        <label for="VoteNo5">花裙子</label>
+                        <label for="VoteNo5">后镂空针织连衣裙</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/6.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo6" value="F">
-                        <label for="VoteNo6">花裙子</label>
+                        <label for="VoteNo6">黑色雪纺连体裤</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/7.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo7" value="G">
-                        <label for="VoteNo7">花裙子</label>
+                        <label for="VoteNo7">印花背心连衣长裙</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/8.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo8" value="H">
-                        <label for="VoteNo8">花裙子</label>
+                        <label for="VoteNo8">亚麻短上衣</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/9.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo9" value="I">
-                        <label for="VoteNo9">花裙子</label>
+                        <label for="VoteNo9">亚麻风琴褶阔腿裤</label>
                     </div>
                 </div>
             </div>
             <div class="vote-item">
                 <div class="vote-info">
-                    <img src="{{ asset('assets/images') }}/all-goods1.jpeg">
+                    <img src="{{ asset('assets/images') }}/vote/10.jpg">
                     <div class="vote-name">
                         <input type="radio" name="vote" id="VoteNo10" value="J">
-                        <label for="VoteNo10">花裙子</label>
+                        <label for="VoteNo10">印花雪纺长衬衣</label>
                     </div>
                 </div>
             </div>
@@ -166,7 +163,7 @@
                             '<span class="left">投票留言</span>' +
                             '<span class="right" id="skip">跳过</span>' +
                             '</div>' +
-                            '<textarea name="message" id="message" placeholder="你为什么会选_?"></textarea>' +
+                            '<textarea name="message" id="message" placeholder="你为什么会选它?"></textarea>' +
                             '<div class="button" id="submitMessage">提交</div>' +
                             '</div>' +
                             '</div>';
@@ -182,7 +179,7 @@
                     })
 
                 }
-            })
+            });
 //            $('#btn').click(function () {
 //                var val = $('input:radio:checked');
 //                if(val.length == 0) {

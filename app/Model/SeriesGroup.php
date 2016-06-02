@@ -12,4 +12,9 @@ class SeriesGroup extends Model
     {
         return $this->belongsTo('App\Model\Image', 'image_id');
     }
+
+    public function series()
+    {
+        return $this->belongsTo('App\Model\Series', 'series_id');
+    }
 }

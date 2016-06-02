@@ -19,7 +19,6 @@ class ReceivedOrder extends Command
 
     public function handle()
     {
-        Log::info("[ORDER] received is running");
         Order::receivedOrder();
     }
 }

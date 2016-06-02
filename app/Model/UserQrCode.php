@@ -4,6 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use PHPImageWorkshop\ImageWorkshop;
+use Storage;
 use QrCode;
 
 class UserQrCode extends Model
@@ -47,14 +49,21 @@ class UserQrCode extends Model
         $url = $qrcode->url($ticket);
         $content = file_get_contents($url);
 
+        $fileName = "12345.png";
+        Storage::put($fileName, $content);
+        $storagePath = Storage::getDriver()->getAdapter()->getPathPrefix();
+        $absolutePath = $storagePath . $fileName;
+        $layer = ImageWorkshop::initFromPath($absolutePath);
+        $layer->resizeInPixel(397, 397, false);
+        $path2 = $storagePath . 'qrcode_background.jpg';
+        $pingLayer = ImageWorkshop::initFromPath($path2);
+        $pingLayer->addLayerOnTop($layer, 388, 408, 'LB');
+        $pingLayer->save($storagePath, '123456.png', true, null, 95);
+
+        $content = file_get_contents($absolutePath = $storagePath . '123456.png');
+
         $image = new Image();
         $image->storeImage('QrCode', $content, 'png', false);
-
-//        $user_qrcode = new UserQrCode();
-//        $user_qrcode->user_id = $user_id;
-//        $user_qrcode->image_id = $image->id;
-//        $user_qrcode->token = $token;
-//        $user_qrcode->save();
 
         UserQrCode::create([
             'user_id' => $user_id,
@@ -72,7 +81,7 @@ class UserQrCode extends Model
                 'image.path as qrcode'
             )
             ->first();
-        
+
         return $query;
     }
 

@@ -6,6 +6,8 @@ Route::group(['middleware' => ['withoutLogin']], function () {
     Route::get('test/logout', 'TestController@logout');
     Route::get('test/check', 'TestController@check');
     Route::get('test/pay', 'TestController@pay');
+
+    Route::get('/deny', 'IndexController@deny');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -18,7 +20,7 @@ Route::group(['middleware' => ['web']], function () {
         /**
          * User System
          */
-//        Route::any('user/{id}/super', 'Admin\UserController@changeSuper');
+        Route::get('user/relation', 'Admin\UserController@relation');
         Route::get('user', 'Admin\UserController@index');
         Route::get('user/{id}', 'Admin\UserController@show');
 
@@ -45,19 +47,16 @@ Route::group(['middleware' => ['web']], function () {
         //Production
         Route::get('production', 'Admin\ProductionController@index');
         Route::get('production/create', 'Admin\ProductionController@create');
-        Route::get('production/{alias}', 'Admin\ProductionController@show');
-        Route::get('production/{alias}/edit', 'Admin\ProductionController@edit');
+        Route::get('production/{productionId}/edit', 'Admin\ProductionController@edit');
 
         Route::post('production/store', 'Admin\ProductionController@store');
-        Route::post('production/{id}/color/store', 'Admin\ProductionController@storeColor');
-        Route::post('production/{id}/color/{cid}/image/store', 'Admin\ProductionController@storeImage');
-        Route::post('production/{id}/color/{cid}/size/store', 'Admin\ProductionController@storeSize');
-        Route::put('production/{id}', 'Admin\ProductionController@updateProduction');
-        Route::put('production/{id}/color/{color_id}', 'Admin\ProductionController@updateProductionColor');
-        Route::delete('production/{alias}', 'Admin\ProductionController@destroyProduction');
-        Route::delete('color/{alias}', 'Admin\ProductionController@destroyColor');
-        Route::delete('production/size/{id}', 'Admin\ProductionController@destroySize');
-        Route::delete('production/image/{id}', 'Admin\ProductionController@destroyImage');
+        Route::post('production/{productionId}/color/store', 'Admin\ProductionController@storeColor');
+        Route::post('production/{productionId}/update', 'Admin\ProductionController@updateProduction');
+        Route::post('color/{colorId}/update', 'Admin\ProductionController@updateColor');
+        Route::post('color/{colorId}/destroy', 'Admin\ProductionController@destroyColor');
+        Route::post('production/size/{sizeId}/destroy', 'Admin\ProductionController@destroySize');
+        Route::post('production/image/{imageId}/destroy', 'Admin\ProductionController@destroyImage');
+        Route::post('production/{Id}/destroy', 'Admin\ProductionController@destroyProduction');
 
         //Order
         Route::get('order', 'Admin\OrderController@index');
@@ -80,6 +79,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('group/create', 'Admin\GroupController@create');
         Route::post('group/store', 'Admin\GroupController@store');
         Route::post('group/production/store', 'Admin\GroupController@storeGroupProduction');
+        Route::get('group', 'Admin\GroupController@index');
+        Route::delete('group/{id}', 'Admin\GroupController@destroyGroup');
 
         //投票
         Route::get('vote', 'Admin\VoteController@index');
@@ -87,6 +88,8 @@ Route::group(['middleware' => ['web']], function () {
         //ajax
         Route::any('ajax/image', 'Admin\Ajax\ImageController@all');
         Route::any('ajax/production', 'Admin\Ajax\ProductionController@all');
+        Route::any('ajax/user/relation', 'Admin\UserController@AjaxRelation');
+        Route::any('ajax/user/relation/get/root', 'Admin\UserController@getRoot');
     });
 
     //ajax
@@ -110,8 +113,8 @@ Route::group(['middleware' => ['web']], function () {
 
     //Production
     Route::get('production', 'ProductionController@index');
-    Route::get('production/{alias}', 'ProductionController@redirect');
-    Route::get('production/{alias}/{colorAlias}', 'ProductionController@show');
+    Route::get('production/{id}', 'ProductionController@redirect');
+    Route::get('production/{id}/{colorId}', 'ProductionController@show');
 
     // Order
     Route::get('order/create', 'OrderController@create');
@@ -137,7 +140,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('user/children/second', 'UserController@secondChildren');
     Route::get('user/children/three', 'UserController@threeChildren');
 
-    //cart
+//    cart
     Route::post('cart/shopping/create', 'CartController@createToShoppingCart');
     Route::post('cart/once/create', 'CartController@createToOnceCart');
     Route::get('cart/{cartName}/show', 'CartController@show');
@@ -148,11 +151,15 @@ Route::group(['middleware' => ['web']], function () {
     //Draw 提现
     Route::get('draw', 'DrawController@index');
     Route::post('draw/store', 'DrawController@store');
-    
+
     //Vote 投票
     Route::get('vote', 'VoteController@index');
     Route::post('vote', 'VoteController@store');
     Route::get('vote/result', 'VoteController@result');
+
+
+    Route::get('image/share', 'ImageController@index');
+    Route::get('image/{id}/show', 'ImageController@show');
 });
 
 Route::post('admin/ajax/image/store', 'Admin\Ajax\ImageController@store');
