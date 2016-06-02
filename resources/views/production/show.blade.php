@@ -150,6 +150,7 @@
             var swiperPostcard = new Swiper('.goods-detail-pic', {
                 autoplay: 7000,
                 autoplayDisableOnInteraction: false,
+                spaceBetween: 20,
                 loop: true
             });
 
