@@ -186,6 +186,18 @@ ul{
     margin: 0 auto;
     width: 84px;
 }
+.explain .prize:after {
+    content: "奖品发放";
+    text-align: center;
+    display: block;
+    position: relative;
+    top: -9px;
+    font-size: 18px;
+    padding: 0px 15px;
+    background: white;
+    margin: 0 auto;
+    width: 84px;
+}
 .explain .gift:after {
     content: "奖品发放";
     text-align: center;
