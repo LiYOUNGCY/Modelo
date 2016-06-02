@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\AdminController;
 use App\Model\User;
+use App\Model\UserRelation;
 use Illuminate\Http\Request;
 use Log;
 use App\Http\Requests;
@@ -100,6 +101,11 @@ class UserController extends AdminController
 
         foreach ($data as $key => $value) {
             $data[$key]->children = true;
+
+            $count = UserRelation::where('parent_id', $value->id)
+                ->count();
+
+            $data[$key]->text .= "($count)";
         }
 
         return response()->json($data);
