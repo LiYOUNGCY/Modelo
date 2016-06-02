@@ -20,7 +20,7 @@ Route::group(['middleware' => ['web']], function () {
         /**
          * User System
          */
-//        Route::any('user/{id}/super', 'Admin\UserController@changeSuper');
+        Route::get('user/relation', 'Admin\UserController@relation');
         Route::get('user', 'Admin\UserController@index');
         Route::get('user/{id}', 'Admin\UserController@show');
 
@@ -88,6 +88,8 @@ Route::group(['middleware' => ['web']], function () {
         //ajax
         Route::any('ajax/image', 'Admin\Ajax\ImageController@all');
         Route::any('ajax/production', 'Admin\Ajax\ProductionController@all');
+        Route::any('ajax/user/relation', 'Admin\UserController@AjaxRelation');
+        Route::any('ajax/user/relation/get/root', 'Admin\UserController@getRoot');
     });
 
     //ajax

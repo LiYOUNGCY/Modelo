@@ -8,6 +8,7 @@ use App\Model\User;
 use Illuminate\Http\Request;
 use Log;
 use App\Http\Requests;
+use DB;
 
 class UserController extends AdminController
 {
@@ -77,6 +78,39 @@ class UserController extends AdminController
 
         return response()->json([
             'success' => 0,
+        ]);
+    }
+
+    public function relation()
+    {
+        return view('admin.user.relation');
+    }
+
+    public function AjaxRelation(Request $request)
+    {
+        $selfId = $request->get('id');
+        $data = DB::table('user_relation')
+            ->join('user', 'user_relation.children_id', '=', 'user.id')
+            ->where('user_relation.parent_id', '=', $selfId)
+            ->select(
+                'user.id',
+                'user.nickname as text'
+            )
+            ->get();
+
+        foreach ($data as $key => $value) {
+            $data[$key]->children = true;
+        }
+
+        return response()->json($data);
+    }
+
+    public function getRoot()
+    {
+        return response()->json([
+            'id' => 1,
+            'text' => '魔豆树',
+            'children' => true,
         ]);
     }
 }
